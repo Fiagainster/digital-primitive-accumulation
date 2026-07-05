@@ -279,13 +279,42 @@ def param_2d_grid(base_params: dict,
 def quick_run(regime: str = "A",
               scenario: str = "benign_globalization",
               profile: str = "manufacturing_giant",
+              mixture_name: str = None,
               T_max: float = 60.0,
               overrides: dict = None,
-              verbose: bool = False) -> dict:
-    """快速单次模拟 —— 用于调试和单点测试."""
+              verbose: bool = False,
+              enable_platform: bool = True,       # v3.6
+              enable_demography: bool = True,     # v3.6
+              enable_spatial: bool = True,        # v3.6
+              ) -> dict:
+    """快速单次模拟 —— 用于调试和单点测试.
+
+    Args:
+        regime: 积累策略 'A'/'B'/'C'/'M'
+        scenario: 国际场景
+        profile: 国情预设
+        mixture_name: 混合策略名称 (仅regime='M'时有效)，如 'A_dominant_B'
+        T_max: 模拟年限
+        overrides: 参数覆盖
+        verbose: 详细输出
+        enable_platform: 启用平台垄断模块 (v3.6)
+        enable_demography: 启用内生人口动态 (v3.6)
+        enable_spatial: 启用双区域空间模块 (v3.6)
+    """
     params = build_param_sets(regime=regime, scenario=scenario,
                               profile=profile, overrides=overrides)
-    config = SimulationConfig(T_max=T_max, verbose=verbose)
+    # 混合策略支持
+    if mixture_name and regime == "M":
+        from src.models.mixed_strategy import STANDARD_MIXTURES
+        if mixture_name in STANDARD_MIXTURES:
+            params["mixed_lambda"] = STANDARD_MIXTURES[mixture_name]
+            params["mixed_name"] = mixture_name
+    config = SimulationConfig(
+        T_max=T_max, verbose=verbose,
+        platform_enabled=enable_platform,
+        demography_enabled=enable_demography,
+        spatial_enabled=enable_spatial,
+    )
     engine = SimulationEngine(params=params, config=config, regime=regime)
     return engine.run()
 
@@ -304,3 +333,13 @@ ALL_MIXTURES = [
     "A_B_balanced", "A_C_balanced", "B_C_balanced",
     "uniform",
 ]
+
+# v3.5: 国情预设列表（从 country_profiles 动态获取）
+try:
+    from src.params.country_profiles import get_profile_names as _get_profile_names
+    ALL_PROFILES = _get_profile_names()
+except ImportError:
+    ALL_PROFILES = [
+        "manufacturing_giant", "resource_rich", "digital_leapfrogger",
+        "small_open", "post_soviet", "populous_weak_industry",
+    ]

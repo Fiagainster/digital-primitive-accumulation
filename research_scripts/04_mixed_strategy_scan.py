@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-"""04_混合策略全谱系扫描 —— 13种标准混合配比的系统性比较.
+"""04_混合策略全谱系扫描 —— 13种标准混合配比的系统性比较 (v3.5: 不兼容矩阵).
 
 研究问题:
     混合策略（主导策略+次要策略）能否克服纯策略的内在缺陷？
     是否存在"最优"混合比例？混合的内生成本有多大？
+    v3.5新增: 策略对不兼容性惩罚分析（AB/BC/AC冲突矩阵）
 
 复杂度: ★★☆☆☆ (中等)
 预计时间: 3-15分钟
@@ -246,6 +247,53 @@ def main():
         logger.finding("混合策略优于所有纯策略！", level="KEY")
     else:
         logger.finding("混合策略未超越最佳纯策略，但在某些维度可能有优势")
+
+    # v3.5: 策略不兼容性惩罚分析
+    logger.logger.info(f"\n{'─' * 60}")
+    logger.logger.info("  v3.5 策略不兼容性分析")
+    logger.logger.info(f"{'─' * 60}")
+
+    # 收集不兼容信息
+    incompat_data = {}
+    for r in results:
+        if not r.get("_success", True):
+            continue
+        mix_name = r.get("_mixture", "unknown")
+        incompat = r["summary"].get("incompatibility_info", {})
+        if incompat:
+            if mix_name not in incompat_data:
+                incompat_data[mix_name] = []
+            incompat_data[mix_name].append(incompat)
+
+    if incompat_data:
+        for mix_name, infos in incompat_data.items():
+            avg_penalty = np.mean([i.get("penalty", 0) for i in infos])
+            avg_AB = np.mean([i.get("AB_conflict", 0) for i in infos])
+            avg_BC = np.mean([i.get("BC_conflict", 0) for i in infos])
+            avg_AC = np.mean([i.get("AC_conflict", 0) for i in infos])
+            logger.logger.info(
+                f"  {mix_name:<20}: 总惩罚={avg_penalty:.3f} | "
+                f"AB={avg_AB:.3f} | BC={avg_BC:.3f} | AC={avg_AC:.3f}"
+            )
+    else:
+        logger.logger.info("  (不兼容数据需从引擎接入，当前summary中暂未直接包含)")
+
+    # v3.5: 混合策略的六部门分析
+    logger.logger.info(f"\n{'─' * 60}")
+    logger.logger.info("  v3.5 六部门资本分布 (混合策略)")
+    logger.logger.info(f"{'─' * 60}")
+    for mix_name in mixture_names[:5]:  # 只展示前5个避免输出过多
+        subset = [r for r in results
+                 if r.get("_mixture") == mix_name
+                 and r.get("_success", True)]
+        if not subset:
+            continue
+        sector_info = subset[0]["summary"].get("sector_info", {})
+        if sector_info:
+            logger.logger.info(f"  {mix_name}:")
+            for s_key in ["d_infra", "d_app", "s_high", "s_low"]:
+                k_val = sector_info.get(f"K_{s_key}", "N/A")
+                logger.logger.info(f"    K_{s_key}={k_val}")
 
     # ================================================================
     # 可视化

@@ -116,26 +116,39 @@ class InternationalModule:
         fdi_avail = getattr(state, "effective_fdi_availability",
                             self.p.get("fdi_availability", 1.0))
 
-        # 国内回报率
-        r_domestic = state.sectors["d"].r
+        # 国内回报率（按数字部门资本加权平均）
+        K_di = state.sectors["d_infra"].K
+        K_da = state.sectors["d_app"].K
+        total_K_d = K_di + K_da
+        if total_K_d > 0:
+            r_domestic = (state.sectors["d_infra"].r * K_di
+                          + state.sectors["d_app"].r * K_da) / total_K_d
+        else:
+            r_domestic = 0.0
         r_world = 0.05
 
         inflow = fdi_open * fdi_avail * state.gdp * 0.05
         inflow *= (1 + self.p["fdi_sensitivity"] * max(-0.5, r_domestic - r_world))
 
-        # 利润汇出
+        # 利润汇出（汇总两个数字部门的FDI存量）
         repat_limit = self.p.get("C_profit_repat_limit", 0.3)
-        existing_fdi = state.balance_sheets.get("d", None)
-        if existing_fdi:
-            outflow = existing_fdi.equity_foreign * 0.08 * repat_limit
-        else:
-            outflow = 0.0
+        total_equity_foreign = 0.0
+        for key in ("d_infra", "d_app"):
+            bs = state.balance_sheets.get(key)
+            if bs:
+                total_equity_foreign += bs.equity_foreign
+        outflow = total_equity_foreign * 0.08 * repat_limit
 
-        # 更新资产负债表
-        if "d" not in state.balance_sheets:
-            from ..core.state import BalanceSheet
-            state.balance_sheets["d"] = BalanceSheet()
-        state.balance_sheets["d"].equity_foreign += (inflow - outflow)
+        # 更新资产负债表（按资本比例分配给两个数字部门）
+        for key in ("d_infra", "d_app"):
+            if key not in state.balance_sheets:
+                from ..core.state import BalanceSheet
+                state.balance_sheets[key] = BalanceSheet()
+        if total_K_d > 0:
+            state.balance_sheets["d_infra"].equity_foreign += (
+                inflow - outflow) * (K_di / total_K_d)
+            state.balance_sheets["d_app"].equity_foreign += (
+                inflow - outflow) * (K_da / total_K_d)
 
         return inflow - outflow
 
@@ -143,7 +156,7 @@ class InternationalModule:
         """数字服务出口."""
         world_demand = self.p.get("world_digital_demand", 1.0)
         comp = state.competitiveness
-        export = state.sectors["d"].Y * 0.2 * world_demand * comp
+        export = (state.sectors["d_infra"].Y + state.sectors["d_app"].Y) * 0.2 * world_demand * comp
         return export
 
     def _update_competitiveness(self, state: SystemState):

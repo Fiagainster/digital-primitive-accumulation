@@ -34,18 +34,29 @@ class ParameterSchema:
         # 生产函数
         self._reg("alpha_b", "α_b", "基础部门资本产出弹性", 0.2, 0.5, 0.35, "structural")
         self._reg("alpha_i", "α_i", "工业部门资本产出弹性", 0.3, 0.6, 0.45, "structural")
-        self._reg("alpha_d", "α_d", "数字部门资本产出弹性", 0.15, 0.4, 0.25, "structural")
+        self._reg("alpha_d", "α_d", "数字部门资本产出弹性(兼容旧参数)", 0.15, 0.4, 0.25, "structural")
+        # v3.5: 数字部门infra/app分层
+        self._reg("alpha_d_infra", "α_d_infra", "数字基础设施层资本产出弹性", 0.35, 0.65, 0.55, "structural")
+        self._reg("alpha_d_app", "α_d_app", "数字应用层资本产出弹性", 0.15, 0.40, 0.30, "structural")
+        self._reg("delta_d_infra_hw", "δ_d_infra", "基础硬件对infra产出弹性", 0.05, 0.30, 0.20, "structural")
+        self._reg("delta_d_app_data", "δ_d_app", "数据对app产出弹性", 0.10, 0.40, 0.25, "structural")
+        self._reg("eta_network_app", "η_net_app", "应用层网络效应强度", 0.1, 0.6, 0.35, "structural")
+        self._reg("xi_infra_to_app", "ξ_infra_app", "infra→app技术约束弹性", 0.1, 0.5, 0.30, "structural")
         self._reg("sigma_b", "σ_b", "基础部门替代弹性", 0.3, 1.5, 0.8, "structural")
         self._reg("theta_b", "θ_b", "基础部门资本份额", 0.2, 0.5, 0.35, "structural")
         self._reg("lambda_b", "λ_b", "资源约束弹性", 0.3, 1.5, 0.8, "structural")
         self._reg("gamma_i", "γ_i", "数字服务对工业产出弹性", 0.05, 0.35, 0.15, "structural")
-        self._reg("delta_d_hw", "δ_d", "硬件对数字部门产出弹性", 0.05, 0.3, 0.15, "structural")
+        self._reg("delta_d_hw", "δ_d", "硬件对数字部门产出弹性(兼容)", 0.05, 0.3, 0.15, "structural")
         self._reg("epsilon_d", "ε_d", "数据存量弹性", 0.05, 0.3, 0.15, "structural")
         self._reg("mu_i", "μ_i", "原材料约束弹性", 0.3, 1.0, 0.7, "structural")
-        # v3.3: 服务业部门
-        self._reg("alpha_s", "α_s", "服务业资本产出弹性", 0.15, 0.35, 0.25, "structural")
-        self._reg("alpha_s_dig", "α_s_dig", "服务业数字化最大增益", 0.2, 0.8, 0.5, "structural")
-        self._reg("beta_s_dig", "β_s_dig", "服务业数字化弹性", 0.3, 0.8, 0.5, "structural")
+        # v3.3: 服务业部门 (v3.5: 保留兼容，新增分层参数)
+        self._reg("alpha_s", "α_s", "服务业资本产出弹性(兼容)", 0.15, 0.35, 0.25, "structural")
+        self._reg("alpha_s_high", "α_s_high", "高技能服务业资本产出弹性", 0.20, 0.45, 0.35, "structural")
+        self._reg("alpha_s_low", "α_s_low", "低端服务业资本产出弹性", 0.05, 0.25, 0.15, "structural")
+        self._reg("alpha_s_dig", "α_s_dig", "服务业数字化最大增益(兼容)", 0.2, 0.8, 0.5, "structural")
+        self._reg("beta_s_dig", "β_s_dig", "服务业数字化弹性(兼容)", 0.3, 0.8, 0.5, "structural")
+        self._reg("xi_s_digital_link", "ξ_s_dig_link", "高技能服务业与数字部门关联弹性", 0.1, 0.5, 0.30, "structural")
+        self._reg("platform_empowerment", "plat_emp", "数字平台对低端服务业赋能强度", 0.1, 0.7, 0.40, "structural")
 
         # 数字化
         self._reg("alpha_b_dig", "α_b_dig", "基础部门数字化最大增益", 0.1, 0.6, 0.3, "structural")
@@ -57,12 +68,20 @@ class ParameterSchema:
         # 资本积累
         self._reg("delta_b", "δ_b", "基础部门折旧率", 0.03, 0.10, 0.05, "structural")
         self._reg("delta_i", "δ_i", "工业部门折旧率", 0.05, 0.15, 0.08, "structural")
-        self._reg("delta_d", "δ_d", "数字部门折旧率", 0.10, 0.30, 0.20, "structural")
-        self._reg("delta_s", "δ_s", "服务业折旧率", 0.03, 0.08, 0.05, "structural")  # v3.3
+        self._reg("delta_d", "δ_d", "数字部门折旧率(兼容)", 0.10, 0.30, 0.20, "structural")
+        self._reg("delta_d_infra", "δ_d_infra", "数字基础设施层折旧率", 0.03, 0.10, 0.05, "structural")
+        self._reg("delta_d_app", "δ_d_app", "数字应用层折旧率", 0.10, 0.30, 0.20, "structural")
+        self._reg("delta_s", "δ_s", "服务业折旧率(兼容)", 0.03, 0.08, 0.05, "structural")
+        self._reg("delta_s_high", "δ_s_high", "高技能服务业折旧率", 0.03, 0.08, 0.05, "structural")
+        self._reg("delta_s_low", "δ_s_low", "低端服务业折旧率", 0.05, 0.12, 0.08, "structural")
         self._reg("nu_b", "ν_b", "基础部门投资吸收率", 0.1, 0.5, 0.3, "structural")
         self._reg("nu_i", "ν_i", "工业部门投资吸收率", 0.2, 0.6, 0.4, "structural")
-        self._reg("nu_d", "ν_d", "数字部门投资吸收率", 0.1, 0.4, 0.25, "structural")
-        self._reg("nu_s", "ν_s", "服务业投资吸收率", 0.1, 0.5, 0.35, "structural")  # v3.3
+        self._reg("nu_d", "ν_d", "数字部门投资吸收率(兼容)", 0.1, 0.4, 0.25, "structural")
+        self._reg("nu_d_infra", "ν_d_infra", "数字infra投资吸收率", 0.08, 0.35, 0.20, "structural")
+        self._reg("nu_d_app", "ν_d_app", "数字app投资吸收率", 0.15, 0.45, 0.30, "structural")
+        self._reg("nu_s", "ν_s", "服务业投资吸收率(兼容)", 0.1, 0.5, 0.35, "structural")
+        self._reg("nu_s_high", "ν_s_high", "高技能服务业投资吸收率", 0.15, 0.55, 0.40, "structural")
+        self._reg("nu_s_low", "ν_s_low", "低端服务业投资吸收率", 0.1, 0.45, 0.30, "structural")
         self._reg("chi_absorb", "χ_abs", "人力资本对吸收能力弹性", 0.3, 1.5, 0.8, "structural")
         self._reg("psi_obsolescence", "ψ", "技术淘汰系数", 0.0, 0.3, 0.1, "structural")
 
@@ -150,6 +169,57 @@ class ParameterSchema:
         # ============ L4: 元参数 ============
         self._reg("fracture_threshold_mult", "frac_mult", "断裂阈值全局乘数", 0.7, 1.3, 1.0, "meta")
         self._reg("cascade_strength", "cascade", "断裂级联强度", 0.05, 0.30, 0.15, "meta")
+
+        # v3.5: 混合策略互斥矩阵参数
+        self._reg("incompat_AB_resource", "M_AB_res", "A↔B资源争夺互斥强度", 0.0, 0.6, 0.35, "meta")
+        self._reg("incompat_AB_institution", "M_AB_inst", "A↔B制度冲突互斥强度", 0.0, 0.5, 0.25, "meta")
+        self._reg("incompat_AB_external", "M_AB_ext", "A↔B外部矛盾互斥强度", 0.0, 0.4, 0.10, "meta")
+        self._reg("incompat_BC_resource", "M_BC_res", "B↔C资源争夺互斥强度", 0.0, 0.3, 0.10, "meta")
+        self._reg("incompat_BC_institution", "M_BC_inst", "B↔C制度冲突互斥强度", 0.0, 0.5, 0.30, "meta")
+        self._reg("incompat_BC_external", "M_BC_ext", "B↔C外部矛盾互斥强度", 0.0, 0.6, 0.35, "meta")
+        self._reg("incompat_AC_resource", "M_AC_res", "A↔C资源争夺互斥强度", 0.0, 0.4, 0.15, "meta")
+        self._reg("incompat_AC_institution", "M_AC_inst", "A↔C制度冲突互斥强度", 0.0, 0.4, 0.20, "meta")
+        self._reg("incompat_AC_external", "M_AC_ext", "A↔C外部矛盾互斥强度", 0.0, 0.4, 0.15, "meta")
+        self._reg("incompat_moderation_inst", "M_mod_inst", "制度能力对互斥的缓和系数", 0.0, 0.5, 0.30, "meta")
+        self._reg("incompat_amplify_pressure", "M_amp_press", "外部压力对互斥的放大系数", 0.0, 0.4, 0.20, "meta")
+
+        # v3.5: 金融维度参数
+        self._reg("capital_flight_sensitivity", "cap_flight", "资本外逃敏感度", 0.0, 0.5, 0.15, "structural")
+        self._reg("asset_price_volatility", "asset_vol", "数字资产价格波动率", 0.05, 0.50, 0.25, "structural")
+        self._reg("credit_bias_digital", "cred_bias_d", "信贷数字部门偏好乘数", 0.8, 1.8, 1.3, "structural")
+        self._reg("credit_bias_industry", "cred_bias_i", "信贷工业部门偏好乘数", 0.5, 1.2, 0.8, "structural")
+        self._reg("housing_wealth_share", "house_wealth", "房产在家庭财富中的基准占比", 0.2, 0.7, 0.45, "structural")
+
+        # v3.6: 平台垄断参数
+        self._reg("anti_monopoly_policy", "anti_mono", "反垄断执法力度", 0.0, 1.0, 0.2, "strategy")
+        self._reg("data_portability_mandate", "data_port", "数据可携带权强度", 0.0, 1.0, 0.1, "strategy")
+        self._reg("platform_interoperability", "plat_interop", "平台互操作性要求", 0.0, 1.0, 0.1, "strategy")
+
+        # v3.6: 初始条件参数（用于校准和国家设定）
+        self._reg("IC_K_i", "IC_K_i", "初始工业资本存量", 50.0, 800.0, 300.0, "structural")
+        self._reg("IC_tech_gap_initial", "IC_G0", "初始技术差距", 1.5, 10.0, 3.0, "structural")
+        self._reg("IC_gini_initial", "IC_gini0", "初始基尼系数", 0.15, 0.55, 0.35, "structural")
+
+        # v3.6: 内生人口参数
+        self._reg("IC_fertility_rate", "IC_fert", "初始总和生育率", 1.1, 6.0, 2.5, "structural")
+        self._reg("IC_life_expectancy", "IC_life_exp", "初始预期寿命(年)", 40.0, 85.0, 65.0, "structural")
+        self._reg("IC_urbanization_rate", "IC_urban", "初始城镇化率", 0.10, 0.90, 0.35, "structural")
+        self._reg("IC_total_population", "IC_pop", "初始总人口(万人)", 100.0, 150000.0, 7000.0, "structural")
+        self._reg("migration_cost_index", "mig_cost", "劳动力空间流动摩擦成本", 0.0, 0.8, 0.30, "structural")
+
+        # v3.6: 空间维度参数
+        self._reg("coastal_productivity_premium", "coast_prem", "沿海/城市生产率溢价", 0.05, 0.50, 0.20, "structural")
+        self._reg("agglomeration_strength", "agglom_str", "集聚经济强度", 0.0, 0.30, 0.15, "structural")
+        self._reg("congestion_threshold", "cong_thresh", "拥挤成本触发阈值(沿海人口占比)", 0.5, 0.8, 0.60, "structural")
+        self._reg("IC_coastal_industry_share", "IC_coast_i", "初始沿海工业份额", 0.3, 0.9, 0.60, "structural")
+        self._reg("IC_coastal_digital_infra_share", "IC_coast_di", "初始沿海数字infra份额", 0.4, 1.0, 0.75, "structural")
+        self._reg("IC_coastal_digital_app_share", "IC_coast_da", "初始沿海数字app份额", 0.4, 1.0, 0.80, "structural")
+        self._reg("IC_coastal_population_share", "IC_coast_pop", "初始沿海人口份额", 0.15, 0.80, 0.45, "structural")
+        self._reg("IC_urban_rural_productivity_ratio", "IC_urb_rur", "初始城乡生产率比", 1.2, 6.0, 2.5, "structural")
+
+        # v3.6: 政策执行折扣参数
+        self._reg("bureaucracy_complexity_penalty", "bur_comp", "官僚协调复杂度惩罚系数", 0.0, 0.3, 0.15, "structural")
+        self._reg("policy_execution_base_efficiency", "pol_exec", "政策执行基础效率", 0.5, 1.0, 0.75, "structural")
 
     def get(self, pid: str) -> ParamDef:
         return self._params[pid]

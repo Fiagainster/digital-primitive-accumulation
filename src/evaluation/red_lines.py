@@ -199,7 +199,7 @@ class RedLineDetector:
         total_cost = sum(h.cumulative_cost for h in state.households.all_groups())
         # 后代收益 = 累积GDP * 人力资本/当前消费
         future_benefit = (state.gdp * state.t
-                          * (state.sectors["d"].H + state.sectors["i"].H) / 2.0)
+                          * (0.5 * (state.sectors["d_infra"].H + state.sectors["d_app"].H) + state.sectors["i"].H) / 2.0)
         if future_benefit > 0:
             ratio = total_cost / future_benefit
             return {
@@ -242,7 +242,7 @@ class RedLineDetector:
                                  prev_state, tracker: dict) -> dict:
         """大规模技能贬值：工业劳动者技能持续贬值>30%且无再培训."""
         # 对比工业部门人力资本与数字部门
-        skill_gap = (state.sectors["d"].H
+        skill_gap = (0.5 * (state.sectors["d_infra"].H + state.sectors["d_app"].H)
                      / max(state.sectors["i"].H, 0.01))
         # 技能差距过大 → 工业劳动者技能相对贬值严重
         is_triggered = skill_gap > 3.0  # 数字部门技能是工业的3倍以上
@@ -261,7 +261,7 @@ class RedLineDetector:
         edu_ratio = training_invest / max(state.gdp, 0.01)
 
         # 检查人力资本趋势
-        avg_H = (state.sectors["b"].H + state.sectors["i"].H + state.sectors["d"].H) / 3.0
+        avg_H = (state.sectors["b"].H + state.sectors["i"].H + 0.5 * (state.sectors["d_infra"].H + state.sectors["d_app"].H)) / 3.0
         key = "child_dev_h_prev"
         h_declining = False
         if key in tracker:

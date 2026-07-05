@@ -31,46 +31,74 @@ class CountryProfile:
     # 部门初始资本存量
     K_b: float = 200.0
     K_i: float = 300.0
-    K_d: float = 20.0
+    K_d: float = 20.0          # 兼容旧参数
+    # v3.5: 数字部门infra/app分层
+    K_d_infra: float = 8.0     # 基础设施层资本（芯片厂/数据中心）
+    K_d_app: float = 12.0      # 应用层资本（平台/软件）
+    # v3.5: 服务业high/low分层
+    K_s_high: float = 30.0     # 高技能服务业资本
+    K_s_low: float = 20.0      # 低端服务业资本
 
     # 部门初始劳动力（万人）
     L_b: float = 25.0
     L_i: float = 30.0
-    L_d: float = 5.0
+    L_d: float = 5.0           # 兼容
+    L_d_infra: float = 1.5     # infra劳动力少而精
+    L_d_app: float = 3.5       # app劳动力较多
+    L_s_high: float = 8.0      # 高技能服务劳动力
+    L_s_low: float = 7.0       # 低端服务劳动力
 
     # 部门初始人力资本
     H_b: float = 0.8
     H_i: float = 1.0
-    H_d: float = 1.5
+    H_d: float = 1.5           # 兼容
+    H_d_infra: float = 1.6     # infra需要极高技能
+    H_d_app: float = 1.4       # app技能偏高
+    H_s_high: float = 1.1      # 高技能服务人力资本
+    H_s_low: float = 0.5       # 低端服务人力资本低
 
     # 部门初始数字化水平 [0,1]
     DL_b: float = 0.05
     DL_i: float = 0.10
-    DL_d: float = 0.15
+    DL_d: float = 0.15         # 兼容
+    DL_d_infra: float = 0.08
+    DL_d_app: float = 0.20
+    DL_s_high: float = 0.08
+    DL_s_low: float = 0.03
 
     # 部门初始技术水平
     A_b: float = 1.0
     A_i: float = 1.2
-    A_d: float = 1.5
-    A_s: float = 0.8    # v3.3: 服务业初始技术水平
+    A_d: float = 1.5           # 兼容
+    A_d_infra: float = 1.2
+    A_d_app: float = 1.8
+    A_s: float = 0.8           # 兼容
+    A_s_high: float = 1.0
+    A_s_low: float = 0.7
 
     # 初始工资
     W_b: float = 2.0
     W_i: float = 3.0
-    W_d: float = 5.0
-    W_s: float = 1.5    # v3.3: 服务业初始工资（低）
+    W_d: float = 5.0           # 兼容
+    W_d_infra: float = 6.0
+    W_d_app: float = 5.0
+    W_s: float = 1.5           # 兼容
+    W_s_high: float = 3.5
+    W_s_low: float = 1.2
 
     # v2.2: 部门初始数字密度
     DD_b: float = 0.01
     DD_i: float = 0.03
-    DD_d: float = 0.05
-    DD_s: float = 0.02   # v3.3: 服务业数字密度（较低）
+    DD_d: float = 0.05         # 兼容
+    DD_d_infra: float = 0.03
+    DD_d_app: float = 0.06
+    DD_s: float = 0.02         # 兼容
+    DD_s_high: float = 0.04
+    DD_s_low: float = 0.01
 
-    # v3.3: 服务业初始条件
-    K_s: float = 50.0    # 服务业资本存量（店面/设备等）
-    L_s: float = 15.0    # 服务业劳动力（零售/餐饮/家政等）
-    H_s: float = 0.6     # 服务业人力资本（较低）
-    DL_s: float = 0.05   # 服务业数字化水平
+    # v3.5: 进口依赖度初始值
+    import_dep_d_infra: float = 0.75   # infra高度依赖进口
+    import_dep_d_app: float = 0.30     # app国产替代更多
 
     # 初始资源禀赋 [0,1]
     R_initial: float = 0.60
@@ -99,58 +127,54 @@ class CountryProfile:
     strategy_risks: str = ""           # 该国情选择某些策略的额外风险
 
     def to_params_dict(self) -> Dict[str, float]:
-        """转换为可直接合并到模拟参数字典的格式.
-
-        所有键使用 IC_ 前缀，以区别于其他参数层。
-        """
-        return {
-            # 资本
-            "IC_K_b": self.K_b,
-            "IC_K_i": self.K_i,
-            "IC_K_d": self.K_d,
+        """转换为可直接合并到模拟参数字典的格式 (v3.5: 六部门)."""
+        result = {
+            # 资本 (兼容旧参数)
+            "IC_K_b": self.K_b, "IC_K_i": self.K_i, "IC_K_d": self.K_d,
+            # v3.5: 数字infra/app
+            "IC_K_d_infra": self.K_d_infra, "IC_K_d_app": self.K_d_app,
+            # v3.5: 服务业high/low
+            "IC_K_s_high": self.K_s_high, "IC_K_s_low": self.K_s_low,
             # 劳动力
-            "IC_L_b": self.L_b,
-            "IC_L_i": self.L_i,
-            "IC_L_d": self.L_d,
+            "IC_L_b": self.L_b, "IC_L_i": self.L_i, "IC_L_d": self.L_d,
+            "IC_L_d_infra": self.L_d_infra, "IC_L_d_app": self.L_d_app,
+            "IC_L_s_high": self.L_s_high, "IC_L_s_low": self.L_s_low,
             # 人力资本
-            "IC_H_b": self.H_b,
-            "IC_H_i": self.H_i,
-            "IC_H_d": self.H_d,
+            "IC_H_b": self.H_b, "IC_H_i": self.H_i, "IC_H_d": self.H_d,
+            "IC_H_d_infra": self.H_d_infra, "IC_H_d_app": self.H_d_app,
+            "IC_H_s_high": self.H_s_high, "IC_H_s_low": self.H_s_low,
             # 数字化
-            "IC_DL_b": self.DL_b,
-            "IC_DL_i": self.DL_i,
-            "IC_DL_d": self.DL_d,
+            "IC_DL_b": self.DL_b, "IC_DL_i": self.DL_i, "IC_DL_d": self.DL_d,
+            "IC_DL_d_infra": self.DL_d_infra, "IC_DL_d_app": self.DL_d_app,
+            "IC_DL_s_high": self.DL_s_high, "IC_DL_s_low": self.DL_s_low,
             # 技术水平
-            "IC_A_b": self.A_b,
-            "IC_A_i": self.A_i,
-            "IC_A_d": self.A_d,
+            "IC_A_b": self.A_b, "IC_A_i": self.A_i, "IC_A_d": self.A_d,
+            "IC_A_d_infra": self.A_d_infra, "IC_A_d_app": self.A_d_app,
+            "IC_A_s_high": self.A_s_high, "IC_A_s_low": self.A_s_low,
             # 工资
-            "IC_W_b": self.W_b,
-            "IC_W_i": self.W_i,
-            "IC_W_d": self.W_d,
+            "IC_W_b": self.W_b, "IC_W_i": self.W_i, "IC_W_d": self.W_d,
+            "IC_W_d_infra": self.W_d_infra, "IC_W_d_app": self.W_d_app,
+            "IC_W_s_high": self.W_s_high, "IC_W_s_low": self.W_s_low,
             # 数字密度
-            "IC_DD_b": self.DD_b,
-            "IC_DD_i": self.DD_i,
-            "IC_DD_d": self.DD_d,
-            "IC_DD_s": self.DD_s,
-            # v3.3: 服务业
-            "IC_K_s": self.K_s,
-            "IC_L_s": self.L_s,
-            "IC_H_s": self.H_s,
-            "IC_DL_s": self.DL_s,
-            "IC_A_s": self.A_s,
-            "IC_W_s": self.W_s,
-            "IC_DS_s": 0.5,  # 服务业初始数字服务流
-            # 资源
+            "IC_DD_b": self.DD_b, "IC_DD_i": self.DD_i, "IC_DD_d": self.DD_d,
+            "IC_DD_d_infra": self.DD_d_infra, "IC_DD_d_app": self.DD_d_app,
+            "IC_DD_s_high": self.DD_s_high, "IC_DD_s_low": self.DD_s_low,
+            # 兼容旧服务业参数
+            "IC_K_s": self.K_s_low, "IC_L_s": self.L_s_low,
+            "IC_H_s": self.H_s_low, "IC_DL_s": self.DL_s_low,
+            "IC_A_s": self.A_s_low, "IC_W_s": self.W_s_low, "IC_DD_s": self.DD_s_low,
+            # v3.5: 进口依赖度
+            "IC_import_dep_d_infra": self.import_dep_d_infra,
+            "IC_import_dep_d_app": self.import_dep_d_app,
+            # 资源/制度/不平等
             "IC_R_initial": self.R_initial,
-            "R_initial_ratio": self.R_initial,  # 兼容旧参数名
-            # 制度
+            "R_initial_ratio": self.R_initial,
             "IC_institution_capacity": self.institution_capacity,
-            "institution_capacity": self.institution_capacity,  # 兼容旧参数名
-            # 不平等
+            "institution_capacity": self.institution_capacity,
             "IC_gini_initial": self.gini_initial,
-            # 技术差距
             "IC_tech_gap_initial": self.tech_gap_initial,
+            "IC_tech_gap_infra_initial": self.tech_gap_initial * 1.3,
+            "IC_tech_gap_app_initial": self.tech_gap_initial * 0.8,
             # 数据资产
             "IC_data_producer": self.data_producer_initial,
             "IC_data_consumer": self.data_consumer_initial,
@@ -159,7 +183,11 @@ class CountryProfile:
             "IC_DS_b": self.DS_b_initial,
             "IC_DS_i": self.DS_i_initial,
             "IC_DS_d": self.DS_d_initial,
+            "IC_DS_d_infra": self.DS_d_initial * 0.6,
+            "IC_DS_d_app": self.DS_d_initial * 0.8,
+            "IC_DS_s_high": 0.8, "IC_DS_s_low": 0.3,
         }
+        return result
 
     def summary(self) -> str:
         """人类可读的单行摘要."""
@@ -182,13 +210,28 @@ def profile_manufacturing_giant() -> CountryProfile:
         label="制造业大国",
         description="工业资本雄厚，劳动力充足，数字部门刚起步，人力资本中等，制度能力中等偏高",
         typical_references="中国c.2000, 韩国c.1980",
-        K_b=200.0, K_i=400.0, K_d=15.0, K_s=80.0,
-        L_b=25.0, L_i=45.0, L_d=3.0, L_s=20.0,
-        H_b=0.7, H_i=1.0, H_d=1.2, H_s=0.7,
-        DL_b=0.03, DL_i=0.08, DL_d=0.10, DL_s=0.08,
-        A_b=1.0, A_i=1.3, A_d=1.5, A_s=0.9,
-        W_b=2.0, W_i=3.5, W_d=6.0, W_s=2.0,
-        DD_b=0.01, DD_i=0.03, DD_d=0.05, DD_s=0.02,
+        K_b=200.0, K_i=400.0, K_d=15.0,
+        K_d_infra=5.0, K_d_app=10.0,
+        K_s_high=40.0, K_s_low=30.0,
+        L_b=25.0, L_i=45.0, L_d=3.0,
+        L_d_infra=1.0, L_d_app=2.0,
+        L_s_high=10.0, L_s_low=10.0,
+        H_b=0.7, H_i=1.0, H_d=1.2,
+        H_d_infra=1.3, H_d_app=1.1,
+        H_s_high=1.0, H_s_low=0.6,
+        DL_b=0.03, DL_i=0.08, DL_d=0.10,
+        DL_d_infra=0.05, DL_d_app=0.12,
+        DL_s_high=0.08, DL_s_low=0.05,
+        A_b=1.0, A_i=1.3, A_d=1.5,
+        A_d_infra=1.1, A_d_app=1.6,
+        A_s_high=1.1, A_s_low=0.8,
+        W_b=2.0, W_i=3.5, W_d=6.0,
+        W_d_infra=5.5, W_d_app=6.5,
+        W_s_high=4.0, W_s_low=1.8,
+        DD_b=0.01, DD_i=0.03, DD_d=0.05,
+        DD_d_infra=0.02, DD_d_app=0.06,
+        DD_s_high=0.04, DD_s_low=0.01,
+        import_dep_d_infra=0.75, import_dep_d_app=0.25,
         R_initial=0.60,
         institution_capacity=0.65,
         gini_initial=0.38,
@@ -209,12 +252,27 @@ def profile_resource_rich() -> CountryProfile:
         description="资源充足但工业薄弱，数字基础差，人力资本偏低，制度能力弱，不平等高",
         typical_references="沙特, 尼日利亚, 委内瑞拉",
         K_b=150.0, K_i=100.0, K_d=5.0,
+        K_d_infra=1.8, K_d_app=3.2,
+        K_s_high=18.0, K_s_low=12.0,
         L_b=20.0, L_i=15.0, L_d=1.0,
+        L_d_infra=0.3, L_d_app=0.7,
+        L_s_high=8.0, L_s_low=7.0,
         H_b=0.5, H_i=0.7, H_d=1.0,
+        H_d_infra=1.1, H_d_app=0.9,
+        H_s_high=0.9, H_s_low=0.4,
         DL_b=0.01, DL_i=0.03, DL_d=0.05,
+        DL_d_infra=0.03, DL_d_app=0.07,
+        DL_s_high=0.08, DL_s_low=0.03,
         A_b=1.2, A_i=0.8, A_d=1.0,
+        A_d_infra=0.8, A_d_app=1.2,
+        A_s_high=1.0, A_s_low=0.6,
         W_b=1.5, W_i=2.5, W_d=4.0,
+        W_d_infra=3.5, W_d_app=4.5,
+        W_s_high=3.0, W_s_low=1.0,
         DD_b=0.00, DD_i=0.01, DD_d=0.02,
+        DD_d_infra=0.01, DD_d_app=0.02,
+        DD_s_high=0.04, DD_s_low=0.01,
+        import_dep_d_infra=0.80, import_dep_d_app=0.40,
         R_initial=0.95,
         institution_capacity=0.35,
         gini_initial=0.50,
@@ -235,12 +293,27 @@ def profile_digital_leapfrogger() -> CountryProfile:
         description="工业中等偏弱但数字部门活跃(IT外包/金融科技)，人力资本两极分化，制度能力中等",
         typical_references="印度c.2015, 肯尼亚(M-Pesa), 爱沙尼亚",
         K_b=120.0, K_i=150.0, K_d=30.0,
+        K_d_infra=10.0, K_d_app=20.0,
+        K_s_high=30.0, K_s_low=20.0,
         L_b=30.0, L_i=25.0, L_d=8.0,
+        L_d_infra=2.4, L_d_app=5.6,
+        L_s_high=6.5, L_s_low=5.5,
         H_b=0.6, H_i=0.8, H_d=1.6,
+        H_d_infra=1.7, H_d_app=1.5,
+        H_s_high=1.0, H_s_low=0.4,
         DL_b=0.05, DL_i=0.20, DL_d=0.30,
+        DL_d_infra=0.18, DL_d_app=0.40,
+        DL_s_high=0.15, DL_s_low=0.06,
         A_b=0.9, A_i=1.0, A_d=1.8,
+        A_d_infra=1.4, A_d_app=2.2,
+        A_s_high=1.1, A_s_low=0.7,
         W_b=1.5, W_i=3.0, W_d=8.0,
+        W_d_infra=7.0, W_d_app=9.0,
+        W_s_high=4.0, W_s_low=1.4,
         DD_b=0.02, DD_i=0.08, DD_d=0.12,
+        DD_d_infra=0.07, DD_d_app=0.14,
+        DD_s_high=0.06, DD_s_low=0.02,
+        import_dep_d_infra=0.70, import_dep_d_app=0.35,
         R_initial=0.40,
         institution_capacity=0.55,
         gini_initial=0.42,
@@ -261,12 +334,27 @@ def profile_small_open() -> CountryProfile:
         description="人口适中偏小，工业靠FDI驱动(低端制造)，数字极弱，人力资本低，制度能力中等偏低",
         typical_references="越南c.2010, 孟加拉, 柬埔寨",
         K_b=100.0, K_i=120.0, K_d=3.0,
+        K_d_infra=1.0, K_d_app=2.0,
+        K_s_high=15.0, K_s_low=10.0,
         L_b=15.0, L_i=20.0, L_d=1.0,
+        L_d_infra=0.3, L_d_app=0.7,
+        L_s_high=5.5, L_s_low=4.5,
         H_b=0.4, H_i=0.6, H_d=0.8,
+        H_d_infra=0.9, H_d_app=0.7,
+        H_s_high=0.8, H_s_low=0.3,
         DL_b=0.02, DL_i=0.05, DL_d=0.03,
+        DL_d_infra=0.02, DL_d_app=0.04,
+        DL_s_high=0.05, DL_s_low=0.02,
         A_b=0.8, A_i=1.0, A_d=0.8,
+        A_d_infra=0.6, A_d_app=1.0,
+        A_s_high=0.8, A_s_low=0.6,
         W_b=1.0, W_i=2.0, W_d=3.0,
+        W_d_infra=2.5, W_d_app=3.5,
+        W_s_high=2.0, W_s_low=0.7,
         DD_b=0.00, DD_i=0.01, DD_d=0.01,
+        DD_d_infra=0.01, DD_d_app=0.01,
+        DD_s_high=0.02, DD_s_low=0.01,
+        import_dep_d_infra=0.85, import_dep_d_app=0.50,
         R_initial=0.30,
         institution_capacity=0.40,
         gini_initial=0.35,
@@ -287,12 +375,27 @@ def profile_post_soviet() -> CountryProfile:
         description="继承了苏联重工业遗产(资本陈旧)+高人力资本+制度转型不彻底+资源丰富+不平等极高",
         typical_references="俄罗斯, 乌克兰, 白俄罗斯",
         K_b=180.0, K_i=350.0, K_d=10.0,
+        K_d_infra=3.5, K_d_app=6.5,
+        K_s_high=21.0, K_s_low=14.0,
         L_b=20.0, L_i=35.0, L_d=4.0,
+        L_d_infra=1.2, L_d_app=2.8,
+        L_s_high=10.0, L_s_low=8.0,
         H_b=0.8, H_i=1.2, H_d=1.4,
+        H_d_infra=1.5, H_d_app=1.3,
+        H_s_high=1.2, H_s_low=0.5,
         DL_b=0.03, DL_i=0.05, DL_d=0.08,
+        DL_d_infra=0.05, DL_d_app=0.10,
+        DL_s_high=0.08, DL_s_low=0.03,
         A_b=1.0, A_i=1.1, A_d=1.3,
+        A_d_infra=1.0, A_d_app=1.6,
+        A_s_high=1.1, A_s_low=0.7,
         W_b=2.0, W_i=3.0, W_d=5.0,
+        W_d_infra=4.5, W_d_app=5.5,
+        W_s_high=4.0, W_s_low=1.4,
         DD_b=0.01, DD_i=0.02, DD_d=0.04,
+        DD_d_infra=0.02, DD_d_app=0.05,
+        DD_s_high=0.04, DD_s_low=0.01,
+        import_dep_d_infra=0.80, import_dep_d_app=0.40,
         R_initial=0.85,
         institution_capacity=0.40,
         gini_initial=0.55,
@@ -313,12 +416,27 @@ def profile_populous_weak_industry() -> CountryProfile:
         description="人口极多但工业极弱，农业为主，数字几乎为零，人力资本很低，制度能力弱",
         typical_references="印度c.1990, 巴基斯坦, 埃塞俄比亚",
         K_b=100.0, K_i=80.0, K_d=2.0,
+        K_d_infra=0.7, K_d_app=1.3,
+        K_s_high=12.0, K_s_low=8.0,
         L_b=55.0, L_i=12.0, L_d=0.5,
+        L_d_infra=0.15, L_d_app=0.35,
+        L_s_high=4.5, L_s_low=3.5,
         H_b=0.4, H_i=0.5, H_d=0.7,
+        H_d_infra=0.8, H_d_app=0.6,
+        H_s_high=0.6, H_s_low=0.2,
         DL_b=0.01, DL_i=0.01, DL_d=0.01,
+        DL_d_infra=0.01, DL_d_app=0.01,
+        DL_s_high=0.03, DL_s_low=0.01,
         A_b=0.7, A_i=0.8, A_d=0.6,
+        A_d_infra=0.5, A_d_app=0.7,
+        A_s_high=0.7, A_s_low=0.5,
         W_b=0.8, W_i=1.5, W_d=3.0,
+        W_d_infra=2.5, W_d_app=3.5,
+        W_s_high=1.6, W_s_low=0.6,
         DD_b=0.00, DD_i=0.00, DD_d=0.00,
+        DD_d_infra=0.00, DD_d_app=0.00,
+        DD_s_high=0.00, DD_s_low=0.00,
+        import_dep_d_infra=0.90, import_dep_d_app=0.50,
         R_initial=0.35,
         institution_capacity=0.30,
         gini_initial=0.45,

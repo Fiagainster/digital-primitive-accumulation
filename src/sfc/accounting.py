@@ -10,9 +10,11 @@ class SFCClosure:
 
     def __init__(self, params: dict):
         self.tolerance = params.get("sfc_tolerance", 1e-4)
-        # v3.2: 残差历史追踪用于异常检测
+        # v3.2: 残差历史追踪用于异常检测（始终记录，静默运行）
         self._residual_history: list = []
         self._anomaly_warned: bool = False
+        # 默认关闭警告：模型不追求精确定量校准，SFC残差仅作内部追踪
+        self._verbose = params.get("sfc_verbose", False)
 
     def check_and_close(self, state: SystemState):
         """每步执行SFC闭合检查 (v3.2: 增加残差异常膨胀检测)."""
@@ -24,8 +26,8 @@ class SFCClosure:
             s = state.sectors[key]
             # 更新实物资本
             bs.physical_capital = s.K
-            # 数据资产
-            if key == "d":
+            # 数据资产（数字基础设施和应用部门均持有数据资产）
+            if key in ("d_infra", "d_app"):
                 bs.data_assets_value = state.data_assets.effective_stock * 0.1
 
         # 计算总储蓄和总投资
@@ -41,30 +43,27 @@ class SFCClosure:
         if len(self._residual_history) > 200:
             self._residual_history = self._residual_history[-100:]
 
-        # 检查残差是否在系统压力下异常膨胀
-        # 条件：最近的残差均值超过容忍度的10倍，且趋势在上升
+        # 检查残差是否在系统压力下异常膨胀（默认静默，仅内部追踪）
+        # 如需查看警告，设置 params["sfc_verbose"] = True
         if len(self._residual_history) >= 20 and not self._anomaly_warned:
             recent = self._residual_history[-20:]
             early = self._residual_history[:min(20, len(self._residual_history) // 2)]
             recent_mean = np.mean(recent)
             early_mean = np.mean(early) if early else 0.0
-            # 残差均值超过容忍度100倍或近期残差是早期的3倍以上
             anomaly_threshold = self.tolerance * 100
+            triggered = False
             if recent_mean > anomaly_threshold:
-                warnings.warn(
-                    f"SFC残差异常膨胀：近期均值={recent_mean:.2e}（容忍度={self.tolerance:.1e}）。"
-                    f"这通常表示系统在压力下核算框架充当了'减震器'，"
-                    f"会计可信度下降。",
-                    RuntimeWarning, stacklevel=2
-                )
-                self._anomaly_warned = True
+                triggered = True
             elif early_mean > 0 and recent_mean / max(early_mean, 1e-10) > 3.0:
-                warnings.warn(
-                    f"SFC残差趋势上升：近期/早期={recent_mean:.2e}/{early_mean:.2e}。"
-                    f"残差持续扩大表明核算闭合在退化。",
-                    RuntimeWarning, stacklevel=2
-                )
+                triggered = True
+            if triggered:
                 self._anomaly_warned = True
+                if self._verbose:
+                    warnings.warn(
+                        f"SFC残差异常：近期均值={recent_mean:.2e}（容忍度={self.tolerance:.1e}），"
+                        f"会计可信度下降。",
+                        RuntimeWarning, stacklevel=2
+                    )
 
         # 如不闭合，通过未计划库存调整
         if residual > self.tolerance:
@@ -84,13 +83,17 @@ class SFCClosure:
 
     def build_transaction_matrix(self, state: SystemState) -> np.ndarray:
         """构建简化的交易流矩阵（用于调试和验证）."""
-        # 5部门(b, i, d, households, external) × 5交易类型
-        mat = np.zeros((5, 5))
+        # 8×8: 6个部门(b, i, d_infra, d_app, s_high, s_low) + 家庭 + 外部
+        mat = np.zeros((8, 8))
 
         # 行=支出方，列=收入方
         # 简化版：仅为会计闭合验证
-        mat[3, 0] = state.sectors["b"].W * state.sectors["b"].L  # 家庭←基础工资
-        mat[3, 1] = state.sectors["i"].W * state.sectors["i"].L  # 家庭←工业工资
-        mat[3, 2] = state.sectors["d"].W * state.sectors["d"].L  # 家庭←数字工资
+        # 第6行=家庭←各部门工资
+        mat[6, 0] = state.sectors["b"].W * state.sectors["b"].L          # 家庭←基础工资
+        mat[6, 1] = state.sectors["i"].W * state.sectors["i"].L          # 家庭←工业工资
+        mat[6, 2] = state.sectors["d_infra"].W * state.sectors["d_infra"].L  # 家庭←数字基础设施工资
+        mat[6, 3] = state.sectors["d_app"].W * state.sectors["d_app"].L     # 家庭←数字应用工资
+        mat[6, 4] = state.sectors["s_high"].W * state.sectors["s_high"].L   # 家庭←高端服务工资
+        mat[6, 5] = state.sectors["s_low"].W * state.sectors["s_low"].L    # 家庭←低端服务工资
 
         return mat

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""11_技术追赶临界条件 —— EX-F-03: 找到"追赶"与"锁死"的参数边界.
+"""11_技术追赶临界条件 —— EX-F-03: 找到"追赶"与"锁死"的参数边界 (v3.5: infra/app分层).
 
 研究问题:
     在什么条件下后发国家能成功追赶技术前沿？什么条件下会被锁死在低技术陷阱？
@@ -177,8 +177,8 @@ def main():
             logger.logger.info(f"      场景 {scenario:<25}: 成功={sc_succ/len(sc_sub):.1%} | "
                              f"锁死={sc_locked/len(sc_sub):.1%} | 平均差距={sc_gap:.1f}")
 
-    # 技术追赶的场景依赖性
-    logger.logger.info(f"\n  技术追赶的场景依赖:")
+    # 技术追赶的场景依赖性 (v3.5: infra/app分层)
+    logger.logger.info(f"\n  技术追赶的场景依赖 (v3.5 infra/app分层):")
     for scenario in scenarios:
         sc_all = [r for r in results
                  if r.get("_scenario") == scenario and r.get("_success", True)]
@@ -186,8 +186,15 @@ def main():
             continue
         sc_succ = sum(1 for r in sc_all if is_catchup_success(r["summary"]))
         sc_gap = np.mean([s["summary"]["final_tech_gap"] for s in sc_all])
+        sc_gap_infra = np.mean([s["summary"].get("final_tech_gap_infra",
+                               s["summary"].get("final_tech_gap", 0))
+                              for s in sc_all])
+        sc_gap_app = np.mean([s["summary"].get("final_tech_gap_app",
+                             s["summary"].get("final_tech_gap", 0))
+                            for s in sc_all])
         logger.logger.info(f"    {scenario:<25}: 追赶成功率={sc_succ/len(sc_all):.1%} | "
-                         f"平均差距={sc_gap:.1f}")
+                         f"平均差距={sc_gap:.1f} | "
+                         f"infra差距={sc_gap_infra:.1f} | app差距={sc_gap_app:.1f}")
 
     # 关键发现
     # 技术爆发场景下的表现

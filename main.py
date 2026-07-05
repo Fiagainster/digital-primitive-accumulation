@@ -1,4 +1,4 @@
-"""主入口 —— 命令行接口 (v3.1 升级)."""
+"""主入口 —— 命令行接口 (v3.5 升级)."""
 
 import sys
 import os
@@ -18,9 +18,9 @@ from src.models.mixed_strategy import STANDARD_MIXTURES, MixedStrategy
 
 
 def run_single_demo(profile: str = "manufacturing_giant"):
-    """运行单次模拟演示 (v3.1 含国情预设)."""
+    """运行单次模拟演示 (v3.5 含国情预设)."""
     print("=" * 60)
-    print(f"原始积累模型 v3.1 — 国情: {profile}")
+    print(f"原始积累模型 v3.5 — 国情: {profile}")
     print("=" * 60)
 
     schema = get_schema()
@@ -60,6 +60,20 @@ def run_single_demo(profile: str = "manufacturing_giant"):
         print(f"  工业/数字代价比: {s['cost_ratio_industrial_digital']:.1f}")
         print(f"  断裂: {s['total_fractures']}个 {s['fracture_types']}")
 
+        # v3.5: 六部门结构指标
+        print(f"  === 六部门结构 (v3.5) ===")
+        print(f"  K_d_infra: {s.get('K_d_infra', 'N/A')} | K_d_app: {s.get('K_d_app', 'N/A')}")
+        print(f"  DL_d_infra: {s.get('DL_d_infra', 'N/A')} | DL_d_app: {s.get('DL_d_app', 'N/A')}")
+        print(f"  K_s_high: {s.get('K_s_high', 'N/A')} | K_s_low: {s.get('K_s_low', 'N/A')}")
+        # v3.5: 新指标
+        print(f"  就业质量指数: {s.get('employment_quality_index', 'N/A')}")
+        print(f"  技术差距(基建): {s.get('tech_gap_infra', 'N/A')} | 技术差距(应用): {s.get('tech_gap_app', 'N/A')}")
+        print(f"  依赖综合指数: {s.get('dependency_composite', 'N/A')}")
+        # v3.5综合指标
+        v35 = s.get('v35_metrics', {})
+        if v35:
+            print(f"  v3.5综合指标: {v35}")
+
         # 可视化
         viz = Visualizer()
         viz.plot_single_simulation(result, f"策略{regime} — 模拟结果",
@@ -85,9 +99,9 @@ def run_single_demo(profile: str = "manufacturing_giant"):
 
 
 def run_mixed_demo(profile: str = "manufacturing_giant"):
-    """v3.1: 混合策略演示（支持国情预设）."""
+    """v3.5: 混合策略演示（支持国情预设）."""
     print("\n" + "=" * 60)
-    print(f"原始积累模型 v3.1 — 混合策略演示 | 国情: {profile}")
+    print(f"原始积累模型 v3.5 — 混合策略演示 | 国情: {profile}")
     print("=" * 60)
 
     schema = get_schema()
@@ -136,6 +150,20 @@ def run_mixed_demo(profile: str = "manufacturing_giant"):
                   f"S={ev['structure']:.2f} V={ev['sovereignty']:.2f}")
             print(f"  红线: {ev['red_line_level']} | 可接受: {ev['is_acceptable']}")
 
+        # v3.5: 六部门结构指标
+        print(f"  === 六部门结构 (v3.5) ===")
+        print(f"  K_d_infra: {s.get('K_d_infra', 'N/A')} | K_d_app: {s.get('K_d_app', 'N/A')}")
+        print(f"  DL_d_infra: {s.get('DL_d_infra', 'N/A')} | DL_d_app: {s.get('DL_d_app', 'N/A')}")
+        print(f"  K_s_high: {s.get('K_s_high', 'N/A')} | K_s_low: {s.get('K_s_low', 'N/A')}")
+        # v3.5: 新指标
+        print(f"  就业质量指数: {s.get('employment_quality_index', 'N/A')}")
+        print(f"  技术差距(基建): {s.get('tech_gap_infra', 'N/A')} | 技术差距(应用): {s.get('tech_gap_app', 'N/A')}")
+        print(f"  依赖综合指数: {s.get('dependency_composite', 'N/A')}")
+        # v3.5综合指标
+        v35 = s.get('v35_metrics', {})
+        if v35:
+            print(f"  v3.5综合指标: {v35}")
+
         results.append(result)
 
     # 雷达图比较
@@ -169,8 +197,8 @@ def run_comparison_demo():
     # 可视化比较
     viz = Visualizer()
     viz.plot_strategy_comparison(results)
-    viz.plot_five_dimension_radar(results)  # v3.0: 五维雷达图
-    viz.plot_cost_waterfall(results)        # v3.0: 代价瀑布图
+    viz.plot_five_dimension_radar(results)  # v3.5: 五维雷达图
+    viz.plot_cost_waterfall(results)        # v3.5: 代价瀑布图
 
     # 所有模拟的时间序列
     for r in results:
@@ -203,66 +231,7 @@ def run_batch_experiment():
     viz.plot_strategy_comparison(results)
     viz.plot_phase_diagram(results, "final_tech_gap", "survival_years")
     viz.plot_phase_diagram(results, "cost_concentration", "survival_years")
-    viz.plot_five_dimension_radar(results)  # v3.0
-
-    generate_academic_report(results)
-
-    print("\n✓ 批量实验完成。")
-    return results
-
-
-def run_comparison_demo():
-    """运行策略比较演示."""
-    print("\n" + "=" * 60)
-    print("原始积累模型 — 策略比较演示")
-    print("=" * 60)
-
-    runner = ExperimentRunner()
-    results = runner.run_comparison(
-        regimes=["A", "B", "C"],
-        scenarios=[
-            "benign_globalization", "tech_cold_war", "resource_crash",
-            "full_containment", "tech_explosion", "resource_war",
-        ],
-        T_max=50.0,
-        n_repeats=1,
-    )
-
-    # 可视化比较
-    viz = Visualizer()
-    viz.plot_strategy_comparison(results)
-
-    # 所有模拟的时间序列
-    for r in results:
-        s = r["summary"]
-        viz.plot_single_simulation(r, filename=f"comp_{s['regime']}_{s['scenario']}.png")
-
-    # 学术报告
-    report = generate_academic_report(results)
-
-    print("\n✓ 策略比较演示完成。")
-    return results
-
-
-def run_batch_experiment():
-    """运行批量实验（LHS采样）."""
-    print("\n" + "=" * 60)
-    print("原始积累模型 — 批量实验")
-    print("=" * 60)
-
-    runner = ExperimentRunner()
-    results = runner.run_experiment(
-        name="screening_run",
-        regimes=["A", "B", "C"],
-        n_samples=50,
-        scenario="benign_globalization",
-        T_max=50.0,
-    )
-
-    viz = Visualizer()
-    viz.plot_strategy_comparison(results)
-    viz.plot_phase_diagram(results, "final_tech_gap", "survival_years")
-    viz.plot_phase_diagram(results, "cost_concentration", "survival_years")
+    viz.plot_five_dimension_radar(results)  # v3.5
 
     generate_academic_report(results)
 
@@ -271,7 +240,7 @@ def run_batch_experiment():
 
 
 def run_profiles_command():
-    """v3.1: 列出所有国情预设."""
+    """v3.5: 列出所有国情预设."""
     print("=" * 70)
     print("国情预设列表 (Country Profiles)")
     print("=" * 70)
@@ -310,14 +279,15 @@ if __name__ == "__main__":
     elif cmd == "batch":
         run_batch_experiment()
     elif cmd == "mixed":
-        run_mixed_demo()  # v3.0: 混合策略演示
+        profile = parse_profile_arg()
+        run_mixed_demo(profile=profile)  # v3.5: 混合策略演示
     elif cmd == "profiles":
-        run_profiles_command()  # v3.1: 列出国情预设
+        run_profiles_command()  # v3.5: 列出国情预设
     else:
         print(f"Usage: python main.py [demo|compare|batch|mixed|profiles]")
-        print(f"  demo     - 单次模拟演示（三种纯策略 + 五维评价）")
+        print(f"  demo     - 单次模拟演示（三种纯策略 + 五维评价 + 六部门结构）")
         print(f"             --profile <name>  指定国情预设（默认: manufacturing_giant）")
         print(f"  compare  - 策略×场景交叉比较")
         print(f"  batch    - LHS批量实验")
-        print(f"  mixed    - v3.0 混合策略演示（纯策略+混合策略）")
-        print(f"  profiles - v3.1 列出所有国情预设")
+        print(f"  mixed    - v3.5 混合策略演示（纯策略+混合策略，支持 --profile）")
+        print(f"  profiles - v3.5 列出所有国情预设")

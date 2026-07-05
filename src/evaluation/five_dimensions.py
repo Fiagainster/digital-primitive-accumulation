@@ -126,10 +126,18 @@ class FiveDimensionEvaluator:
         else:
             subs["output_stability"] = 0.7  # 默认中等稳定
 
-        # 4. 数字部门增加值占比（倒U型：太低或太高都不好）
-        ds_share = state.sectors["d"].Y / max(state.gdp, 0.01)
+        # 4. 数字部门增加值占比（倒U型：v3.5使用infra+app合计）
+        ds_total = state.sectors["d_infra"].Y + state.sectors["d_app"].Y
+        ds_share = ds_total / max(state.gdp, 0.01)
         opt_share = 0.35
         subs["digital_share_quality"] = np.exp(-((ds_share - opt_share) ** 2) / 0.08)
+
+        # v3.5: infra/app平衡度（infra占比过低意味着"应用繁荣但基础受制于人"）
+        if ds_total > 0:
+            infra_ratio = state.sectors["d_infra"].Y / ds_total
+            subs["digital_infra_balance"] = 1.0 - abs(infra_ratio - 0.35) / 0.35
+        else:
+            subs["digital_infra_balance"] = 0.5
 
         # 5. 出口竞争力
         subs["competitiveness"] = self._sigmoid_scale(
@@ -144,10 +152,11 @@ class FiveDimensionEvaluator:
                     }
         # 实际使用简单平均，因为子指标在构造时已经考虑了重要性
         economy_raw = (
-            0.25 * subs["gdp_pc_growth"]
+            0.20 * subs["gdp_pc_growth"]
             + 0.15 * subs["investment_efficiency"]
-            + 0.15 * subs["output_stability"]
+            + 0.12 * subs["output_stability"]
             + 0.10 * subs["digital_share_quality"]
+            + 0.08 * subs["digital_infra_balance"]  # v3.5
             + 0.15 * subs["competitiveness"]
             + 0.20 * self._evaluate_total_gdp(state, t_series)
         )
@@ -319,18 +328,20 @@ class FiveDimensionEvaluator:
         dd_i = state.sectors["i"].digital_density
         subs["digital_density_i"] = dd_i  # 已在 [0,1]，越大越好
 
-        # 3. 部门间工资差距
+        # 3. 部门间工资差距 (v3.5: 六部门)
         wages = [state.sectors[k].W for k in ALL_SECTORS]
         w_max = max(wages)
         w_min = max(min(wages), 1e-6)
         wage_disparity = w_max / w_min - 1.0
-        # 差距=0→1.0, 差距=3→0.3, 差距=10→0.0
         subs["wage_equity"] = max(0.0, 1.0 - wage_disparity / 10.0)
+
+        # v3.5: 就业质量指数
+        subs["employment_quality"] = getattr(state, "employment_quality_index", 0.8)
 
         # 4. 劳动力技能匹配度
         skill_match = min(
             state.sectors["i"].H / max(state.households.industrial_workers.skill_level, 0.01),
-            state.sectors["d"].H / max(state.households.digital_high_skill.skill_level, 0.01),
+            0.5 * (state.sectors["d_infra"].H + state.sectors["d_app"].H) / max(state.households.digital_high_skill.skill_level, 0.01),
             1.5  # 上限
         )
         subs["skill_match"] = self._sigmoid_scale(skill_match - 0.5, mid=0.3, steep=5.0)
@@ -357,14 +368,15 @@ class FiveDimensionEvaluator:
         else:
             subs["diffusion_speed"] = 0.5
 
-        # 加权聚合
+        # 加权聚合 (v3.5: 增加就业质量)
         structure_raw = (
-            0.25 * subs["deind_quality"]
-            + 0.20 * subs["digital_density_i"]
-            + 0.15 * subs["wage_equity"]
-            + 0.15 * subs["skill_match"]
+            0.22 * subs["deind_quality"]
+            + 0.18 * subs["digital_density_i"]
+            + 0.12 * subs["wage_equity"]
+            + 0.12 * subs["skill_match"]
             + 0.10 * subs["diversification"]
-            + 0.15 * subs["diffusion_speed"]
+            + 0.12 * subs["diffusion_speed"]
+            + 0.14 * subs["employment_quality"]  # v3.5
         )
         return float(np.clip(structure_raw, 0.0, 1.0)), subs
 
@@ -376,8 +388,11 @@ class FiveDimensionEvaluator:
                               ) -> Tuple[float, Dict[str, float]]:
         subs = {}
 
-        # 1. 综合自主指数（来自数字依附的反向）
+        # 1. 综合自主指数（v3.5: 使用六维依附）
         subs["autonomy_composite"] = max(0.0, 1.0 - state.dependency.composite)
+        # v3.5: 基础设施自主细分
+        subs["chip_autonomy"] = max(0.0, 1.0 - state.dependency.chip_dependency)
+        subs["capital_autonomy"] = max(0.0, 1.0 - state.dependency.capital_dependency)
 
         # 2. 数据主权度
         total_data = state.data_assets.effective_stock
@@ -411,14 +426,16 @@ class FiveDimensionEvaluator:
         foreign_control = equity_foreign / max(total_equity, 1.0)
         subs["capital_account_autonomy"] = max(0.0, 1.0 - foreign_control)
 
-        # 加权聚合
+        # 加权聚合 (v3.5: 增加芯片和资本自主)
         sovereignty_raw = (
-            0.25 * subs["autonomy_composite"]
-            + 0.20 * subs["data_sovereignty"]
-            + 0.10 * subs["standards_participation"]
-            + 0.20 * subs["policy_autonomy"]
-            + 0.15 * subs["supply_chain_security"]
-            + 0.10 * subs["capital_account_autonomy"]
+            0.20 * subs["autonomy_composite"]
+            + 0.12 * subs["data_sovereignty"]
+            + 0.08 * subs["standards_participation"]
+            + 0.08 * subs["chip_autonomy"]
+            + 0.08 * subs["capital_autonomy"]
+            + 0.18 * subs["policy_autonomy"]
+            + 0.14 * subs["supply_chain_security"]
+            + 0.12 * subs["capital_account_autonomy"]
         )
         return float(np.clip(sovereignty_raw, 0.0, 1.0)), subs
 

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-"""03_三种策略全维度比较 —— 纯策略A/B/C在多场景下的全面比较.
+"""03_三种策略全维度比较 —— 纯策略A/B/C在多场景下的全面比较 (v3.5: 六部门评估).
 
 研究问题:
     在相同的初始条件和外部环境下，三种纯策略（A渐进/B跳跃/C替代）
     在五个评价维度上各有什么优劣？命门在什么条件下被触发？
+    v3.5新增: 分层技术差距(infra/app)、就业质量指数、六维依附评估
 
 复杂度: ★★☆☆☆ (中等)
 预计时间: 2-10分钟
@@ -164,7 +165,15 @@ def main():
         yrs = np.mean([s["summary"]["survival_years"] for s in regime_results])
         gdp = np.median([s["summary"]["final_gdp"] for s in regime_results])
         gap = np.mean([s["summary"]["final_tech_gap"] for s in regime_results])
+        # v3.5: 分层技术差距
+        gap_infra = np.mean([s["summary"].get("final_tech_gap_infra", s["summary"].get("final_tech_gap", 0))
+                           for s in regime_results])
+        gap_app = np.mean([s["summary"].get("final_tech_gap_app", s["summary"].get("final_tech_gap", 0))
+                         for s in regime_results])
         fractures = np.mean([s["summary"]["total_fractures"] for s in regime_results])
+        # v3.5: 就业质量
+        emp_quality = np.mean([s["summary"].get("employment_quality_index", 1.0)
+                             for s in regime_results])
 
         cdi_vals = [s["summary"].get("evaluation", {}).get("cdi", float("nan"))
                     for s in regime_results]
@@ -174,6 +183,10 @@ def main():
             f"  策略{regime}: 存活率={surv:.1%} | 平均{yrs:.0f}年 | "
             f"GDP中位数={gdp:.0f} | 技术差距={gap:.1f} | "
             f"断裂={fractures:.1f} | CDI={cdi_mean:.3f}"
+        )
+        logger.logger.info(
+            f"          v3.5: 技术差距(infra)={gap_infra:.1f} | "
+            f"技术差距(app)={gap_app:.1f} | 就业质量={emp_quality:.3f}"
         )
 
     # 按场景×策略交叉矩阵

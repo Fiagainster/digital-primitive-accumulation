@@ -1,4 +1,4 @@
-"""系统状态容器 —— 所有状态变量的统一数据结构."""
+"""系统状态容器 —— 所有状态变量的统一数据结构 (v3.5: 七部门 + 就业质量)."""
 
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
@@ -26,7 +26,11 @@ class SectorState:
     jobs_created: float = 0.0     # v2.2: 当期新增就业
     jobs_destroyed: float = 0.0   # v2.2: 当期减少就业
     # v3.3: 部门类型元数据（服务业与制造业的区分）
-    sector_type: str = "goods"     # "goods" | "services"
+    sector_type: str = "goods"     # "goods" | "services" | "digital_infra" | "digital_app"
+    # v3.5: 进口依赖度（区分数字部门infra/app和服务业各子类的对外依赖）
+    import_dependency: float = 0.0  # [0,1] 该部门对外部技术的依赖程度
+    # v3.5: 就业质量（区分正式就业和零工经济）
+    employment_quality: float = 1.0  # [0,1] 1=正式稳定就业, 0.4=零工, 0.1=非正式
 
 
 @dataclass
@@ -46,17 +50,37 @@ class DataAssets:
 
 @dataclass
 class DigitalDependencyProfile:
-    """数字依附多层评估."""
+    """v3.5: 六维数字依附评估（原三维扩展）."""
 
-    infrastructure_dependency: float = 0.0
-    data_dependency: float = 0.0
-    standards_autonomy: float = 0.5
+    # 基础设施层依附
+    chip_dependency: float = 0.0          # 芯片进口依赖
+    cloud_dependency: float = 0.0         # 云服务依赖
+    os_dependency: float = 0.0            # 操作系统依赖
+    # 数据层依附
+    data_dependency: float = 0.0          # 数据存储与处理能力依赖
+    # 标准层依附
+    standards_autonomy: float = 0.5       # 标准参与权(反向)
+    # v3.5: 新增维度
+    capital_dependency: float = 0.0       # 资本依附（外资在数字部门持股比例）
+    talent_dependency: float = 0.0        # 人才依附（高技能人才海外依赖）
+    ecosystem_dependency: float = 0.0     # 生态依附（应用生态/开发者社区外国主导）
+
+    @property
+    def infrastructure_dependency(self) -> float:
+        """基础设施综合依赖 = 芯片/云/OS加权."""
+        return (0.45 * self.chip_dependency
+                + 0.30 * self.cloud_dependency
+                + 0.25 * self.os_dependency)
 
     @property
     def composite(self) -> float:
-        return (0.40 * self.infrastructure_dependency
-                + 0.35 * self.data_dependency
-                + 0.25 * (1.0 - self.standards_autonomy))
+        """六维综合依附指数."""
+        return (0.25 * self.infrastructure_dependency
+                + 0.20 * self.data_dependency
+                + 0.15 * (1.0 - self.standards_autonomy)
+                + 0.20 * self.capital_dependency
+                + 0.10 * self.talent_dependency
+                + 0.10 * self.ecosystem_dependency)
 
 
 @dataclass
@@ -278,8 +302,13 @@ class SystemState:
     skill_erosion_i: float = 1.0
     skill_erosion_b: float = 1.0
     # v3.3: 低端服务业（非正式就业缓冲带）
-    informal_service_L: float = 0.0    # 低端服务业劳动力
-    informal_service_W: float = 0.0    # 低端服务业平均工资
+    informal_service_L: float = 0.0    # 低端服务业/零工经济劳动力
+    informal_service_W: float = 0.0    # 低端服务业/零工经济平均工资
+    # v3.5: 就业质量综合指数（加权平均）
+    employment_quality_index: float = 1.0  # [0,1] 整体就业质量
+    # v3.5: 数字部门infra/app分层技术差距
+    tech_gap_infra: float = 3.0        # 基础设施层技术差距
+    tech_gap_app: float = 3.0          # 应用层技术差距
     # v3.3: 金融部门
     credit_rationing_ratio: float = 1.0  # 信贷可得性 [0,1]
     real_exchange_rate: float = 1.0      # 实际汇率（1=基准）
@@ -293,9 +322,49 @@ class SystemState:
     carbon_damage_multiplier: float = 1.0  # 气候损害乘数 (>1=损害)
     green_transition_pressure: float = 0.0  # 绿色转型压力 [0,1]
 
+    # v3.6: 平台垄断
+    digital_hhi: float = 0.0              # 数字部门HHI市场集中度 [0,1]
+    platform_monopoly_rent: float = 0.0   # 平台垄断租金占数字利润比例 [0,1]
+    data_network_moat: float = 0.0        # 数据网络护城河强度 [0,1]
 
-# v3.3: 四部门标识
-ALL_SECTORS = ["b", "i", "d", "s"]
+    # v3.6: 内生人口
+    total_population: float = 0.0         # 总人口（万人）——由demography模块内生更新
+    working_age_pop: float = 0.0          # 劳动年龄人口（15-64岁）
+    dependency_ratio: float = 0.5         # 抚养比（非劳动年龄/劳动年龄）
+    fertility_rate: float = 2.5           # 总和生育率
+    life_expectancy: float = 65.0         # 预期寿命（年）
+    urbanization_rate: float = 0.35       # 城镇化率 [0,1]
+
+    # v3.6: 空间维度
+    coastal_industry_share: float = 0.60       # 沿海/城市区域工业份额
+    coastal_digital_infra_share: float = 0.75  # 沿海数字infra份额
+    coastal_digital_app_share: float = 0.80    # 沿海数字app份额
+    coastal_service_high_share: float = 0.70   # 沿海高技能服务业份额
+    coastal_population_share: float = 0.45     # 沿海/城市人口份额
+    urban_rural_productivity_ratio: float = 2.5  # 城乡生产率比
+    spatial_gini: float = 0.0                   # 区域不平等（基尼系数）
+    agglomeration_bonus: float = 0.0            # 集聚经济效应
+    congestion_penalty: float = 0.0             # 拥挤成本
+
+    # v3.6: 政策执行
+    policy_execution_discount: float = 1.0  # 官僚体系策略执行效率 [0.5, 1.0]
+
+
+# v3.5: 七部门标识（数字拆分为infra+app, 服务业拆分为high+low）
+ALL_SECTORS = ["b", "i", "d_infra", "d_app", "s_high", "s_low"]
+
+# v3.5: 向后兼容的部门组
+DIGITAL_SECTORS = ["d_infra", "d_app"]
+SERVICE_SECTORS = ["s_high", "s_low"]
+PRODUCTION_SECTORS = ["b", "i"]  # 物质生产部门
+# 旧代码兼容映射（逐步迁移）
+LEGACY_d = DIGITAL_SECTORS  # "d" → ["d_infra", "d_app"]
+LEGACY_s = SERVICE_SECTORS  # "s" → ["s_high", "s_low"]
+
+# v3.5: 就业质量分类
+EMPLOYMENT_FORMAL = 1.0       # 正式稳定就业
+EMPLOYMENT_GIG = 0.4          # 零工经济（有收入但不稳定）
+EMPLOYMENT_INFORMAL = 0.1     # 非正式就业/隐藏失业
 
 
 def _gini(x: np.ndarray) -> float:

@@ -79,25 +79,34 @@ class PoliticalEconomyModule:
         )
         ps.employment_satisfaction = np.clip(ps.employment_satisfaction, 0.05, 1.0)
 
-        # (b) v3.2: 工资满意度 — 按群组政治权重加权
-        wage_satisfactions = []
-        for idx, key in enumerate(["d", "i", "b", "s"]):
-            s = state.sectors[key]
-            # 各群组对自己的工资满意度的感知
-            ref_wage = max(np.mean([state.sectors[k].W for k in ["d"]]), 0.01)
-            sat = min(1.0, s.W / ref_wage)
-            wage_satisfactions.append(sat)
-        # 失业者满意度单独计算
+        # (b) v3.5: 工资满意度 — 6部门→5群组映射
+        ref_wage = max(np.mean([state.sectors[k].W for k in ["d_infra", "d_app"]]), 0.01)
+        # 数字群组(d_infra+d_app)、工业(i)、基础(b)、服务业(s_high+s_low)、失业
+        d_L = state.sectors["d_infra"].L + state.sectors["d_app"].L
+        w_d = ((state.sectors["d_infra"].W * state.sectors["d_infra"].L
+               + state.sectors["d_app"].W * state.sectors["d_app"].L) / max(d_L, 0.01)
+               if d_L > 0 else ref_wage)
+        s_L = state.sectors["s_high"].L + state.sectors["s_low"].L
+        w_s = ((state.sectors["s_high"].W * state.sectors["s_high"].L
+               + state.sectors["s_low"].W * state.sectors["s_low"].L) / max(s_L, 0.01)
+               if s_L > 0 else ref_wage * 0.3)
+        wage_satisfactions = [
+            min(1.0, w_d / ref_wage),                       # digital_high_skill
+            min(1.0, state.sectors["i"].W / ref_wage),       # industrial_workers
+            min(1.0, state.sectors["b"].W / ref_wage),       # base_workers
+            min(1.0, w_s / ref_wage),                        # service_workers
+        ]
+        # 失业者
         hh_u = hh.unemployed
         if hh_u.population > 0 and hh_u.compensation_received > 0:
             avg_comp = hh_u.compensation_received / max(hh_u.population, 1.0)
-            avg_wage_all = np.mean([state.sectors[k].W for k in ["b", "i", "d", "s"]])
+            avg_wage_all = np.mean([state.sectors[k].W for k in ALL_SECTORS])
             u_sat = min(1.0, avg_comp / max(avg_wage_all * 0.3, 0.01))
         else:
             u_sat = 0.1
         wage_satisfactions.append(u_sat)
 
-        # 按政治权重加权
+        # 按政治权重加权 (5群组)
         ps.wage_satisfaction = np.dot(group_weights, np.array(wage_satisfactions))
         ps.wage_satisfaction = np.clip(ps.wage_satisfaction, 0.05, 1.0)
 
@@ -237,13 +246,20 @@ class PoliticalEconomyModule:
                 # 约束太紧 → 无法维持DL_d → 反哺链条断裂
                 # 数字部门失去投资 → 技术领先性退化
                 dl_decay = (0.25 - ps.policy_constraint) * 0.05 * dt
-                state.sectors["d"].DL = max(0.05, state.sectors["d"].DL - dl_decay)
+                # Apply DL decay to both digital sectors (using their average)
+                avg_dl = (state.sectors["d_infra"].DL + state.sectors["d_app"].DL) / 2.0
+                new_avg_dl = max(0.05, avg_dl - dl_decay)
+                decay_factor = new_avg_dl / max(avg_dl, 0.001)
+                state.sectors["d_infra"].DL = max(0.05, state.sectors["d_infra"].DL * decay_factor)
+                state.sectors["d_app"].DL = max(0.05, state.sectors["d_app"].DL * decay_factor)
             elif regime == "C":
                 # C的核心依赖外部资源
                 # 政治不稳定 → 外资加速撤离
                 drain = (0.25 - ps.policy_constraint) * 0.08 * dt
-                state.balance_sheets.get("d")
-                state.sectors["d"].K = max(0.1, state.sectors["d"].K - drain * state.sectors["d"].K)
+                # Capital drain from both digital sectors
+                drain_factor = max(0.0, 1.0 - drain)
+                state.sectors["d_infra"].K = max(0.1, state.sectors["d_infra"].K * drain_factor)
+                state.sectors["d_app"].K = max(0.1, state.sectors["d_app"].K * drain_factor)
 
         # 记录支持度历史
         self._support_history.append(ps.support_index)
@@ -325,3 +341,50 @@ class PoliticalEconomyModule:
             "wage_satisfaction": ps.wage_satisfaction,
             "inequality_tolerance": ps.inequality_tolerance,
         }
+
+    # ─────────────────────────────────────────────
+    # v3.6: 政策执行折扣 —— 官僚体系内部摩擦
+    # ─────────────────────────────────────────────
+    def compute_execution_discount(self, state: SystemState,
+                                   strategy_complexity: float = 0.0) -> float:
+        """计算官僚体系内部的策略执行折扣.
+
+        即使是"最优策略"，在真实官僚体系中也会经历衰减：
+        - 多部门协调成本（"九龙治水"）
+        - 地方与中央的利益不一致
+        - 信息传递失真
+        - 制度能力的结构性约束
+
+        Args:
+            state: 系统状态
+            strategy_complexity: 策略复杂度 [0,1]（0=纯策略, 1=高度混合）
+
+        Returns:
+            执行折扣 ∈ [0.5, 1.0]（1.0=完全执行, 0.5=仅执行50%）
+        """
+        inst_cap = self.p.get("institution_capacity", 0.6)
+        base_efficiency = self.p.get("policy_execution_base_efficiency", 0.75)
+        complexity_penalty = self.p.get("bureaucracy_complexity_penalty", 0.15)
+
+        # 基础执行效率 = f(制度能力)
+        execution = 0.5 + 0.5 * inst_cap  # [0.65, 1.0]
+
+        # 策略复杂度惩罚
+        # 混合策略需要更多部门协调 → 执行效率下降
+        execution *= (1.0 - strategy_complexity * complexity_penalty)
+
+        # 抗议风险额外折扣：社会不稳定时官僚体系更难运作
+        ps = state.political_support
+        if ps.protest_risk > 0.5:
+            execution *= max(0.7, 1.0 - (ps.protest_risk - 0.5) * 0.4)
+
+        # 政策约束的累积效应
+        if ps.policy_constraint < 0.5:
+            execution *= (0.7 + 0.3 * ps.policy_constraint / 0.5)
+
+        execution = max(0.50, min(1.0, execution))
+
+        # 记录到状态
+        state.policy_execution_discount = execution
+
+        return execution

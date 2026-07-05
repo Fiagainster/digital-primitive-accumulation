@@ -183,12 +183,14 @@ class GradualAccumulation(AccumulationRegime):
         for key in ALL_SECTORS:
             phi[key] = state.sectors[key].K / max(total_K, 1.0)
 
-        # 略偏向数字
+        # 略偏向数字（两个子部门分享溢价）
         premium = self.p["A_phi_d_premium"]
-        phi["d"] += premium
-        phi["i"] -= premium * 0.5
-        phi["b"] -= premium * 0.2
-        phi["s"] -= premium * 0.3  # v3.3
+        phi["d_infra"] += premium * 0.4
+        phi["d_app"] += premium * 0.6
+        phi["i"] -= premium * 0.35
+        phi["b"] -= premium * 0.15
+        phi["s_high"] -= premium * 0.05
+        phi["s_low"] -= premium * 0.05
 
         # 归一化
         total = sum(phi.values())
@@ -218,9 +220,10 @@ class GradualAccumulation(AccumulationRegime):
         # 2. 渐进主义时间税 — 走得太慢，世界在前进
         cs["protection_duration"] += dt
         g_world = self.p.get("g_world", 0.03)
-        prev_A_d = getattr(self, '_prev_A_d', state.sectors["d"].A)
-        g_d = (state.sectors["d"].A / max(prev_A_d, 0.01) - 1.0)
-        self._prev_A_d = state.sectors["d"].A
+        A_d_app = state.sectors["d_app"].A
+        prev_A_d = getattr(self, '_prev_A_d', A_d_app)
+        g_d = (A_d_app / max(prev_A_d, 0.01) - 1.0)
+        self._prev_A_d = A_d_app
         lag_rate = max(0.0, g_world - g_d - 0.01)
         cs["cumulative_lag"] += lag_rate * dt
         if cs["cumulative_lag"] > 0.1:
@@ -235,7 +238,8 @@ class GradualAccumulation(AccumulationRegime):
                 (cs["protection_duration"] - 15.0) * 0.01 * industry_emp_share
             )
             reform_resistance = cs["vested_interest_intensity"]
-            state.sectors["d"].I *= max(0.5, 1.0 - reform_resistance * dt)
+            for d_key in ["d_infra", "d_app"]:
+                state.sectors[d_key].I *= max(0.5, 1.0 - reform_resistance * dt)
 
         # 4. 中间收入陷阱
         dd_i = state.sectors["i"].digital_density
@@ -264,10 +268,39 @@ class LeapAccumulation(AccumulationRegime):
     - 反哺失败时，数字部门继续扩张但工业得不到补偿 → 工业枯萎风险
     """
 
+    def _agg_digital_K(self, state: SystemState) -> float:
+        """v3.5: 聚合数字部门资本."""
+        return state.sectors["d_infra"].K + state.sectors["d_app"].K
+
+    def _agg_digital_Y(self, state: SystemState) -> float:
+        """v3.5: 聚合数字部门产出."""
+        return state.sectors["d_infra"].Y + state.sectors["d_app"].Y
+
+    def _agg_digital_L(self, state: SystemState) -> float:
+        """v3.5: 聚合数字部门劳动力."""
+        return state.sectors["d_infra"].L + state.sectors["d_app"].L
+
+    def _agg_digital_DL(self, state: SystemState) -> float:
+        """v3.5: 聚合数字部门数字化水平(加权)."""
+        K_total = self._agg_digital_K(state)
+        if K_total > 0:
+            return (state.sectors["d_infra"].DL * state.sectors["d_infra"].K
+                    + state.sectors["d_app"].DL * state.sectors["d_app"].K) / K_total
+        return 0.0
+
+    def _agg_digital_r(self, state: SystemState) -> float:
+        """v3.5: 聚合数字部门利润率(加权)."""
+        K_total = self._agg_digital_K(state)
+        if K_total > 0:
+            return (state.sectors["d_infra"].r * state.sectors["d_infra"].K
+                    + state.sectors["d_app"].r * state.sectors["d_app"].K) / K_total
+        return 0.0
+
     def extraction_rate(self, state: SystemState) -> float:
         p = self.p
         g_target = p["B_g_target"]
-        K_d_invest_needed = g_target * state.sectors["d"].K
+        K_d_total = self._agg_digital_K(state)
+        K_d_invest_needed = g_target * K_d_total
         fund = max(state.accumulation_fund, 1.0)
         tau = min(g_target * K_d_invest_needed / fund, p["B_tau_actual_max"])
 
@@ -293,34 +326,37 @@ class LeapAccumulation(AccumulationRegime):
 
     def investment_allocation(self, state: SystemState, tau: float) -> dict:
         p = self.p
-        DL_d = state.sectors["d"].DL
+        DL_d = self._agg_digital_DL(state)
+        # v3.5: infra/app投资分配比例 — infra需要更多投入但回报慢
+        infra_share_of_digital = 0.35  # 数字投资中infra占35%
 
-        # v2.1: 反哺阶段检查 — 带失败概率
         if DL_d >= p["B_feedback_trigger"]:
-            # 计算反哺成功概率
             feedback_success = self._feedback_success_probability(state)
-
             if feedback_success:
-                # 反哺成功：数字部门利润回流工业
                 fb = p["B_feedback_ratio"]
-                # v3.2: 反哺实际执行比例受抵制指数调节
                 resistance = self._regime_state.get("feedback_resistance", 0.0)
-                execution_rate = max(0.3, 1.0 - resistance * 0.15)  # 抵制越强执行越弱
+                execution_rate = max(0.3, 1.0 - resistance * 0.15)
                 fb_effective = fb * execution_rate
                 self._regime_state["feedback_active"] = True
                 self._regime_state["feedback_effective_rate"] = fb_effective
+                phi_d_total = 0.55 - fb_effective * 0.5
                 return {"b": 0.10, "i": 0.25 + fb_effective * 0.5,
-                        "d": 0.55 - fb_effective * 0.5, "s": 0.10}
+                        "d_infra": phi_d_total * infra_share_of_digital,
+                        "d_app": phi_d_total * (1 - infra_share_of_digital),
+                        "s_high": 0.05, "s_low": 0.05}
             else:
-                # 反哺失败：数字部门截留利润，继续自我扩张
                 self._regime_state["feedback_failed_count"] += 1
-                # 工业不仅得不到反哺，还可能被进一步提取
-                phi_d = min(0.85, p["B_phi_d_jump"] + 0.10)
-                return {"b": 0.05, "i": 1.0 - phi_d - 0.10, "d": phi_d, "s": 0.05}
+                phi_d_total = min(0.85, p["B_phi_d_jump"] + 0.10)
+                return {"b": 0.03, "i": 1.0 - phi_d_total - 0.04,
+                        "d_infra": phi_d_total * infra_share_of_digital,
+                        "d_app": phi_d_total * (1 - infra_share_of_digital),
+                        "s_high": 0.02, "s_low": 0.02}
         else:
-            # 跳跃阶段：高提取 → 数字优先
-            phi_d = p["B_phi_d_jump"]
-            return {"b": 0.05, "i": 1.0 - phi_d - 0.10, "d": phi_d, "s": 0.05}
+            phi_d_total = p["B_phi_d_jump"]
+            return {"b": 0.03, "i": 1.0 - phi_d_total - 0.04,
+                    "d_infra": phi_d_total * infra_share_of_digital,
+                    "d_app": phi_d_total * (1 - infra_share_of_digital),
+                    "s_high": 0.02, "s_low": 0.02}
 
     def _apply_socioeconomic_costs(self, state: SystemState, tau: float, dt: float):
         """v2.2: 计算并应用高提取策略的社会经济成本.
@@ -331,26 +367,18 @@ class LeapAccumulation(AccumulationRegime):
         3. 资产泡沫/不平等: 数字部门高利润、垄断化 → 财富集中
         """
         # 1. 就业破坏效应
-        # 当提取率超过30%时，每超出10个百分点，
-        # 工业部门的正常就业流失加速15%
         tau_baseline = 0.30
         if tau > tau_baseline:
             excess_tau = tau - tau_baseline
-            # 额外失业 = 工业就业 × 超额提取率 × 加速因子
             extra_unemployment = (
-                state.sectors["i"].L
-                * excess_tau
-                * 0.05  # 基础效应
-                * dt
+                state.sectors["i"].L * excess_tau * 0.05 * dt
             )
-            # 这部分失业者不能被数字部门完全吸收（技能不匹配）
-            absorptive_d = state.sectors["d"].L * state.sectors["d"].DL * 0.02 * dt
+            absorptive_d = self._agg_digital_L(state) * self._agg_digital_DL(state) * 0.02 * dt
             net_unemployment = max(0, extra_unemployment - absorptive_d)
             state.households.unemployed.population += net_unemployment
             state.households.unemployed.population = max(
                 0, state.households.unemployed.population
             )
-            # 对应减少工业部门就业
             state.sectors["i"].L -= net_unemployment * 0.5
             state.sectors["i"].L = max(0.5, state.sectors["i"].L)
 
@@ -364,14 +392,10 @@ class LeapAccumulation(AccumulationRegime):
             demand_constraint = 1.0 - consumption_drag * dt
             state.sectors["i"].Y *= max(0.85, demand_constraint)
 
-        # 3. 资产泡沫/不平等风险
-        # 数字部门高利润率 + 低反哺 → 财富集中 → 代价基尼恶化
-        r_d = state.sectors["d"].r
+        # 3. 资产泡沫/不平等风险 (v3.5: 使用聚合数字利润率)
+        r_d = self._agg_digital_r(state)
         if r_d > 0.25:
-            # 超额利润 → 资产泡沫/不平等加剧
             bubble_pressure = (r_d - 0.25) * 0.3 * dt
-            # 通过代价集中度上升来体现（在welfare模块中追踪）
-            # 这里设置一个信号，供welfare模块和断裂检测使用
             self._regime_state["bubble_pressure"] = (
                 self._regime_state.get("bubble_pressure", 0.0) + bubble_pressure
             )
@@ -396,54 +420,33 @@ class LeapAccumulation(AccumulationRegime):
         self._check_bubble_burst(state, dt)
 
     def _feedback_success_probability(self, state: SystemState) -> bool:
-        """计算反哺成功的概率 (v3.2: 增加反哺抵制机制).
-
-        反哺失败的概率取决于：
-        1. 数字部门利润率越高 → 越不愿意反哺（截留动机强）
-        2. 制度能力越弱 → 越无法强制反哺
-        3. 外部竞争压力 → 数字部门声称"需要更多投资应对竞争"
-        4. v3.2: 反哺抵制指数 — 数字部门的政治影响力主动抵制反哺
-        """
+        """计算反哺成功的概率 (v3.5: 使用聚合数字指标)."""
         p = self.p
-
-        # 基础成功概率
         base_success = 0.85
 
-        # 数字部门利润率惩罚
-        r_d = state.sectors["d"].r
-        if r_d > 0.30:     # 利润率超过30%
+        r_d = self._agg_digital_r(state)
+        if r_d > 0.30:
             base_success -= 0.20
-        elif r_d > 0.20:   # 利润率超过20%
+        elif r_d > 0.20:
             base_success -= 0.10
 
-        # 制度能力调节
         inst_cap = p.get("institution_capacity", 0.6)
         base_success += (inst_cap - 0.5) * 0.30
 
-        # v3.2: 反哺抵制指数 — 数字部门政治影响力
-        # 数字部门占GDP越高 + 利润率越高 → 抵制越强
-        d_gdp_share = state.sectors["d"].Y / max(state.gdp, 0.01)
-        feedback_resistance = d_gdp_share * (r_d / 0.20)  # r_d=0.20为基准
-        # 抵制指数范围: [0, ~4]
-        # 当数字部门占GDP>60%且r_d>30%时 → resistance > 3.0
-        base_success -= feedback_resistance * 0.08  # 每单位抵制降低8%成功率
+        d_gdp_share = self._agg_digital_Y(state) / max(state.gdp, 0.01)
+        feedback_resistance = d_gdp_share * (r_d / 0.20)
+        base_success -= feedback_resistance * 0.08
 
-        # 外部竞争压力（技术差距大 → 数字部门有借口）
         G = state.tech_gap
         if G > 8.0:
             base_success -= 0.15
 
-        # 反哺失败次数累积效应
         failed = self._regime_state["feedback_failed_count"]
         if failed > 0:
             base_success -= failed * 0.05
 
-        base_success = max(0.15, min(0.95, base_success))  # v3.2: 下限从0.25降至0.15
-
-        # v3.2: 记录抵制指数用于分析
+        base_success = max(0.15, min(0.95, base_success))
         self._regime_state["feedback_resistance"] = feedback_resistance
-
-        # 随机判定
         return np.random.random() < base_success
 
     def _check_bubble_burst(self, state: SystemState, dt: float):
@@ -482,16 +485,19 @@ class LeapAccumulation(AccumulationRegime):
 
         # 泡沫破裂判定
         if np.random.random() < base_prob * fragility:
-            # === 硬破裂 ===
-            # 破裂烈度与泡沫压力成正比（不是固定20-40%）
-            severity = min(0.45, 0.15 + bp * 0.06)  # bp=2→27%, bp=5→45%
-            state.sectors["d"].K *= (1.0 - severity)
+            # === 硬破裂：同时影响infra和app ===
+            severity = min(0.45, 0.15 + bp * 0.06)
+            # app受到的冲击更大（估值泡沫主要在应用层）
+            state.sectors["d_infra"].K *= (1.0 - severity * 0.6)
+            state.sectors["d_app"].K *= (1.0 - severity * 1.2)
 
-            # 就业冲击与烈度成正比
+            # 就业冲击
             layoff_rate = severity * 1.2
-            laid_off = state.sectors["d"].L * layoff_rate
-            state.sectors["d"].L = max(1.0, state.sectors["d"].L - laid_off)
-            state.households.unemployed.population += laid_off * 0.6
+            laid_off_infra = state.sectors["d_infra"].L * layoff_rate * 0.5
+            laid_off_app = state.sectors["d_app"].L * layoff_rate * 1.5
+            state.sectors["d_infra"].L = max(0.3, state.sectors["d_infra"].L - laid_off_infra)
+            state.sectors["d_app"].L = max(0.5, state.sectors["d_app"].L - laid_off_app)
+            state.households.unemployed.population += (laid_off_infra + laid_off_app) * 0.6
 
             # 数据资产贬值
             state.data_assets.producer_data *= (1.0 - severity * 0.8)
@@ -500,28 +506,20 @@ class LeapAccumulation(AccumulationRegime):
             # 政治冲击
             state.political_support.support_index *= (1.0 - severity * 0.5)
 
-            # 泡沫压力释放（但不会归零——信心需要时间恢复）
             self._regime_state["bubble_pressure"] *= 0.35
-
-            # 反哺失败次数增加
             self._regime_state["feedback_failed_count"] += 1
             self._regime_state.setdefault("bubble_bursts", 0)
             self._regime_state["bubble_bursts"] += 1
 
-            # v3.4: 泡沫破裂财富效应 — 股权持有者财富毁灭
-            # 数字高技能群体持有的数字股权大幅缩水
+            # v3.5: 泡沫破裂财富效应 — 应用层股权缩水更严重
             state.households.digital_high_skill.equity *= (1.0 - severity)
-            # 股权持有集中 → 财富基尼可能暂时缩小（富人损失更大）
-            # 但随后失业效应会进一步加剧不平等
             state.households.industrial_workers.equity *= (1.0 - severity * 0.3)
 
         elif inst_cap > 0.7 and bp > 3.0:
-            # === 软着陆：高制度能力 + 高泡沫 → 有序消解 ===
-            # 泡沫压力缓慢下降，经济承受可控损失
+            # === 软着陆 ===
             self._regime_state["bubble_pressure"] -= 0.02 * dt
-            # 小幅资本调整（不是崩盘）
-            state.sectors["d"].K *= (1.0 - 0.005 * dt)
-            # 政治支持度小幅波动
+            state.sectors["d_infra"].K *= (1.0 - 0.003 * dt)
+            state.sectors["d_app"].K *= (1.0 - 0.005 * dt)
             state.political_support.support_index *= 0.995
 
 
@@ -555,34 +553,34 @@ class SubstitutionAccumulation(AccumulationRegime):
     def investment_allocation(self, state: SystemState, tau: float, dt: float = 0.25) -> dict:
         p = self.p
 
-        # v2.2: 检测外部冲击（传入dt用于时间相关计算）
         self._check_external_shocks(state, dt)
 
         export_share = p["C_resource_export_intensity"]
         fdi_share = p["C_fdi_openness"]
         tech_import = p["C_tech_import_preference"]
 
-        # v2.1: FDI冲击 → 减少数字部门投资
         fdi_effective = fdi_share
         if self._regime_state["fdi_shock_active"]:
-            fdi_effective *= 0.3  # FDI骤降70%
+            fdi_effective *= 0.3
 
-        # 数字部门从外资和技术进口获益
-        phi_d = 0.25 + 0.15 * fdi_effective + 0.10 * tech_import
-
-        # v2.1: 资源冲击 → 减少可用于进口技术的资金
+        # v3.5: 数字部门投资分配 — FDI主要流向app层
+        phi_d_total = 0.25 + 0.15 * fdi_effective + 0.10 * tech_import
         if self._regime_state["resource_shock_active"]:
-            phi_d *= 0.7
-            tech_import_effective = tech_import * 0.5
-        else:
-            tech_import_effective = tech_import
+            phi_d_total *= 0.7
+
+        # infra/app分配: C策略下app获益更多（FDI偏好应用层）
+        phi_d_infra = phi_d_total * 0.25
+        phi_d_app = phi_d_total * 0.75
 
         phi_i = 0.30 + 0.10 * export_share
-        phi_s = 0.15  # v3.3: 服务业基本份额
-        phi_b = 1.0 - phi_d - phi_i - phi_s
+        phi_s_high = 0.08
+        phi_s_low = 0.07
+        phi_b = 1.0 - phi_d_infra - phi_d_app - phi_i - phi_s_high - phi_s_low
 
-        return {"b": max(0.05, phi_b), "i": phi_i,
-                "d": min(0.70, phi_d), "s": phi_s}
+        return {"b": max(0.03, phi_b), "i": phi_i,
+                "d_infra": max(0.02, phi_d_infra),
+                "d_app": min(0.55, phi_d_app),
+                "s_high": phi_s_high, "s_low": phi_s_low}
 
     def _check_external_shocks(self, state: SystemState, dt: float = 0.25):
         """检测外部冲击事件 (v3.2 增强 — 三重独立冲击).
@@ -663,13 +661,15 @@ class SubstitutionAccumulation(AccumulationRegime):
             rd_buffer = max(0.2, 1.0 - indigenous_rd * 10)
             extra_gap_growth = 0.06 * rd_buffer * dt * storm_multiplier
             state.tech_gap *= (1.0 + extra_gap_growth)
-            state.sectors["d"].K = max(
-                1.0, state.sectors["d"].K * (1.0 - 0.03 * dt * storm_multiplier)
-            )
+            for d_key in ["d_infra", "d_app"]:
+                state.sectors[d_key].K = max(
+                    0.5, state.sectors[d_key].K * (1.0 - 0.03 * dt * storm_multiplier)
+                )
             # 技术进口断裂叠加 → 数字部门技术水平退化
             if self._regime_state.get("tech_import_break_active", False):
-                state.sectors["d"].A = max(0.1,
-                    state.sectors["d"].A * (1.0 - 0.02 * dt * storm_multiplier))
+                for d_key in ["d_infra", "d_app"]:
+                    state.sectors[d_key].A = max(0.1,
+                        state.sectors[d_key].A * (1.0 - 0.02 * dt * storm_multiplier))
 
             if self._regime_state["perfect_storm_count"] > 20:
                 state.political_support.support_index *= (1.0 - 0.01 * dt)

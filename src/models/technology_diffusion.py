@@ -64,7 +64,7 @@ class TechnologyDiffusion:
     def _compute_diffusion_rates(self, state: SystemState):
         """计算从数字部门到其他部门的知识扩散率."""
         p = self.p
-        A_d = state.sectors["d"].A
+        A_d = 0.4 * state.sectors["d_infra"].A + 0.6 * state.sectors["d_app"].A
 
         for key in ["i", "b"]:
             s = state.sectors[key]
@@ -94,7 +94,7 @@ class TechnologyDiffusion:
 
             # === 数字部门成熟度的溢出 ===
             # DL_d越高，知识溢出越强（数字生态的外部性）
-            dl_spillover = state.sectors["d"].DL * 0.05 * gap
+            dl_spillover = 0.5 * (state.sectors["d_infra"].DL + state.sectors["d_app"].DL) * 0.05 * gap
 
             # 总扩散率
             total = spontaneous + policy_driven + dl_spillover
@@ -163,7 +163,7 @@ class TechnologyDiffusion:
         for key in ["i", "b"]:
             gap = self._sector_gaps[key]
             # 前沿自然进步（来自数字溢出）
-            dl_factor = state.sectors["d"].DL
+            dl_factor = 0.5 * (state.sectors["d_infra"].DL + state.sectors["d_app"].DL)
             gap["frontier"] += dl_factor * 0.03 * dt
 
             # 落后企业追赶

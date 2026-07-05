@@ -105,17 +105,17 @@ class WelfareModule:
             # 失业代价
         u_stock = state.households.unemployed.population
         if u_stock > 0:
-            w_avg = np.mean([state.sectors[k].W for k in ["b", "i", "d"]])
+            w_avg = np.mean([state.sectors[k].W for k in ["b", "i", "d_infra", "d_app"]])
             cm.unemployment_stock += u_stock * w_avg * dt
 
         # 技能贬值：各群组相对于自身历史峰值的工资损失
-        for h, sector_key in [
-            (state.households.industrial_workers, "i"),
-            (state.households.base_workers, "b"),
-            (state.households.digital_high_skill, "d"),
-            (state.households.service_workers, "s"),  # v3.3
+        for h, sector_keys in [
+            (state.households.industrial_workers, ["i"]),
+            (state.households.base_workers, ["b"]),
+            (state.households.digital_high_skill, ["d_infra", "d_app"]),
+            (state.households.service_workers, ["s_high", "s_low"]),
         ]:
-            peak_w = self._peak_wages[sector_key]
+            peak_w = np.mean([self._peak_wages[k] for k in sector_keys])
             w_loss = max(0, peak_w - h.avg_wage) * h.population
             h.cumulative_cost += w_loss * dt
 
@@ -129,7 +129,7 @@ class WelfareModule:
         informal_W = getattr(state, "informal_service_W", 0.0)
         if informal_L > 0:
             # 低端服务业工资极低 → 生活质量损失
-            avg_formal_W = np.mean([state.sectors[k].W for k in ["b", "i", "d"]])
+            avg_formal_W = np.mean([state.sectors[k].W for k in ["b", "i", "d_infra", "d_app"]])
             wage_gap = max(0.0, avg_formal_W - informal_W) * informal_L
             state.households.unemployed.cumulative_cost += wage_gap * 0.5 * dt
 
@@ -167,7 +167,8 @@ class WelfareModule:
         dW_i = state.sectors["i"].W - self._prev_W_i
 
         if dL_i < -0.01:  # 工业劳动力在减少
-            flow_to_d = max(0, state.sectors["d"].L - getattr(self, '_prev_L_d', state.sectors["d"].L))
+            flow_to_d = max(0, (state.sectors["d_infra"].L + state.sectors["d_app"].L)
+                            - getattr(self, '_prev_L_d', state.sectors["d_infra"].L + state.sectors["d_app"].L))
             flow_to_b = max(0, state.sectors["b"].L - getattr(self, '_prev_L_b', state.sectors["b"].L))
             flow_to_u = -dL_i - flow_to_d - flow_to_b
 
@@ -191,7 +192,7 @@ class WelfareModule:
         # 保存上期值
         self._prev_L_i = state.sectors["i"].L
         self._prev_W_i = state.sectors["i"].W
-        self._prev_L_d = state.sectors["d"].L
+        self._prev_L_d = state.sectors["d_infra"].L + state.sectors["d_app"].L
         self._prev_L_b = state.sectors["b"].L
 
     def update_reallocation(self, state: SystemState):
@@ -268,13 +269,13 @@ class WelfareModule:
 
                 # v3.4: 股权价值变动 — 随部门资本增长而增值
                 if group_name == "digital":
-                    h.equity = state.sectors["d"].K * 0.40  # 数字高技能持有40%数字股权
+                    h.equity = (state.sectors["d_infra"].K + state.sectors["d_app"].K) * 0.40  # 数字高技能持有40%数字股权
                 elif group_name == "industrial":
                     h.equity = state.sectors["i"].K * 0.25  # 工业劳动者持有25%工业股权
                 elif group_name == "base":
                     h.equity = state.sectors["b"].K * 0.15
                 elif group_name == "service":
-                    h.equity = state.sectors["s"].K * 0.10
+                    h.equity = (state.sectors["s_high"].K + state.sectors["s_low"].K) * 0.10
 
         # v3.4: 更新系统级财富基尼系数
         state.wealth_gini = state.households.wealth_gini

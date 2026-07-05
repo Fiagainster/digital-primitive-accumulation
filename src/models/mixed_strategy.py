@@ -15,7 +15,7 @@ import numpy as np
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 import warnings
-from ..core.state import SystemState
+from ..core.state import SystemState, ALL_SECTORS, DIGITAL_SECTORS, SERVICE_SECTORS
 from .accumulation import (
     GradualAccumulation,
     LeapAccumulation,
@@ -135,6 +135,29 @@ class MixedStrategy:
         self._strategy_B: Optional[LeapAccumulation] = None
         self._strategy_C: Optional[SubstitutionAccumulation] = None
 
+        # v3.6: 策略不兼容矩阵 — 当混合存在内在冲突的策略时施加惩罚
+        # 每个策略对包含三个维度：资源逻辑冲突、制度逻辑冲突、外部逻辑冲突
+        self._incompatibility_matrix = {
+            "AB": {
+                "total":       self.p.get("M_AB", 0.25),
+                "resource":    self.p.get("M_AB_resource", 0.35),
+                "institution": self.p.get("M_AB_institution", 0.25),
+                "external":    self.p.get("M_AB_external", 0.10),
+            },
+            "BC": {
+                "total":       self.p.get("M_BC", 0.25),
+                "resource":    self.p.get("M_BC_resource", 0.10),
+                "institution": self.p.get("M_BC_institution", 0.30),
+                "external":    self.p.get("M_BC_external", 0.35),
+            },
+            "AC": {
+                "total":       self.p.get("M_AC", 0.15),
+                "resource":    self.p.get("M_AC_resource", 0.15),
+                "institution": self.p.get("M_AC_institution", 0.20),
+                "external":    self.p.get("M_AC_external", 0.15),
+            },
+        }
+
     @property
     def lambda_vec(self) -> Tuple[float, float, float]:
         return self.config.lambda_vec
@@ -239,8 +262,47 @@ class MixedStrategy:
     # ─────────────────────────────────────────────
     # 核心混合逻辑
     # ─────────────────────────────────────────────
+    def _compute_incompatibility_penalty(self, state: SystemState) -> float:
+        """计算策略混合的不兼容惩罚.
+
+        penalty = λ_A·λ_B·M_AB + λ_B·λ_C·M_BC + λ_A·λ_C·M_AC
+
+        调节因子:
+        - 制度能力越高，不兼容性越低（强制度可以调和策略冲突）
+        - 技术差距 > 5 时，外部压力放大不兼容性
+
+        Returns:
+            不兼容惩罚值，范围 [0, 1]
+        """
+        la, lb, lc = self.lambda_vec
+        M = self._incompatibility_matrix
+
+        # 基础不兼容：各策略对的权重乘积 × 不兼容系数
+        penalty = (
+            la * lb * M["AB"]["total"]
+            + lb * lc * M["BC"]["total"]
+            + la * lc * M["AC"]["total"]
+        )
+
+        # 制度能力调节：更高制度能力 → 更低的实际不兼容成本
+        # 调节范围 [0.4, 1.0]：强制度可将不兼容降低60%
+        inst_cap = self.p.get("institution_capacity", 0.6)
+        institution_moderator = max(0.4, 1.0 - inst_cap * 0.8)
+        penalty *= institution_moderator
+
+        # 外部压力放大：tech_gap > 5 时放大不兼容性
+        # 技术差距越大，策略冲突的代价越高
+        if state.tech_gap > 5.0:
+            amplification = 1.0 + (state.tech_gap - 5.0) * 0.08
+            penalty *= min(2.0, amplification)
+
+        return min(1.0, max(0.0, penalty))
+
     def compute_extraction_rate(self, state: SystemState) -> float:
-        """混合提取率 = λ_A·τ_A + λ_B·τ_B + λ_C·τ_C."""
+        """混合提取率 = λ_A·τ_A + λ_B·τ_B + λ_C·τ_C.
+
+        v3.6: 策略不兼容惩罚降低有效提取率。
+        """
         la, lb, lc = self.lambda_vec
         tau = 0.0
         if la > 0:
@@ -249,22 +311,32 @@ class MixedStrategy:
             tau += lb * self._get_B().extraction_rate(state)
         if lc > 0:
             tau += lc * self._get_C().extraction_rate(state)
+
+        # v3.6: 策略冲突降低有效提取效率（最多降低30%）
+        penalty = self._compute_incompatibility_penalty(state)
+        tau *= (1.0 - penalty * 0.3)
+
         return tau
 
     def compute_investment_allocation(self, state: SystemState,
                                       tau: float) -> dict:
-        """混合投资分配 — 按 λ 加权各纯策略的分配逻辑，然后归一化."""
+        """混合投资分配 — 按 λ 加权各纯策略的分配逻辑，然后归一化.
+
+        v3.6: 使用六部门结构 (ALL_SECTORS)，策略不兼容导致额外投资浪费。
+        """
         la, lb, lc = self.lambda_vec
-        phi = {"b": 0.0, "i": 0.0, "d": 0.0}
+
+        # v3.6: 六部门结构
+        phi = {k: 0.0 for k in ALL_SECTORS}
 
         if la > 0:
             phi_A = self._get_A().investment_allocation(state, tau)
-            for k in phi:
+            for k in ALL_SECTORS:
                 phi[k] += la * phi_A.get(k, 0.0)
 
         if lb > 0:
             phi_B = self._get_B().investment_allocation(state, tau)
-            for k in phi:
+            for k in ALL_SECTORS:
                 phi[k] += lb * phi_B.get(k, 0.0)
 
         if lc > 0:
@@ -273,14 +345,22 @@ class MixedStrategy:
                 phi_C = self._get_C().investment_allocation(state, tau, dt=0.25)
             except TypeError:
                 phi_C = self._get_C().investment_allocation(state, tau)
-            for k in phi:
+            for k in ALL_SECTORS:
                 phi[k] += lc * phi_C.get(k, 0.0)
+
+        # v3.6: 策略不兼容惩罚 — 部分投资因策略冲突而浪费（最多浪费40%）
+        penalty = self._compute_incompatibility_penalty(state)
+        waste_factor = 1.0 - penalty * 0.4
+        for k in ALL_SECTORS:
+            phi[k] *= waste_factor
 
         # 归一化
         total = sum(phi.values())
         if total > 0:
             return {k: v / total for k, v in phi.items()}
-        return {"b": 1/3, "i": 1/3, "d": 1/3}
+        # 六部门默认均分
+        n = len(ALL_SECTORS)
+        return {k: 1.0 / n for k in ALL_SECTORS}
 
     def compute_surplus(self, state: SystemState):
         """计算总剩余（委托给基类逻辑 — 使用 mixed regime 的 AccumulationRegime）."""
@@ -323,7 +403,7 @@ class MixedStrategy:
         """
         la, lb, lc = self.lambda_vec
 
-        # v3.0: 策略A内生成本（需要实现）
+        # v3.0: 策略A内生成本
         if la > 0:
             self._apply_A_costs(state, dt, weight=la)
 
@@ -334,6 +414,64 @@ class MixedStrategy:
         # C的内生成本通过外部冲击机制运作（v2.2已有）
         if lc > 0:
             self._apply_C_costs(state, dt, weight=lc)
+
+        # v3.6: 策略对之间的互斥不兼容成本
+        self._apply_mutual_incompatibility_costs(state, dt)
+
+    def _apply_mutual_incompatibility_costs(self, state: SystemState,
+                                            dt: float):
+        """v3.6: 应用策略对之间的互斥不兼容成本.
+
+        当两个策略都具有显著权重（>0.15）时，其内在逻辑冲突
+        会产生额外的结构性成本，这种成本无法通过 λ 加权简单稀释。
+        """
+        la, lb, lc = self.lambda_vec
+
+        # ── A+B 冲突："保护 vs 提取" — 资源逻辑冲突 ──
+        # 保护性工业政策需要稳定投入，但高提取率抽走资源，
+        # 导致"既要保护又要榨取"的矛盾 → 工业投资效率下降
+        if la > 0.15 and lb > 0.15:
+            conflict_intensity = min(la, lb)
+            efficiency_drop = conflict_intensity * 0.06 * dt
+            state.sectors["i"].Y *= max(0.88, 1.0 - efficiency_drop)
+            # 制度摩擦额外消耗积累基金
+            state.accumulation_fund *= max(
+                0.85, 1.0 - conflict_intensity * 0.08 * dt
+            )
+
+        # ── B+C 冲突："主权 vs FDI" — 制度逻辑冲突 ──
+        # B追求自主可控，C依赖FDI/外部资源，
+        # 同时推行 → 政策信号混乱 → 制度有效性下降
+        if lb > 0.15 and lc > 0.15:
+            conflict_intensity = min(lb, lc)
+            inst_drag = conflict_intensity * 0.05 * dt
+            # 外部依赖加剧，但同时试图保持自主 → 两头落空
+            if hasattr(state, 'external_dependency'):
+                state.external_dependency = min(
+                    0.95,
+                    state.external_dependency + conflict_intensity * 0.03 * dt
+                )
+            # 数字基础设施投资效率降低（FDI期待 vs 自主标准冲突）
+            for d_key in DIGITAL_SECTORS:
+                if d_key in state.sectors:
+                    state.sectors[d_key].I *= max(
+                        0.82, 1.0 - inst_drag * 1.5
+                    )
+
+        # ── A+C 冲突："渐进主义 vs 快速外部替代" — 政策不一致 ──
+        # A强调渐进积累，C依赖外部快速替代，
+        # 两者并存 → 政策摇摆不定 → 两个方向都受拖累
+        if la > 0.15 and lc > 0.15:
+            conflict_intensity = min(la, lc)
+            policy_incoherence = conflict_intensity * 0.04 * dt
+            # 技术追赶效率受损：方向不明确
+            state.tech_gap *= (1.0 + policy_incoherence * 0.5)
+            # 服务业受政策不确定影响
+            for s_key in SERVICE_SECTORS:
+                if s_key in state.sectors:
+                    state.sectors[s_key].Y *= max(
+                        0.90, 1.0 - policy_incoherence * 0.8
+                    )
 
     # ─────────────────────────────────────────────
     # 策略A内生成本 (v3.0 新增)
@@ -360,7 +498,9 @@ class MixedStrategy:
         # 2. 渐进主义时间税 — 走得太慢，世界在前进
         cs["protection_duration"] += dt
         g_world = self.p.get("g_world", 0.03)
-        g_d = (state.sectors["d"].A / max(getattr(self, '_prev_A_d', state.sectors["d"].A), 0.01) - 1.0)
+        # v3.6: 六部门结构 — 使用 d_app（应用层）的技术水平作为数字部门追赶指标
+        prev_A_d = getattr(self, '_prev_A_d', state.sectors["d_app"].A)
+        g_d = (state.sectors["d_app"].A / max(prev_A_d, 0.01) - 1.0)
         # A逻辑下数字部门增长慢 → 追赶赤字累积
         lag_rate = max(0.0, g_world - g_d - 0.01)  # 0.01是自然追赶的缓冲
         cs["cumulative_lag"] += lag_rate * dt * weight
@@ -369,10 +509,7 @@ class MixedStrategy:
             lag_penalty = cs["cumulative_lag"] * 0.03 * dt
             state.tech_gap *= (1.0 + lag_penalty)
 
-        if hasattr(self, '_prev_A_d'):
-            self._prev_A_d = state.sectors["d"].A
-        else:
-            self._prev_A_d = state.sectors["d"].A
+        self._prev_A_d = state.sectors["d_app"].A
 
         # 3. 既得利益刚性
         # 保护持续时间越长 → 利益集团越强 → 改革阻力越大
@@ -384,7 +521,10 @@ class MixedStrategy:
             )
             # 改革阻力：计划中的数字投资被打了折扣
             reform_resistance = cs["vested_interest_intensity"] * weight
-            state.sectors["d"].I *= max(0.5, 1.0 - reform_resistance * dt)
+            # v3.6: 六部门结构 — 改革阻力影响所有数字子部门
+            for d_key in DIGITAL_SECTORS:
+                if d_key in state.sectors:
+                    state.sectors[d_key].I *= max(0.5, 1.0 - reform_resistance * dt)
 
         # 4. 中间收入陷阱
         dd_i = state.sectors["i"].digital_density
@@ -414,7 +554,13 @@ class MixedStrategy:
             extra_unemployment = (
                 state.sectors["i"].L * excess_tau * 0.05 * dt
             )
-            absorptive_d = state.sectors["d"].L * state.sectors["d"].DL * 0.02 * dt
+            # v3.6: 六部门结构 — 数字部门吸收能力汇总 d_infra + d_app
+            total_d_L = sum(state.sectors[k].L for k in DIGITAL_SECTORS
+                           if k in state.sectors)
+            avg_d_DL = (sum(state.sectors[k].DL for k in DIGITAL_SECTORS
+                           if k in state.sectors)
+                        / max(len(DIGITAL_SECTORS), 1))
+            absorptive_d = total_d_L * avg_d_DL * 0.02 * dt
             net_unemployment = max(0, extra_unemployment - absorptive_d)
             state.households.unemployed.population += net_unemployment
             state.sectors["i"].L = max(0.5, state.sectors["i"].L - net_unemployment * 0.5)
@@ -426,7 +572,8 @@ class MixedStrategy:
             state.sectors["i"].Y *= max(0.85, 1.0 - consumption_drag * dt)
 
         # 3. 泡沫压力（按权重积累）
-        r_d = state.sectors["d"].r
+        # v3.6: 六部门结构 — 使用 d_app 利润率（应用层回报最能反映泡沫风险）
+        r_d = state.sectors["d_app"].r
         if r_d > 0.25:
             bubble_pressure = (r_d - 0.25) * 0.3 * dt * weight
             strategy_B._regime_state["bubble_pressure"] = (

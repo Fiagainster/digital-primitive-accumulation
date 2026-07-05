@@ -50,8 +50,8 @@ class EnvironmentModule:
         # 基础部门排放（农业甲烷+资源开采）
         base_emissions = state.sectors["b"].Y * 0.15
 
-        # 数字部门排放（几乎为零）
-        digital_emissions = state.sectors["d"].Y * 0.02
+        # 数字部门排放（几乎为零，含基础设施和应用）
+        digital_emissions = (state.sectors["d_infra"].Y + state.sectors["d_app"].Y) * 0.02
 
         state.carbon_emissions = industrial_emissions + base_emissions + digital_emissions
 

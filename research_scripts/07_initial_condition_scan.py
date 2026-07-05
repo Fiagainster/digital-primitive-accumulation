@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""07_初始条件扫描 —— EX-S-02: 探索初始条件（工业基础、资源、人力资本）对策略可行性的影响.
+"""07_初始条件扫描 —— EX-S-02: 探索初始条件对策略可行性的影响 (v3.5: 六部门初始条件).
 
 研究问题:
     在不同类型的后发国家（制造业大国/资源富国/数字跳跃者等）中，三种策略的可行性如何？
@@ -76,7 +76,7 @@ def main():
     store.set_config(vars(args))
     n_workers = get_optimal_workers(args.workers)
 
-    # 打印国情信息
+    # 打印国情信息 (v3.5: 六部门资本)
     logger.logger.info("\n  国情预设概要:")
     for pname in profiles:
         p = get_country_profile(pname)
@@ -85,6 +85,16 @@ def main():
                 f"    [{pname:<30}] 自然策略倾向={p.get('natural_strategy','?')} | "
                 f"K_i={p.get('K_i_initial','?')} | R={p.get('R_initial','?')} | "
                 f"制度={p.get('institution_capacity','?')}"
+            )
+            # v3.5: 六部门资本概要
+            k_d = p.get('K_d_initial', 50.0) if isinstance(p, dict) else getattr(p, 'K_d_initial', getattr(p, 'K_d', 50.0))
+            k_infra = p.get('K_d_infra', k_d * 0.4) if isinstance(p, dict) else getattr(p, 'K_d_infra', k_d * 0.4)
+            k_app = p.get('K_d_app', k_d * 0.6) if isinstance(p, dict) else getattr(p, 'K_d_app', k_d * 0.6)
+            k_s_high = p.get('K_s_high', 30.0) if isinstance(p, dict) else getattr(p, 'K_s_high', 30.0)
+            k_s_low = p.get('K_s_low', 20.0) if isinstance(p, dict) else getattr(p, 'K_s_low', 20.0)
+            logger.logger.info(
+                f"      v3.5: K_d_infra={k_infra:.0f} | K_d_app={k_app:.0f} | "
+                f"K_s_high={k_s_high:.0f} | K_s_low={k_s_low:.0f}"
             )
 
     # 构建所有任务
@@ -173,10 +183,22 @@ def main():
             red_fails = sum(1 for s in subset
                           if s["summary"].get("evaluation", {}).get("red_line_failures"))
 
+            # v3.5: 分层技术差距和就业质量
+            gap_infra = np.mean([s["summary"].get("final_tech_gap_infra",
+                                s["summary"].get("final_tech_gap", 0))
+                               for s in subset])
+            gap_app = np.mean([s["summary"].get("final_tech_gap_app",
+                              s["summary"].get("final_tech_gap", 0))
+                             for s in subset])
+            emp_q = np.mean([s["summary"].get("employment_quality_index", 1.0)
+                           for s in subset])
+
             profile_regime_stats[profile][regime] = {
                 "surv": surv, "yrs": yrs, "gdp": gdp,
                 "gap": gap, "cdi": cdi_mean, "fractures": fractures,
                 "red_fail_rate": red_fails / len(subset),
+                "gap_infra": gap_infra, "gap_app": gap_app,
+                "emp_quality": emp_q,
                 "n": len(subset),
             }
 

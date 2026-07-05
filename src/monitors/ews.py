@@ -28,7 +28,11 @@ class EarlyWarningMonitor:
         self.critical_threshold = params.get("ews_critical_threshold", 0.7)
         # v2.1: 追踪部门间耦合强度历史
         self._coupling_history: list = []
-        self._sector_phase_history: dict = {"b": [], "i": [], "d": []}
+        self._sector_phase_history: dict = {
+            "b": [], "i": [],
+            "d": [], "s": [],  # aggregate growth for coupling computation
+            "d_infra": [], "d_app": [], "s_high": [], "s_low": [],
+        }
         # v2.2: 韧性追踪
         self._resilience_window = params.get("ews_resilience_window", 60)
         self._resilience_weight = params.get("ews_resilience_weight", 0.35)
@@ -65,7 +69,7 @@ class EarlyWarningMonitor:
                 self._worst_values[name] = max(self._worst_values[name], value)
 
         # v2.1: 追踪部门产出增长率（用于相位同步检测）
-        for key in ["b", "i", "d"]:
+        for key in ["b", "i", "d_infra", "d_app", "s_high", "s_low"]:
             s = state.sectors[key]
             if s.Y > 0:
                 growth = (s.Y - getattr(self, f'_prev_Y_{key}', s.Y)) / max(s.Y, 0.01)
@@ -76,6 +80,23 @@ class EarlyWarningMonitor:
             # 限制历史长度
             if len(self._sector_phase_history[key]) > self.window_size * 2:
                 self._sector_phase_history[key] = self._sector_phase_history[key][-self.window_size * 2:]
+
+        # v2.1: 计算数字部门和服务部门的聚合增长率（用于耦合计算）
+        Y_d_agg = state.sectors["d_infra"].Y + state.sectors["d_app"].Y
+        prev_Y_d = getattr(self, '_prev_Y_d_agg', Y_d_agg)
+        d_agg_growth = (Y_d_agg - prev_Y_d) / max(Y_d_agg, 0.01)
+        self._sector_phase_history["d"].append(d_agg_growth)
+        self._prev_Y_d_agg = Y_d_agg
+        if len(self._sector_phase_history["d"]) > self.window_size * 2:
+            self._sector_phase_history["d"] = self._sector_phase_history["d"][-self.window_size * 2:]
+
+        Y_s_agg = state.sectors["s_high"].Y + state.sectors["s_low"].Y
+        prev_Y_s = getattr(self, '_prev_Y_s_agg', Y_s_agg)
+        s_agg_growth = (Y_s_agg - prev_Y_s) / max(Y_s_agg, 0.01)
+        self._sector_phase_history["s"].append(s_agg_growth)
+        self._prev_Y_s_agg = Y_s_agg
+        if len(self._sector_phase_history["s"]) > self.window_size * 2:
+            self._sector_phase_history["s"] = self._sector_phase_history["s"][-self.window_size * 2:]
 
         # v2.1: 计算部门间耦合强度
         coupling = self._compute_coupling_strength(state)

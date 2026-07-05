@@ -85,7 +85,27 @@ class FractureMonitor:
         if len(active) >= 3:
             cascade_factor -= cs * (len(active) - 2) * 0.8
 
-        return max(0.30, cascade_factor)  # 最多降低70%阈值
+        # v3.5: 新增级联路径
+
+        # data_colonialism → 降低 tech_lock_in 阈值
+        # 机制：数据被外国控制→技术路线由外国决定→技术锁死
+        if "data_colonialism" in active and target_fracture == "tech_lock_in":
+            duration = state.t - self._fracture_trigger_times.get("data_colonialism", state.t)
+            cascade_factor -= cs * min(1.0, duration / 18.0) * 1.2
+
+        # fiscal_collapse → 降低 human_capital_erosion 阈值
+        # 机制：财政崩溃→教育医疗支出骤减→人力资本退化
+        if "fiscal_collapse" in active and target_fracture == "human_capital_erosion":
+            duration = state.t - self._fracture_trigger_times.get("fiscal_collapse", state.t)
+            cascade_factor -= cs * min(1.0, duration / 10.0) * 1.5
+
+        # dependency_trap → 降低 fiscal_collapse 阈值
+        # 机制：过度依附→外部冲击传导→财政崩溃
+        if "dependency_trap" in active and target_fracture == "fiscal_collapse":
+            duration = state.t - self._fracture_trigger_times.get("dependency_trap", state.t)
+            cascade_factor -= cs * min(1.0, duration / 20.0) * 1.0
+
+        return max(0.25, cascade_factor)  # v3.5: 最多降低75%阈值（原70%）
 
     def check(self, state: SystemState) -> list:
         """检查所有断裂条件，返回触发的断裂事件列表."""
@@ -147,7 +167,7 @@ class FractureMonitor:
         # 9. 跳跃诱发去工业化断裂 (v3.2) — 策略B过度提取的典型后果
         # 条件：工业资本萎缩>50% + 数字部门仍在扩张（说明提取仍在继续）
         K_i_ratio_initial = state.sectors["i"].K / max(state.initial_K_i, 1.0)
-        K_d_ratio_initial = state.sectors["d"].K / max(state.initial_K_d, 1.0)
+        K_d_ratio_initial = (state.sectors["d_infra"].K + state.sectors["d_app"].K) / max(state.initial_K_d, 1.0)
         if (K_i_ratio_initial < 0.50
                 and K_d_ratio_initial > 1.20
                 and "jump_induced_deindustrialization" not in active):

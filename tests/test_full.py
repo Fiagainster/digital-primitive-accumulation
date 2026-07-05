@@ -49,7 +49,10 @@ def test_state_container():
     state = SystemState()
     state.sectors["b"] = SectorState(K=100, L=10, Y=50)
     state.sectors["i"] = SectorState(K=200, L=20, Y=100)
-    state.sectors["d"] = SectorState(K=30, L=5, Y=60)
+    state.sectors["d_infra"] = SectorState(K=15, L=2, Y=25)
+    state.sectors["d_app"] = SectorState(K=15, L=3, Y=35)
+    state.sectors["s_high"] = SectorState(K=30, L=8, Y=40)
+    state.sectors["s_low"] = SectorState(K=20, L=7, Y=20)
     state.gdp = 210
 
     # 数据资产
@@ -130,7 +133,10 @@ def test_fracture_detection():
     state = SystemState()
     state.sectors["i"] = SectorState(K=5.0, L=10, Y=20, W=2.0)
     state.sectors["b"] = SectorState(K=100, L=20, Y=50, W=1.5)
-    state.sectors["d"] = SectorState(K=20, L=5, Y=30, W=5.0, A=0.1)
+    state.sectors["d_infra"] = SectorState(K=10, L=2, Y=15, W=4.0, A=0.05)
+    state.sectors["d_app"] = SectorState(K=10, L=3, Y=15, W=6.0, A=0.15)
+    state.sectors["s_high"] = SectorState(K=20, L=8, Y=25, W=3.0, A=1.0)
+    state.sectors["s_low"] = SectorState(K=10, L=5, Y=10, W=1.5, A=0.7)
     state.initial_K_i = 300.0
     state.tech_gap = 15.0
     state.unemployment_rate = 0.30
@@ -155,7 +161,10 @@ def test_ews_system():
     state = SystemState()
     state.sectors["b"] = SectorState(K=200.0, Y=50.0)
     state.sectors["i"] = SectorState(K=300.0, Y=100.0)
-    state.sectors["d"] = SectorState(K=20.0, Y=30.0)
+    state.sectors["d_infra"] = SectorState(K=10.0, Y=15.0)
+    state.sectors["d_app"] = SectorState(K=10.0, Y=15.0)
+    state.sectors["s_high"] = SectorState(K=30.0, Y=25.0)
+    state.sectors["s_low"] = SectorState(K=10.0, Y=8.0)
     state.initial_K_i = 300.0
     state.tech_gap = 3.0
     state.unemployment_rate = 0.05
@@ -186,7 +195,10 @@ def test_recorder_io():
     state = SystemState()
     state.sectors["b"] = SectorState(K=100, L=10, Y=50, W=2.0, DL=0.1, H=1.0, r=0.1, I=5, A=1.0)
     state.sectors["i"] = SectorState(K=200, L=20, Y=100, W=3.0, DL=0.2, H=1.2, r=0.12, I=10, A=1.2)
-    state.sectors["d"] = SectorState(K=30, L=5, Y=60, W=5.0, DL=0.3, H=1.5, r=0.15, I=3, A=1.5)
+    state.sectors["d_infra"] = SectorState(K=15, L=2, Y=25, W=5.0, DL=0.3, H=1.5, r=0.15, I=1.5, A=1.5)
+    state.sectors["d_app"] = SectorState(K=15, L=3, Y=35, W=5.0, DL=0.3, H=1.5, r=0.15, I=1.5, A=1.5)
+    state.sectors["s_high"] = SectorState(K=25, L=8, Y=30, W=3.5, DL=0.15, H=1.0, r=0.10, I=2.0, A=1.0)
+    state.sectors["s_low"] = SectorState(K=15, L=7, Y=15, W=1.5, DL=0.05, H=0.6, r=0.08, I=1.0, A=0.7)
     state.gdp = 210
 
     for i in range(50):

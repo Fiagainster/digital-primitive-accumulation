@@ -40,7 +40,10 @@ class Visualizer:
         ax = axes[0, 0]
         ax.plot(t, df["Y_b"], label="基础部门", linewidth=1.2)
         ax.plot(t, df["Y_i"], label="工业部门", linewidth=1.5)
-        ax.plot(t, df["Y_d"], label="数字部门", linewidth=1.5)
+        if "Y_d_infra" in df.columns and "Y_d_app" in df.columns:
+            ax.plot(t, df["Y_d_infra"] + df["Y_d_app"], label="数字部门(infra+app)", linewidth=1.5)
+        elif "Y_d" in df.columns:
+            ax.plot(t, df["Y_d"], label="数字部门", linewidth=1.5)
         ax.plot(t, df["gdp"], "k--", label="GDP", linewidth=1.0, alpha=0.6)
         ax.set_title("部门产出")
         ax.set_ylabel("亿元/年")
@@ -51,7 +54,11 @@ class Visualizer:
         ax = axes[0, 1]
         ax.plot(t, df["K_b"], label="K_b", linewidth=1.2)
         ax.plot(t, df["K_i"], label="K_i", linewidth=1.5)
-        ax.plot(t, df["K_d"], label="K_d", linewidth=1.5)
+        if "K_d_infra" in df.columns and "K_d_app" in df.columns:
+            ax.plot(t, df["K_d_infra"], label="K_d_infra", linewidth=1.2, linestyle="--")
+            ax.plot(t, df["K_d_app"], label="K_d_app", linewidth=1.2, linestyle=":")
+        elif "K_d" in df.columns:
+            ax.plot(t, df["K_d"], label="K_d", linewidth=1.5)
         ax.set_title("资本存量")
         ax.legend(fontsize=8)
         ax.grid(True, alpha=0.3)
@@ -60,7 +67,11 @@ class Visualizer:
         ax = axes[0, 2]
         ax.plot(t, df["DL_b"], label="DL_b", linewidth=1.2)
         ax.plot(t, df["DL_i"], label="DL_i", linewidth=1.5)
-        ax.plot(t, df["DL_d"], label="DL_d", linewidth=1.5)
+        if "DL_d_infra" in df.columns and "DL_d_app" in df.columns:
+            ax.plot(t, df["DL_d_infra"], label="DL_d_infra", linewidth=1.2, linestyle="--")
+            ax.plot(t, df["DL_d_app"], label="DL_d_app", linewidth=1.2, linestyle=":")
+        elif "DL_d" in df.columns:
+            ax.plot(t, df["DL_d"], label="DL_d", linewidth=1.5)
         ax.set_title("数字化水平")
         ax.set_ylim(0, 1)
         ax.legend(fontsize=8)

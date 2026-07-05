@@ -1,19 +1,20 @@
 #!/usr/bin/env python
-"""研究脚本总调度器 —— 一键运行所有研究实验或选择性运行.
+"""研究脚本总调度器 —— 一键运行所有研究实验或选择性运行 (v3.6).
 
 特性:
-    - 逐步运行所有16个研究脚本（或选择子集）
+    - 逐步运行所有20个研究脚本（或选择子集）
     - 自动记录每个脚本的开始/结束时间和结果摘要
     - 最终生成综合实验报告
     - 支持中断后恢复（已完成脚本自动跳过）
+    - v3.6: 平台垄断 + 内生人口 + 双区域空间 + 政策执行折扣 + 中国校准
 
 运行方式:
     python research_scripts/run_all.py                     # 运行所有脚本
     python research_scripts/run_all.py --quick             # 快速模式（减少采样量）
     python research_scripts/run_all.py --scripts 1,2,3,6   # 选择性运行
     python research_scripts/run_all.py --level simple      # 仅运行简单脚本(1-5)
-    python research_scripts/run_all.py --level medium      # 运行中等脚本(1-10)
-    python research_scripts/run_all.py --level deep        # 运行所有脚本(1-16)
+    python research_scripts/run_all.py --level medium      # 运行中等脚本(1-10, 17-19)
+    python research_scripts/run_all.py --level deep        # 运行所有脚本(1-20)
     python research_scripts/run_all.py --list              # 列出所有脚本及其描述
 """
 
@@ -35,8 +36,8 @@ SCRIPTS = [
     {
         "id": 1,
         "file": "01_single_detailed_run.py",
-        "name": "单次详细模拟",
-        "description": "1次模拟的完整诊断报告",
+        "name": "单次详细模拟 (v3.5)",
+        "description": "1次模拟的完整诊断报告 (含六部门指标/混合策略/不兼容分析)",
         "level": "simple",
         "estimated_time": "5-30秒",
         "default_args": [],
@@ -45,8 +46,8 @@ SCRIPTS = [
     {
         "id": 2,
         "file": "02_parameter_sensitivity.py",
-        "name": "参数敏感性分析",
-        "description": "局部参数扰动对关键输出的弹性",
+        "name": "参数敏感性分析 (v3.5)",
+        "description": "局部参数扰动对关键输出的弹性 (含v3.5新参数: incompat_AB等)",
         "level": "simple",
         "estimated_time": "3-10分钟",
         "default_args": ["--T-max", "40", "--n-perturbations", "3"],
@@ -65,8 +66,8 @@ SCRIPTS = [
     {
         "id": 4,
         "file": "04_mixed_strategy_scan.py",
-        "name": "混合策略全谱系扫描",
-        "description": "13种标准混合配比的系统性比较",
+        "name": "混合策略全谱系扫描 (v3.5)",
+        "description": "13种标准混合配比的系统性比较 (含策略不兼容惩罚分析)",
         "level": "simple",
         "estimated_time": "3-15分钟",
         "default_args": ["--T-max", "50"],
@@ -95,8 +96,8 @@ SCRIPTS = [
     {
         "id": 7,
         "file": "07_initial_condition_scan.py",
-        "name": "初始条件扫描",
-        "description": "EX-S-02: 六种国情下策略的适配性分析",
+        "name": "初始条件扫描 (v3.5)",
+        "description": "EX-S-02: 六种国情下策略的适配性分析 (含六部门初始资本)",
         "level": "medium",
         "estimated_time": "10-40分钟",
         "default_args": ["--n-lhs", "30"],
@@ -192,6 +193,46 @@ SCRIPTS = [
         "estimated_time": "30分钟-2小时",
         "default_args": ["--time-steps", "10"],
         "quick_args": ["--time-steps", "5"],
+    },
+    {
+        "id": 17,
+        "file": "17_digital_layer_analysis.py",
+        "name": "数字infra/app分层分析 (v3.5)",
+        "description": "infra vs app追赶路径差异/技术约束效应/发展模式分岔",
+        "level": "simple",
+        "estimated_time": "10-60秒",
+        "default_args": [],
+        "quick_args": ["--T-max", "30"],
+    },
+    {
+        "id": 18,
+        "file": "18_dependency_dynamics.py",
+        "name": "数字依附动态分析 (v3.5)",
+        "description": "依附自我强化循环/逆转路径/锁定效应突破/隐性天花板",
+        "level": "simple",
+        "estimated_time": "10-60秒",
+        "default_args": [],
+        "quick_args": ["--T-max", "30"],
+    },
+    {
+        "id": 19,
+        "file": "19_financial_stability_scan.py",
+        "name": "金融稳定性与就业质量 (v3.5)",
+        "description": "资产泡沫/资本外逃/信贷错配/就业质量联动分析",
+        "level": "medium",
+        "estimated_time": "1-10分钟",
+        "default_args": [],
+        "quick_args": ["--T-max", "30"],
+    },
+    {
+        "id": 20,
+        "file": "20_china_calibration.py",
+        "name": "中国试点校准 (v3.6)",
+        "description": "中国1978-2023历史数据校准，参数不确定性传播",
+        "level": "deep",
+        "estimated_time": "10-60分钟",
+        "default_args": ["--method", "de", "--maxiter", "300"],
+        "quick_args": ["--method", "nm", "--maxiter", "100"],
     },
 ]
 
@@ -299,7 +340,10 @@ def main():
         selected = [s for s in SCRIPTS if s["id"] in ids]
 
     if args.level:
-        selected = [s for s in selected if s["level"] == args.level]
+        level_order = {"simple": 0, "medium": 1, "deep": 2}
+        max_level = level_order[args.level]
+        selected = [s for s in selected
+                    if level_order.get(s["level"], 0) <= max_level]
 
     if args.skip:
         skip_ids = [int(x.strip()) for x in args.skip.split(",")]

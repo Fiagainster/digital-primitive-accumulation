@@ -1,0 +1,22 @@
+{
+  "experiment": "04_mixed_strategy_scan",
+  "run_id": "04_mixed_strategy_scan_20260705_184549",
+  "started_at": "2026-07-05T18:45:49.093493",
+  "parameters": {
+    "mixture_stats": {}
+  },
+  "summary": {
+    "total": 117,
+    "survived": 87
+  },
+  "config": {
+    "scenarios": "benign_globalization,tech_cold_war,full_containment",
+    "profiles": "manufacturing_giant,resource_rich,digital_leapfrogger",
+    "mixtures": null,
+    "T_max": 15.0,
+    "workers": null,
+    "custom_lambda": null
+  },
+  "completed_at": "2026-07-05T18:45:58.900712",
+  "total_simulations": 117
+}

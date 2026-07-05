@@ -2,7 +2,7 @@
 
 import numpy as np
 import pandas as pd
-from ..core.state import SystemState
+from ..core.state import SystemState, ALL_SECTORS
 
 
 class TimeSeriesRecorder:
@@ -15,23 +15,16 @@ class TimeSeriesRecorder:
         self._init_arrays()
 
     def _init_arrays(self):
-        """预分配所有记录数组."""
+        """预分配所有记录数组 (v3.5: 六部门动态生成)."""
         n = self.max_steps
-        keys = [
-            "t",
-            # 部门变量
-            "K_b", "K_i", "K_d", "K_s",
-            "H_b", "H_i", "H_d", "H_s",
-            "L_b", "L_i", "L_d", "L_s",
-            "DL_b", "DL_i", "DL_d", "DL_s",
-            "Y_b", "Y_i", "Y_d", "Y_s",
-            "W_b", "W_i", "W_d", "W_s",
-            "r_b", "r_i", "r_d", "r_s",
-            "I_b", "I_i", "I_d", "I_s",
-            "A_b", "A_i", "A_d", "A_s",
-            # v2.2: 数字密度
-            "DD_b", "DD_i", "DD_d", "DD_s",
-            # 宏观
+        # 部门变量 — 从 ALL_SECTORS 动态生成
+        sector_vars = ["K", "H", "L", "DL", "Y", "W", "r", "I", "A", "DD"]
+        keys = ["t"]
+        for var in sector_vars:
+            for s in ALL_SECTORS:
+                keys.append(f"{var}_{s}")
+        # 宏观
+        keys += [
             "gdp", "total_surplus", "accumulation_fund",
             "tech_gap", "competitiveness",
             "external_dependency",
@@ -41,43 +34,57 @@ class TimeSeriesRecorder:
             "data_producer", "data_consumer", "data_public",
             # 依附
             "dep_infra", "dep_data", "dep_standards", "dep_composite",
+            # v3.5: 新增依附维度
+            "dep_chip", "dep_capital", "dep_talent", "dep_ecosystem",
             # 代价
             "cost_unemployment", "cost_skill_depreciation",
             "cost_sectoral_disparity", "cost_concentration",
             "cost_irreversibility", "cost_ratio_ind_dig",
             # 家庭群组
             "hh_digital_welfare", "hh_industrial_welfare",
-            "hh_base_welfare", "hh_service_welfare",  # v3.3
+            "hh_base_welfare", "hh_service_welfare",
             "hh_unemployed_welfare",
             "hh_digital_cost", "hh_industrial_cost",
-            "hh_base_cost", "hh_service_cost",  # v3.3
+            "hh_base_cost", "hh_service_cost",
             "hh_unemployed_cost",
             # 断裂
             "active_fractures_count", "is_terminal",
             # EWS
             "ews_K_i_composite", "ews_tech_gap_composite",
             "ews_unemployment_composite",
-            # v2.2: EWS韧性
             "ews_K_i_resilience", "ews_tech_gap_resilience",
             # SFC
             "transaction_residual",
             # 去工业化
             "deind_quality",
-            # v2.2: 政治经济学
+            # 政治经济学
             "political_support", "political_protest_risk",
             "political_policy_constraint", "political_reform_momentum",
-            # v3.0: 五维评价（按年记录，频率低于主步长）
+            # 五维评价
             "eval_economy", "eval_livelihood", "eval_resilience",
             "eval_structure", "eval_sovereignty", "eval_cdi",
-            # v3.2: SFC残差监控 + 技能侵蚀
+            # v3.2
             "sfc_residual_ratio",
             "skill_erosion_industrial", "skill_erosion_base",
-            # v3.3: 低端服务业 + 金融 + 国际 + 气候
+            # v3.3 + v3.5
             "informal_service_L", "informal_service_W",
             "credit_rationing_ratio", "real_exchange_rate",
             "effective_block_max", "effective_fdi_availability",
             "carbon_emissions", "cumulative_carbon",
             "green_transition_pressure",
+            "employment_quality_index",
+            "tech_gap_infra", "tech_gap_app",
+            "asset_price_digital",
+            # v3.6: 平台垄断
+            "digital_hhi", "platform_monopoly_rent", "data_network_moat",
+            # v3.6: 人口动态
+            "total_population", "working_age_pop", "dependency_ratio",
+            "fertility_rate", "life_expectancy", "urbanization_rate",
+            # v3.6: 空间维度
+            "coastal_population_share", "spatial_gini",
+            "agglomeration_bonus", "congestion_penalty",
+            # v3.6: 政策执行
+            "policy_execution_discount",
         ]
         for k in keys:
             self._arrays[k] = np.zeros(n, dtype=np.float64)
@@ -91,7 +98,7 @@ class TimeSeriesRecorder:
 
         a["t"][i] = state.t
 
-        for key in ["b", "i", "d", "s"]:  # v3.3
+        for key in ALL_SECTORS:
             s = state.sectors[key]
             a[f"K_{key}"][i] = s.K
             a[f"H_{key}"][i] = s.H
@@ -122,6 +129,10 @@ class TimeSeriesRecorder:
         a["dep_infra"][i] = state.dependency.infrastructure_dependency
         a["dep_data"][i] = state.dependency.data_dependency
         a["dep_standards"][i] = state.dependency.standards_autonomy
+        a["dep_chip"][i] = state.dependency.chip_dependency
+        a["dep_capital"][i] = state.dependency.capital_dependency
+        a["dep_talent"][i] = state.dependency.talent_dependency
+        a["dep_ecosystem"][i] = state.dependency.ecosystem_dependency
         a["dep_composite"][i] = state.dependency.composite
 
         cm = state.cost_metrics
@@ -188,6 +199,33 @@ class TimeSeriesRecorder:
         a["carbon_emissions"][i] = getattr(state, "carbon_emissions", 0.0)
         a["cumulative_carbon"][i] = getattr(state, "cumulative_carbon", 0.0)
         a["green_transition_pressure"][i] = getattr(state, "green_transition_pressure", 0.0)
+
+        # v3.5: 新指标
+        a["employment_quality_index"][i] = getattr(state, "employment_quality_index", 1.0)
+        a["tech_gap_infra"][i] = getattr(state, "tech_gap_infra", state.tech_gap)
+        a["tech_gap_app"][i] = getattr(state, "tech_gap_app", state.tech_gap)
+
+        # v3.6: 平台垄断
+        a["digital_hhi"][i] = getattr(state, "digital_hhi", 0.0)
+        a["platform_monopoly_rent"][i] = getattr(state, "platform_monopoly_rent", 0.0)
+        a["data_network_moat"][i] = getattr(state, "data_network_moat", 0.0)
+
+        # v3.6: 人口动态
+        a["total_population"][i] = getattr(state, "total_population", 0.0)
+        a["working_age_pop"][i] = getattr(state, "working_age_pop", 0.0)
+        a["dependency_ratio"][i] = getattr(state, "dependency_ratio", 0.5)
+        a["fertility_rate"][i] = getattr(state, "fertility_rate", 2.5)
+        a["life_expectancy"][i] = getattr(state, "life_expectancy", 65.0)
+        a["urbanization_rate"][i] = getattr(state, "urbanization_rate", 0.35)
+
+        # v3.6: 空间维度
+        a["coastal_population_share"][i] = getattr(state, "coastal_population_share", 0.45)
+        a["spatial_gini"][i] = getattr(state, "spatial_gini", 0.0)
+        a["agglomeration_bonus"][i] = getattr(state, "agglomeration_bonus", 0.0)
+        a["congestion_penalty"][i] = getattr(state, "congestion_penalty", 0.0)
+
+        # v3.6: 政策执行
+        a["policy_execution_discount"][i] = getattr(state, "policy_execution_discount", 1.0)
 
         self._idx += 1
 

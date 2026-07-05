@@ -1,5 +1,10 @@
 """模拟引擎 —— 主循环，协调所有模块 (v3.0 升级)."""
 
+import warnings
+# 模型不追求精确定量校准，SFC 残差和 EWS 数值精度警告
+# 在正常使用中属于已知噪声，默认静默
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+
 import numpy as np
 from .config import SimulationConfig
 from .state import SystemState, ALL_SECTORS
@@ -15,6 +20,9 @@ from ..models.welfare import WelfareModule
 from ..models.political_economy import PoliticalEconomyModule  # v2.2 新增
 from ..models.livelihood import LivelihoodModule  # v3.0: 民生子模块
 from ..models.environment import EnvironmentModule  # v3.3: 气候/环境
+from ..models.platform import PlatformModule  # v3.6: 平台垄断
+from ..models.demography import DemographyModule  # v3.6: 内生人口动态
+from ..models.spatial import SpatialModule  # v3.6: 双区域空间
 from ..monitors.fracture import FractureMonitor
 from ..monitors.ews import EarlyWarningMonitor
 from ..monitors.academic_validator import AcademicValidator  # v3.2: 学术验证
@@ -29,7 +37,7 @@ from ..evaluation import (
 
 
 class SimulationEngine:
-    """三部门政治经济学模拟引擎 (v2.2)."""
+    """v3.5 六部门政治经济学模拟引擎 (数字infra+app, 服务业high+low)."""
 
     def __init__(self, params: dict = None, config: SimulationConfig = None,
                  regime: str = "A", country_profile: str = None,
@@ -86,6 +94,9 @@ class SimulationEngine:
         self.political_economy = PoliticalEconomyModule(self.p)  # v2.2 新增
         self.livelihood = LivelihoodModule(self.p)  # v3.0: 民生子模块
         self.environment = EnvironmentModule(self.p)  # v3.3: 气候/环境
+        self.platform = PlatformModule(self.p)  # v3.6: 平台垄断
+        self.demography = DemographyModule(self.p)  # v3.6: 内生人口动态
+        self.spatial = SpatialModule(self.p)  # v3.6: 双区域空间
         self.fracture_monitor = FractureMonitor(self.p)
         self.ews_monitor = EarlyWarningMonitor(
             self.p, window_size=self.config.ews_window_size
@@ -114,6 +125,11 @@ class SimulationEngine:
         # 追踪劳动力技能侵蚀
         self._initial_H_i = 0.0
         self._initial_H_b = 0.0
+
+        # v3.5: 金融维度追踪
+        self._asset_price_digital = 1.0       # 数字部门资产价格（相对基本面）
+        self._capital_flight_stock = 0.0      # 累计资本外逃量
+        self._housing_price_index = 1.0       # 房价指数
 
     def run(self) -> dict:
         """执行一次完整的模拟."""
@@ -160,9 +176,33 @@ class SimulationEngine:
             # 8.6. v3.3: 气候/环境模块（碳排放+绿色转型压力）
             self.environment.step(self.state, dt)
 
+            # 8.7. v3.5: 金融动态（资产价格+资本外逃）
+            self._update_financial_dynamics(dt)
+
+            # 8.8. v3.6: 平台垄断模块（市场集中度+垄断租金+反垄断）
+            if self.config.platform_enabled:
+                self.platform.step(self.state, dt)
+
+            # 8.9. v3.6: 内生人口动态（年龄结构+生育/死亡+城镇化）
+            if self.config.demography_enabled:
+                self.demography.step(self.state, dt)
+
+            # 8.10. v3.6: 双区域空间模块（沿海/内陆分化）
+            if self.config.spatial_enabled:
+                self.spatial.step(self.state, dt)
+
             # 9. v2.2: 政治经济学反馈（按周期更新以减少计算量）
             if (t - self._last_political_update) >= self.config.political_update_interval:
                 self.political_economy.step(self.state, dt)
+                # v3.6: 计算政策执行折扣
+                if self.config.policy_execution_discount_enabled:
+                    complexity = 0.0
+                    if self._is_mixed:
+                        la, lb, lc = self._mixed_lambda
+                        complexity = 1.0 - (la**2 + lb**2 + lc**2)
+                    self.political_economy.compute_execution_discount(
+                        self.state, strategy_complexity=complexity
+                    )
                 self._last_political_update = t
 
             # 10. SFC闭合
@@ -244,6 +284,11 @@ class SimulationEngine:
         state.initial_gdp_pc = state.gdp / max(state.households.total_population, 0.01)
         # v3.1: 初始化家庭群组人口结构（与部门劳动力对应）
         self._init_households_from_sectors(state)
+        # v3.6: 初始化人口总量（从参数读取）
+        state.total_population = self.p.get("IC_total_population", 7000.0)
+        # v3.6: 初始化空间状态（沿海/内陆份额从参数读取）
+        state.coastal_population_share = self.p.get("IC_coastal_population_share", 0.45)
+
         # v3.2: 记录初始技能水平（用于劳动力技能侵蚀追踪）
         self._initial_H_i = state.sectors["i"].H
         self._initial_H_b = state.sectors["b"].H
@@ -338,32 +383,27 @@ class SimulationEngine:
                 self.accumulation._regime_state["feedback_failed_count"] += 1
 
     def _check_C_vulnerability(self, dt: float, weight: float = 1.0):
-        """策略C命门：依附陷阱三合一 + v3.2消费主义陷阱 + v3.2人才外流."""
+        """策略C命门：依附陷阱三合一 + 消费主义陷阱 + 人才外流 (v3.5)."""
         ext_dep = self.state.external_dependency
 
-        # 1. 荷兰病 (v3.3: 汇率渠道 + v3.2: 支出效应)
+        # 1. 荷兰病
         resource_intensity = self.p.get("C_resource_export_intensity", 0.6)
         if resource_intensity > 0.5 and self.state.sectors["b"].Y > 0:
-            # --- 汇率渠道 ---
             rer = self.state.real_exchange_rate
             export_share_i = 0.3
             competitiveness_loss = max(0.0, (rer - 1.0) * 0.5 * weight)
             self.state.sectors["i"].Y *= max(0.80, 1.0 - export_share_i * competitiveness_loss * dt)
 
-            # --- v3.2: 支出效应 ---
-            # 资源繁荣 → 国内非贸易品需求上升 → 劳动力从工业流向服务业
-            # 机制：资源收入增加→国内消费能力上升→服务业（非贸易品）需求增长
-            # → 服务业工资相对工业上升→工业劳动力流向服务业
-            resource_boom = (resource_intensity - 0.5) * 2.0  # [0, 1]
-            # 服务业需求因资源财富效应上升
+            # 支出效应
+            resource_boom = (resource_intensity - 0.5) * 2.0
             service_demand_boost = resource_boom * 0.08 * dt * weight
-            self.state.sectors["s"].Y *= (1.0 + service_demand_boost)
-            # 工业劳动力被服务业"拉走"（支出效应）
+            self.state.sectors["s_high"].Y *= (1.0 + service_demand_boost)
+            self.state.sectors["s_low"].Y *= (1.0 + service_demand_boost * 0.7)
             labor_pull = resource_boom * 0.02 * dt * weight
             L_i_to_s = self.state.sectors["i"].L * labor_pull
             self.state.sectors["i"].L = max(0.5, self.state.sectors["i"].L - L_i_to_s)
-            self.state.sectors["s"].L += L_i_to_s * 0.7  # 部分吸收
-            # 流出工业的劳动力有部分进入低端非正式服务业
+            self.state.sectors["s_low"].L += L_i_to_s * 0.5
+            self.state.sectors["s_high"].L += L_i_to_s * 0.2
             self.state.informal_service_L += L_i_to_s * 0.3
 
         # 2. 政策俘获
@@ -375,7 +415,7 @@ class SimulationEngine:
         tech_imp = self.p.get("C_tech_import_preference", 0.6)
         if tech_imp > 0.6 and ext_dep > 0.6:
             atrophy = (tech_imp - 0.5) * 0.015 * dt * weight
-            self.state.sectors["d"].A = max(0.1, self.state.sectors["d"].A * (1.0 - atrophy))
+            self.state.sectors["d_app"].A = max(0.1, self.state.sectors["d_app"].A * (1.0 - atrophy))
 
         # 4. v3.2: 消费主义陷阱 — FDI流向消费领域→储蓄率下降→国内积累能力减弱
         fdi_openness = self.p.get("C_fdi_openness", 0.4)
@@ -394,13 +434,15 @@ class SimulationEngine:
         # 5. v3.2: 人才外流 — 技术进口>60%且国内高技能岗位不足→H_d衰减
         if tech_imp > 0.6:
             # 数字部门高技能岗位是否充足：看数字部门就业占比
-            digital_emp_share = self.state.sectors["d"].L / max(
+            digital_emp_share = (self.state.sectors["d_infra"].L + self.state.sectors["d_app"].L) / max(
                 self.state.households.total_population, 1.0)
             # 当技术严重依赖进口+数字就业岗位占比不足 → 高技能人才流向海外
             if digital_emp_share < 0.08:  # 数字就业占比低于8%
                 brain_drain_rate = (tech_imp - 0.5) * (0.08 - digital_emp_share) * 0.04 * dt * weight
-                self.state.sectors["d"].H = max(0.3,
-                    self.state.sectors["d"].H * (1.0 - brain_drain_rate))
+                self.state.sectors["d_infra"].H = max(0.3,
+                    self.state.sectors["d_infra"].H * (1.0 - brain_drain_rate))
+                self.state.sectors["d_app"].H = max(0.3,
+                    self.state.sectors["d_app"].H * (1.0 - brain_drain_rate))
                 # 人才外流也削弱整体人力资本
                 self.state.sectors["i"].H = max(0.3,
                     self.state.sectors["i"].H * (1.0 - brain_drain_rate * 0.5))
@@ -417,15 +459,17 @@ class SimulationEngine:
             0, self.state.accumulation_fund - emergency_diversion
         )
 
-        # 数字部门投资受到最大冲击（原策略的核心引擎停转）
-        # 工业也受波及，但保留最低限度
-        self.state.sectors["d"].K *= 0.85  # 数字资本部分荒废
-        self.state.sectors["i"].K *= 0.95  # 工业略有损失
+        # 数字部门投资受到最大冲击
+        self.state.sectors["d_infra"].K *= 0.85
+        self.state.sectors["d_app"].K *= 0.82  # app层泡沫更大，冲击更重
+        self.state.sectors["i"].K *= 0.95
 
         # 失业急剧上升
-        laid_off = self.state.sectors["d"].L * 0.25
-        self.state.sectors["d"].L = max(1.0, self.state.sectors["d"].L - laid_off)
-        self.state.households.unemployed.population += laid_off
+        laid_off_infra = self.state.sectors["d_infra"].L * 0.15
+        laid_off_app = self.state.sectors["d_app"].L * 0.30
+        self.state.sectors["d_infra"].L = max(0.3, self.state.sectors["d_infra"].L - laid_off_infra)
+        self.state.sectors["d_app"].L = max(0.5, self.state.sectors["d_app"].L - laid_off_app)
+        self.state.households.unemployed.population += (laid_off_infra + laid_off_app)
 
         # 增加补偿（但远不足以弥补）
         self.state.households.unemployed.compensation_received += (
@@ -469,23 +513,23 @@ class SimulationEngine:
 
         # === 尾部风险2：国际金融冲击 ===
         if np.random.random() < 0.003 and self._tail_risk_cooldown["financial"] == 0:
-            self._tail_risk_cooldown["financial"] = 16  # 4年冷却
+            self._tail_risk_cooldown["financial"] = 16
             severity = np.random.uniform(0.05, 0.15)
-            # 数字部门更脆弱（全球资本流动敏感）
-            self.state.sectors["d"].K *= (1.0 - severity * 0.8)
+            self.state.sectors["d_infra"].K *= (1.0 - severity * 0.5)
+            self.state.sectors["d_app"].K *= (1.0 - severity * 1.0)
             self.state.sectors["i"].Y *= (1.0 - severity * 0.3)
-            # C策略（或含C成分的混合策略）更依赖外资 → 冲击更大
             if self.regime == "C" or (self._is_mixed and self._mixed_lambda[2] > 0.2):
-                self.state.sectors["d"].K *= (1.0 - severity * 0.5)
+                self.state.sectors["d_infra"].K *= (1.0 - severity * 0.3)
+                self.state.sectors["d_app"].K *= (1.0 - severity * 0.6)
 
         # === 尾部风险3：技术路线突变 ===
         if np.random.random() < 0.002 and self._tail_risk_cooldown["tech_disruption"] == 0:
-            self._tail_risk_cooldown["tech_disruption"] = 24  # 6年冷却
+            self._tail_risk_cooldown["tech_disruption"] = 24
             obsolescence = np.random.uniform(0.10, 0.20)
-            # 数字密度高的部门受影响更小（技术基础好，转型快）
-            dd_d = self.state.sectors["d"].digital_density
-            effective_obs = obsolescence * (1.0 - dd_d * 0.5)
-            self.state.sectors["d"].K *= (1.0 - effective_obs)
+            dd_d_app = self.state.sectors["d_app"].digital_density
+            effective_obs = obsolescence * (1.0 - dd_d_app * 0.5)
+            self.state.sectors["d_app"].K *= (1.0 - effective_obs)
+            self.state.sectors["d_infra"].K *= (1.0 - effective_obs * 0.5)
             self.state.tech_gap *= (1.0 + obsolescence * 0.3)
 
         # === 尾部风险4：社会动荡 ===
@@ -500,7 +544,82 @@ class SimulationEngine:
                 ps.support_index *= 0.94
                 if self.regime == "C" or (self._is_mixed and self._mixed_lambda[2] > 0.2):
                     # 外资最怕社会动荡
-                    self.state.sectors["d"].K *= (1.0 - disruption * 1.5)
+                    self.state.sectors["d_infra"].K *= (1.0 - disruption * 1.5)
+                    self.state.sectors["d_app"].K *= (1.0 - disruption * 1.5)
+
+    def _update_financial_dynamics(self, dt: float):
+        """v3.5: 金融动态 — 资产价格+资本外逃+信贷部门分配+房价."""
+        p = self.p
+
+        # 1. 资产价格动态 (Q31)
+        # 数字部门的基本面锚定值
+        r_d_app = self.state.sectors["d_app"].r
+        r_risk_free = 0.03
+        risk_premium = 0.05
+        P_fundamental = (self.state.sectors["d_app"].K
+                         * (1 + r_d_app) / max(r_risk_free + risk_premium, 0.01))
+        # 实际价格含投机成分
+        sentiment = 0.5 * (r_d_app - 0.15) / 0.15 if r_d_app > 0.15 else 0.0
+        dP_spec = p.get("asset_price_volatility", 0.25) * sentiment * self._asset_price_digital * dt
+        mean_rev = 0.1 * (1.0 - self._asset_price_digital) * dt
+        self._asset_price_digital += (dP_spec + mean_rev)
+        self._asset_price_digital = max(0.3, min(self._asset_price_digital, 3.0))
+        # 记录泡沫程度
+        self.state.sectors["d_app"].digital_density = min(0.95,
+            self.state.sectors["d_app"].digital_density)  # 不重复赋值
+
+        # 2. 资本外逃 (Q32)
+        wealth_gini = self.state.wealth_gini
+        ps = self.state.political_support
+        flight_sensitivity = p.get("capital_flight_sensitivity", 0.15)
+        # 数字精英财富增长+政治不稳定→资本外逃动机上升
+        digital_wealth = self.state.households.digital_high_skill.savings + self.state.households.digital_high_skill.equity
+        flight_pressure = (wealth_gini * 0.5 + (1.0 - ps.support_index) * 0.3
+                          + digital_wealth / max(self.state.gdp, 0.01) * 0.2)
+        flight_prob = flight_sensitivity * flight_pressure * dt
+        if flight_prob > 0:
+            flight_amount = digital_wealth * min(0.05, flight_prob)
+            self.state.households.digital_high_skill.savings = max(0,
+                self.state.households.digital_high_skill.savings - flight_amount * 0.7)
+            self.state.households.digital_high_skill.equity = max(0.01,
+                self.state.households.digital_high_skill.equity - flight_amount * 0.3)
+            self._capital_flight_stock += flight_amount
+            # 资本外逃→国内投资减少
+            self.state.accumulation_fund = max(0,
+                self.state.accumulation_fund - flight_amount * 0.2)
+
+        # 3. 信贷部门间分配差异 (Q34)
+        credit_bias_d = p.get("credit_bias_digital", 1.3)
+        credit_bias_i = p.get("credit_bias_industry", 0.8)
+        # 泡沫期信贷过度流向数字
+        if self._asset_price_digital > 1.5:
+            credit_bias_d += 0.2
+            credit_bias_i -= 0.1
+        # 调整各部门的信贷可得性
+        # (通过影响吸收能力间接实现——数字部门更容易获得信贷)
+        self.state.sectors["d_app"].absorption_cap *= (0.8 + 0.2 * credit_bias_d)
+        self.state.sectors["i"].absorption_cap *= (0.8 + 0.2 * credit_bias_i)
+
+        # 4. 房价动态 (Q45)
+        income_growth = (self.state.gdp / max(getattr(self, '_prev_gdp', self.state.gdp), 1.0) - 1.0)
+        credit_impulse = (self.state.credit_rationing_ratio
+                          - getattr(self, '_prev_credit', self.state.credit_rationing_ratio))
+        supply_growth = 0.01  # 简化：住房供给年增长1%
+        dp_house = (income_growth * 0.5 + credit_impulse * 0.3 - supply_growth * 0.2)
+        self._housing_price_index *= (1.0 + dp_house)
+        self._housing_price_index = max(0.5, min(self._housing_price_index, 3.0))
+        self._prev_gdp = self.state.gdp
+        self._prev_credit = self.state.credit_rationing_ratio
+
+        # v3.5: 极端气候尾部风险 (Q52/Q38)
+        if (hasattr(self.state, 'cumulative_carbon')
+                and self.state.cumulative_carbon > 50):
+            if np.random.random() < self.state.cumulative_carbon * 0.0002 * dt:
+                climate_severity = np.random.uniform(0.03, 0.10)
+                self.state.sectors["b"].Y *= (1.0 - climate_severity * 1.5)
+                self.state.sectors["i"].Y *= (1.0 - climate_severity * 0.3)
+                self.state.accumulation_fund = max(0,
+                    self.state.accumulation_fund - climate_severity * self.state.gdp * 0.1)
 
     def _evaluate_current_state(self, final: bool = False):
         """v3.0: 对当前状态进行五维评价.
@@ -588,12 +707,16 @@ class SimulationEngine:
             "final_data_consumer": self.state.data_assets.consumer_data,
             "sector_K_b": self.state.sectors["b"].K,
             "sector_K_i": self.state.sectors["i"].K,
-            "sector_K_d": self.state.sectors["d"].K,
-            "sector_K_s": self.state.sectors["s"].K,  # v3.3
+            "sector_K_d_infra": self.state.sectors["d_infra"].K,
+            "sector_K_d_app": self.state.sectors["d_app"].K,
+            "sector_K_s_high": self.state.sectors["s_high"].K,
+            "sector_K_s_low": self.state.sectors["s_low"].K,
             "sector_DL_b": self.state.sectors["b"].DL,
             "sector_DL_i": self.state.sectors["i"].DL,
-            "sector_DL_d": self.state.sectors["d"].DL,
-            "sector_DL_s": self.state.sectors["s"].DL,  # v3.3
+            "sector_DL_d_infra": self.state.sectors["d_infra"].DL,
+            "sector_DL_d_app": self.state.sectors["d_app"].DL,
+            "sector_DL_s_high": self.state.sectors["s_high"].DL,
+            "sector_DL_s_low": self.state.sectors["s_low"].DL,
             "total_steps": self.state.step,
             # v2.1
             "diffusion_cumulative_i": self.tech_diffusion.get_cumulative_diffusion("i"),
@@ -603,7 +726,7 @@ class SimulationEngine:
             # v2.2 新增
             "digital_density_i": self.state.sectors["i"].digital_density,
             "digital_density_b": self.state.sectors["b"].digital_density,
-            "digital_density_d": self.state.sectors["d"].digital_density,
+            "digital_density_d": 0.5 * (self.state.sectors["d_infra"].digital_density + self.state.sectors["d_app"].digital_density),
             "political_support": self.state.political_support.support_index,
             "political_protest_risk": self.state.political_support.protest_risk,
             "political_policy_constraint": self.state.political_support.policy_constraint,
@@ -633,6 +756,48 @@ class SimulationEngine:
                 "cumulative_carbon": self.state.cumulative_carbon,
                 "green_transition_pressure": self.state.green_transition_pressure,
             },
+            # v3.5: 新指标
+            "v35_metrics": {
+                "employment_quality_index": self.state.employment_quality_index,
+                "tech_gap_infra": self.state.tech_gap_infra,
+                "tech_gap_app": self.state.tech_gap_app,
+                "dependency_chip": self.state.dependency.chip_dependency,
+                "dependency_capital": self.state.dependency.capital_dependency,
+                "dependency_talent": self.state.dependency.talent_dependency,
+                "dependency_ecosystem": self.state.dependency.ecosystem_dependency,
+                "d_infra_import_dep": self.state.sectors["d_infra"].import_dependency,
+                "d_app_import_dep": self.state.sectors["d_app"].import_dependency,
+            },
+            # v3.6: 平台垄断指标
+            "platform_metrics": {
+                "digital_hhi": self.state.digital_hhi,
+                "platform_monopoly_rent": self.state.platform_monopoly_rent,
+                "data_network_moat": self.state.data_network_moat,
+                "monopoly_innovation_drag": self.platform.get_state().monopoly_innovation_drag,
+                "hhi_growth_rate": self.platform.get_state().hhi_growth_rate,
+            },
+            # v3.6: 人口动态指标
+            "demography_metrics": {
+                "total_population": self.state.total_population,
+                "working_age_pop": self.state.working_age_pop,
+                "dependency_ratio": self.state.dependency_ratio,
+                "fertility_rate": self.state.fertility_rate,
+                "life_expectancy": self.state.life_expectancy,
+                "urbanization_rate": self.state.urbanization_rate,
+            },
+            # v3.6: 空间维度指标
+            "spatial_metrics": {
+                "coastal_population_share": self.state.coastal_population_share,
+                "coastal_industry_share": self.state.coastal_industry_share,
+                "coastal_digital_app_share": self.state.coastal_digital_app_share,
+                "spatial_gini": self.state.spatial_gini,
+                "agglomeration_bonus": self.state.agglomeration_bonus,
+                "congestion_penalty": self.state.congestion_penalty,
+            },
+            # v3.6: 政策执行指标
+            "policy_execution_metrics": {
+                "execution_discount": self.state.policy_execution_discount,
+            },
         }
 
         return {
@@ -641,14 +806,24 @@ class SimulationEngine:
         }
 
     def _init_households_from_sectors(self, state: SystemState):
-        """v3.1: 从部门劳动力初始化家庭群组人口 (v3.2: 增加政治权重)."""
-        # 数字高技能 = 数字部门劳动力
+        """v3.5: 从六部门劳动力初始化五个家庭群组."""
+        # 数字高技能 = d_infra + d_app 劳动力（加权合并）
         hh_d = state.households.digital_high_skill
-        hh_d.population = state.sectors["d"].L
-        hh_d.employed = state.sectors["d"].L
-        hh_d.avg_wage = state.sectors["d"].W
-        hh_d.skill_level = state.sectors["d"].H
-        hh_d.political_power = 0.30  # v3.2: 数字高技能政治影响力最高
+        L_d_total = state.sectors["d_infra"].L + state.sectors["d_app"].L
+        hh_d.population = L_d_total
+        hh_d.employed = L_d_total
+        # 加权平均工资和技能
+        if L_d_total > 0:
+            w_infra = state.sectors["d_infra"].L / L_d_total
+            w_app = state.sectors["d_app"].L / L_d_total
+            hh_d.avg_wage = (state.sectors["d_infra"].W * w_infra
+                           + state.sectors["d_app"].W * w_app)
+            hh_d.skill_level = (state.sectors["d_infra"].H * w_infra
+                              + state.sectors["d_app"].H * w_app)
+        else:
+            hh_d.avg_wage = 5.0
+            hh_d.skill_level = 1.5
+        hh_d.political_power = 0.30
 
         # 工业劳动者 = 工业部门劳动力
         hh_i = state.households.industrial_workers
@@ -656,7 +831,7 @@ class SimulationEngine:
         hh_i.employed = state.sectors["i"].L
         hh_i.avg_wage = state.sectors["i"].W
         hh_i.skill_level = state.sectors["i"].H
-        hh_i.political_power = 0.25  # v3.2: 工业劳动者—人口基数大+工会
+        hh_i.political_power = 0.25
 
         # 基础劳动者 = 基础部门劳动力
         hh_b = state.households.base_workers
@@ -664,42 +839,46 @@ class SimulationEngine:
         hh_b.employed = state.sectors["b"].L
         hh_b.avg_wage = state.sectors["b"].W
         hh_b.skill_level = state.sectors["b"].H
-        hh_b.political_power = 0.15  # v3.2: 基础劳动者—分散、组织度低
+        hh_b.political_power = 0.15
 
-        # v3.3: 服务业劳动者初始化
+        # v3.5: 服务业劳动者 = s_high + s_low
         hh_s = state.households.service_workers
-        hh_s.population = state.sectors["s"].L
-        hh_s.employed = state.sectors["s"].L
-        hh_s.avg_wage = state.sectors["s"].W
-        hh_s.skill_level = state.sectors["s"].H
-        hh_s.political_power = 0.15  # v3.2: 服务业劳动者—非正式、碎片化
+        L_s_total = state.sectors["s_high"].L + state.sectors["s_low"].L
+        hh_s.population = L_s_total
+        hh_s.employed = L_s_total
+        if L_s_total > 0:
+            w_high = state.sectors["s_high"].L / L_s_total
+            w_low = state.sectors["s_low"].L / L_s_total
+            hh_s.avg_wage = (state.sectors["s_high"].W * w_high
+                           + state.sectors["s_low"].W * w_low)
+            hh_s.skill_level = (state.sectors["s_high"].H * w_high
+                              + state.sectors["s_low"].H * w_low)
+        else:
+            hh_s.avg_wage = 1.5
+            hh_s.skill_level = 0.6
+        hh_s.political_power = 0.15
 
         # 失业者初始为零
         hh_u = state.households.unemployed
         hh_u.population = 0.0
         hh_u.employed = 0.0
-        hh_u.political_power = 0.10  # v3.2: 失业者政治影响力最低
+        hh_u.political_power = 0.10
 
         # 初始消费、储蓄和股权
-        # v3.4: 股权初始分配 — 反映各群组的资本所有权
-        total_K = sum(state.sectors[k].K for k in ALL_SECTORS)
-        for h, sector_key, equity_share in [
-            (state.households.digital_high_skill, "d", 0.40),   # 数字部门股权集中于高技能
-            (state.households.industrial_workers, "i", 0.25),   # 工业股权部分由工人持有
-            (state.households.base_workers, "b", 0.15),
-            (state.households.service_workers, "s", 0.10),
-            (state.households.unemployed, None, 0.0),           # 失业者无股权
+        for h, sector_keys, equity_share in [
+            (state.households.digital_high_skill, ["d_infra", "d_app"], 0.40),
+            (state.households.industrial_workers, ["i"], 0.25),
+            (state.households.base_workers, ["b"], 0.15),
+            (state.households.service_workers, ["s_high", "s_low"], 0.10),
+            (state.households.unemployed, [], 0.0),
         ]:
             if h.population > 0:
                 h.income = h.avg_wage * h.population
                 h.consumption = h.income * 0.85
                 h.savings = h.income * 0.15
                 h.debt = h.income * 0.05
-                # v3.4: 初始股权 = 部门资本 × 群组所有权份额
-                if sector_key:
-                    h.equity = state.sectors[sector_key].K * equity_share
-                else:
-                    h.equity = 0.0
+                total_sector_K = sum(state.sectors[k].K for k in sector_keys)
+                h.equity = total_sector_K * equity_share if sector_keys else 0.0
 
     def _get_ews_resilience(self, var_name: str) -> float:
         """获取EWS韧性指数."""

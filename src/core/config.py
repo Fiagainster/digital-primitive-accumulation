@@ -29,3 +29,10 @@ class SimulationConfig:
     evaluation_interval: float = 1.0          # 评价更新间隔（年）
     cdi_weight_preset: str = "default"        # CDI权重预设: default/growth_first/livelihood_first/security_first/balanced
     red_line_check_enabled: bool = True       # 是否启用人道主义红线检测
+
+    # v3.6: 新增模块开关
+    platform_enabled: bool = True             # 是否启用平台垄断模块
+    demography_enabled: bool = True           # 是否启用内生人口动态
+    demography_update_interval: float = 1.0   # 人口更新间隔（年）
+    spatial_enabled: bool = True              # 是否启用双区域空间模块
+    policy_execution_discount_enabled: bool = True  # 是否启用政策执行折扣

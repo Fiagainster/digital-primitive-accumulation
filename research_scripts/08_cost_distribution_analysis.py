@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""08_代价分布深度分析 —— EX-F-04: 系统比较不同策略下代价的时空分布与群体定位.
+"""08_代价分布深度分析 —— EX-F-04: 系统比较不同策略下代价的时空分布与群体定位 (v3.5).
 
 研究问题:
     代价在不同家庭群组（数字/工业/基础/服务业/失业）间如何分布？
@@ -220,6 +220,36 @@ def main():
         logger.logger.info(f"    策略{regime}: 平均比={np.mean(ratios):.1f} | "
                          f">2.5(撕裂): {high_ratio/len(ratios):.1%} | "
                          f">4.0(崩溃): {extreme_ratio/len(ratios):.1%}")
+
+    # v3.5: 就业质量分析
+    logger.logger.info(f"\n  v3.5 就业质量分析:")
+    for regime in regimes:
+        subset = [r for r in results
+                 if r["summary"].get("regime") == regime
+                 and r.get("_success", True)]
+        if not subset:
+            continue
+        emp_q = [s["summary"].get("employment_quality_index", 1.0)
+                for s in subset]
+        logger.logger.info(f"    策略{regime}: 就业质量指数={np.mean(emp_q):.3f} "
+                          f"± {np.std(emp_q):.3f}")
+
+    # v3.5: 数字部门分层代价
+    logger.logger.info(f"\n  v3.5 数字部门分层代价 (infra vs app):")
+    for regime in regimes:
+        subset = [r for r in results
+                 if r["summary"].get("regime") == regime
+                 and r.get("_success", True)]
+        if not subset:
+            continue
+        sector_info = [s["summary"].get("sector_info", {}) for s in subset]
+        if sector_info and sector_info[0]:
+            k_infra_vals = [si.get("K_d_infra", 0) for si in sector_info if si]
+            k_app_vals = [si.get("K_d_app", 0) for si in sector_info if si]
+            if k_infra_vals and k_app_vals:
+                logger.logger.info(f"    策略{regime}: K_d_infra={np.mean(k_infra_vals):.1f} | "
+                                  f"K_d_app={np.mean(k_app_vals):.1f} | "
+                                  f"infra/app比={np.mean(k_infra_vals)/max(np.mean(k_app_vals),0.01):.2f}")
 
     # 人道主义红线触发分析
     logger.logger.info(f"\n  人道主义红线触发分析:")

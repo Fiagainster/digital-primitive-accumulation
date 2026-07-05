@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""06_基准生存扫描 —— EX-S-01: 三种纯策略在大范围LHS参数空间中的生存边界.
+"""06_基准生存扫描 —— EX-S-01: 三种纯策略在大范围LHS参数空间中的生存边界 (v3.5).
 
 研究问题:
     在合理的参数范围内，每种策略的存活率是多少？
@@ -244,6 +244,25 @@ def main():
         rows.append(row)
 
     logger.table("策略综合比较", headers, rows)
+
+    # v3.5: 六部门统计 (如果有的话)
+    logger.logger.info(f"\n  v3.5 六部门指标 (策略平均):")
+    for regime in regimes:
+        regime_results = [r for r in all_results
+                        if r["summary"].get("regime") == regime
+                        and r.get("_success", True)]
+        if not regime_results:
+            continue
+        gap_infra = np.mean([s["summary"].get("final_tech_gap_infra",
+                            s["summary"].get("final_tech_gap", 0))
+                           for s in regime_results])
+        gap_app = np.mean([s["summary"].get("final_tech_gap_app",
+                          s["summary"].get("final_tech_gap", 0))
+                         for s in regime_results])
+        emp_q = np.mean([s["summary"].get("employment_quality_index", 1.0)
+                       for s in regime_results])
+        logger.logger.info(f"    策略{regime}: 技术差距(infra)={gap_infra:.1f} | "
+                          f"技术差距(app)={gap_app:.1f} | 就业质量={emp_q:.3f}")
 
     # 发现
     for regime in regimes:

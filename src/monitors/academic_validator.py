@@ -149,10 +149,10 @@ class AcademicValidator:
             self._state_snapshots.append({
                 "t": state.t,
                 "K_i": state.sectors["i"].K,
-                "K_d": state.sectors["d"].K,
+                "K_d": state.sectors["d_infra"].K + state.sectors["d_app"].K,
                 "K_b": state.sectors["b"].K,
                 "Y_i": state.sectors["i"].Y,
-                "Y_d": state.sectors["d"].Y,
+                "Y_d": state.sectors["d_infra"].Y + state.sectors["d_app"].Y,
                 "Y_b": state.sectors["b"].Y,
                 "tech_gap": state.tech_gap,
                 "unemployment_rate": state.unemployment_rate,
@@ -160,7 +160,7 @@ class AcademicValidator:
                 "welfare_index": state.welfare_index,
                 "gdp": state.gdp,
                 "DD_i": state.sectors["i"].digital_density,
-                "DD_d": state.sectors["d"].digital_density,
+                "DD_d": 0.5 * (state.sectors["d_infra"].digital_density + state.sectors["d_app"].digital_density),
             })
 
     def _compute_sfc_stats(self) -> dict:

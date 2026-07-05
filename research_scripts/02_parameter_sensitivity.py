@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-"""02_参数敏感性分析 —— 局部参数扰动 (±10%) 对关键输出的影响.
+"""02_参数敏感性分析 —— 局部参数扰动 (±10%) 对关键输出的影响 (v3.5).
 
 研究问题:
     在基准参数点附近，哪些参数对模型输出的影响最大？
+    v3.5新增参数: incompat_AB_resource, credit_bias_digital, platform_empowerment,
+                  xi_infra_to_app, eta_network_app, capital_flight_sensitivity 等
 
 复杂度: ★★☆☆☆ (简单-中等)
 预计时间: 3-10分钟
@@ -36,11 +38,13 @@ from common.runner import build_param_sets, _run_single_isolated, get_optimal_wo
 # ============================================================
 EXPERIMENT_NAME = "02_parameter_sensitivity"
 
-# 关键输出变量（与设计文档 04 第五节一致）
+# 关键输出变量（v3.5: 新增分层技术差距和就业质量）
 KEY_OUTPUTS = [
     "survived",            # 是否存活
     "survival_years",      # 存活时间
     "final_tech_gap",      # 最终技术差距
+    "final_tech_gap_infra",  # v3.5: 基础设施层技术差距
+    "final_tech_gap_app",   # v3.5: 应用层技术差距
     "final_gdp",           # 最终GDP
     "peak_unemployment",   # 峰值失业率
     "cost_concentration",  # 代价基尼

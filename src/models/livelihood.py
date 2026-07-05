@@ -7,7 +7,7 @@
 import numpy as np
 from dataclasses import dataclass, field
 from typing import Dict, Optional
-from ..core.state import SystemState
+from ..core.state import SystemState, ALL_SECTORS
 
 
 @dataclass
@@ -156,7 +156,7 @@ class LivelihoodModule:
 
         # 3. 技能不匹配度
         # 数字部门技能需求 vs 工业/基础劳动者现有技能
-        skill_demand = state.sectors["d"].H
+        skill_demand = 0.5 * (state.sectors["d_infra"].H + state.sectors["d_app"].H)
         skill_supply_industrial = state.households.industrial_workers.skill_level
         if skill_demand > 0 and skill_supply_industrial > 0:
             mismatch = max(0.0, skill_demand / max(skill_supply_industrial, 0.01) - 1.0)
@@ -218,13 +218,13 @@ class LivelihoodModule:
             # 分配到各部门，优先提升低H部门
             total_H_gap = 0.0
             H_gaps = {}
-            for key in ["b", "i", "d", "s"]:
-                gap = max(0.0, 2.0 - state.sectors[key].H)  # H=2.0为前沿
+            for key in ALL_SECTORS:
+                gap = max(0.0, 2.0 - state.sectors[key].H)
                 H_gaps[key] = gap
                 total_H_gap += gap
 
             if total_H_gap > 0:
-                for key in ["b", "i", "d", "s"]:
+                for key in ALL_SECTORS:
                     # H提升量与当前H缺口成正比（缺得多的部门受益多）
                     H_boost = released * (H_gaps[key] / total_H_gap) / max(
                         state.sectors[key].L, 0.01)
@@ -247,7 +247,7 @@ class LivelihoodModule:
         u_pop = state.households.unemployed.population
         total_comp = state.households.unemployed.compensation_received
         # 失业保险替代率 = 人均补偿 / 平均工资
-        avg_wage = np.mean([state.sectors[k].W for k in ["b", "i", "d"]])
+        avg_wage = np.mean([state.sectors[k].W for k in ALL_SECTORS])
         if u_pop > 0 and avg_wage > 0:
             replacement_rate = (total_comp / u_pop) / max(avg_wage, 0.01)
             ls.unemployment_coverage = np.clip(replacement_rate / 0.40, 0.0, 1.0)
@@ -313,13 +313,13 @@ class LivelihoodModule:
         gdp_growth = 0.02  # 默认值，可从时间序列推断
         wage_growth = np.mean([
             state.sectors[k].W / max(getattr(self, f'_prev_W_{k}', state.sectors[k].W), 0.01) - 1.0
-            for k in ["b", "i", "d"]
+            for k in ALL_SECTORS
         ])
         ls.income_growth_expectation = np.clip(
             0.5 + (gdp_growth * 5.0) + (wage_growth * 3.0),
             0.0, 1.0
         )
-        for k in ["b", "i", "d"]:
+        for k in ALL_SECTORS:
             setattr(self, f'_prev_W_{k}', state.sectors[k].W)
 
         # 3. 制度信任度（与政治支持度相关）

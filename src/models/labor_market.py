@@ -1,4 +1,4 @@
-"""劳动力市场 —— 部门间流动、工资、失业."""
+"""劳动力市场 —— 部门间流动、工资、失业 (v3.5: 六部门 + 技能分化路由)."""
 
 import numpy as np
 from ..core.state import SystemState, ALL_SECTORS
@@ -20,7 +20,7 @@ class LaborMarket:
         self._update_households(state)
 
     def _compute_flows(self, state: SystemState) -> dict:
-        """计算部门间劳动力流动."""
+        """计算部门间劳动力流动 (v3.5: 六部门 ALL_SECTORS)."""
         sectors = ALL_SECTORS
         flows = {}
 
@@ -52,11 +52,13 @@ class LaborMarket:
         return flows
 
     def _apply_flows(self, state: SystemState, flows: dict, dt: float):
-        """应用劳动力流动，更新各部门L + v3.2 技能选择效应.
+        """应用劳动力流动 + v3.2 技能选择 + v3.5 技能分化路由.
 
         v3.2 (Q5): 当工业劳动力流向数字部门时，技能匹配度高的劳动者
         优先流出。留在工业部门的劳动者平均技能下降。
-        这修正了总量流动模型对策略B工业人力资本破坏的低估。
+
+        v3.5: 六部门全迭代 + 基于技能水平的差异化路由,
+        高技能劳动者流向 d_app/s_high, 低技能流向 s_low/informal_service_L.
         """
         net_flow = {k: 0.0 for k in ALL_SECTORS}
 
@@ -89,49 +91,46 @@ class LaborMarket:
                 # 流入部门H略微提升（高技能流入）
                 H_changes[dst] += (leaver_H - H_dst) * outflow_ratio * 0.3  # 流入稀释效应
 
-        for key in ["b", "i", "d"]:
+        # v3.5: 应用净流动到所有六个部门 (替换原来的 ["b", "i", "d"])
+        for key in ALL_SECTORS:
             state.sectors[key].L += net_flow[key] * dt
             state.sectors[key].L = max(0.5, state.sectors[key].L)
             # v3.2: 应用技能选择效应
             state.sectors[key].H += H_changes[key] * 0.5  # 阻尼系数—避免过度震荡
             state.sectors[key].H = max(0.2, min(state.sectors[key].H, 3.0))
 
-        # 失业变化 + v3.3 低端服务业分流
+        # 失业变化 + v3.5 技能分化路由
         total_outflow = sum(max(0, -v) for v in net_flow.values())
         total_inflow = sum(max(0, v) for v in net_flow.values())
         net_unemployed = total_outflow - total_inflow
 
-        # v3.3: 低端服务业分流 — 从萎缩部门流出的低技能劳动力
-        # v3.2: 增加梯度流动——服务业饱和后流向基础部门
+        # v3.5: 技能分化路由 — 对每个净流出部门，根据技能水平路由被替代劳动者
+        # v3.5: 检查低端服务业饱和度
+        total_formal_L = sum(state.sectors[k].L for k in ALL_SECTORS)
+        informal_ratio = state.informal_service_L / max(total_formal_L, 1.0)
+        service_saturated = informal_ratio > 0.25
+
         for key, outflow in net_flow.items():
             if outflow < 0:  # 该部门在流失劳动力
                 abs_outflow = abs(outflow)
-                # 流失劳动力中技能不足以进入其他正式部门的比例
-                skill_level = state.sectors[key].H
-                low_skill_share = max(0.0, 1.0 - skill_level / 1.5)
-
-                # v3.2: 检查低端服务业是否饱和
-                total_formal_L = sum(state.sectors[k].L for k in ALL_SECTORS)
-                informal_ratio = state.informal_service_L / max(total_formal_L, 1.0)
-                # 饱和阈值：非正式就业超过正式就业的25%
-                service_saturated = informal_ratio > 0.25
-
-                informal_inflow = abs_outflow * low_skill_share * dt
+                # v3.5: 使用技能分化路由替代简单的 low_skill_share
+                routed_to_formal, routed_to_informal = self._route_displaced_workers(
+                    state, key, abs_outflow, dt)
 
                 if service_saturated:
                     # 服务业饱和 → 部分回流到基础部门（压低基础工资）
-                    back_to_base = informal_inflow * 0.4  # 40%被迫回到基础部门
+                    back_to_base = routed_to_informal * 0.4  # 40%被迫回到基础部门
                     state.sectors["b"].L += back_to_base
                     # 基础部门工资因劳动力过剩而下降
                     labor_surplus_penalty = min(0.2, informal_ratio * 0.15)
                     state.sectors["b"].W *= (1.0 - labor_surplus_penalty * dt)
                     # 剩余仍进入低端服务业（但工资更低）
-                    informal_inflow *= 0.6
-                    state.informal_service_L += informal_inflow
+                    state.informal_service_L += routed_to_informal * 0.6
                 else:
-                    state.informal_service_L += informal_inflow
+                    state.informal_service_L += routed_to_informal
 
-                net_unemployed -= (abs_outflow * low_skill_share * dt)  # 原始全部扣除
+                # 扣减失业：已路由的劳动者不进入失业统计
+                net_unemployed -= (routed_to_formal + routed_to_informal)
 
         # v3.2: 低端服务业回流的梯度路径
         if state.informal_service_L > 0:
@@ -158,29 +157,100 @@ class LaborMarket:
         state.households.unemployed.population += net_unemployed * dt
         state.households.unemployed.population = max(0.0, state.households.unemployed.population)
 
+    def _route_displaced_workers(self, state: SystemState, source_sector: str,
+                                   displaced_count: float, dt: float):
+        """v3.5: 根据技能水平将被替代劳动者路由到不同部门.
+
+        高技能 (H > 1.0): 流向 d_app 和 s_high —— 技能可迁移到高技术服务业
+        低技能 (H < 0.8): 流向 s_low, 溢出到 informal_service_L —— 只能进入低端岗位
+        中等技能 (0.8 <= H <= 1.0): 按比例分配到各吸收性部门
+
+        Args:
+            state: 系统状态
+            source_sector: 流出部门标识 (如 "i")
+            displaced_count: 被替代劳动者数量 (流动率，尚未乘dt)
+            dt: 时间步长
+
+        Returns:
+            (routed_to_formal, routed_to_informal): 路由到正式部门和非正式部门的
+            劳动者数量（已乘dt的实际人数）
+        """
+        src_H = state.sectors[source_sector].H
+        displaced = displaced_count * dt  # 实际人数
+
+        if src_H > 1.0:
+            # 高技能劳动者: 70% → d_app, 30% → s_high
+            to_d_app = displaced * 0.7
+            to_s_high = displaced * 0.3
+            state.sectors["d_app"].L += to_d_app
+            state.sectors["s_high"].L += to_s_high
+            return displaced, 0.0  # 全部进入正式部门
+
+        elif src_H < 0.8:
+            # 低技能劳动者: 60% → s_low, 40% → informal_service_L
+            to_s_low = displaced * 0.6
+            to_informal = displaced * 0.4
+            state.sectors["s_low"].L += to_s_low
+            return to_s_low, to_informal
+
+        else:
+            # 中等技能: 均匀分配到各吸收性部门
+            to_d_app = displaced * 0.25
+            to_s_high = displaced * 0.25
+            to_s_low = displaced * 0.25
+            to_informal = displaced * 0.25
+            state.sectors["d_app"].L += to_d_app
+            state.sectors["s_high"].L += to_s_high
+            state.sectors["s_low"].L += to_s_low
+            return (to_d_app + to_s_high + to_s_low), to_informal
+
     def _update_households(self, state: SystemState):
-        """将部门就业映射到家庭群组 (v3.2: 增加技能折旧追踪)."""
-        # 数字部门 → 高技能数字家庭
-        state.households.digital_high_skill.population = state.sectors["d"].L
-        state.households.digital_high_skill.employed = state.sectors["d"].L
-        state.households.digital_high_skill.avg_wage = state.sectors["d"].W
+        """v3.5: 将六部门就业映射到家庭群组.
+
+        - d_infra + d_app → digital_high_skill (合并, 加权平均技能)
+        - s_high + s_low → service_workers (合并, 加权平均工资/技能)
+        - 就业质量综合指数: d_infra/d_app/i/s_high=1.0, b=0.8, s_low=0.6
+        - 失业率: 六部门 + informal_service_L 隐藏失业
+        """
+
+        # ── v3.5: 数字部门 (d_infra + d_app) → 高技能数字家庭 ──
+        d_infra_L = state.sectors["d_infra"].L
+        d_app_L = state.sectors["d_app"].L
+        total_digital_L = d_infra_L + d_app_L
+
+        state.households.digital_high_skill.population = total_digital_L
+        state.households.digital_high_skill.employed = total_digital_L
+
+        if total_digital_L > 0:
+            # 加权平均工资
+            state.households.digital_high_skill.avg_wage = (
+                d_infra_L * state.sectors["d_infra"].W
+                + d_app_L * state.sectors["d_app"].W
+            ) / total_digital_L
+            # v3.5: 加权平均技能 (d_infra.H 与 d_app.H 的就业加权)
+            combined_digital_H = (
+                d_infra_L * state.sectors["d_infra"].H
+                + d_app_L * state.sectors["d_app"].H
+            ) / total_digital_L
+        else:
+            state.households.digital_high_skill.avg_wage = 0.0
+            combined_digital_H = 1.0
+
         # v3.2: 数字技能半衰期 — 技术迭代导致已有技能贬值
-        # 数字技术更新周期约3-5年 → 年化折旧率5-8%
         digital_obsolescence_rate = 0.06  # 年化6%
         prev_d_skill = state.households.digital_high_skill.skill_level
         state.households.digital_high_skill.skill_level = (
-            state.sectors["d"].H * (1.0 - digital_obsolescence_rate * 0.25)
+            combined_digital_H * (1.0 - digital_obsolescence_rate * 0.25)
             + prev_d_skill * digital_obsolescence_rate * 0.25  # 存量技能部分保留
         )
 
-        # 工业部门 → 工业劳动者家庭
+        # ── 工业部门 → 工业劳动者家庭 ──
         state.households.industrial_workers.population = state.sectors["i"].L
         state.households.industrial_workers.employed = state.sectors["i"].L
         state.households.industrial_workers.avg_wage = state.sectors["i"].W
         # v3.2: 长期在服务业/失业的工业劳动者技能折旧
         if hasattr(self, '_industrial_skill_erosion_duration'):
             erosion_years = self._industrial_skill_erosion_duration
-            # 离开工业岗位每年技能贬值2-3%
             erosion_rate = min(0.30, erosion_years * 0.025)
             state.households.industrial_workers.skill_level = (
                 state.sectors["i"].H * (1.0 - erosion_rate)
@@ -188,25 +258,41 @@ class LaborMarket:
         else:
             state.households.industrial_workers.skill_level = state.sectors["i"].H
 
-        # 基础部门 → 基础部门劳动者家庭
+        # ── 基础部门 → 基础部门劳动者家庭 ──
         state.households.base_workers.population = state.sectors["b"].L
         state.households.base_workers.employed = state.sectors["b"].L
         state.households.base_workers.avg_wage = state.sectors["b"].W
         state.households.base_workers.skill_level = state.sectors["b"].H
 
-        # v3.3: 服务业部门 → 服务业劳动者家庭
-        state.households.service_workers.population = state.sectors["s"].L
-        state.households.service_workers.employed = state.sectors["s"].L
-        state.households.service_workers.avg_wage = state.sectors["s"].W
-        state.households.service_workers.skill_level = state.sectors["s"].H
+        # ── v3.5: 服务业部门 (s_high + s_low) → 服务业劳动者家庭 ──
+        s_high_L = state.sectors["s_high"].L
+        s_low_L = state.sectors["s_low"].L
+        total_service_L = s_high_L + s_low_L
 
-        # 各群组收入
+        state.households.service_workers.population = total_service_L
+        state.households.service_workers.employed = total_service_L
+
+        if total_service_L > 0:
+            # 加权平均工资（s_high 工资高于 s_low）
+            state.households.service_workers.avg_wage = (
+                s_high_L * state.sectors["s_high"].W
+                + s_low_L * state.sectors["s_low"].W
+            ) / total_service_L
+            # 加权平均技能
+            state.households.service_workers.skill_level = (
+                s_high_L * state.sectors["s_high"].H
+                + s_low_L * state.sectors["s_low"].H
+            ) / total_service_L
+        else:
+            state.households.service_workers.avg_wage = 0.0
+            state.households.service_workers.skill_level = 1.0
+
+        # ── 各群组收入 ──
         for h in state.households.all_groups():
             h.income = h.employed * h.avg_wage + h.compensation_received
             h.consumption = h.income * 0.85  # 简化消费倾向
 
-        # v3.2: 追踪工业技能侵蚀持续时间
-        # 当工业就业低于峰值时累积侵蚀时间
+        # ── v3.2: 追踪工业技能侵蚀持续时间 ──
         if not hasattr(self, '_peak_industrial_L'):
             self._peak_industrial_L = state.sectors["i"].L
             self._industrial_skill_erosion_duration = 0.0
@@ -217,7 +303,27 @@ class LaborMarket:
             self._industrial_skill_erosion_duration = max(0.0,
                 self._industrial_skill_erosion_duration - 0.25 * 2)  # 恢复更快
 
-        # 总失业率（v3.3: 统计失业 + 低端服务业"隐藏失业"）
+        # ── v3.5: 就业质量综合指数 ──
+        # d_infra, d_app, i, s_high → quality=1.0 (正式稳定就业)
+        # b → quality=0.8 (基础部门)
+        # s_low → quality=0.6 (低端服务业/零工经济)
+        total_formal_L = sum(state.sectors[k].L for k in ALL_SECTORS)
+        if total_formal_L > 0:
+            quality_map = {
+                "d_infra": 1.0,
+                "d_app": 1.0,
+                "i": 1.0,
+                "s_high": 1.0,
+                "s_low": 0.6,
+                "b": 0.8,
+            }
+            state.employment_quality_index = sum(
+                state.sectors[k].L * quality_map[k] for k in ALL_SECTORS
+            ) / total_formal_L
+        else:
+            state.employment_quality_index = 1.0
+
+        # ── v3.5: 总失业率（六部门 + 低端服务业"隐藏失业"） ──
         total_L = sum(s.L for s in state.sectors.values())
         # 有效失业 = 统计失业 + 低端服务业(按0.5折算——他们毕竟有收入)
         effective_unemployed = (state.households.unemployed.population

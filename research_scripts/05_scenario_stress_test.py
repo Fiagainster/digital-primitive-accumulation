@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-"""05_国际场景压力测试 —— 8种国际场景下三种策略的生存能力矩阵.
+"""05_国际场景压力测试 —— 8种国际场景下三种策略的生存能力矩阵 (v3.5).
 
 研究问题:
     不同策略对国际环境的敏感度如何？哪些策略是"场景稳健"的，哪些是"场景脆弱"的？
     在极端封锁（full_containment）或技术爆发（tech_explosion）下，各策略表现如何？
+    v3.5新增: effective_block_max 对 infra vs app 的分层影响分析
 
 复杂度: ★★☆☆☆ (中等)
 预计时间: 5-20分钟
@@ -207,6 +208,33 @@ def main():
             logger.finding(
                 f"反直觉: {scenario}下策略C存活率最高({survs['C']:.1%})——替代策略在封锁下反而有韧性",
                 level="KEY"
+            )
+
+    # v3.5: 封锁对infra/app分层的差异影响
+    logger.logger.info(f"\n{'─' * 60}")
+    logger.logger.info("  v3.5 技术封锁的分层影响 (infra vs app)")
+    logger.logger.info(f"{'─' * 60}")
+    for scenario in scenarios:
+        sc_results = [r for r in results
+                     if r.get("_scenario") == scenario
+                     and r.get("_success", True)]
+        if not sc_results:
+            continue
+        gap_infra = np.mean([s["summary"].get("final_tech_gap_infra",
+                            s["summary"].get("final_tech_gap", 0))
+                           for s in sc_results])
+        gap_app = np.mean([s["summary"].get("final_tech_gap_app",
+                          s["summary"].get("final_tech_gap", 0))
+                         for s in sc_results])
+        emp_q = np.mean([s["summary"].get("employment_quality_index", 1.0)
+                       for s in sc_results])
+        logger.logger.info(f"  {scenario:<25}: gap_infra={gap_infra:.1f} | "
+                          f"gap_app={gap_app:.1f} | emp_quality={emp_q:.3f}")
+        if gap_infra > gap_app + 1.0:
+            logger.finding(
+                f"  {scenario}: infra差距({gap_infra:.1f})显著大于app({gap_app:.1f})"
+                "——基础设施层更易受封锁影响",
+                level="INFO"
             )
 
     # 保存

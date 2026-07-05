@@ -178,6 +178,18 @@ class ResearchLogger:
             line = "  " + " | ".join(f"{str(v):<15}" for v in row)
             self.logger.info(line)
 
+    def info(self, text: str):
+        """通用信息日志."""
+        self.logger.info(text)
+
+    def warning(self, text: str):
+        """通用警告日志."""
+        self.logger.warning(text)
+
+    def error(self, text: str):
+        """通用错误日志."""
+        self.logger.error(str(text))
+
     def finding(self, text: str, level: str = "INFO"):
         """记录研究发现 —— 用于最终报告."""
         if level == "KEY":
