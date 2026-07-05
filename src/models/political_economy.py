@@ -135,18 +135,15 @@ class PoliticalEconomyModule:
         # 策略差异化调节
         regime = state.accumulation_regime
         if regime == "B":
-            # 策略B：高提取可能压低短期支持度，但反哺成功后回升
-            # 数字部门高工资提升了部分人群的满意度
-            # 但工业劳动者的不满更强烈
-            raw_support *= 0.95  # 轻微折扣
+            raw_support *= self.p.get("regime_adjust_B", 0.95)
         elif regime == "C":
-            # 策略C：依赖外部 → 更脆弱但表面更平等
-            raw_support *= 1.02
+            raw_support *= self.p.get("regime_adjust_C", 1.02)
 
         # 历史平滑（避免剧烈波动）
         if self._support_history:
             prev_support = self._support_history[-1]
-            ps.support_index = 0.85 * prev_support + 0.15 * raw_support
+            smooth = self.p.get("support_smoothing_factor", 0.85)
+            ps.support_index = smooth * prev_support + (1 - smooth) * raw_support
         else:
             ps.support_index = raw_support
 

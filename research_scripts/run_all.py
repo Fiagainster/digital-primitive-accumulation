@@ -254,17 +254,25 @@ def list_scripts():
     print()
 
 
+# v3.7: 已更新支持 --config 的脚本ID列表
+CONFIG_AWARE_SCRIPTS = {1, 2, 3, 4, 5}
+
 def run_script(script_info: dict, quick_mode: bool = False,
-               extra_args: list = None) -> dict:
+               extra_args: list = None, config_path: str = None) -> dict:
     """运行单个脚本并返回结果."""
     script_path = SCRIPTS_DIR / script_info["file"]
     if not script_path.exists():
         return {"id": script_info["id"], "success": False,
                 "error": f"文件不存在: {script_path}"}
 
-    args = script_info["quick_args" if quick_mode else "default_args"]
+    args = list(script_info["quick_args" if quick_mode else "default_args"])
     if extra_args:
         args = args + extra_args
+    # v3.7: 仅为已更新的脚本传递 --config
+    if config_path and script_info["id"] in CONFIG_AWARE_SCRIPTS:
+        # 避免重复添加
+        if "--config" not in args:
+            args.extend(["--config", config_path])
 
     cmd = [sys.executable, str(script_path)] + args
 
@@ -326,6 +334,8 @@ def main():
                        help="跳过的脚本ID (如 '13,14')")
     parser.add_argument("--extra-args", type=str, default=None,
                        help="传递给所有脚本的额外参数 (如 '--workers 8')")
+    parser.add_argument("--config", type=str, default=None,
+                       help="v3.7: YAML配置文件路径，传递给所有脚本")
     args = parser.parse_args()
 
     if args.list:
@@ -354,6 +364,10 @@ def main():
         return
 
     extra_args = args.extra_args.split() if args.extra_args else []
+
+    # v3.7: 传递YAML配置路径给所有子脚本
+    if args.config:
+        extra_args.extend(["--config", args.config])
 
     # 显示计划
     print("\n" + "=" * 80)
@@ -395,7 +409,8 @@ def main():
         print(f"[{i+1}/{len(selected)}] 执行: {script['name']}")
         print(f"{'█' * 60}")
 
-        result = run_script(script, quick_mode=args.quick, extra_args=extra_args)
+        result = run_script(script, quick_mode=args.quick,
+                           extra_args=extra_args, config_path=args.config)
         results.append(result)
 
         status = "✓ 成功" if result["success"] else f"✗ 失败 ({result.get('error', '?')})"

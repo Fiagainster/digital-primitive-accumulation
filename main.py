@@ -1,4 +1,7 @@
-"""主入口 —— 命令行接口 (v3.5 升级)."""
+"""主入口 —— 命令行接口 (v3.7 升级).
+
+v3.7: 新增 --config 参数，支持从YAML配置文件加载所有参数和权重。
+"""
 
 import sys
 import os
@@ -17,24 +20,54 @@ from src.analysis.visualize import Visualizer, generate_academic_report
 from src.models.mixed_strategy import STANDARD_MIXTURES, MixedStrategy
 
 
-def run_single_demo(profile: str = "manufacturing_giant"):
-    """运行单次模拟演示 (v3.5 含国情预设)."""
+def parse_profile_arg() -> str:
+    """从命令行参数中解析 --profile."""
+    for i, arg in enumerate(sys.argv):
+        if arg == "--profile" and i + 1 < len(sys.argv):
+            return sys.argv[i + 1]
+    return "manufacturing_giant"  # 默认
+
+
+def parse_config_arg() -> str:
+    """从命令行参数中解析 --config (YAML配置文件路径)."""
+    for i, arg in enumerate(sys.argv):
+        if arg == "--config" and i + 1 < len(sys.argv):
+            return sys.argv[i + 1]
+    return None
+
+
+def run_single_demo(profile: str = "manufacturing_giant",
+                    config_path: str = None):
+    """运行单次模拟演示 (v3.7 含YAML配置支持)."""
     print("=" * 60)
-    print(f"原始积累模型 v3.5 — 国情: {profile}")
+    config_tag = f" | 配置: {config_path}" if config_path else ""
+    print(f"原始积累模型 v3.7 — 国情: {profile}{config_tag}")
     print("=" * 60)
 
     schema = get_schema()
-    config = SimulationConfig(T_max=60.0, verbose=False)
+    sim_config = SimulationConfig(T_max=60.0, verbose=False)
 
     for regime in ["A", "B", "C"]:
         print(f"\n--- 策略 {regime} ---")
-        params = schema.build_from_profile(
-            profile_name=profile,
-            regime=regime,
-            scenario="benign_globalization",
-        )
+        # v3.7: 如果有YAML配置，使用YAML加载
+        if config_path:
+            params = schema.build_from_yaml(
+                config_path=config_path,
+                profile_name=profile,
+                regime=regime,
+                scenario="benign_globalization",
+            )
+        else:
+            params = schema.build_from_profile(
+                profile_name=profile,
+                regime=regime,
+                scenario="benign_globalization",
+            )
 
-        engine = SimulationEngine(params=params, config=config, regime=regime)
+        engine = SimulationEngine(
+            params=params, config=sim_config, regime=regime,
+            config_path=config_path,
+        )
         result = engine.run()
         s = result["summary"]
 
@@ -81,12 +114,23 @@ def run_single_demo(profile: str = "manufacturing_giant"):
     # v3.0: 生成五维雷达图
     all_results = []
     for regime in ["A", "B", "C"]:
-        params = schema.build_from_profile(
-            profile_name=profile,
-            regime=regime,
-            scenario="benign_globalization",
+        if config_path:
+            params = schema.build_from_yaml(
+                config_path=config_path,
+                profile_name=profile,
+                regime=regime,
+                scenario="benign_globalization",
+            )
+        else:
+            params = schema.build_from_profile(
+                profile_name=profile,
+                regime=regime,
+                scenario="benign_globalization",
+            )
+        engine = SimulationEngine(
+            params=params, config=sim_config, regime=regime,
+            config_path=config_path,
         )
-        engine = SimulationEngine(params=params, config=config, regime=regime)
         result = engine.run()
         all_results.append(result)
 
@@ -97,14 +141,16 @@ def run_single_demo(profile: str = "manufacturing_giant"):
     print("\n[Done] Single simulation demo completed. Figures saved to experiments/results/figures/")
 
 
-def run_mixed_demo(profile: str = "manufacturing_giant"):
-    """v3.5: 混合策略演示（支持国情预设）."""
+def run_mixed_demo(profile: str = "manufacturing_giant",
+                   config_path: str = None):
+    """v3.7: 混合策略演示（支持YAML配置）."""
     print("\n" + "=" * 60)
-    print(f"原始积累模型 v3.5 — 混合策略演示 | 国情: {profile}")
+    config_tag = f" | 配置: {config_path}" if config_path else ""
+    print(f"原始积累模型 v3.7 — 混合策略演示 | 国情: {profile}{config_tag}")
     print("=" * 60)
 
     schema = get_schema()
-    config = SimulationConfig(T_max=50.0, verbose=False)
+    sim_config = SimulationConfig(T_max=50.0, verbose=False)
 
     # 选取关键混合配比
     mixtures_to_test = [
@@ -120,12 +166,20 @@ def run_mixed_demo(profile: str = "manufacturing_giant"):
     results = []
     for name, base_regime in mixtures_to_test:
         regime_str = base_regime if base_regime != "M" else f"M_{name}"
-        # 使用国情预设构建参数
-        params = schema.build_from_profile(
-            profile_name=profile,
-            regime="A" if base_regime == "M" else base_regime,
-            scenario="benign_globalization",
-        )
+        # 使用国情预设构建参数 (v3.7: YAML优先)
+        if config_path:
+            params = schema.build_from_yaml(
+                config_path=config_path,
+                profile_name=profile,
+                regime="A" if base_regime == "M" else base_regime,
+                scenario="benign_globalization",
+            )
+        else:
+            params = schema.build_from_profile(
+                profile_name=profile,
+                regime="A" if base_regime == "M" else base_regime,
+                scenario="benign_globalization",
+            )
 
         if base_regime == "M":
             mixture = STANDARD_MIXTURES.get(name, (1/3, 1/3, 1/3))
@@ -135,7 +189,10 @@ def run_mixed_demo(profile: str = "manufacturing_giant"):
             mixture = None
 
         print(f"\n--- {name} (λ={mixture if mixture else '纯'}) ---")
-        engine = SimulationEngine(params=params, config=config, regime=regime_str)
+        engine = SimulationEngine(
+            params=params, config=sim_config, regime=regime_str,
+            config_path=config_path,
+        )
         result = engine.run()
         s = result["summary"]
 
@@ -255,37 +312,37 @@ def run_profiles_command():
     print("          python main.py compare --profiles <name1>,<name2>,...")
 
 
-def parse_profile_arg() -> str:
-    """从命令行参数中解析 --profile."""
-    for i, arg in enumerate(sys.argv):
-        if arg == "--profile" and i + 1 < len(sys.argv):
-            return sys.argv[i + 1]
-    return "manufacturing_giant"  # 默认
-
-
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
     else:
         cmd = "demo"
 
+    # v3.7: 解析YAML配置文件路径
+    config_path = parse_config_arg()
+    profile = parse_profile_arg()
+
+    if config_path:
+        print(f"[config] 从YAML加载参数: {config_path}")
+
     if cmd == "demo":
-        profile = parse_profile_arg()
-        run_single_demo(profile=profile)
+        run_single_demo(profile=profile, config_path=config_path)
     elif cmd == "compare":
         run_comparison_demo()
     elif cmd == "batch":
         run_batch_experiment()
     elif cmd == "mixed":
-        profile = parse_profile_arg()
-        run_mixed_demo(profile=profile)  # v3.5: 混合策略演示
+        run_mixed_demo(profile=profile, config_path=config_path)
     elif cmd == "profiles":
-        run_profiles_command()  # v3.5: 列出国情预设
+        run_profiles_command()
     else:
-        print(f"Usage: python main.py [demo|compare|batch|mixed|profiles]")
+        print(f"Usage: python main.py [demo|compare|batch|mixed|profiles] [options]")
         print(f"  demo     - 单次模拟演示（三种纯策略 + 五维评价 + 六部门结构）")
         print(f"             --profile <name>  指定国情预设（默认: manufacturing_giant）")
+        print(f"             --config <path>   v3.7: 从YAML加载参数配置")
         print(f"  compare  - 策略×场景交叉比较")
         print(f"  batch    - LHS批量实验")
-        print(f"  mixed    - v3.5 混合策略演示（纯策略+混合策略，支持 --profile）")
-        print(f"  profiles - v3.5 列出所有国情预设")
+        print(f"  mixed    - v3.7 混合策略演示（纯策略+混合策略）")
+        print(f"             --profile <name>  指定国情预设")
+        print(f"             --config <path>   v3.7: 从YAML加载参数配置")
+        print(f"  profiles - v3.7 列出所有国情预设")

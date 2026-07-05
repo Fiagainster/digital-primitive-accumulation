@@ -1,7 +1,37 @@
 # 研究脚本集 —— 原始积累模型 (Primitive Accumulation Model)
 
-**版本**: v1.2 (2026-07-05)
-**匹配模型版本**: v3.6 (六部门 + 平台垄断 + 内生人口 + 双区域空间 + 政策执行折扣)
+**版本**: v1.4 (2026-07-05)
+**匹配模型版本**: v3.7.1 (六部门 + 255参数YAML配置 + 平台垄断 + 内生人口 + 双区域空间)
+
+## v3.7.1 核心变更：参数彻底可配置化 + 架构升级
+
+**所有 255 个模型参数全部从 `config/default.yaml` 加载。此前约 130 个硬编码在源代码中的系数现已全部可配置。**
+
+### 参数架构升级
+
+| 升级项 | 说明 |
+|--------|------|
+| **参数子节扩展** | 新增 `production_coefficients`、`accumulation_coefficients`、劳动力市场/国际/福利/政治经济学扩展 |
+| **定义域机器可读** | 新增 `param_domains` 节，约 80 个参数提供 `{min, max}` 格式，采样脚本可直接读取 |
+| **理论来源对照** | 新增 `parameter_sources` 节，35+ 个参数标注文献依据（经验估计/理论依据/统计数据/模型假设） |
+| **策略自动选择** | 新增 `profile_strategy_guide` 节 + `get_recommended_regime()` API，国情→推荐策略自动映射 |
+| **参数名去歧义** | `diff_policy_intensity` (0.05) 为权威参数，`kappa_diff` (0.03) 已废弃 |
+
+### 自动策略选择 (🆕)
+
+研究脚本可通过国情预设自动选择推荐策略，无需用户手动指定 `--regime`：
+
+```python
+from src.params.country_profiles import get_recommended_regime, get_contraindicated_regimes
+
+# 根据国情自动选择策略
+regime = get_recommended_regime("digital_leapfrogger")  # → "B"
+
+# 检查某策略是否不适用于该国情
+avoid = get_contraindicated_regimes("resource_rich")     # → ["B"]
+```
+
+**参数入口**：编辑 `../config/default.yaml`（255 参数，有中英文注释），所有脚本立即生效。
 
 ## v3.6 主要变更
 
@@ -39,10 +69,16 @@ cd D:/Project/原始积累模型探索/primitive_accumulation
 # 激活环境
 conda activate pa_model
 
-# 运行最简单的脚本（验证环境）
+# ========== v3.7: 所有参数自动从 ../config/default.yaml 读取 ==========
+# 修改参数：编辑 ../config/default.yaml 后保存，所有脚本自动生效
+
+# 运行最简单的脚本（验证环境）—— 自动使用 default.yaml 中的参数
 python research_scripts/01_single_detailed_run.py
 
-# v3.5: 使用混合策略预设名称运行
+# 运行时覆盖国情/策略/场景（参数基础值仍来自 default.yaml）
+python research_scripts/01_single_detailed_run.py --regime B --profile digital_leapfrogger --scenario tech_cold_war
+
+# 使用混合策略预设名称运行
 python research_scripts/01_single_detailed_run.py --regime M --mixture A_dominant_B
 
 # 运行所有简单脚本（快速验证）
@@ -117,6 +153,53 @@ python research_scripts/20_china_calibration.py --uncertainty --n-samples 200
 
 ## 运行方式
 
+### 参数来源（v3.7 零配置设计）
+
+```
+┌─────────────────────────────────────────────────┐
+│  ../config/default.yaml                         │  ← 唯一参数入口
+│  ┌─────────────────────────────────────────┐    │
+│  │ structural (生产/积累/劳动力/技术/...)    │    │
+│  │ strategy (A/B/C 全部内生成本系数)        │    │
+│  │ scenario_defaults + scenarios (8种场景)  │    │
+│  │ meta (断裂/互斥)                         │    │
+│  │ cdi_weights (5种CDI方案)                 │    │
+│  │ param_domains (🆕 机器可读定义域)         │    │
+│  │ parameter_sources (🆕 文献来源对照)       │    │
+│  │ profile_strategy_guide (🆕 策略推荐)      │    │
+│  └─────────────────────────────────────────┘    │
+└───────────────┬─────────────────────────────────┘
+                │ 自动加载（无需 --config）
+                ▼
+┌─────────────────────────────────┐
+│  ParameterSchema (255 params)   │
+│  build_defaults() → YAML值      │
+│  build_from_profile() → +国情覆盖│
+└───────────────┬─────────────────┘
+                │
+                ▼
+┌─────────────────────────────────┐
+│  所有研究脚本                    │
+│  (01-20 + run_all.py)           │
+│  + get_recommended_regime() 🆕   │
+└─────────────────────────────────┘
+```
+
+**运行时覆盖**：以下参数在命令行指定，覆盖 YAML 中的对应值：
+
+| 命令行参数 | 覆盖内容 | 示例 |
+|-----------|---------|------|
+| `--profile` | 国情初始条件（IC_K_i, IC_L_b, ...） | `--profile digital_leapfrogger` |
+| `--scenario` | 国际场景（g_world, block_max, ...） | `--scenario tech_cold_war` |
+| `--regime` | 积累策略（A/B/C/M） | `--regime B` |
+| `--T-max` | 模拟年限 | `--T-max 80` |
+
+**修改参数的正确方式**：
+1. 打开 `../config/default.yaml`
+2. 找到要修改的参数（如 `epsilon_welfare`）
+3. 修改值并保存
+4. 直接运行脚本——新值自动生效
+
 ### 总调度器
 
 ```bash
@@ -129,7 +212,7 @@ python research_scripts/run_all.py --scripts 1,2,3,6
 # 按复杂度运行
 python research_scripts/run_all.py --level simple    # 1-5 + 17-18
 python research_scripts/run_all.py --level medium    # 1-10 + 19
-python research_scripts/run_all.py --level deep      # 全部1-19
+python research_scripts/run_all.py --level deep      # 全部1-20
 
 # 快速模式（减少采样量，加速运行）
 python research_scripts/run_all.py --quick --level simple
@@ -149,7 +232,10 @@ python research_scripts/run_all.py --level medium --extra-args "--workers 16"
 # 查看脚本的帮助
 python research_scripts/01_single_detailed_run.py --help
 
-# 运行特定配置
+# 默认运行（自动使用 config/default.yaml 中的参数 + 默认国情/场景）
+python research_scripts/01_single_detailed_run.py
+
+# 运行时覆盖国情、策略、场景
 python research_scripts/01_single_detailed_run.py \
     --regime B \
     --profile digital_leapfrogger \
@@ -229,11 +315,12 @@ research_scripts/
 提供统一的批量模拟工具：
 - `BatchRunner` — 多进程并行调度，回调通知
 - `sample_lhs_params()` — 拉丁超立方采样
-- `build_param_sets()` — 参数集构建（支持国情预设和场景）
+- `build_param_sets()` — 参数集构建（v3.7: 自动从 `config/default.yaml` 读取参数，支持 `--profile`/`--scenario` 运行时覆盖）
 - `param_grid_explore()` / `param_2d_grid()` — 参数网格扫描
-- `quick_run()` — 快速单次模拟 (v3.5: 支持 `mixture_name` 参数)
+- `quick_run()` — 快速单次模拟（v3.7: 自动使用 YAML 配置，支持 `mixture_name` 参数）
 - `get_optimal_workers()` — 自动最优并行数
-- `ALL_PROFILES` — v3.5: 所有国情预设名称列表
+- `ALL_PROFILES` — 所有国情预设名称列表
+- `add_common_args()` — v3.7: 向argparse添加通用参数
 
 ## 输出说明
 

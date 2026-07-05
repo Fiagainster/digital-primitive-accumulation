@@ -51,12 +51,16 @@ def _run_single_isolated(kwargs_dict: dict) -> dict:
     config = kwargs_dict.get("config", None)
     sim_id = kwargs_dict.get("sim_id", 0)
     record_ts = kwargs_dict.get("record_ts", False)
+    config_path = kwargs_dict.get("config_path", None)
 
     if config is None:
         config = SimulationConfig()
 
     try:
-        engine = SimulationEngine(params=params, config=config, regime=regime)
+        engine = SimulationEngine(
+            params=params, config=config, regime=regime,
+            config_path=config_path,
+        )
         result = engine.run()
         result["params"] = params
         result["_sim_id"] = sim_id
@@ -204,21 +208,34 @@ def sample_lhs_params(n_samples: int, regime: str = "A",
 def build_param_sets(regime: str = "A",
                      scenario: str = "benign_globalization",
                      profile: str = None,
-                     overrides: dict = None) -> dict:
+                     overrides: dict = None,
+                     config_path: str = None) -> dict:
     """构建单个参数集.
+
+    v3.7: 支持从YAML配置文件加载参数。
 
     Args:
         regime: 策略
         scenario: 场景
         profile: 国情预设（可选）
         overrides: 参数覆盖
+        config_path: v3.7: YAML配置文件路径（可选）
 
     Returns:
         参数字典
     """
     schema = get_schema()
 
-    if profile:
+    # v3.7: YAML配置优先
+    if config_path:
+        params = schema.build_from_yaml(
+            config_path=config_path,
+            profile_name=profile,
+            regime=regime,
+            scenario=scenario,
+            user_overrides=overrides,
+        )
+    elif profile:
         params = schema.build_from_profile(
             profile_name=profile,
             regime=regime,
@@ -228,7 +245,7 @@ def build_param_sets(regime: str = "A",
         params = schema.build_defaults(regime)
         params.update(get_scenario(scenario))
 
-    if overrides:
+    if overrides and not config_path:
         params.update(overrides)
 
     return params
@@ -286,6 +303,7 @@ def quick_run(regime: str = "A",
               enable_platform: bool = True,       # v3.6
               enable_demography: bool = True,     # v3.6
               enable_spatial: bool = True,        # v3.6
+              config_path: str = None,            # v3.7: YAML配置文件路径
               ) -> dict:
     """快速单次模拟 —— 用于调试和单点测试.
 
@@ -300,9 +318,11 @@ def quick_run(regime: str = "A",
         enable_platform: 启用平台垄断模块 (v3.6)
         enable_demography: 启用内生人口动态 (v3.6)
         enable_spatial: 启用双区域空间模块 (v3.6)
+        config_path: v3.7: YAML配置文件路径（可选，如 'config/default.yaml'）
     """
     params = build_param_sets(regime=regime, scenario=scenario,
-                              profile=profile, overrides=overrides)
+                              profile=profile, overrides=overrides,
+                              config_path=config_path)
     # 混合策略支持
     if mixture_name and regime == "M":
         from src.models.mixed_strategy import STANDARD_MIXTURES
@@ -315,7 +335,10 @@ def quick_run(regime: str = "A",
         demography_enabled=enable_demography,
         spatial_enabled=enable_spatial,
     )
-    engine = SimulationEngine(params=params, config=config, regime=regime)
+    engine = SimulationEngine(
+        params=params, config=config, regime=regime,
+        config_path=config_path,
+    )
     return engine.run()
 
 
@@ -343,3 +366,31 @@ except ImportError:
         "manufacturing_giant", "resource_rich", "digital_leapfrogger",
         "small_open", "post_soviet", "populous_weak_industry",
     ]
+
+
+# ============================================================
+# v3.7: 通用命令行参数
+# ============================================================
+
+def add_common_args(parser):
+    """向argparse.ArgumentParser添加v3.7通用参数.
+
+    在研究脚本中使用:
+        parser = argparse.ArgumentParser(...)
+        add_common_args(parser)
+        args = parser.parse_args()
+        params = build_param_sets(..., config_path=args.config)
+    """
+    parser.add_argument("--config", type=str, default=None,
+                       help="v3.7: YAML配置文件路径 (如 config/default.yaml)")
+
+
+def add_profile_scenario_args(parser):
+    """添加国情预设和国际场景参数."""
+    parser.add_argument("--profile", type=str, default="manufacturing_giant",
+                       help="国情预设 (默认: manufacturing_giant)")
+    parser.add_argument("--scenario", type=str, default="benign_globalization",
+                       help="国际场景 (默认: benign_globalization)")
+    parser.add_argument("--regime", type=str, default="A",
+                       choices=["A", "B", "C", "M"],
+                       help="积累策略 (默认: A)")

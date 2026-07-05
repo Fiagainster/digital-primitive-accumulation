@@ -56,6 +56,8 @@ def main():
                        help="模拟年限 (默认: 50)")
     parser.add_argument("--workers", type=int, default=None,
                        help="并行核心数 (默认: 自动)")
+    parser.add_argument("--config", type=str, default=None,
+                       help="v3.7: YAML配置文件路径 (如 config/default.yaml)")
     args = parser.parse_args()
 
     regimes = args.regimes.split(",")
@@ -95,6 +97,7 @@ def main():
                         verbose=False,
                     ),
                     "sim_id": len(tasks),
+                    "config_path": args.config,  # v3.7
                     "_scenario": scenario,
                 }
                 tasks.append(task)

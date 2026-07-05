@@ -67,6 +67,8 @@ def main():
                        help="列出所有国际场景后退出")
     parser.add_argument("--verbose", action="store_true",
                        help="详细输出")
+    parser.add_argument("--config", type=str, default=None,
+                       help="v3.7: YAML配置文件路径 (如 config/default.yaml)")
     args = parser.parse_args()
 
     # 列表模式
@@ -91,11 +93,12 @@ def main():
         regime=args.regime, scenario=args.scenario, profile=args.profile,
     )
 
-    # 构建参数
+    # 构建参数 (v3.7: 支持YAML配置)
     params = build_param_sets(
         regime=args.regime,
         scenario=args.scenario,
         profile=args.profile,
+        config_path=args.config,
     )
 
     # 混合策略 (v3.5: 支持预设混合名称)
@@ -140,7 +143,10 @@ def main():
     # ================================================================
     logger.logger.info("开始模拟...")
 
-    engine = SimulationEngine(params=params, config=config, regime=args.regime)
+    engine = SimulationEngine(
+        params=params, config=config, regime=args.regime,
+        config_path=args.config,
+    )
     result = engine.run()
     summary = result["summary"]
 

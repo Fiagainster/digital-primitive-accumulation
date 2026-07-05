@@ -60,6 +60,8 @@ def main():
                        help="并行核心数 (默认: 自动)")
     parser.add_argument("--custom-lambda", type=str, default=None,
                        help="自定义λ向量，如 '0.6,0.25,0.15'")
+    parser.add_argument("--config", type=str, default=None,
+                       help="v3.7: YAML配置文件路径 (如 config/default.yaml)")
     args = parser.parse_args()
 
     # 解析
@@ -107,6 +109,7 @@ def main():
                     regime="A",
                     scenario=scenario,
                     profile=profile,
+                    config_path=args.config,
                 )
 
                 if mix_name == "custom" and custom_mixtures:
@@ -126,6 +129,7 @@ def main():
                     "_scenario": scenario,
                     "_mixture": mix_name,
                     "_lambda": mixture,
+                    "config_path": args.config,  # v3.7
                 }
                 tasks.append(task)
 

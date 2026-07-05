@@ -122,9 +122,18 @@ class CountryProfile:
     DS_i_initial: float = 1.0
     DS_d_initial: float = 2.0
 
-    # 政策/策略默认倾向（仅文档参考，不影响模拟）
-    natural_strategy: str = "A"        # 该国情"最自然"的策略
-    strategy_risks: str = ""           # 该国情选择某些策略的额外风险
+    # 政策/策略默认倾向
+    natural_strategy: str = "A"         # 该国情"最自然"的策略 (人类可读)
+    recommended_regime: str = "A"       # 🆕 v3.7.1: 机器可读的推荐策略 (A/B/C/M_*)
+    viable_regimes: list = None         # 🆕 v3.7.1: 可行的策略列表
+    contraindicated: list = None        # 🆕 v3.7.1: 应避免的策略
+    strategy_risks: str = ""            # 该国情选择某些策略的额外风险
+
+    def __post_init__(self):
+        if self.viable_regimes is None:
+            self.viable_regimes = ["A", "B", "C"]
+        if self.contraindicated is None:
+            self.contraindicated = []
 
     def to_params_dict(self) -> Dict[str, float]:
         """转换为可直接合并到模拟参数字典的格式 (v3.5: 六部门)."""
@@ -240,6 +249,9 @@ def profile_manufacturing_giant() -> CountryProfile:
         data_consumer_initial=0.5,
         data_public_initial=0.3,
         natural_strategy="A",
+        recommended_regime="A",
+        viable_regimes=["A", "M_A_dominant_B", "M_A_dominant_C"],
+        contraindicated=["C"],
         strategy_risks="B需克服工业惯性；C浪费自身积累能力且外资可能控制关键产业",
     )
 
@@ -281,6 +293,9 @@ def profile_resource_rich() -> CountryProfile:
         data_consumer_initial=0.2,
         data_public_initial=0.1,
         natural_strategy="C",
+        recommended_regime="C",
+        viable_regimes=["C", "M_C_dominant_A"],
+        contraindicated=["B"],
         strategy_risks="C的荷兰病+政策俘获是该国情的最大陷阱；A需从无到有建设工业(非常困难)；B缺乏数字人才基础",
     )
 
@@ -322,6 +337,9 @@ def profile_digital_leapfrogger() -> CountryProfile:
         data_consumer_initial=1.0,
         data_public_initial=0.4,
         natural_strategy="B",
+        recommended_regime="B",
+        viable_regimes=["B", "M_B_dominant_A", "A"],
+        contraindicated=["C"],
         strategy_risks="B的撕裂陷阱(数字精英vs工业劳动者)是该国情的最大风险；A可补齐工业短板但浪费数字人才优势",
     )
 
@@ -363,6 +381,9 @@ def profile_small_open() -> CountryProfile:
         data_consumer_initial=0.1,
         data_public_initial=0.1,
         natural_strategy="A+C混合",
+        recommended_regime="M_A_dominant_C",
+        viable_regimes=["A", "C", "M_A_dominant_C", "M_C_dominant_A"],
+        contraindicated=["B"],
         strategy_risks="纯A缺乏国内市场规模；纯C的FDI依赖可能被外资控制；纯B缺乏数字人才和资本基础",
     )
 
@@ -404,6 +425,9 @@ def profile_post_soviet() -> CountryProfile:
         data_consumer_initial=0.3,
         data_public_initial=0.3,
         natural_strategy="A",
+        recommended_regime="A",
+        viable_regimes=["A", "M_A_dominant_B"],
+        contraindicated=["C"],
         strategy_risks="A的挑战在于旧资本的数字密度极低(DD_i=0.02)——升级而非新建；B可能引发严重社会撕裂(基尼已0.55)；C的资源依赖是诱惑也是陷阱",
     )
 
@@ -445,6 +469,9 @@ def profile_populous_weak_industry() -> CountryProfile:
         data_consumer_initial=0.1,
         data_public_initial=0.1,
         natural_strategy="A",
+        recommended_regime="A",
+        viable_regimes=["A", "M_A_dominant_C"],
+        contraindicated=["B", "C"],
         strategy_risks="无论选什么策略都极其艰难——A的'保护'可能变成'保护落后'；B完全缺乏数字基础；C缺乏有吸引力的资源和制度环境吸引FDI",
     )
 
@@ -493,10 +520,47 @@ def list_country_profiles() -> List[Dict]:
             "description": profile.description,
             "typical_references": profile.typical_references,
             "natural_strategy": profile.natural_strategy,
+            "recommended_regime": profile.recommended_regime,
+            "viable_regimes": profile.viable_regimes,
+            "contraindicated": profile.contraindicated,
             "strategy_risks": profile.strategy_risks,
             "summary": profile.summary(),
         })
     return result
+
+
+def get_recommended_regime(profile_name: str) -> str:
+    """根据国情预设获取推荐的积累策略.
+
+    可用于脚本自动选择默认策略，例如:
+        regime = get_recommended_regime("digital_leapfrogger")  # → "B"
+
+    Args:
+        profile_name: 国情预设名称
+
+    Returns:
+        推荐的策略代码 (A/B/C/M_*)，若国情不存在则返回 "A"
+    """
+    profile = COUNTRY_PROFILES.get(profile_name)
+    if profile is None:
+        return "A"
+    return profile.recommended_regime
+
+
+def get_viable_regimes(profile_name: str) -> List[str]:
+    """获取某国情下可行的策略列表."""
+    profile = COUNTRY_PROFILES.get(profile_name)
+    if profile is None:
+        return ["A", "B", "C"]
+    return profile.viable_regimes
+
+
+def get_contraindicated_regimes(profile_name: str) -> List[str]:
+    """获取某国情下应避免的策略列表."""
+    profile = COUNTRY_PROFILES.get(profile_name)
+    if profile is None:
+        return []
+    return profile.contraindicated
 
 
 def get_profile_names() -> List[str]:

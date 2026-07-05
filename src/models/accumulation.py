@@ -61,13 +61,13 @@ class AccumulationRegime:
 
         # 总消费
         C_total = sum(h.consumption for h in state.households.all_groups())
-        gov_consumption = 0.1 * Y_total
+        gov_consumption = self.p.get("gov_consumption_share", 0.1) * Y_total
         depreciation = sum(
             self.p[f"delta_{k}"] * state.sectors[k].K
             for k in ALL_SECTORS
         )
         state.total_surplus = Y_total - C_total - gov_consumption - depreciation
-        state.accumulation_fund = max(0.0, state.total_surplus * 0.8)
+        state.accumulation_fund = max(0.0, state.total_surplus * self.p.get("accumulation_fund_share", 0.8))
 
     def extraction_rate(self, state: SystemState) -> float:
         raise NotImplementedError
@@ -82,10 +82,12 @@ class AccumulationRegime:
         # v3.3: 信贷配给 — 金融发展不足时，不是所有积累基金都能转化为投资
         inst_cap = self.p.get("institution_capacity", 0.6)
         ext_dep = state.external_dependency
-        # 金融深度 = f(制度能力, 外部依赖)
-        # 制度弱+外部依赖高 → 信贷市场不发达 → 信贷配给严重
-        credit_availability = inst_cap * (1.0 - ext_dep * 0.4)
-        credit_availability = max(0.25, min(1.0, credit_availability))  # [0.25, 1.0]
+        credit_ext_factor = self.p.get("credit_ext_dep_factor", 0.4)
+        credit_availability = inst_cap * (1.0 - ext_dep * credit_ext_factor)
+        credit_availability = max(
+            self.p.get("credit_availability_min", 0.25),
+            min(1.0, credit_availability)
+        )
         state.credit_rationing_ratio = credit_availability
         fund = fund * credit_availability
 
@@ -97,7 +99,9 @@ class AccumulationRegime:
 
             # 吸收能力
             nu = self.p[f"nu_{key}"]
-            absorb = nu * s.K * (1 + 0.5 * s.DL) * (s.H / 0.5) ** self.p["chi_absorb"]
+            absorb_DL_bonus = self.p.get("absorb_DL_bonus_factor", 0.5)
+            absorb_H_ref = self.p.get("absorb_H_reference", 0.5)
+            absorb = nu * s.K * (1 + absorb_DL_bonus * s.DL) * (s.H / absorb_H_ref) ** self.p["chi_absorb"]
             I_actual = min(I_planned, absorb)
             total_waste += I_planned - I_actual
 
@@ -105,7 +109,10 @@ class AccumulationRegime:
             # 每单位投资中，数字技术服务/软件/智能设备的比例取决于部门数字化水平
             if I_actual > 0:
                 # 数字投资比例 ≈ 数字化水平 × 部门数字化弹性
-                digital_share = s.DL * (0.3 if key == "i" else 0.15 if key == "b" else 0.5)
+                ds_i = self.p.get("digital_share_i", 0.3)
+                ds_b = self.p.get("digital_share_b", 0.15)
+                ds_other = self.p.get("digital_share_other", 0.5)
+                digital_share = s.DL * (ds_i if key == "i" else ds_b if key == "b" else ds_other)
                 # 数字密度增量 = 数字投资 / 总资本存量
                 dd_increment = digital_share * I_actual / max(s.K, 0.01) * dt
                 # 折旧也会减少数字密度（旧数字设备淘汰）
@@ -115,11 +122,12 @@ class AccumulationRegime:
 
             # 资本动态
             delta = self.p[f"delta_{key}"]
-            obsolescence = self.p["psi_obsolescence"] * s.K * max(0, 0.05 - delta)
+            obs_threshold = self.p.get("obsolescence_delta_threshold", 0.05)
+            obsolescence = self.p["psi_obsolescence"] * s.K * max(0, obs_threshold - delta)
             dK = I_actual - delta * s.K - obsolescence
 
             s.K += dK * dt
-            s.K = max(0.01, s.K)
+            s.K = max(self.p.get("K_floor", 0.01), s.K)
             s.I = I_actual
             s.absorption_cap = absorb
 
@@ -152,7 +160,7 @@ class GradualAccumulation(AccumulationRegime):
     def extraction_rate(self, state: SystemState) -> float:
         p = self.p
         g_i = (state.sectors["i"].Y / max(state.gdp, 0.01))
-        g_i_max = 0.5
+        g_i_max = p.get("A_g_i_max", 0.5)
         tau = (p["A_tau_min"]
                + (p["A_tau_max"] - p["A_tau_min"])
                * min(1.0, g_i / g_i_max) ** p["A_theta_elasticity"])
@@ -168,10 +176,12 @@ class GradualAccumulation(AccumulationRegime):
         # 但如果工业已经高度数字化（数字密度高），说明"保护+升级"路径有效
         G = state.tech_gap
         dd_i = state.sectors["i"].digital_density
-        if G > 5.0 and dd_i < 0.3:
+        overprotect_G = p.get("middle_income_G_threshold", 4.0) + 1.0  # 默认5.0
+        overprotect_DD = p.get("middle_income_DD_threshold", 0.3)
+        if G > overprotect_G and dd_i < overprotect_DD:
             # 差距大 + 工业数字化不足 → 需要更多数字投资
             tau = max(tau, p["A_tau_min"] * 1.5)
-        elif G > 5.0 and dd_i >= 0.3:
+        elif G > overprotect_G and dd_i >= overprotect_DD:
             # 差距大 + 工业已数字化 → 保护是有意义的，不必强制提高提取
             pass  # 允许维持较低提取率
 
@@ -210,48 +220,64 @@ class GradualAccumulation(AccumulationRegime):
             }
         cs = self._A_cost_state
 
+        p = self.p
         # 1. 保护僵化成本
-        safety_margin = self.p.get("A_safety_margin", 0.7)
+        safety_margin = p.get("A_safety_margin", 0.7)
         K_i_ratio = state.sectors["i"].K / max(state.initial_K_i, 1.0)
         protection_excess = max(0.0, K_i_ratio / max(safety_margin, 0.01) - 1.0)
-        efficiency_loss = protection_excess * 0.08
-        state.sectors["i"].Y *= max(0.85, 1.0 - efficiency_loss * dt)
+        protection_coef = p.get("protection_excess_coefficient", 0.08)
+        protection_floor = p.get("A_protection_excess_floor", 0.85)
+        efficiency_loss = protection_excess * protection_coef
+        state.sectors["i"].Y *= max(protection_floor, 1.0 - efficiency_loss * dt)
 
         # 2. 渐进主义时间税 — 走得太慢，世界在前进
         cs["protection_duration"] += dt
-        g_world = self.p.get("g_world", 0.03)
+        g_world = p.get("g_world", 0.03)
         A_d_app = state.sectors["d_app"].A
         prev_A_d = getattr(self, '_prev_A_d', A_d_app)
         g_d = (A_d_app / max(prev_A_d, 0.01) - 1.0)
         self._prev_A_d = A_d_app
-        lag_rate = max(0.0, g_world - g_d - 0.01)
+        natural_buffer = p.get("A_time_tax_natural_buffer", 0.01)
+        lag_rate = max(0.0, g_world - g_d - natural_buffer)
         cs["cumulative_lag"] += lag_rate * dt
-        if cs["cumulative_lag"] > 0.1:
-            lag_penalty = cs["cumulative_lag"] * 0.03 * dt
+        accum_threshold = p.get("time_tax_accumulation_threshold", 0.1)
+        penalty_rate = p.get("time_tax_penalty_rate", 0.03)
+        if cs["cumulative_lag"] > accum_threshold:
+            lag_penalty = cs["cumulative_lag"] * penalty_rate * dt
             state.tech_gap *= (1.0 + lag_penalty)
 
         # 3. 既得利益刚性
-        if cs["protection_duration"] > 15.0:
+        vested_duration = p.get("vested_interest_duration", 15.0)
+        if cs["protection_duration"] > vested_duration:
             industry_emp_share = state.sectors["i"].L / max(state.households.total_population, 1.0)
+            vested_coef = p.get("vested_interest_coefficient", 0.01)
+            vested_max = p.get("A_vested_interest_max_intensity", 0.5)
             cs["vested_interest_intensity"] = min(
-                0.5,
-                (cs["protection_duration"] - 15.0) * 0.01 * industry_emp_share
+                vested_max,
+                (cs["protection_duration"] - vested_duration) * vested_coef * industry_emp_share
             )
             reform_resistance = cs["vested_interest_intensity"]
+            invest_floor = p.get("A_vested_interest_invest_floor", 0.5)
             for d_key in ["d_infra", "d_app"]:
-                state.sectors[d_key].I *= max(0.5, 1.0 - reform_resistance * dt)
+                state.sectors[d_key].I *= max(invest_floor, 1.0 - reform_resistance * dt)
 
         # 4. 中间收入陷阱
+        trap_DD = p.get("middle_income_DD_threshold", 0.3)
+        trap_G = p.get("middle_income_G_threshold", 4.0)
+        trap_duration = p.get("middle_income_duration", 10.0)
+        trap_penalty_rate = p.get("A_trap_penalty_rate", 0.01)
+        trap_K_floor = p.get("A_trap_K_floor", 0.90)
+        trap_recovery = p.get("A_trap_recovery_rate", 2.0)
         dd_i = state.sectors["i"].digital_density
         G = state.tech_gap
-        if dd_i < 0.3 and G > 4.0:
+        if dd_i < trap_DD and G > trap_G:
             cs["middle_income_trap_years"] += dt
-            if cs["middle_income_trap_years"] > 10.0:
-                trap_penalty = 0.01 * (cs["middle_income_trap_years"] - 10.0)
-                state.sectors["i"].K *= max(0.90, 1.0 - trap_penalty * dt)
+            if cs["middle_income_trap_years"] > trap_duration:
+                trap_penalty = trap_penalty_rate * (cs["middle_income_trap_years"] - trap_duration)
+                state.sectors["i"].K *= max(trap_K_floor, 1.0 - trap_penalty * dt)
                 state.tech_gap *= (1.0 + trap_penalty * 0.5 * dt)
         else:
-            cs["middle_income_trap_years"] = max(0.0, cs["middle_income_trap_years"] - dt * 2)
+            cs["middle_income_trap_years"] = max(0.0, cs["middle_income_trap_years"] - dt * trap_recovery)
 
 
 class LeapAccumulation(AccumulationRegime):
@@ -322,14 +348,18 @@ class LeapAccumulation(AccumulationRegime):
         K_i_ratio = state.sectors["i"].K / max(state.initial_K_i, 1.0)
         tolerance = p["B_industry_tolerance"]
         if K_i_ratio < tolerance:
-            tau *= max(0.3, K_i_ratio / tolerance)
+            tau_floor = p.get("B_industry_tau_floor", 0.3)
+            tau *= max(tau_floor, K_i_ratio / tolerance)
 
         # v2.1: 提取超调风险 — 数字部门增长目标驱使下，
         # 即使工业已经脆弱，提取率也可能"意外"偏高
         G = state.tech_gap
-        if G > 8.0 and K_i_ratio < 0.6:
+        panic_G = p.get("B_panic_extraction_G_threshold", 8.0)
+        panic_Kr = p.get("B_panic_extraction_K_ratio", 0.6)
+        panic_bonus = p.get("B_panic_extraction_max_bonus", 0.15)
+        if G > panic_G and K_i_ratio < panic_Kr:
             # 技术差距大 + 工业脆弱 → 恐慌性提取（all-in数字化）
-            tau = min(p["B_tau_actual_max"], tau * (1.0 + np.random.uniform(0, 0.15)))
+            tau = min(p["B_tau_actual_max"], tau * (1.0 + np.random.uniform(0, panic_bonus)))
 
         return tau
 
@@ -344,7 +374,9 @@ class LeapAccumulation(AccumulationRegime):
             if feedback_success:
                 fb = p["B_feedback_ratio"]
                 resistance = self._regime_state.get("feedback_resistance", 0.0)
-                execution_rate = max(0.3, 1.0 - resistance * 0.15)
+                exec_floor = p.get("B_feedback_execution_floor", 0.3)
+                resist_coef = p.get("B_feedback_resistance_coefficient", 0.15)
+                execution_rate = max(exec_floor, 1.0 - resistance * resist_coef)
                 fb_effective = fb * execution_rate
                 self._regime_state["feedback_active"] = True
                 self._regime_state["feedback_effective_rate"] = fb_effective
@@ -368,19 +400,15 @@ class LeapAccumulation(AccumulationRegime):
                     "s_high": 0.02, "s_low": 0.02}
 
     def _apply_socioeconomic_costs(self, state: SystemState, tau: float, dt: float):
-        """v2.2: 计算并应用高提取策略的社会经济成本.
-
-        三个渠道：
-        1. 就业破坏: 高提取 → 工业投资不足 → 就业岗位流失加速
-        2. 消费萎缩: 高提取 → 居民可支配收入减少 → 国内需求下降
-        3. 资产泡沫/不平等: 数字部门高利润、垄断化 → 财富集中
-        """
+        """v2.2: 计算并应用高提取策略的社会经济成本."""
+        p = self.p
         # 1. 就业破坏效应
-        tau_baseline = 0.30
+        tau_baseline = p.get("B_tau_baseline", 0.30)
         if tau > tau_baseline:
             excess_tau = tau - tau_baseline
+            unemp_coef = p.get("B_unemployment_coefficient", 0.05)
             extra_unemployment = (
-                state.sectors["i"].L * excess_tau * 0.05 * dt
+                state.sectors["i"].L * excess_tau * unemp_coef * dt
             )
             absorptive_d = self._agg_digital_L(state) * self._agg_digital_DL(state) * 0.02 * dt
             net_unemployment = max(0, extra_unemployment - absorptive_d)
@@ -389,28 +417,32 @@ class LeapAccumulation(AccumulationRegime):
                 0, state.households.unemployed.population
             )
             state.sectors["i"].L -= net_unemployment * 0.5
-            state.sectors["i"].L = max(0.5, state.sectors["i"].L)
+            L_floor = p.get("L_floor", 0.5)
+            state.sectors["i"].L = max(L_floor, state.sectors["i"].L)
 
         # 2. 消费萎缩效应
-        # 高提取 → 居民可支配收入占GDP比例下降
-        disposable_share = max(0.3, 0.7 - tau * 0.5)  # 提取率越高，居民份额越小
-        # 消费萎缩 → 国内总需求减少 → 通过降低工业产出实现
-        consumption_drag = (0.70 - disposable_share) * 0.15  # 额外拖累系数
+        disp_base = p.get("B_disposable_income_base", 0.70)
+        disp_sens = p.get("B_disposable_income_tau_sens", 0.5)
+        disposable_share = max(0.3, disp_base - tau * disp_sens)
+        consumption_drag = (disp_base - disposable_share) * p.get("B_consumption_drag_coefficient", 0.15)
         if consumption_drag > 0:
-            # 工业产出受到需求侧约束
+            cons_floor = p.get("B_consumption_output_floor", 0.85)
             demand_constraint = 1.0 - consumption_drag * dt
-            state.sectors["i"].Y *= max(0.85, demand_constraint)
+            state.sectors["i"].Y *= max(cons_floor, demand_constraint)
 
-        # 3. 资产泡沫/不平等风险 (v3.5: 使用聚合数字利润率)
+        # 3. 资产泡沫/不平等风险
         r_d = self._agg_digital_r(state)
-        if r_d > 0.25:
-            bubble_pressure = (r_d - 0.25) * 0.3 * dt
+        bubble_trigger = p.get("B_bubble_trigger_r", 0.25)
+        bubble_sens = p.get("B_bubble_pressure_sensitivity", 0.3)
+        if r_d > bubble_trigger:
+            bubble_pressure = (r_d - bubble_trigger) * bubble_sens * dt
             self._regime_state["bubble_pressure"] = (
                 self._regime_state.get("bubble_pressure", 0.0) + bubble_pressure
             )
         else:
+            bubble_decay = p.get("B_bubble_decay_rate", 0.01)
             self._regime_state["bubble_pressure"] = max(
-                0, self._regime_state.get("bubble_pressure", 0.0) - 0.01 * dt
+                0, self._regime_state.get("bubble_pressure", 0.0) - bubble_decay * dt
             )
 
     def step(self, state: SystemState, dt: float):
@@ -431,13 +463,15 @@ class LeapAccumulation(AccumulationRegime):
     def _feedback_success_probability(self, state: SystemState) -> bool:
         """计算反哺成功的概率 (v3.5: 使用聚合数字指标)."""
         p = self.p
-        base_success = 0.85
+        base_success = p.get("B_feedback_base_success", 0.85)
 
         r_d = self._agg_digital_r(state)
+        profit_high = p.get("B_feedback_profit_penalty_high", 0.20)
+        profit_mid = p.get("B_feedback_profit_penalty_mid", 0.10)
         if r_d > 0.30:
-            base_success -= 0.20
+            base_success -= profit_high
         elif r_d > 0.20:
-            base_success -= 0.10
+            base_success -= profit_mid
 
         inst_cap = p.get("institution_capacity", 0.6)
         base_success += (inst_cap - 0.5) * 0.30
@@ -454,28 +488,25 @@ class LeapAccumulation(AccumulationRegime):
         if failed > 0:
             base_success -= failed * 0.05
 
-        base_success = max(0.15, min(0.95, base_success))
+        min_p = p.get("B_feedback_min_success_prob", 0.15)
+        max_p = p.get("B_feedback_max_success_prob", 0.95)
+        base_success = max(min_p, min(max_p, base_success))
         self._regime_state["feedback_resistance"] = feedback_resistance
         return np.random.random() < base_success
 
     def _check_bubble_burst(self, state: SystemState, dt: float):
-        """v2.2: 数字泡沫破裂风险.
-
-        泡沫破裂不是随机的——它需要条件积累：
-        1. 泡沫压力必须足够高（数字部门持续超额利润）
-        2. 触发因素：外部冲击(利率/监管) 或 内部脆弱(失业/政治)
-        3. 制度能力强的国家可以"软着陆"（泡沫慢慢消解而非破裂）
-        """
+        """v2.2: 数字泡沫破裂风险."""
+        p = self.p
         bp = self._regime_state.get("bubble_pressure", 0.0)
         if bp < 2.0:  # 需要显著积累才会破裂
             return
 
         # 制度能力决定是"硬破裂"还是"软着陆"
-        inst_cap = self.p.get("institution_capacity", 0.6)
+        inst_cap = p.get("institution_capacity", 0.6)
 
         # 硬破裂概率 = 泡沫压力 × 脆弱性 / 制度缓冲
-        # 概率随泡沫压力非线性增长
-        base_prob = 0.003 * (bp / 2.0) ** 3 * dt  # bp=2→0.3%/步, bp=4→2.4%/步
+        base_prob = p.get("B_bubble_burst_base_prob", 0.003)
+        burst_prob = base_prob * (bp / 2.0) ** 3 * dt
 
         # 脆弱性因子（条件触发，不是随机骰子）
         fragility = 1.0
@@ -493,19 +524,22 @@ class LeapAccumulation(AccumulationRegime):
         fragility *= (1.5 - inst_cap)
 
         # 泡沫破裂判定
-        if np.random.random() < base_prob * fragility:
+        if np.random.random() < burst_prob * fragility:
             # === 硬破裂：同时影响infra和app ===
             severity = min(0.45, 0.15 + bp * 0.06)
             # app受到的冲击更大（估值泡沫主要在应用层）
-            state.sectors["d_infra"].K *= (1.0 - severity * 0.6)
-            state.sectors["d_app"].K *= (1.0 - severity * 1.2)
+            infra_scale = p.get("B_d_infra_severity_scale", 0.6)
+            app_scale = p.get("B_d_app_severity_scale", 1.2)
+            state.sectors["d_infra"].K *= (1.0 - severity * infra_scale)
+            state.sectors["d_app"].K *= (1.0 - severity * app_scale)
 
             # 就业冲击
             layoff_rate = severity * 1.2
+            L_floor = p.get("L_floor", 0.5)
             laid_off_infra = state.sectors["d_infra"].L * layoff_rate * 0.5
             laid_off_app = state.sectors["d_app"].L * layoff_rate * 1.5
-            state.sectors["d_infra"].L = max(0.3, state.sectors["d_infra"].L - laid_off_infra)
-            state.sectors["d_app"].L = max(0.5, state.sectors["d_app"].L - laid_off_app)
+            state.sectors["d_infra"].L = max(L_floor * 0.6, state.sectors["d_infra"].L - laid_off_infra)
+            state.sectors["d_app"].L = max(L_floor, state.sectors["d_app"].L - laid_off_app)
             state.households.unemployed.population += (laid_off_infra + laid_off_app) * 0.6
 
             # 数据资产贬值
@@ -524,9 +558,10 @@ class LeapAccumulation(AccumulationRegime):
             state.households.digital_high_skill.equity *= (1.0 - severity)
             state.households.industrial_workers.equity *= (1.0 - severity * 0.3)
 
-        elif inst_cap > 0.7 and bp > 3.0:
+        elif inst_cap > p.get("B_soft_landing_inst_cap", 0.7) and bp > p.get("B_soft_landing_bp_threshold", 3.0):
             # === 软着陆 ===
-            self._regime_state["bubble_pressure"] -= 0.02 * dt
+            soft_decay = p.get("B_soft_landing_bp_decay", 0.02)
+            self._regime_state["bubble_pressure"] -= soft_decay * dt
             state.sectors["d_infra"].K *= (1.0 - 0.003 * dt)
             state.sectors["d_app"].K *= (1.0 - 0.005 * dt)
             state.political_support.support_index *= 0.995

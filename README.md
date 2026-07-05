@@ -2,7 +2,11 @@
 
 **六部门政治经济学模拟实验室 —— 数字时代原始积累的可行路径、多维评价与代价分布**
 
-> **版本**：v3.7 (2026-07-05)
+> **版本**：v3.7.1 (2026-07-05)
+>
+> **v3.7.1 核心更新**：四项参数架构升级——**(1)** 参数彻底可配置化：所有 255 个模型参数（含约 130 个此前硬编码在源代码中的系数）已全部迁移至 `config/default.yaml` 统一管理。**(2)** 定义域机器可读化：新增 `param_domains` 节，约 80 个关键参数提供 `{min, max}` 标准 YAML 格式，采样脚本可直接读取。**(3)** 理论来源对照表：新增 `parameter_sources` 节，为 35+ 个参数标注经济学文献依据（经验估计/理论依据/统计数据/模型假设）。**(4)** 策略推荐可行动化：新增 `profile_strategy_guide` 节和 `get_recommended_regime()` API，国情预设从"纯文档标注"升级为"脚本可自动选择默认策略"。
+>
+> **v3.7 核心更新**：YAML参数配置系统——所有模型参数、权重、初始条件从硬编码迁移至 `config/default.yaml` 统一管理。支持 `--config` 命令行参数一键切换配置，参数分层组织（结构/策略/场景/元参数），保持向后兼容。~~曾约 120 个~~ → 现为 255 个注册参数。
 >
 > **v3.7 核心修复**：修复6项代码缺陷——高技能服务业产出初始化除零bug(导致产出放大250x)、CES福利聚合对极小值数学不稳定(eps=3.0→1.5)、策略B提取率公式g_target重复乘入、失业者无再就业通路、political_economy模块缺失ALL_SECTORS导入、混合策略不兼容矩阵未注册参数引用。策略B不再在所有国情下瞬间崩溃。
 >
@@ -598,6 +602,13 @@ params = get_schema().build_from_profile(
     scenario="tech_cold_war",
 )
 engine = SimulationEngine(params=params, config=config, regime="B")
+
+# 🆕 v3.7.1: 自动选择国情对应的推荐策略
+from src.params.country_profiles import get_recommended_regime
+regime = get_recommended_regime("digital_leapfrogger")  # → "B"
+engine = SimulationEngine(config_path="config/default.yaml",
+                          country_profile="digital_leapfrogger",
+                          regime=regime)
 ```
 
 ### 11.5 参数加载优先级
@@ -630,7 +641,7 @@ engine = SimulationEngine(params=params, config=config, regime="B")
 
 Python 3.11+ · NumPy · SciPy · Pandas · Matplotlib · h5py
 
-参数体系：4层 ~120个参数（结构参数·策略参数·场景参数·元参数），拉丁超立方采样 + Sobol序列。
+参数体系：4层 255个参数（结构参数·策略参数·场景参数·元参数），拉丁超立方采样 + Sobol序列。
 
 ---
 
@@ -675,6 +686,94 @@ PYTHONIOENCODING=utf-8 python research_scripts/01_single_detailed_run.py --regim
 PYTHONIOENCODING=utf-8 python tests/test_full.py
 ```
 
+### YAML参数配置 (v3.7)
+
+**零配置设计**：所有脚本**默认自动读取** `config/default.yaml`。用户只需编辑这一个文件即可修改任意模型参数，无需在命令行指定任何额外参数。
+
+```yaml
+# config/default.yaml 结构概览
+structural:           # L1: 结构参数（生产函数/折旧/劳动力/技术/金融等）
+  production_base: {...}
+  production_industry: {...}
+  production_d_infra: {...}
+  production_d_app: {...}
+  production_s_high: {...}
+  production_s_low: {...}
+  digitalization_common: {...}
+  depreciation: {...}
+  absorption: {...}
+  labor_market: {...}         # 劳动力流动/技能折旧/非正式就业回流
+  technology: {...}
+  diffusion: {...}
+  international: {...}        # 汇率/封锁/FDI/贸易
+  welfare: {...}
+  data_assets: {...}
+  financial: {...}            # 资产价格/资本外逃/信贷分配
+  demography: {...}
+  spatial: {...}
+  policy_execution: {...}
+  production_coefficients: {...}  # 🆕 v3.7.1: 投入产出技术系数
+  accumulation_coefficients: {...} # 🆕 v3.7.1: 积累分配比率
+  initial_conditions: {...}
+
+strategy:             # L2: 策略参数
+  common: {...}       #   跨策略通用参数
+  A: {...}            #   策略A：渐进积累（含所有内生成本系数）
+  B: {...}            #   策略B：跳跃积累（含反哺/泡沫/恐慌提取参数）
+  C: {...}            #   策略C：替代积累（含荷兰病/冲击参数）
+  platform: {...}     #   平台垄断/反垄断
+
+scenario_defaults:    # L3: 场景参数默认值
+scenarios:            #   8种国际场景预设
+
+meta:                 # L4: 元参数（断裂检测/混合互斥/CDI权重）
+  fracture: {...}
+  incompatibility: {...}
+
+cdi_weights:          # CDI五维权重方案（5种预设）
+  temporal: {...}     #   CDI时序参数
+
+simulation:           # 模拟运行配置
+  ews: {...}
+  political_feedback: {...}
+  sfc: {...}
+  evaluation: {...}
+  modules: {...}      #   平台/人口/空间/政策执行开关
+
+country_profiles:     # 6种国情预设的初始条件
+mixed_strategies:     # 13种标准混合策略配比
+  constraints: {...}
+
+# 🆕 v3.7.1: 参数元数据
+param_domains:        # 约80个关键参数的{min, max}定义域（机器可读）
+parameter_sources:    # 35+个参数的经济学文献来源对照表
+profile_strategy_guide: # 国情→推荐策略/可行策略/禁忌策略映射
+```
+
+**使用方式**：
+
+```bash
+# 直接运行——自动使用 config/default.yaml 中的参数
+PYTHONIOENCODING=utf-8 python main.py demo
+PYTHONIOENCODING=utf-8 python main.py mixed
+PYTHONIOENCODING=utf-8 python research_scripts/01_single_detailed_run.py
+
+# 修改参数：编辑 config/default.yaml 后直接运行即可
+# 例如将 epsilon_welfare 从 1.5 改为 2.0，保存后所有脚本自动生效
+
+# 指定国情和场景（国情预设也从 default.yaml 读取）
+PYTHONIOENCODING=utf-8 python main.py demo --profile digital_leapfrogger
+PYTHONIOENCODING=utf-8 python research_scripts/01_single_detailed_run.py --regime B --profile resource_rich
+```
+
+**参数来源优先级**（自动处理，无需用户关心）：
+1. `config/default.yaml` 中的参数值（**权威来源**）
+2. 国情预设覆盖（`--profile`，初始条件如 IC_K_i）
+3. 国际场景覆盖（代码内指定，外部环境如 g_world）
+4. schema.py 硬编码默认值（安全网，仅YAML缺失时生效）
+
+> **设计原则**：`config/default.yaml` 是唯一的参数入口。所有脚本（`main.py`、`research_scripts/`）默认自动读取它。如果你想用不同的参数做实验，直接修改 `default.yaml` 即可。
+
 ---
 
 ## 十四、项目结构
@@ -682,6 +781,8 @@ PYTHONIOENCODING=utf-8 python tests/test_full.py
 ```
 primitive_accumulation/
 ├── main.py                          # 入口：demo / compare / mixed / profiles
+├── config/                          # 🆕 v3.7: YAML参数配置文件
+│   └── default.yaml                 #   默认参数配置（255个参数+权重+预设）
 ├── research_scripts/                # 研究脚本集（20个探索脚本 + 校准工具包）
 │   ├── common/                      #   公共基础设施
 │   │   ├── logger.py                #     统一日志系统
@@ -750,7 +851,8 @@ primitive_accumulation/
 │   │   ├── recorder.py              # 时间序列记录器（v3.5: 六部门动态键名）
 │   │   └── exporter.py              # HDF5/CSV/JSON导出
 │   ├── params/
-│   │   ├── schema.py                # 参数定义域（v3.5: ~120个参数）
+│   │   ├── schema.py                # 参数定义域（v3.5: 255个参数）
+│   │   ├── yaml_loader.py           # 🆕 v3.7: YAML配置加载器
 │   │   ├── presets.py               # 8种国际场景预设
 │   │   └── country_profiles.py      # 六种国情预设（v3.5: 六部门初始值）
 │   ├── experiment/runner.py         # 批量实验与并行调度
@@ -797,6 +899,7 @@ primitive_accumulation/
 | v3.4 | 2026-07-05 | +策略A纯策略内生成本+策略C消费主义陷阱与人才外流+第9种断裂模式+混合配比修正+群组政治权重激活+SFC残差异常检测+CDI时序加权+低端服务业梯度完善+荷兰病支出效应+三重诅咒独立冲击+家庭储蓄/债务+技能折旧+技术标准锁定+batch国情预设笛卡尔积 |
 | **v3.5** | **2026-07-05** | **+六部门模型(b/i/d_infra/d_app/s_high/s_low)+六维数字依附+依附自我强化+知识双向扩散+混合策略互斥惩罚+就业质量指数+资产价格动态+资本外逃+信贷分配+断裂级联补全+极端气候尾部风险** |
 | **v3.6** | **2026-07-05** | **+平台垄断模块(HHI内生+反垄断参数)+内生人口动态(队列分量+人口红利)+双区域空间(沿海/内陆+集聚效应)+政策执行折扣+参数校准框架(中国试点+不确定性传播)** |
+| **v3.7.1** | **2026-07-05** | **📐 参数彻底可配置化: 255个参数全部从YAML加载；约130个硬编码系数(生产函数/积累分配/劳动力/策略内生成本/国际/福利/政治经济学)全部迁移至config/default.yaml；新增6个参数子节；所有参数通过p.get()读取并设默认值安全网；测试套件全部通过** |
 | **v3.7** | **2026-07-05** | **🔧 6项代码缺陷修复: ①s_high产出初始化除零②CES福利聚合数学不稳定(eps 3.0→1.5)③策略B提取率g_target重复乘入④失业者永久困于失业池⑤political_economy缺少ALL_SECTORS导入⑥混合策略不兼容矩阵使用未注册参数+失业者再就业机制(Pissarides匹配函数)+s_high产出计算使用其他部门产出代理GDP** |
 
 ### v3.7 修复详情

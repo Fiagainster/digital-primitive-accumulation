@@ -50,15 +50,15 @@ class SectorModel:
         base = s.A * s.K ** p["alpha_i"] * (s.H * s.L) ** (1 - p["alpha_i"])
         dig_gain = 1 + p["alpha_i_dig"] * s.DL ** p["beta_i_dig"]
 
-        density_gain = 1.0 + s.digital_density * 0.5
+        density_gain = 1.0 + s.digital_density * self.p.get("i_density_gain_factor", 0.5)
 
         # 数字服务密度 — 来自两个数字子部门
         ds_total = state.sectors["d_infra"].DS + state.sectors["d_app"].DS
         ds_density = max(ds_total, 0.01) / max(s.K, 0.01)
         ds_gain = ds_density ** p["gamma_i"]
 
-        M_needed = 0.1 * s.K
-        M_avail = state.sectors["b"].Y * 0.3
+        M_needed = self.p.get("M_needed_ratio", 0.1) * s.K
+        M_avail = state.sectors["b"].Y * self.p.get("M_avail_ratio", 0.3)
         material_factor = min(1.0, M_avail / max(M_needed, 0.01)) ** p["mu_i"]
         s.M_used = min(M_needed, M_avail)
 
@@ -75,12 +75,12 @@ class SectorModel:
         p = self.p
 
         # 硬件密度
-        HW_needed = 0.08 * s.K
-        HW_avail = max(state.sectors["i"].Y * 0.2, 0.1)
+        HW_needed = self.p.get("HW_needed_ratio", 0.08) * s.K
+        HW_avail = max(state.sectors["i"].Y * self.p.get("HW_avail_ratio_i", 0.2), self.p.get("HW_avail_floor", 0.1))
         hw_density = max(min(HW_avail, HW_needed), 0.01) / max(s.K, 0.01)
 
         # 进口依赖折扣：infra高度依赖外国技术 → import_dep越高效率越低
-        import_penalty = 1.0 - 0.4 * s.import_dependency
+        import_penalty = 1.0 - self.p.get("import_penalty_factor", 0.4) * s.import_dependency
 
         # Cobb-Douglas: 高资本份额
         base = s.A * s.K ** p["alpha_d_infra"] * (s.H * s.L) ** (1 - p["alpha_d_infra"])
@@ -101,17 +101,18 @@ class SectorModel:
         data_factor = (data_eff / 1.0) ** p["delta_d_app_data"]
 
         # 网络效应（应用层显著强于基础设施层）
-        users = max(0, s.L * 15)
-        users_min = 50.0
+        users = max(0, s.L * p.get("d_app_users_per_L", 15))
+        users_min = p.get("d_app_users_min", 50.0)
         net_effect = max(0, (users / users_min - 1)) if users >= users_min else 0.0
-        net_gain = 1 + p["eta_network_app"] * min(net_effect, 2.5)
+        net_cap = p.get("d_app_net_effect_cap", 2.5)
+        net_gain = 1 + p["eta_network_app"] * min(net_effect, net_cap)
 
         # v3.5: infra→app技术约束
         # 应用层效率受基础设施层技术水平约束
         A_infra = state.sectors["d_infra"].A
         A_app_potential = s.A
         infra_constraint = 1.0 - p["xi_infra_to_app"] * max(0.0, 1.0 - A_infra / max(A_app_potential, 0.01))
-        A_effective = A_app_potential * max(0.6, infra_constraint)
+        A_effective = A_app_potential * max(p.get("d_app_min_A_effective", 0.6), infra_constraint)
 
         base = A_effective * s.K ** p["alpha_d_app"] * (s.H * s.L) ** (1 - p["alpha_d_app"])
         s.Y = base * data_factor * net_gain
@@ -144,7 +145,7 @@ class SectorModel:
         digital_link_gain = 1.0 + p["xi_s_digital_link"] * gdp_share_digital
 
         # 数字密度增强
-        density_gain = 1.0 + s.digital_density * 0.40
+        density_gain = 1.0 + s.digital_density * self.p.get("s_high_density_gain_factor", 0.40)
 
         s.Y = base * dig_gain * digital_link_gain * density_gain
         s.profit = s.Y - s.W * s.L
@@ -166,16 +167,22 @@ class SectorModel:
         # v3.5: 数字平台赋能 — 随数字部门DL增长而增强
         avg_digital_DL = 0.5 * (state.sectors["d_infra"].DL + state.sectors["d_app"].DL)
         platform_boost = 1.0 + p["platform_empowerment"] * avg_digital_DL
-        # 饱和效应: DL超过0.8后边际递减
-        if avg_digital_DL > 0.8:
-            saturation = 1.0 - 0.3 * (avg_digital_DL - 0.8) / 0.2
-            platform_boost = 1.0 + p["platform_empowerment"] * 0.8 * max(0.5, saturation)
+        # 饱和效应: DL超过阈值后边际递减
+        sat_start = p.get("s_low_platform_sat_start", 0.8)
+        if avg_digital_DL > sat_start:
+            sat_decay = p.get("s_low_platform_sat_decay", 0.3)
+            sat_range = p.get("s_low_platform_sat_range", 0.2)
+            sat_floor = p.get("s_low_platform_sat_floor", 0.5)
+            saturation = 1.0 - sat_decay * (avg_digital_DL - sat_start) / sat_range
+            platform_boost = 1.0 + p["platform_empowerment"] * sat_start * max(sat_floor, saturation)
 
         # 网络效应（平台型：外卖/打车用户规模→匹配效率）
-        users = max(0, s.L * 10)
-        users_min = 30.0
+        users = max(0, s.L * p.get("s_low_users_per_L", 10))
+        users_min = p.get("s_low_users_min", 30.0)
         net_effect = max(0, (users / users_min - 1)) if users >= users_min else 0.0
-        net_gain = 1 + p.get("eta_network", 0.2) * 0.3 * min(net_effect, 1.0)
+        net_weight = p.get("s_low_net_effect_weight", 0.3)
+        net_cap = p.get("s_low_net_effect_cap", 1.0)
+        net_gain = 1 + p.get("eta_network", 0.2) * net_weight * min(net_effect, net_cap)
 
         s.Y = base * dig_gain * platform_boost * net_gain
         s.profit = s.Y - s.W * s.L

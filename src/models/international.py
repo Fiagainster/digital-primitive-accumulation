@@ -47,8 +47,8 @@ class InternationalModule:
             "C_resource_export_intensity", 0.3
         ) * self._resource_price * 0.5
         resource_share = resource_export / max(state.gdp, 0.01)
-        # 资源出口每占GDP 10%，汇率升值约8%
-        state.real_exchange_rate = 1.0 + resource_share * 0.8
+        rer_coef = self.p.get("rer_resource_share_coefficient", 0.8)
+        state.real_exchange_rate = 1.0 + resource_share * rer_coef
         state.real_exchange_rate = max(0.5, min(state.real_exchange_rate, 3.0))
 
     def _update_endogenous_conditions(self, state: SystemState, dt: float):
@@ -104,9 +104,11 @@ class InternationalModule:
 
         # 封锁溢价 (v3.3: 使用有效封锁值——可内生上升)
         block = getattr(state, "effective_block_max", self.p["block_max"])
-        blockade = block / (1 + np.exp(-5 * (G - 3.0)))
+        steep = self.p.get("blockade_sigmoid_steep", 5.0)
+        mid = self.p.get("blockade_sigmoid_mid", 3.0)
+        blockade = block / (1 + np.exp(-steep * (G - mid)))
 
-        demand = tech_pref * state.gdp * 0.1
+        demand = tech_pref * state.gdp * self.p.get("tech_import_gdp_share", 0.1)
         cost = demand * (1 + blockade)
         return cost
 
@@ -127,7 +129,7 @@ class InternationalModule:
             r_domestic = 0.0
         r_world = 0.05
 
-        inflow = fdi_open * fdi_avail * state.gdp * 0.05
+        inflow = fdi_open * fdi_avail * state.gdp * self.p.get("fdi_inflow_gdp_share", 0.05)
         inflow *= (1 + self.p["fdi_sensitivity"] * max(-0.5, r_domestic - r_world))
 
         # 利润汇出（汇总两个数字部门的FDI存量）
@@ -137,7 +139,7 @@ class InternationalModule:
             bs = state.balance_sheets.get(key)
             if bs:
                 total_equity_foreign += bs.equity_foreign
-        outflow = total_equity_foreign * 0.08 * repat_limit
+        outflow = total_equity_foreign * self.p.get("fdi_outflow_rate", 0.08) * repat_limit
 
         # 更新资产负债表（按资本比例分配给两个数字部门）
         for key in ("d_infra", "d_app"):
@@ -156,7 +158,7 @@ class InternationalModule:
         """数字服务出口."""
         world_demand = self.p.get("world_digital_demand", 1.0)
         comp = state.competitiveness
-        export = (state.sectors["d_infra"].Y + state.sectors["d_app"].Y) * 0.2 * world_demand * comp
+        export = (state.sectors["d_infra"].Y + state.sectors["d_app"].Y) * self.p.get("digital_export_share", 0.2) * world_demand * comp
         return export
 
     def _update_competitiveness(self, state: SystemState):

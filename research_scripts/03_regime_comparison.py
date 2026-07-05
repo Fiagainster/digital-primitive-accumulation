@@ -60,6 +60,8 @@ def main():
                        help="并行核心数 (默认: 自动)")
     parser.add_argument("--no-charts", action="store_true",
                        help="跳过图表生成")
+    parser.add_argument("--config", type=str, default=None,
+                       help="v3.7: YAML配置文件路径 (如 config/default.yaml)")
     args = parser.parse_args()
 
     # 解析参数
@@ -98,10 +100,12 @@ def main():
                         regime=regime,
                         scenario=scenario,
                         profile=profile,
+                        config_path=args.config,
                     )
                     task = {
                         "params": params,
                         "regime": regime,
+                        "config_path": args.config,  # v3.7
                         "config": SimulationConfig(
                             T_max=args.T_max,
                             random_seed=42 + rep,

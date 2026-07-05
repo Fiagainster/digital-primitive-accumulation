@@ -79,7 +79,9 @@ class LaborMarket:
                 H_dst = state.sectors[dst].H
                 skill_match = min(H_src, H_dst) / max(H_src, H_dst, 0.01)
                 # 选择强度：技能匹配越高 → 流出的劳动者技能高于部门平均
-                selection_intensity = 0.3 + 0.7 * skill_match  # [0.3, 1.0]
+                sel_base = self.p.get("skill_selection_base", 0.3)
+                sel_match = self.p.get("skill_selection_match_factor", 0.7)
+                selection_intensity = sel_base + sel_match * skill_match
                 # 流出劳动者的平均技能 = 部门平均 × 选择强度
                 leaver_H = H_src * selection_intensity
                 # 流出后剩余劳动者的平均技能
@@ -96,8 +98,8 @@ class LaborMarket:
             state.sectors[key].L += net_flow[key] * dt
             state.sectors[key].L = max(0.5, state.sectors[key].L)
             # v3.2: 应用技能选择效应
-            state.sectors[key].H += H_changes[key] * 0.5  # 阻尼系数—避免过度震荡
-            state.sectors[key].H = max(0.2, min(state.sectors[key].H, 3.0))
+            state.sectors[key].H += H_changes[key] * self.p.get("H_flow_damping", 0.5)
+            state.sectors[key].H = max(self.p.get("H_bounds_min", 0.2), min(state.sectors[key].H, self.p.get("H_bounds_max", 3.0)))
 
         # 失业变化 + v3.5 技能分化路由
         total_outflow = sum(max(0, -v) for v in net_flow.values())
@@ -108,7 +110,7 @@ class LaborMarket:
         # v3.5: 检查低端服务业饱和度
         total_formal_L = sum(state.sectors[k].L for k in ALL_SECTORS)
         informal_ratio = state.informal_service_L / max(total_formal_L, 1.0)
-        service_saturated = informal_ratio > 0.25
+        service_saturated = informal_ratio > self.p.get("informal_ratio_saturation", 0.25)
 
         for key, outflow in net_flow.items():
             if outflow < 0:  # 该部门在流失劳动力
@@ -119,13 +121,16 @@ class LaborMarket:
 
                 if service_saturated:
                     # 服务业饱和 → 部分回流到基础部门（压低基础工资）
-                    back_to_base = routed_to_informal * 0.4  # 40%被迫回到基础部门
+                    back_ratio = self.p.get("saturated_back_to_base_ratio", 0.4)
+                    back_to_base = routed_to_informal * back_ratio
                     state.sectors["b"].L += back_to_base
                     # 基础部门工资因劳动力过剩而下降
-                    labor_surplus_penalty = min(0.2, informal_ratio * 0.15)
+                    wage_penalty_max = self.p.get("labor_surplus_wage_penalty_max", 0.2)
+                    wage_penalty_coef = self.p.get("labor_surplus_wage_coefficient", 0.15)
+                    labor_surplus_penalty = min(wage_penalty_max, informal_ratio * wage_penalty_coef)
                     state.sectors["b"].W *= (1.0 - labor_surplus_penalty * dt)
                     # 剩余仍进入低端服务业（但工资更低）
-                    state.informal_service_L += routed_to_informal * 0.6
+                    state.informal_service_L += routed_to_informal * (1.0 - back_ratio)
                 else:
                     state.informal_service_L += routed_to_informal
 
@@ -137,22 +142,23 @@ class LaborMarket:
             informal_ratio = state.informal_service_L / max(
                 sum(state.sectors[k].L for k in ALL_SECTORS), 1.0)
 
+            reflow_unsat = self.p.get("informal_reflow_unsaturated", 0.05)
+            reflow_near = self.p.get("informal_reflow_near_sat", 0.03)
+            reflow_sat = self.p.get("informal_reflow_saturated", 0.015)
             if informal_ratio < 0.15:
-                # 未饱和：5%/年回流正式部门
-                back_to_formal = state.informal_service_L * 0.05 * dt
-            elif informal_ratio < 0.25:
-                # 接近饱和：3%/年回流，成功率下降
-                back_to_formal = state.informal_service_L * 0.03 * dt
+                back_to_formal = state.informal_service_L * reflow_unsat * dt
+            elif informal_ratio < self.p.get("informal_ratio_saturation", 0.25):
+                back_to_formal = state.informal_service_L * reflow_near * dt
             else:
-                # 已饱和：1.5%/年回流，大量劳动力困在非正式就业
-                back_to_formal = state.informal_service_L * 0.015 * dt
+                back_to_formal = state.informal_service_L * reflow_sat * dt
 
             state.informal_service_L -= back_to_formal
-            net_unemployed += back_to_formal * 0.3  # 30%成功回到正式就业
+            reflow_success = self.p.get("informal_reflow_formal_success", 0.3)
+            net_unemployed += back_to_formal * reflow_success
 
         state.informal_service_L = max(0.0, state.informal_service_L)
-        # 低端服务业工资 = 基础部门的60%（极低）
-        state.informal_service_W = state.sectors["b"].W * 0.6
+        # 低端服务业工资 = 基础部门的一定比例
+        state.informal_service_W = state.sectors["b"].W * self.p.get("informal_wage_ratio", 0.6)
 
         # v3.7: 失业者再就业机制 — 当劳动力市场有净需求时, 失业者可以找到工作
         # 基于Pissarides(2000)搜寻-匹配理论: 就业率越高→失业者找到工作的概率越高
@@ -261,7 +267,7 @@ class LaborMarket:
             combined_digital_H = 1.0
 
         # v3.2: 数字技能半衰期 — 技术迭代导致已有技能贬值
-        digital_obsolescence_rate = 0.06  # 年化6%
+        digital_obsolescence_rate = self.p.get("digital_skill_obsolescence_rate", 0.06)  # 年化6%
         prev_d_skill = state.households.digital_high_skill.skill_level
         state.households.digital_high_skill.skill_level = (
             combined_digital_H * (1.0 - digital_obsolescence_rate * 0.25)
@@ -275,7 +281,9 @@ class LaborMarket:
         # v3.2: 长期在服务业/失业的工业劳动者技能折旧
         if hasattr(self, '_industrial_skill_erosion_duration'):
             erosion_years = self._industrial_skill_erosion_duration
-            erosion_rate = min(0.30, erosion_years * 0.025)
+            erosion_max = self.p.get("industrial_skill_erosion_max", 0.30)
+            erosion_rate_coef = self.p.get("industrial_skill_erosion_rate", 0.025)
+            erosion_rate = min(erosion_max, erosion_years * erosion_rate_coef)
             state.households.industrial_workers.skill_level = (
                 state.sectors["i"].H * (1.0 - erosion_rate)
             )
@@ -314,7 +322,7 @@ class LaborMarket:
         # ── 各群组收入 ──
         for h in state.households.all_groups():
             h.income = h.employed * h.avg_wage + h.compensation_received
-            h.consumption = h.income * 0.85  # 简化消费倾向
+            h.consumption = h.income * self.p.get("consumption_propensity", 0.85)  # 简化消费倾向
 
         # ── v3.2: 追踪工业技能侵蚀持续时间 ──
         if not hasattr(self, '_peak_industrial_L'):

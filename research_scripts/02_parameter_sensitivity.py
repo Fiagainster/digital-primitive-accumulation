@@ -81,6 +81,8 @@ def main():
                        help="并行核心数 (默认: 自动)")
     parser.add_argument("--param-filter", type=str, default=None,
                        help="仅分析匹配此字符串的参数名 (如 'tau' 或 'extraction')")
+    parser.add_argument("--config", type=str, default=None,
+                       help="v3.7: YAML配置文件路径 (如 config/default.yaml)")
     args = parser.parse_args()
 
     # 初始化
@@ -95,11 +97,12 @@ def main():
 
     store.set_config(vars(args))
 
-    # 构建基准参数
+    # 构建基准参数 (v3.7: 支持YAML配置)
     base_params = build_param_sets(
         regime=args.regime,
         scenario=args.scenario,
         profile=args.profile,
+        config_path=args.config,
     )
 
     # 运行基准模拟
@@ -157,6 +160,7 @@ def main():
                 "_param_id": pid,
                 "_factor": factor,
                 "_base_val": base_val,
+                "config_path": args.config,  # v3.7
             })
 
     total_tasks = len(tasks)

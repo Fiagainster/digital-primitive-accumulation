@@ -41,12 +41,21 @@ class SimulationEngine:
 
     def __init__(self, params: dict = None, config: SimulationConfig = None,
                  regime: str = "A", country_profile: str = None,
-                 scenario: str = None):
+                 scenario: str = None, config_path: str = None):
         self.schema = get_schema()
 
+        # v3.7: YAML配置文件优先 — 如果提供了config_path，从YAML加载参数
         # v3.1: 链式参数加载
         if params is not None:
             self.p = params
+        elif config_path is not None:
+            # v3.7: 从YAML配置文件加载参数
+            self.p = self.schema.build_from_yaml(
+                config_path=config_path,
+                profile_name=country_profile,
+                regime=regime,
+                scenario=scenario,
+            )
         elif country_profile is not None:
             # 使用国情预设一站式构建
             self.p = self.schema.build_from_profile(

@@ -489,57 +489,66 @@ class MixedStrategy:
             }
         cs = self._A_cost_state
 
+        p = self.p
         # 1. 保护僵化成本
-        safety_margin = self.p.get("A_safety_margin", 0.7)
+        safety_margin = p.get("A_safety_margin", 0.7)
         K_i_ratio = state.sectors["i"].K / max(state.initial_K_i, 1.0)
         # 保护过剩度：实际资本存量远超有效资本需求
         protection_excess = max(0.0, K_i_ratio / max(safety_margin, 0.01) - 1.0)
-        efficiency_loss = protection_excess * 0.08 * weight
-        state.sectors["i"].Y *= max(0.85, 1.0 - efficiency_loss * dt)
+        protection_coef = p.get("protection_excess_coefficient", 0.08)
+        protection_floor = p.get("A_protection_excess_floor", 0.85)
+        efficiency_loss = protection_excess * protection_coef * weight
+        state.sectors["i"].Y *= max(protection_floor, 1.0 - efficiency_loss * dt)
 
-        # 2. 渐进主义时间税 — 走得太慢，世界在前进
+        # 2. 渐进主义时间税
         cs["protection_duration"] += dt
-        g_world = self.p.get("g_world", 0.03)
-        # v3.6: 六部门结构 — 使用 d_app（应用层）的技术水平作为数字部门追赶指标
+        g_world = p.get("g_world", 0.03)
         prev_A_d = getattr(self, '_prev_A_d', state.sectors["d_app"].A)
         g_d = (state.sectors["d_app"].A / max(prev_A_d, 0.01) - 1.0)
-        # A逻辑下数字部门增长慢 → 追赶赤字累积
-        lag_rate = max(0.0, g_world - g_d - 0.01)  # 0.01是自然追赶的缓冲
+        natural_buffer = p.get("A_time_tax_natural_buffer", 0.01)
+        lag_rate = max(0.0, g_world - g_d - natural_buffer)
         cs["cumulative_lag"] += lag_rate * dt * weight
-        # 累积滞后的后果：技术差距小幅额外扩大
-        if cs["cumulative_lag"] > 0.1:  # 累积滞后显著时
-            lag_penalty = cs["cumulative_lag"] * 0.03 * dt
+        accum_threshold = p.get("time_tax_accumulation_threshold", 0.1)
+        penalty_rate = p.get("time_tax_penalty_rate", 0.03)
+        if cs["cumulative_lag"] > accum_threshold:
+            lag_penalty = cs["cumulative_lag"] * penalty_rate * dt
             state.tech_gap *= (1.0 + lag_penalty)
 
         self._prev_A_d = state.sectors["d_app"].A
 
         # 3. 既得利益刚性
-        # 保护持续时间越长 → 利益集团越强 → 改革阻力越大
-        if cs["protection_duration"] > 15.0:  # 保护超过15年
+        vested_duration = p.get("vested_interest_duration", 15.0)
+        if cs["protection_duration"] > vested_duration:
             industry_emp_share = state.sectors["i"].L / max(state.households.total_population, 1.0)
+            vested_coef = p.get("vested_interest_coefficient", 0.01)
+            vested_max = p.get("A_vested_interest_max_intensity", 0.5)
             cs["vested_interest_intensity"] = min(
-                0.5,
-                (cs["protection_duration"] - 15.0) * 0.01 * industry_emp_share
+                vested_max,
+                (cs["protection_duration"] - vested_duration) * vested_coef * industry_emp_share
             )
-            # 改革阻力：计划中的数字投资被打了折扣
             reform_resistance = cs["vested_interest_intensity"] * weight
-            # v3.6: 六部门结构 — 改革阻力影响所有数字子部门
+            invest_floor = p.get("A_vested_interest_invest_floor", 0.5)
             for d_key in DIGITAL_SECTORS:
                 if d_key in state.sectors:
-                    state.sectors[d_key].I *= max(0.5, 1.0 - reform_resistance * dt)
+                    state.sectors[d_key].I *= max(invest_floor, 1.0 - reform_resistance * dt)
 
         # 4. 中间收入陷阱
+        trap_DD = p.get("middle_income_DD_threshold", 0.3)
+        trap_G = p.get("middle_income_G_threshold", 4.0)
+        trap_duration = p.get("middle_income_duration", 10.0)
+        trap_penalty_rate = p.get("A_trap_penalty_rate", 0.01)
+        trap_K_floor = p.get("A_trap_K_floor", 0.90)
+        trap_recovery = p.get("A_trap_recovery_rate", 2.0)
         dd_i = state.sectors["i"].digital_density
         G = state.tech_gap
-        if dd_i < 0.3 and G > 4.0:
+        if dd_i < trap_DD and G > trap_G:
             cs["middle_income_trap_years"] += dt
-            if cs["middle_income_trap_years"] > 10.0:
-                # 持续10年以上 → 结构性问题
-                trap_penalty = 0.01 * (cs["middle_income_trap_years"] - 10.0) * weight
-                state.sectors["i"].K *= max(0.90, 1.0 - trap_penalty * dt)
+            if cs["middle_income_trap_years"] > trap_duration:
+                trap_penalty = trap_penalty_rate * (cs["middle_income_trap_years"] - trap_duration) * weight
+                state.sectors["i"].K *= max(trap_K_floor, 1.0 - trap_penalty * dt)
                 state.tech_gap *= (1.0 + trap_penalty * 0.5 * dt)
         else:
-            cs["middle_income_trap_years"] = max(0.0, cs["middle_income_trap_years"] - dt * 2)
+            cs["middle_income_trap_years"] = max(0.0, cs["middle_income_trap_years"] - dt * trap_recovery)
 
     # ─────────────────────────────────────────────
     # 策略B内生成本（委托给现有实现）
@@ -550,11 +559,12 @@ class MixedStrategy:
         strategy_B = self._get_B()
 
         # 1. 就业破坏（按权重缩放）
-        tau_baseline = 0.30
+        tau_baseline = self.p.get("B_tau_baseline", 0.30)
         if tau > tau_baseline:
-            excess_tau = (tau - tau_baseline) * weight  # 缩放后的超额提取率
+            excess_tau = (tau - tau_baseline) * weight
+            unemp_coef = self.p.get("B_unemployment_coefficient", 0.05)
             extra_unemployment = (
-                state.sectors["i"].L * excess_tau * 0.05 * dt
+                state.sectors["i"].L * excess_tau * unemp_coef * dt
             )
             # v3.6: 六部门结构 — 数字部门吸收能力汇总 d_infra + d_app
             total_d_L = sum(state.sectors[k].L for k in DIGITAL_SECTORS
@@ -568,10 +578,12 @@ class MixedStrategy:
             state.sectors["i"].L = max(0.5, state.sectors["i"].L - net_unemployment * 0.5)
 
         # 2. 消费萎缩
-        disposable_share = max(0.3, 0.7 - tau * 0.5 * weight)
-        consumption_drag = max(0.0, (0.70 - disposable_share) * 0.15)
+        disp_base = self.p.get("B_disposable_income_base", 0.70)
+        disp_sens = self.p.get("B_disposable_income_tau_sens", 0.5)
+        disposable_share = max(0.3, disp_base - tau * disp_sens * weight)
+        consumption_drag = max(0.0, (disp_base - disposable_share) * self.p.get("B_consumption_drag_coefficient", 0.15))
         if consumption_drag > 0:
-            state.sectors["i"].Y *= max(0.85, 1.0 - consumption_drag * dt)
+            state.sectors["i"].Y *= max(self.p.get("B_consumption_output_floor", 0.85), 1.0 - consumption_drag * dt)
 
         # 3. 泡沫压力（按权重积累）
         # v3.6: 六部门结构 — 使用 d_app 利润率（应用层回报最能反映泡沫风险）

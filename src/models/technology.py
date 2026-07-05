@@ -48,8 +48,10 @@ class TechnologyDynamics:
         state.tech_gap_infra = A_world_infra / max(A_d_infra, 0.01)
         state.tech_gap_app = A_world_app / max(A_d_app, 0.01)
         # 综合技术差距（用于向后兼容）
-        A_world_avg = 0.4 * A_world_infra + 0.6 * A_world_app
-        A_d_avg = 0.4 * A_d_infra + 0.6 * A_d_app
+        w_infra = self.p.get("A_world_infra_weight", 0.4)
+        w_app = self.p.get("A_world_app_weight", 0.6)
+        A_world_avg = w_infra * A_world_infra + w_app * A_world_app
+        A_d_avg = w_infra * A_d_infra + w_app * A_d_app
         state.tech_gap = A_world_avg / max(A_d_avg, 0.01)
 
     def _regime_multipliers(self, state: SystemState) -> dict:
@@ -216,7 +218,7 @@ class TechnologyDynamics:
             density_bonus = 1.0 + s.digital_density * 0.8
 
             policy = (
-                p["kappa_diff"]
+                p.get("diff_policy_intensity", p.get("kappa_diff", 0.03))
                 * p["institution_capacity"]
                 * s.DL
                 * (1 + p["kappa"] * 0.5)

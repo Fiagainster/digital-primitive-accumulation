@@ -31,7 +31,10 @@ class WelfareModule:
             # 就业率
             emp_rate = h.employed / max(h.population, 0.01)
             # 福利 = 几何平均
-            h.welfare_index = (cons_per_cap ** 0.5) * (emp_rate ** 0.3) * (h.skill_level ** 0.2)
+            w_cons = self.p.get("welfare_consumption_exponent", 0.5)
+            w_emp = self.p.get("welfare_employment_exponent", 0.3)
+            w_skill = self.p.get("welfare_skill_exponent", 0.2)
+            h.welfare_index = (cons_per_cap ** w_cons) * (emp_rate ** w_emp) * (h.skill_level ** w_skill)
 
     def _compute_aggregate_welfare(self, state: SystemState):
         """计算总体福利（等弹性聚合）.
@@ -129,7 +132,7 @@ class WelfareModule:
 
         # 失业者成本
         state.households.unemployed.cumulative_cost += (
-            state.households.unemployed.population * 3.0 * dt
+            state.households.unemployed.population * self.p.get("unemployment_cost_rate", 3.0) * dt
         )
 
         # v3.3: 低端服务业"隐藏失业"成本
