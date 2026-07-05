@@ -38,7 +38,7 @@ def run_single_demo(profile: str = "manufacturing_giant"):
         result = engine.run()
         s = result["summary"]
 
-        status = "✓ 存活" if s["survived"] else f"✗ 崩溃 [{s['terminal_fracture']}]"
+        status = "[OK] survived" if s["survived"] else f"[FAIL] collapsed [{s['terminal_fracture']}]"
         print(f"  {status} | {s['survival_years']:.1f}年")
         print(f"  GDP: {s['final_gdp']:.0f} | 技术差距: {s['final_tech_gap']:.2f}")
 
@@ -51,7 +51,7 @@ def run_single_demo(profile: str = "manufacturing_giant"):
                   f"结构={ev['structure']:.2f} 主权={ev['sovereignty']:.2f}")
             print(f"  红线: {ev['red_line_level']} | 可接受: {ev['is_acceptable']}")
             if ev.get("red_line_failures"):
-                print(f"    ✗ 失败: {', '.join(ev['red_line_failures'])}")
+                print(f"    [FAIL] red line failures: {', '.join(ev['red_line_failures'])}")
             if ev.get("red_line_warnings"):
                 print(f"    ⚡ 警告: {', '.join(ev['red_line_warnings'])}")
 
@@ -62,15 +62,14 @@ def run_single_demo(profile: str = "manufacturing_giant"):
 
         # v3.5: 六部门结构指标
         print(f"  === 六部门结构 (v3.5) ===")
-        print(f"  K_d_infra: {s.get('K_d_infra', 'N/A')} | K_d_app: {s.get('K_d_app', 'N/A')}")
-        print(f"  DL_d_infra: {s.get('DL_d_infra', 'N/A')} | DL_d_app: {s.get('DL_d_app', 'N/A')}")
-        print(f"  K_s_high: {s.get('K_s_high', 'N/A')} | K_s_low: {s.get('K_s_low', 'N/A')}")
+        print(f"  K_d_infra: {s.get('sector_K_d_infra', 'N/A'):.1f} | K_d_app: {s.get('sector_K_d_app', 'N/A'):.1f}")
+        print(f"  DL_d_infra: {s.get('sector_DL_d_infra', 'N/A'):.3f} | DL_d_app: {s.get('sector_DL_d_app', 'N/A'):.3f}")
+        print(f"  K_s_high: {s.get('sector_K_s_high', 'N/A'):.1f} | K_s_low: {s.get('sector_K_s_low', 'N/A'):.1f}")
         # v3.5: 新指标
-        print(f"  就业质量指数: {s.get('employment_quality_index', 'N/A')}")
-        print(f"  技术差距(基建): {s.get('tech_gap_infra', 'N/A')} | 技术差距(应用): {s.get('tech_gap_app', 'N/A')}")
-        print(f"  依赖综合指数: {s.get('dependency_composite', 'N/A')}")
-        # v3.5综合指标
         v35 = s.get('v35_metrics', {})
+        print(f"  就业质量指数: {v35.get('employment_quality_index', 'N/A')}")
+        print(f"  技术差距(基建): {v35.get('tech_gap_infra', 'N/A')} | 技术差距(应用): {v35.get('tech_gap_app', 'N/A')}")
+        print(f"  依赖综合指数: {s.get('dependency_composite', 'N/A')}")
         if v35:
             print(f"  v3.5综合指标: {v35}")
 
@@ -95,7 +94,7 @@ def run_single_demo(profile: str = "manufacturing_giant"):
     viz.plot_five_dimension_radar(all_results)
     viz.plot_cost_waterfall(all_results)
 
-    print("\n✓ 单次模拟演示完成。图表已保存至 experiments/results/figures/")
+    print("\n[Done] Single simulation demo completed. Figures saved to experiments/results/figures/")
 
 
 def run_mixed_demo(profile: str = "manufacturing_giant"):
@@ -140,7 +139,7 @@ def run_mixed_demo(profile: str = "manufacturing_giant"):
         result = engine.run()
         s = result["summary"]
 
-        status = "✓ 存活" if s["survived"] else f"✗ 崩溃 [{s['terminal_fracture']}]"
+        status = "[OK] survived" if s["survived"] else f"[FAIL] collapsed [{s['terminal_fracture']}]"
         print(f"  {status} | {s['survival_years']:.1f}年")
 
         ev = s.get("evaluation", {})
@@ -152,15 +151,14 @@ def run_mixed_demo(profile: str = "manufacturing_giant"):
 
         # v3.5: 六部门结构指标
         print(f"  === 六部门结构 (v3.5) ===")
-        print(f"  K_d_infra: {s.get('K_d_infra', 'N/A')} | K_d_app: {s.get('K_d_app', 'N/A')}")
-        print(f"  DL_d_infra: {s.get('DL_d_infra', 'N/A')} | DL_d_app: {s.get('DL_d_app', 'N/A')}")
-        print(f"  K_s_high: {s.get('K_s_high', 'N/A')} | K_s_low: {s.get('K_s_low', 'N/A')}")
+        print(f"  K_d_infra: {s.get('sector_K_d_infra', 'N/A'):.1f} | K_d_app: {s.get('sector_K_d_app', 'N/A'):.1f}")
+        print(f"  DL_d_infra: {s.get('sector_DL_d_infra', 'N/A'):.3f} | DL_d_app: {s.get('sector_DL_d_app', 'N/A'):.3f}")
+        print(f"  K_s_high: {s.get('sector_K_s_high', 'N/A'):.1f} | K_s_low: {s.get('sector_K_s_low', 'N/A'):.1f}")
         # v3.5: 新指标
-        print(f"  就业质量指数: {s.get('employment_quality_index', 'N/A')}")
-        print(f"  技术差距(基建): {s.get('tech_gap_infra', 'N/A')} | 技术差距(应用): {s.get('tech_gap_app', 'N/A')}")
-        print(f"  依赖综合指数: {s.get('dependency_composite', 'N/A')}")
-        # v3.5综合指标
         v35 = s.get('v35_metrics', {})
+        print(f"  就业质量指数: {v35.get('employment_quality_index', 'N/A')}")
+        print(f"  技术差距(基建): {v35.get('tech_gap_infra', 'N/A')} | 技术差距(应用): {v35.get('tech_gap_app', 'N/A')}")
+        print(f"  依赖综合指数: {s.get('dependency_composite', 'N/A')}")
         if v35:
             print(f"  v3.5综合指标: {v35}")
 
@@ -174,7 +172,7 @@ def run_mixed_demo(profile: str = "manufacturing_giant"):
     # 生成报告
     generate_academic_report(results)
 
-    print("\n✓ 混合策略演示完成。")
+    print("\n[Done] Mixed strategy demo completed.")
 
 
 def run_comparison_demo():
@@ -208,7 +206,7 @@ def run_comparison_demo():
     # 学术报告
     report = generate_academic_report(results)
 
-    print("\n✓ 策略比较演示完成。")
+    print("\n[Done] Strategy comparison demo completed.")
     return results
 
 
@@ -235,7 +233,7 @@ def run_batch_experiment():
 
     generate_academic_report(results)
 
-    print("\n✓ 批量实验完成。")
+    print("\n[Done] Batch experiment completed.")
     return results
 
 

@@ -34,7 +34,13 @@ class WelfareModule:
             h.welfare_index = (cons_per_cap ** 0.5) * (emp_rate ** 0.3) * (h.skill_level ** 0.2)
 
     def _compute_aggregate_welfare(self, state: SystemState):
-        """计算总体福利（等弹性聚合）."""
+        """计算总体福利（等弹性聚合）.
+
+        v3.7 修复: epsilon_welfare从3.0降至1.5 (Atkinson 1970标准范围[0.5,2.0]),
+        同时将福利下限从1e-6提升至0.01 (Sen能力路径的"生存底线")。
+        原eps=3.0时c^(1-3)=c^(-2)使得接近零的群组福利在聚合中无限放大,
+        导致即使极少数失业者(0.1%人口)也能将全局福利拉到~0。
+        """
         eps = self.p["epsilon_welfare"]
         components = []
         weights = []
@@ -54,9 +60,11 @@ class WelfareModule:
             state.welfare_index = 0.0
             return
         w = np.array(weights) / total_w
-        c = np.maximum(np.array(components), 1e-6)
+        # v3.7: 生存底线 = 0.01 (基准福利的1%), 基于Sen能力理论—
+        # 即使最贫困者也应有基本生存消费, 同时保证CES在eps<2时数值稳定
+        c = np.maximum(np.array(components), 0.01)
         try:
-            if eps == 1.0:
+            if abs(eps - 1.0) < 1e-6:
                 state.welfare_index = float(np.exp(np.sum(w * np.log(c))))
             else:
                 val = float(np.sum(w * c ** (1 - eps)) ** (1 / (1 - eps)))

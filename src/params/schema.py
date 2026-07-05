@@ -107,7 +107,9 @@ class ParameterSchema:
         self._reg("fdi_sensitivity", "FDI_sens", "外资对回报率敏感度", 0.5, 3.0, 1.5, "structural")
 
         # 福利
-        self._reg("epsilon_welfare", "ε_welfare", "福利分量替代弹性", 1.5, 5.0, 3.0, "structural")
+        # v3.7: 默认值从3.0降至1.5, 处于Atkinson(1970)不平等厌恶参数标准范围[0.5,2.0]内,
+        # 避免eps>2时c^(1-eps)=c^(-k)对接近零的福利值数学上过度敏感
+        self._reg("epsilon_welfare", "ε_welfare", "福利分量替代弹性(Atkinson不平等厌恶)", 0.5, 2.5, 1.5, "structural")
         self._reg("data_depreciation", "δ_data", "数据折旧率", 0.05, 0.30, 0.15, "structural")
 
         # v2.0 异质性数据

@@ -11,13 +11,17 @@ class SectorModel:
         self.p = params
 
     def compute_all_production(self, state: SystemState):
-        """并行计算六部门产出."""
+        """并行计算六部门产出.
+
+        v3.7 修复: 调整计算顺序——s_high依赖gdp_share_digital(需要其他部门产出已知),
+        故将其放在最后; s_low依赖平均数字DL, 放到s_high之前.
+        """
         self._base_production(state)
         self._industry_production(state)
         self._digital_infra_production(state)
         self._digital_app_production(state)
-        self._service_high_production(state)
         self._service_low_production(state)
+        self._service_high_production(state)
 
     def _base_production(self, state: SystemState):
         s = state.sectors["b"]
@@ -129,8 +133,14 @@ class SectorModel:
 
         # v3.5: 数字部门联动增益
         # 数字infra+app的产出增长 → 拉动高技能服务需求
+        # v3.7 修复: 使用所有其他部门产出之和作为GDP代理, 避免初始化时state.gdp=0
+        # 导致除以0.01分母而使得digital_link_gain膨胀250x的bug
         d_total_output = state.sectors["d_infra"].Y + state.sectors["d_app"].Y
-        gdp_share_digital = d_total_output / max(state.gdp, 0.01)
+        other_sectors_Y = sum(
+            state.sectors[k].Y for k in ["b", "i", "d_infra", "d_app", "s_low"]
+        )
+        gdp_proxy = max(state.gdp, other_sectors_Y, 0.01)
+        gdp_share_digital = d_total_output / gdp_proxy
         digital_link_gain = 1.0 + p["xi_s_digital_link"] * gdp_share_digital
 
         # 数字密度增强

@@ -297,12 +297,21 @@ class LeapAccumulation(AccumulationRegime):
         return 0.0
 
     def extraction_rate(self, state: SystemState) -> float:
+        """计算策略B的提取率.
+
+        v3.7 修复: 原公式 tau = min(g_target * K_d_invest_needed / fund, ...) 中
+        K_d_invest_needed = g_target * K_d_total, 导致 g_target 被乘了两次(g_target²).
+        正确公式: tau = min(K_d_invest_needed / fund, B_tau_actual_max)
+                  = min(g_target * K_d_total / fund, B_tau_actual_max)
+        经济含义: 提取率 = 满足数字部门目标增长所需的投资 / 积累基金,
+        即"我们需要多少投资"除以"我们有多少钱"。
+        """
         p = self.p
         g_target = p["B_g_target"]
         K_d_total = self._agg_digital_K(state)
         K_d_invest_needed = g_target * K_d_total
         fund = max(state.accumulation_fund, 1.0)
-        tau = min(g_target * K_d_invest_needed / fund, p["B_tau_actual_max"])
+        tau = min(K_d_invest_needed / fund, p["B_tau_actual_max"])
 
         # v2.2: 政治约束 — 提取率受政治支持度制约
         ps = state.political_support

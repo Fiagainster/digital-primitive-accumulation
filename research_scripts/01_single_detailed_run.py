@@ -152,7 +152,7 @@ def main():
     logger.logger.info(f"{'─' * 60}")
 
     # 1. 基本结果
-    survival_status = "✓ 存活" if summary["survived"] else f"✗ 崩溃 [{summary.get('terminal_fracture', '?')}]"
+    survival_status = "[OK] survived" if summary["survived"] else f"[FAIL] collapsed [{summary.get('terminal_fracture', '?')}]"
     logger.logger.info(f"\n  [生存状态]  {survival_status}")
     logger.stat("存活年数", summary["survival_years"], "年")
     logger.stat("期末GDP", summary["final_gdp"], "")
@@ -165,7 +165,7 @@ def main():
     n_fractures = summary.get("total_fractures", 0)
     logger.logger.info(f"\n  [断裂诊断]  共触发 {n_fractures} 种断裂")
     for ft in fractures:
-        logger.logger.info(f"    ⚡ {ft}")
+        logger.logger.info(f"    [!] {ft}")
 
     # 3. 五维评价 (v3.5)
     ev = summary.get("evaluation", {})
@@ -181,9 +181,9 @@ def main():
         logger.stat("可接受", ev.get("is_acceptable", True), "")
 
         if ev.get("red_line_failures"):
-            logger.logger.warning(f"    ✗ 红线失败: {', '.join(ev['red_line_failures'])}")
+            logger.logger.warning(f"    [FAIL] red line failures: {', '.join(ev['red_line_failures'])}")
         if ev.get("red_line_warnings"):
-            logger.logger.warning(f"    ⚡ 红线警告: {', '.join(ev['red_line_warnings'])}")
+            logger.logger.warning(f"    [WARN] red line warnings: {', '.join(ev['red_line_warnings'])}")
 
     # 4. 代价分布
     cost_detail = summary.get("cost_detail", {})

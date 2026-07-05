@@ -137,26 +137,28 @@ class MixedStrategy:
 
         # v3.6: 策略不兼容矩阵 — 当混合存在内在冲突的策略时施加惩罚
         # 每个策略对包含三个维度：资源逻辑冲突、制度逻辑冲突、外部逻辑冲突
+        # total = 三维度的等权平均, 确保子维度修改后total自动同步
         self._incompatibility_matrix = {
             "AB": {
-                "total":       self.p.get("M_AB", 0.25),
-                "resource":    self.p.get("M_AB_resource", 0.35),
-                "institution": self.p.get("M_AB_institution", 0.25),
-                "external":    self.p.get("M_AB_external", 0.10),
+                "resource":    self.p.get("incompat_AB_resource", 0.35),
+                "institution": self.p.get("incompat_AB_institution", 0.25),
+                "external":    self.p.get("incompat_AB_external", 0.10),
             },
             "BC": {
-                "total":       self.p.get("M_BC", 0.25),
-                "resource":    self.p.get("M_BC_resource", 0.10),
-                "institution": self.p.get("M_BC_institution", 0.30),
-                "external":    self.p.get("M_BC_external", 0.35),
+                "resource":    self.p.get("incompat_BC_resource", 0.10),
+                "institution": self.p.get("incompat_BC_institution", 0.30),
+                "external":    self.p.get("incompat_BC_external", 0.35),
             },
             "AC": {
-                "total":       self.p.get("M_AC", 0.15),
-                "resource":    self.p.get("M_AC_resource", 0.15),
-                "institution": self.p.get("M_AC_institution", 0.20),
-                "external":    self.p.get("M_AC_external", 0.15),
+                "resource":    self.p.get("incompat_AC_resource", 0.15),
+                "institution": self.p.get("incompat_AC_institution", 0.20),
+                "external":    self.p.get("incompat_AC_external", 0.15),
             },
         }
+        # 计算每个策略对的 total（三维度平均值）
+        for pair_key in self._incompatibility_matrix:
+            dims = self._incompatibility_matrix[pair_key]
+            dims["total"] = (dims["resource"] + dims["institution"] + dims["external"]) / 3.0
 
     @property
     def lambda_vec(self) -> Tuple[float, float, float]:

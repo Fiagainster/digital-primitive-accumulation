@@ -13,6 +13,7 @@
 """
 
 import numpy as np
+from ..core.state import SystemState, ALL_SECTORS
 from ..core.state import SystemState, PoliticalSupport
 
 

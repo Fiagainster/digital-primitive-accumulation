@@ -154,6 +154,30 @@ class LaborMarket:
         # 低端服务业工资 = 基础部门的60%（极低）
         state.informal_service_W = state.sectors["b"].W * 0.6
 
+        # v3.7: 失业者再就业机制 — 当劳动力市场有净需求时, 失业者可以找到工作
+        # 基于Pissarides(2000)搜寻-匹配理论: 就业率越高→失业者找到工作的概率越高
+        unemployed_pool = state.households.unemployed.population
+        if unemployed_pool > 0 and net_unemployed < 0:
+            # 净就业需求 = -net_unemployed (正值表示需要更多劳动力)
+            labor_demand = -net_unemployed * dt
+            # 失业者找到工作的概率: 基于就业率(市场紧度)和技能匹配
+            total_employed = sum(state.sectors[k].L for k in ALL_SECTORS)
+            total_labor_force = total_employed + unemployed_pool + state.informal_service_L
+            employment_rate = total_employed / max(total_labor_force, 1.0)
+            # Beveridge曲线: 高就业率→更容易找到工作 (Pissarides匹配函数)
+            job_finding_rate = 0.15 * employment_rate  # 基准15%/期, 按就业率调整
+            reemployed = min(labor_demand, unemployed_pool * job_finding_rate * dt)
+            state.households.unemployed.population -= reemployed
+            state.households.unemployed.population = max(0.0, state.households.unemployed.population)
+            # 再就业者进入部门(按部门规模分配)
+            for key in ALL_SECTORS:
+                if reemployed <= 0:
+                    break
+                share = state.sectors[key].L / max(total_employed, 1.0)
+                added = reemployed * share
+                state.sectors[key].L += added
+            net_unemployed += reemployed / max(dt, 0.01)  # 调整净失业变化
+
         state.households.unemployed.population += net_unemployed * dt
         state.households.unemployed.population = max(0.0, state.households.unemployed.population)
 
