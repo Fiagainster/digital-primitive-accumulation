@@ -207,9 +207,14 @@ class GradualAccumulation(AccumulationRegime):
         return {k: v / total for k, v in phi.items()}
 
     def _apply_A_endogenous_costs(self, state: SystemState, dt: float):
-        """v3.2: 策略A的内生成本 — 保护僵化、时间税、既得利益刚性、中间收入陷阱.
+        """v3.7.2: 策略A的内生成本 — 含自修正机制.
 
         纯策略A运行时，这四种成本也会生效（之前仅在混合策略框架中触发）。
+
+        v3.7.2 改进：
+        - 中间收入陷阱恢复速度从2.0→4.0（破坏:恢复比从4:1→2:1）
+        - 新增保护持续时间衰减机制（条件改善时缓慢退出保护状态）
+        - 既得利益刚性在工业升级成功后可逆转
         """
         if not hasattr(self, '_A_cost_state'):
             self._A_cost_state = {
@@ -221,6 +226,9 @@ class GradualAccumulation(AccumulationRegime):
         cs = self._A_cost_state
 
         p = self.p
+        dd_i = state.sectors["i"].digital_density
+        G = state.tech_gap
+
         # 1. 保护僵化成本
         safety_margin = p.get("A_safety_margin", 0.7)
         K_i_ratio = state.sectors["i"].K / max(state.initial_K_i, 1.0)
@@ -230,8 +238,16 @@ class GradualAccumulation(AccumulationRegime):
         efficiency_loss = protection_excess * protection_coef
         state.sectors["i"].Y *= max(protection_floor, 1.0 - efficiency_loss * dt)
 
+        # v3.7.2: 保护持续时间跟踪——条件改善时衰减
+        if G > 4.0 or dd_i < 0.2:
+            # 技术差距大或数字密度低 → 保护期累积
+            cs["protection_duration"] += dt
+        elif dd_i > 0.4 and G < 3.0:
+            # 工业数字化成功+技术差距缩小 → 保护可以逐步退出
+            cs["protection_duration"] = max(0.0,
+                cs["protection_duration"] - dt * 1.5)
+
         # 2. 渐进主义时间税 — 走得太慢，世界在前进
-        cs["protection_duration"] += dt
         g_world = p.get("g_world", 0.03)
         A_d_app = state.sectors["d_app"].A
         prev_A_d = getattr(self, '_prev_A_d', A_d_app)
@@ -240,6 +256,10 @@ class GradualAccumulation(AccumulationRegime):
         natural_buffer = p.get("A_time_tax_natural_buffer", 0.01)
         lag_rate = max(0.0, g_world - g_d - natural_buffer)
         cs["cumulative_lag"] += lag_rate * dt
+        # v3.7.2: 累积滞后也应有衰减——如果数字部门加速赶上
+        if lag_rate <= 0.0:
+            cs["cumulative_lag"] = max(0.0,
+                cs["cumulative_lag"] + lag_rate * dt)  # lag_rate为负时减少
         accum_threshold = p.get("time_tax_accumulation_threshold", 0.1)
         penalty_rate = p.get("time_tax_penalty_rate", 0.03)
         if cs["cumulative_lag"] > accum_threshold:
@@ -260,6 +280,10 @@ class GradualAccumulation(AccumulationRegime):
             invest_floor = p.get("A_vested_interest_invest_floor", 0.5)
             for d_key in ["d_infra", "d_app"]:
                 state.sectors[d_key].I *= max(invest_floor, 1.0 - reform_resistance * dt)
+        else:
+            # v3.7.2: 保护期未满15年或保护已退出 → 既得利益强度衰减
+            cs["vested_interest_intensity"] = max(0.0,
+                cs["vested_interest_intensity"] - 0.015 * dt)
 
         # 4. 中间收入陷阱
         trap_DD = p.get("middle_income_DD_threshold", 0.3)
@@ -267,9 +291,8 @@ class GradualAccumulation(AccumulationRegime):
         trap_duration = p.get("middle_income_duration", 10.0)
         trap_penalty_rate = p.get("A_trap_penalty_rate", 0.01)
         trap_K_floor = p.get("A_trap_K_floor", 0.90)
-        trap_recovery = p.get("A_trap_recovery_rate", 2.0)
-        dd_i = state.sectors["i"].digital_density
-        G = state.tech_gap
+        # v3.7.2: 恢复速度从2.0→4.0，破坏:恢复比从4:1→2:1
+        trap_recovery = p.get("A_trap_recovery_rate", 4.0)
         if dd_i < trap_DD and G > trap_G:
             cs["middle_income_trap_years"] += dt
             if cs["middle_income_trap_years"] > trap_duration:
@@ -277,7 +300,9 @@ class GradualAccumulation(AccumulationRegime):
                 state.sectors["i"].K *= max(trap_K_floor, 1.0 - trap_penalty * dt)
                 state.tech_gap *= (1.0 + trap_penalty * 0.5 * dt)
         else:
-            cs["middle_income_trap_years"] = max(0.0, cs["middle_income_trap_years"] - dt * trap_recovery)
+            # v3.7.2: 恢复速度加倍（4.0/年 vs 原2.0/年）
+            cs["middle_income_trap_years"] = max(0.0,
+                cs["middle_income_trap_years"] - dt * trap_recovery)
 
 
 class LeapAccumulation(AccumulationRegime):
@@ -568,7 +593,14 @@ class LeapAccumulation(AccumulationRegime):
 
 
 class SubstitutionAccumulation(AccumulationRegime):
-    """策略C：替代积累 (v2.2 升级).
+    """策略C：替代积累 (v3.7.2 升级).
+
+    v3.7.2 新增：连续内生成本机制 —— 与策略A/B的机制丰富度对称。
+    - 荷兰病支出效应：资源繁荣→汇率升值→工业竞争力持续退化
+    - 政策俘获：外部依赖→外资利益绑架国内政策→投资分配扭曲
+    - 技术退化：长期技术进口→自主创新持续萎缩
+    - 消费主义陷阱：FDI偏向消费→国内储蓄率下降→积累能力减弱
+    - 人才外流：依附加深→高技能人才持续外流→人力资本退化
 
     v2.2 新增：完美风暴机制 — FDI和资源同时断裂时，技术差距加速扩大
     v2.1 新增外部冲击机制：
@@ -578,11 +610,13 @@ class SubstitutionAccumulation(AccumulationRegime):
     """
 
     def step(self, state: SystemState, dt: float):
-        """v2.2: 覆写step以传递dt给外部冲击检查."""
+        """v3.7.2: 覆写step以加入C的连续内生成本."""
         self._compute_surplus(state)
         tau = self.extraction_rate(state)
         phi = self.investment_allocation(state, tau, dt)
         self._apply_investment(state, phi, tau, dt)
+        # v3.7.2: 应用策略C的连续内生成本
+        self._apply_C_endogenous_costs(state, dt)
 
     def extraction_rate(self, state: SystemState) -> float:
         # v2.1: 外部冲击影响提取能力
@@ -717,3 +751,138 @@ class SubstitutionAccumulation(AccumulationRegime):
 
             if self._regime_state["perfect_storm_count"] > 20:
                 state.political_support.support_index *= (1.0 - 0.01 * dt)
+
+    def _apply_C_endogenous_costs(self, state: SystemState, dt: float):
+        """v3.7.2: 策略C的连续内生成本机制.
+
+        与策略A的_apply_A_endogenous_costs和策略B的_apply_socioeconomic_costs对称，
+        实现README文档中描述的五种内生退化机制作为连续运行的成本。
+        """
+        if not hasattr(self, '_C_cost_state'):
+            self._C_cost_state = {
+                "dutch_disease_pressure": 0.0,      # 荷兰病累积压力
+                "policy_capture_intensity": 0.0,     # 政策俘获强度
+                "tech_degeneration_years": 0.0,      # 技术退化持续年数
+                "consumerism_drag": 0.0,              # 消费主义拖累
+                "brain_drain_cumulative": 0.0,        # 人才外流累积
+            }
+        cs = self._C_cost_state
+        p = self.p
+
+        # ================================================================
+        # 1. 荷兰病支出效应 (Dutch Disease expenditure effect)
+        # 资源出口繁荣 → 实际汇率升值 → 工业部门竞争力持续丧失
+        # ================================================================
+        resource_intensity = p.get("C_resource_export_intensity", 0.6)
+        rer = getattr(state, "real_exchange_rate", 1.0)
+        if rer > 1.05 and resource_intensity > 0.3:
+            # 汇率升值幅度 × 资源依赖度 → 工业竞争力折扣
+            dutch_severity = (rer - 1.0) * resource_intensity
+            cs["dutch_disease_pressure"] += dutch_severity * dt
+            # 工业出口竞争力持续下降
+            industrial_penalty = min(0.15, cs["dutch_disease_pressure"] * 0.02)
+            state.sectors["i"].Y *= max(0.70, 1.0 - industrial_penalty * dt)
+            # 长期荷兰病 → 工业资本积累减速
+            if cs["dutch_disease_pressure"] > 2.0:
+                extra_decay = (cs["dutch_disease_pressure"] - 2.0) * 0.005
+                state.sectors["i"].K = max(0.3 * state.initial_K_i,
+                    state.sectors["i"].K * (1.0 - extra_decay * dt))
+        else:
+            # 汇率正常时缓慢恢复
+            cs["dutch_disease_pressure"] = max(0.0,
+                cs["dutch_disease_pressure"] - 0.03 * dt)
+
+        # ================================================================
+        # 2. 政策俘获 (Policy Capture)
+        # 外部依赖升高 → 外资利益绑架国内政策 → 投资分配偏向外资偏好
+        # ================================================================
+        ext_dep = state.external_dependency
+        if ext_dep > 0.4:
+            cs["policy_capture_intensity"] += (ext_dep - 0.4) * 0.06 * dt
+            cs["policy_capture_intensity"] = min(0.5, cs["policy_capture_intensity"])
+            # 政策俘获 → FDI优惠 → 国内积累基金被外资利润汇出侵蚀
+            capture_leakage = cs["policy_capture_intensity"] * 0.08
+            state.accumulation_fund = max(0.0,
+                state.accumulation_fund * (1.0 - capture_leakage * dt))
+            # 严重俘获 → 工业保护被削弱（外资偏好服务业和资源）
+            if cs["policy_capture_intensity"] > 0.25:
+                protection_erosion = (cs["policy_capture_intensity"] - 0.25) * 0.05
+                state.sectors["i"].I *= max(0.6, 1.0 - protection_erosion * dt)
+        else:
+            cs["policy_capture_intensity"] = max(0.0,
+                cs["policy_capture_intensity"] - 0.02 * dt)
+
+        # ================================================================
+        # 3. 技术退化 (Technology Degeneration)
+        # 长期依赖技术进口 → 自主创新能力持续下降
+        # ================================================================
+        tech_import = p.get("C_tech_import_preference", 0.6)
+        indigenous_rd = p.get("C_indigenous_rd_ratio", 0.03)
+        if tech_import > 0.4 and indigenous_rd < 0.05:
+            cs["tech_degeneration_years"] += dt
+            # 进口依赖 → "用进废退" → 自主创新效率持续下降
+            degeneration_rate = (tech_import - 0.4) * 0.015
+            # 对两个数字部门的技术水平施加退化压力
+            for d_key in ["d_infra", "d_app"]:
+                state.sectors[d_key].A *= max(0.7,
+                    1.0 - degeneration_rate * dt)
+            # 长期进口依赖(>10年) → 技术吸收能力也开始退化
+            if cs["tech_degeneration_years"] > 10.0:
+                absorption_decay = (cs["tech_degeneration_years"] - 10.0) * 0.003
+                for d_key in ["d_infra", "d_app"]:
+                    state.sectors[d_key].H = max(0.3,
+                        state.sectors[d_key].H * (1.0 - absorption_decay * dt))
+        else:
+            cs["tech_degeneration_years"] = max(0.0,
+                cs["tech_degeneration_years"] - dt * 1.5)  # 恢复慢于退化
+
+        # ================================================================
+        # 4. 消费主义陷阱 (Consumerism Trap)
+        # FDI偏向消费领域 → 国内储蓄率下降 → 积累能力持续减弱
+        # ================================================================
+        fdi_open = p.get("C_fdi_openness", 0.4)
+        if fdi_open > 0.3:
+            consumerism_effect = (fdi_open - 0.3) * 0.03
+            cs["consumerism_drag"] += consumerism_effect * dt
+            cs["consumerism_drag"] = min(0.3, cs["consumerism_drag"])
+            # 储蓄率下降 → 积累基金减少
+            savings_penalty = cs["consumerism_drag"] * 0.1
+            accumulation_fund_share = p.get("accumulation_fund_share", 0.8)
+            effective_share = max(0.3, accumulation_fund_share - savings_penalty)
+            # 通过降低积累基金比例来实现（间接机制）
+            state.accumulation_fund *= (effective_share / max(accumulation_fund_share, 0.01))
+            state.accumulation_fund = max(0.0, state.accumulation_fund)
+        else:
+            cs["consumerism_drag"] = max(0.0,
+                cs["consumerism_drag"] - 0.01 * dt)
+
+        # ================================================================
+        # 5. 人才外流 (Brain Drain)
+        # 依附加深 → 高技能人才海外流失 → 人力资本持续退化
+        # ================================================================
+        dep_composite = state.dependency.composite
+        if dep_composite > 0.4:
+            drain_rate = (dep_composite - 0.4) * 0.04
+            cs["brain_drain_cumulative"] += drain_rate * dt
+            # 人才外流主要影响数字部门和高技能服务业的人力资本
+            for key in ["d_infra", "d_app", "s_high"]:
+                s = state.sectors[key]
+                # H的年度损失率 = 人才外流累积 × 敏感度
+                h_loss = cs["brain_drain_cumulative"] * 0.03
+                s.H = max(0.2, s.H * (1.0 - h_loss * dt))
+            # 极端人才外流 → 数据资产质量下降
+            if cs["brain_drain_cumulative"] > 2.0:
+                state.data_assets.producer_data *= max(0.85,
+                    1.0 - (cs["brain_drain_cumulative"] - 2.0) * 0.01 * dt)
+        else:
+            cs["brain_drain_cumulative"] = max(0.0,
+                cs["brain_drain_cumulative"] - 0.02 * dt)
+
+        # 记录成本状态用于监控
+        self._regime_state["C_endogenous_costs"] = {
+            "dutch_disease_pressure": cs["dutch_disease_pressure"],
+            "policy_capture_intensity": cs["policy_capture_intensity"],
+            "tech_degeneration_years": cs["tech_degeneration_years"],
+            "consumerism_drag": cs["consumerism_drag"],
+            "brain_drain_cumulative": cs["brain_drain_cumulative"],
+        }

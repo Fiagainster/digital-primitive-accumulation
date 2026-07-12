@@ -107,12 +107,16 @@ class SectorModel:
         net_cap = p.get("d_app_net_effect_cap", 2.5)
         net_gain = 1 + p["eta_network_app"] * min(net_effect, net_cap)
 
-        # v3.5: infra→app技术约束
-        # 应用层效率受基础设施层技术水平约束
+        # v3.7.2: infra→app技术约束（增强版）
+        # 应用层效率受基础设施层技术水平约束。
+        # 原公式效应过弱(在xi=0.3时最多衰减9%)，现改用放大的差距乘数。
         A_infra = state.sectors["d_infra"].A
         A_app_potential = s.A
-        infra_constraint = 1.0 - p["xi_infra_to_app"] * max(0.0, 1.0 - A_infra / max(A_app_potential, 0.01))
-        A_effective = A_app_potential * max(p.get("d_app_min_A_effective", 0.6), infra_constraint)
+        # 放大技术差距：ratio=0.8时gap=0.6, ratio=0.6时gap=1.2
+        constraint_gap = max(0.0, 1.0 - A_infra / max(A_app_potential, 0.01)) * 3.0
+        infra_constraint = 1.0 - p["xi_infra_to_app"] * constraint_gap
+        # 约束地板：app技术有效性不会低于infra的50%
+        A_effective = A_app_potential * max(p.get("d_app_min_A_effective", 0.5), infra_constraint)
 
         base = A_effective * s.K ** p["alpha_d_app"] * (s.H * s.L) ** (1 - p["alpha_d_app"])
         s.Y = base * data_factor * net_gain

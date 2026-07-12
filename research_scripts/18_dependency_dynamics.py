@@ -53,10 +53,22 @@ AVAILABLE_SWEEPS = {
 
 
 def extract_dependency_metrics(result: dict) -> dict:
-    """从模拟结果中提取依附动态指标."""
+    """从模拟结果中提取依附动态指标.
+
+    v3.7.2: 优先使用 engine 输出的 dependency_info 字典（含 composite 等 @property 计算值）。
+    """
     s = result["summary"]
     v35 = s.get("v35_metrics", {})
+    # v3.7.2: 优先读取 dependency_info 字典（engine 新输出）
     dep_info = s.get("dependency_info", {})
+    if not dep_info:
+        # 向后兼容：从旧格式 v35_metrics 中提取
+        dep_info = {
+            "chip_dependency": v35.get("dependency_chip", 0),
+            "capital_dependency": v35.get("dependency_capital", 0),
+            "talent_dependency": v35.get("dependency_talent", 0),
+            "ecosystem_dependency": v35.get("dependency_ecosystem", 0),
+        }
 
     return {
         "chip_dep": dep_info.get("chip_dependency",
@@ -68,8 +80,9 @@ def extract_dependency_metrics(result: dict) -> dict:
         "ecosystem_dep": dep_info.get("ecosystem_dependency",
                          v35.get("dependency_ecosystem", 0)),
         "infra_dep": dep_info.get("infrastructure_dependency",
-                     v35.get("dependency_infrastructure", 0)),
-        "composite_dep": dep_info.get("composite", 0),
+                     s.get("dependency_info", {}).get("infrastructure_dependency", 0)),
+        "composite_dep": dep_info.get("composite",
+                          s.get("dependency_composite", 0)),
         "tech_gap_infra": v35.get("tech_gap_infra",
                            s.get("final_tech_gap_infra",
                            s.get("final_tech_gap", 0))),

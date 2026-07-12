@@ -777,6 +777,24 @@ class SimulationEngine:
                 "d_infra_import_dep": self.state.sectors["d_infra"].import_dependency,
                 "d_app_import_dep": self.state.sectors["d_app"].import_dependency,
             },
+            # v3.7.2: 完整六维依附信息（供研究脚本读取）
+            "dependency_info": {
+                "chip_dependency": self.state.dependency.chip_dependency,
+                "cloud_dependency": self.state.dependency.cloud_dependency,
+                "os_dependency": self.state.dependency.os_dependency,
+                "data_dependency": self.state.dependency.data_dependency,
+                "standards_autonomy": self.state.dependency.standards_autonomy,
+                "capital_dependency": self.state.dependency.capital_dependency,
+                "talent_dependency": self.state.dependency.talent_dependency,
+                "ecosystem_dependency": self.state.dependency.ecosystem_dependency,
+                "infrastructure_dependency": self.state.dependency.infrastructure_dependency,
+                "composite": self.state.dependency.composite,
+            },
+            # v3.7.2: 策略C内生成本追踪
+            "C_endogenous_costs": (
+                self.accumulation._regime_state.get("C_endogenous_costs", {})
+                if hasattr(self.accumulation, "_regime_state") else {}
+            ),
             # v3.6: 平台垄断指标
             "platform_metrics": {
                 "digital_hhi": self.state.digital_hhi,
