@@ -165,11 +165,13 @@ class GradualAccumulation(AccumulationRegime):
                + (p["A_tau_max"] - p["A_tau_min"])
                * min(1.0, g_i / g_i_max) ** p["A_theta_elasticity"])
 
-        # 安全边际
+        # 安全边际 — 工业资本严重萎缩时自动降低提取率
+        # 使用固定阈值 0.7 (与 protection_excess 的 safety_margin=1.5 语义不同:
+        # 前者是"还剩多少"，后者是"超了多少")
         K_ratio = state.sectors["i"].K / max(state.initial_K_i, 1.0)
-        safety = p["A_safety_margin"]
-        if K_ratio < safety:
-            tau *= K_ratio / safety
+        extraction_safety = 0.7
+        if K_ratio < extraction_safety:
+            tau *= K_ratio / extraction_safety
 
         # v2.2: 保护过度惩罚 — 当技术差距大且工业数字密度低时
         # 过度保护会导致数字投资不足
@@ -229,14 +231,23 @@ class GradualAccumulation(AccumulationRegime):
         dd_i = state.sectors["i"].digital_density
         G = state.tech_gap
 
-        # 1. 保护僵化成本
-        safety_margin = p.get("A_safety_margin", 0.7)
+        # 1. 保护僵化成本 (v3.7.3 修复)
+        # 原公式 protection_excess = K_i_ratio/safety_margin - 1 在t=0时即触发
+        # (K_i_ratio=1.0, safety_margin=0.7 → excess=0.429), 对所有国情施加惩罚.
+        # 修正: safety_margin 应为乘法上界 (如1.5 = 超过初始150%才惩罚).
+        safety_margin = p.get("A_safety_margin", 1.5)
         K_i_ratio = state.sectors["i"].K / max(state.initial_K_i, 1.0)
-        protection_excess = max(0.0, K_i_ratio / max(safety_margin, 0.01) - 1.0)
-        protection_coef = p.get("protection_excess_coefficient", 0.08)
-        protection_floor = p.get("A_protection_excess_floor", 0.85)
+        protection_excess = max(0.0, K_i_ratio - safety_margin)
+        protection_coef = p.get("protection_excess_coefficient", 0.04)  # 减半
+        protection_floor = p.get("A_protection_excess_floor", 0.90)      # 提高
         efficiency_loss = protection_excess * protection_coef
         state.sectors["i"].Y *= max(protection_floor, 1.0 - efficiency_loss * dt)
+
+        # v3.7.3 新增: 保护的正向收益 — 工业稳定性缓冲
+        # 保护降低了全球冲击的传导, 提供稳定的学习空间
+        protection_benefit = min(0.15, protection_excess * 0.02)  # 最高15%稳定性增益
+        if protection_excess > 0:
+            state.sectors["i"].Y *= (1.0 + protection_benefit * dt)
 
         # v3.7.2: 保护持续时间跟踪——条件改善时衰减
         if G > 4.0 or dd_i < 0.2:
@@ -285,13 +296,27 @@ class GradualAccumulation(AccumulationRegime):
             cs["vested_interest_intensity"] = max(0.0,
                 cs["vested_interest_intensity"] - 0.015 * dt)
 
+        # 3.5. v3.7.3: 制度驱动的产业政策 (东亚发展型国家模型)
+        # 强制度的A策略国家可以通过国家引导投资加速工业数字化,
+        # 部分复制B的数字跳跃效果但保持A的保护框架.
+        inst_cap = p.get("institution_capacity", 0.6)
+        if inst_cap > 0.45:
+            # 制度红利: 国家引导的数字投资 → 工业数字密度加速
+            state_guided_dd = (inst_cap - 0.45) * 0.06 * dt
+            state.sectors["i"].digital_density = min(0.95,
+                state.sectors["i"].digital_density + state_guided_dd)
+            # 制度红利也提高数字部门的吸收效率
+            state.sectors["d_infra"].DL = min(0.99,
+                state.sectors["d_infra"].DL + state_guided_dd * 0.5)
+            state.sectors["d_app"].DL = min(0.99,
+                state.sectors["d_app"].DL + state_guided_dd * 0.3)
+
         # 4. 中间收入陷阱
-        trap_DD = p.get("middle_income_DD_threshold", 0.3)
+        trap_DD = p.get("middle_income_DD_threshold", 0.2)
         trap_G = p.get("middle_income_G_threshold", 4.0)
         trap_duration = p.get("middle_income_duration", 10.0)
         trap_penalty_rate = p.get("A_trap_penalty_rate", 0.01)
         trap_K_floor = p.get("A_trap_K_floor", 0.90)
-        # v3.7.2: 恢复速度从2.0→4.0，破坏:恢复比从4:1→2:1
         trap_recovery = p.get("A_trap_recovery_rate", 4.0)
         if dd_i < trap_DD and G > trap_G:
             cs["middle_income_trap_years"] += dt
@@ -678,11 +703,11 @@ class SubstitutionAccumulation(AccumulationRegime):
             shock_prob = (ext_dep * 0.20 + (1 - fdi_avail) * 0.30) * 0.03
             if np.random.random() < shock_prob:
                 self._regime_state["fdi_shock_active"] = True
-                self._regime_state["shock_timer"] = 0.0
+                self._regime_state["fdi_shock_timer"] = 0.0  # v3.7.3: 独立计时器
 
         if self._regime_state["fdi_shock_active"]:
-            self._regime_state["shock_timer"] += 0.25
-            if self._regime_state["shock_timer"] > np.random.uniform(8.0, 15.0):
+            self._regime_state["fdi_shock_timer"] = self._regime_state.get("fdi_shock_timer", 0) + 0.25
+            if self._regime_state["fdi_shock_timer"] > np.random.uniform(8.0, 15.0):
                 self._regime_state["fdi_shock_active"] = False
 
         # === 资源价格断崖冲击 ===
@@ -692,32 +717,29 @@ class SubstitutionAccumulation(AccumulationRegime):
             shock_prob = export_intensity * sigma_p * 0.10
             if np.random.random() < shock_prob:
                 self._regime_state["resource_shock_active"] = True
-                self._regime_state["shock_timer"] = 0.0
+                self._regime_state["resource_shock_timer"] = 0.0  # v3.7.3: 独立计时器
 
         if self._regime_state["resource_shock_active"]:
-            self._regime_state["shock_timer"] += 0.25
-            if self._regime_state["shock_timer"] > np.random.uniform(5.0, 12.0):
+            self._regime_state["resource_shock_timer"] = self._regime_state.get("resource_shock_timer", 0) + 0.25
+            if self._regime_state["resource_shock_timer"] > np.random.uniform(5.0, 12.0):
                 self._regime_state["resource_shock_active"] = False
 
         # === v3.2: 技术进口断裂冲击（独立于FDI和资源） ===
-        # 触发条件：技术进口偏好高 + 封锁升级 + 知识产权壁垒
         tech_import = p.get("C_tech_import_preference", 0.6)
         effective_block = getattr(state, "effective_block_max", p.get("block_max", 0.5))
         if not self._regime_state.get("tech_import_break_active", False):
-            # 概率随技术进口依赖度和封锁强度上升
             tech_break_prob = (
-                tech_import * 0.15  # 技术进口偏好 → 越依赖越脆弱
-                + effective_block * 0.20  # 封锁强度 → 封锁越高越难获取技术
-            ) * 0.02 * dt * 4  # 按季度概率转换
+                tech_import * 0.15
+                + effective_block * 0.20
+            ) * 0.02 * dt * 4
             if np.random.random() < tech_break_prob:
                 self._regime_state["tech_import_break_active"] = True
-                self._regime_state["shock_timer"] = 0.0
+                self._regime_state["tech_break_timer"] = 0.0  # v3.7.3: 独立计时器
 
         if self._regime_state.get("tech_import_break_active", False):
-            self._regime_state["shock_timer"] += 0.25
-            # 技术进口断裂持续时间取决于封锁强度（封锁越高恢复越慢）
+            self._regime_state["tech_break_timer"] = self._regime_state.get("tech_break_timer", 0) + 0.25
             recovery_years = np.random.uniform(6.0, 10.0) * (1.0 + effective_block)
-            if self._regime_state["shock_timer"] > recovery_years:
+            if self._regime_state["tech_break_timer"] > recovery_years:
                 self._regime_state["tech_import_break_active"] = False
 
         # v3.2: 三重诅咒 — 统计活跃冲击数量并应用叠加效应

@@ -40,6 +40,10 @@ class DigitalizationModel:
 
         total_m = sum(market_shares.values())
         market_shares = {k: v / max(total_m, 1e-10) for k, v in market_shares.items()}
+        # v3.7.3: 防NaN传播 — 如果任何份额为NaN则使用计划份额
+        if any(not np.isfinite(v) for v in market_shares.values()):
+            market_shares = {"b": 0.20, "i": 0.35, "d_infra": 0.15,
+                           "d_app": 0.10, "s_high": 0.12, "s_low": 0.08}
 
         # 计划分配：倾向于基础部门和工业（infra也得到保障）
         plan_shares = {"b": 0.20, "i": 0.35, "d_infra": 0.15,

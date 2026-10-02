@@ -1,0 +1,53 @@
+[
+  {
+    "label": "A_small_open_inst0.95",
+    "regime": "A",
+    "profile": "small_open",
+    "inst_cap_original": 0.4,
+    "inst_cap_test": 0.95,
+    "survived": false,
+    "survival_years": 0.5,
+    "final_gdp": 21.925317193629123,
+    "final_tech_gap": 4.337137387153459,
+    "final_welfare": 0.5070468857778083,
+    "cdi": 0.5436374274605261,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ]
+  },
+  {
+    "label": "C_small_open_inst0.95",
+    "regime": "C",
+    "profile": "small_open",
+    "inst_cap_original": 0.4,
+    "inst_cap_test": 0.95,
+    "survived": false,
+    "survival_years": 0.5,
+    "final_gdp": 21.890642039002064,
+    "final_tech_gap": 4.336470349157676,
+    "final_welfare": 0.5080146911960691,
+    "cdi": 0.5123546381392373,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ]
+  },
+  {
+    "label": "C_populous_weak_industry_inst0.8",
+    "regime": "C",
+    "profile": "populous_weak_industry",
+    "inst_cap_original": 0.3,
+    "inst_cap_test": 0.8,
+    "survived": false,
+    "survival_years": 0.0,
+    "final_gdp": 31.27109959721757,
+    "final_tech_gap": 6.779500000000001,
+    "final_welfare": 0.6688148770019867,
+    "cdi": 0.5986921326558416,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ]
+  }
+]

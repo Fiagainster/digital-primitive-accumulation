@@ -142,6 +142,13 @@ class SimulationEngine:
 
     def run(self) -> dict:
         """执行一次完整的模拟."""
+        # v3.8: 随机性控制 —— 把 config.random_seed 真正接入随机流。
+        # 背景：模型内部 24 处 np.random.* 调用全部走 numpy 全局随机流，
+        # 此前 random_seed 只被赋值、从未被消费（死字段），导致同参数不同结果。
+        # 之所以在 run() 入口播种、而不是在 SimulationConfig.__post_init__ 里：
+        # 配置对象通常在主进程构造后传入多进程工作进程，只有在实际执行模拟的
+        # 进程内播种，才能保证每个任务使用自己的随机流并可复现。
+        np.random.seed(int(self.config.random_seed) % (2 ** 32))
         self._initialize()
 
         t = 0.0
@@ -681,6 +688,8 @@ class SimulationEngine:
 
         summary = {
             "regime": self.regime,
+            # v3.8: 记录本次运行实际生效的随机种子（此前为死字段，现已在 run() 中播种）
+            "random_seed": int(self.config.random_seed),
             # v3.1: 国情信息
             "country_profile": self._country_profile,
             # v3.0: 混合策略信息
@@ -704,6 +713,10 @@ class SimulationEngine:
             "cost_ratio_industrial_digital": self.state.cost_metrics.cost_ratio_industrial_digital,
             "deind_type_final": self.state.cost_metrics.deind_type,
             "dependency_composite": self.state.dependency.composite,
+            # v3.8: 五群组累计代价落盘（此前 welfare.py 只写不读，导致论文成本表无法复算）
+            "cost_by_group": dict(self.state.cost_metrics.cost_by_group),
+            # v3.8: composite_dependency 别名（census 脚本按此键名读取，此前恒为 null）
+            "composite_dependency": self.state.dependency.composite,
             "ews_max_K_i": (
                 df["ews_K_i_composite"].max()
                 if "ews_K_i_composite" in df.columns else 0
@@ -956,6 +969,14 @@ class SimulationEngine:
             "enabled": True,
             "cdi": ev.cdi,
             "cdi_variants": ev.cdi_variants,
+            # v3.8: 五维得分的显式分组（普查脚本一度按 `five_dimensions` 读取，此前无此键）
+            "five_dimensions": {
+                "economy": ev.economy,
+                "livelihood": ev.livelihood,
+                "resilience": ev.resilience,
+                "structure": ev.structure,
+                "sovereignty": ev.sovereignty,
+            },
             "economy": ev.economy,
             "livelihood": ev.livelihood,
             "resilience": ev.resilience,

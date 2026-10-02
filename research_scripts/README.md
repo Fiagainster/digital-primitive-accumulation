@@ -1,7 +1,40 @@
 # 研究脚本集 —— 原始积累模型 (Primitive Accumulation Model)
 
-**版本**: v1.4 (2026-07-05)
-**匹配模型版本**: v3.7.1 (六部门 + 255参数YAML配置 + 平台垄断 + 内生人口 + 双区域空间)
+**版本**: v1.5 (2026-10-02)
+**匹配模型版本**: v3.8 (六部门 + 255参数YAML配置 + 确定性播种 + 论文实验统一入口)
+
+## v3.8 新增脚本（论文实验链，5,901 次运行）
+
+| 脚本 | 作用 | 关键参数 |
+|------|------|----------|
+| `run_paper_experiments.py` | **论文实验总驱动**，23 个批次一键复现 | `--list` 列出批次；`--only b1 b2` 指定批次；`--workers N` 并行度；`--skip-existing` 断点续跑 |
+| `analyze_v38.py` | 全表重算，汇总为 `experiments_runs/v38/tables.json` 与 `analysis_report.md` | 无参运行 |
+| `make_figures_v38.py` | 出版级英文图件（衬线字体、`constrained_layout`、PDF+PNG 双导出） | `--out <目录>` |
+| `verify_paper_consistency.py` | **论文数字 ↔ 实验数据自动比对**，逐条断言，退出码非零表示有偏差 | `--runs <批次目录>` |
+| `run_timeseries_batch.py` | 18 组合 × 5 次的校准时间序列 | — |
+| `run_ts_viable.py` | 从普查中挑存活配置重跑，产出代表性存活轨迹 | — |
+| `exp_harness.py` | 补充实验（exp1–exp6）的轻量运行器 | — |
+
+### 可复现性约定（v3.8）
+
+1. **种子来源唯一**：`SimulationEngine.run()` 入口执行 `np.random.seed(config.random_seed % 2**32)`；
+2. **每任务独立子种子**：批量运行器用 `SeedSequence(base).generate_state(n)` 派生，避免多进程下种子串扰；
+3. **确定性核对**：`python _verify_seed.py` 应以同种子三次输出完全一致、异种子给出不同轨迹。
+
+### 批次与规模（v3.8 口径）
+
+| 批次 | 规模 | 说明 |
+|------|-----:|------|
+| census | 720 | 6 国情 × 3 策略 × 8 场景 × 5 重复 |
+| mixture | 960 | 4 国情 × 2 场景 × 40 配比（Dirichlet(1,1,1)）× 3 重复 |
+| t80 | 255 | T=50 存续配置延长至 T=80 |
+| 参数扫描 | ≈2,800 | threshold / sigma / eps_fine / gworld / gspeed / ki / wemp_eps |
+| 机制与成本 | ≈1,200 | exp1–exp6 / extraction / cost_table / cost_lhs / calibration |
+| **合计** | **5,901** | 落盘于 `experiments_runs/v38/` |
+
+> **术语提醒**：混合策略配比用的是 `np.random.default_rng(...).dirichlet([1,1,1], size=n)`，
+> 是 **Dirichlet 采样**而非拉丁超立方；`cost_lhs` 批次才使用真正的 LHS（`schema.sample_lhs`）。
+> 两者不要混称。
 
 ## v3.7.1 核心变更：参数彻底可配置化 + 架构升级
 

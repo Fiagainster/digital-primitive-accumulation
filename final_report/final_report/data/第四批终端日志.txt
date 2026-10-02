@@ -1,0 +1,596 @@
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/01_single_detailed_run.py --regime M --profile post_soviet --mixture A_dominant_B --scenario benign_globalization --T-max 50
+[INFO ]
+╔══════════════════════════════════════════════════════════════════════╗
+║  实验: 01_single_detailed_run                                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  开始时间: 2026-07-26 14:11:14                                 ║
+║  系统: Windows 11 | CPU: 16核                                        ║
+║  Python: 3.13.11                                            ║
+║  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141114.log║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[INFO ] 实验开始: 国情=post_soviet | 策略=M | 场景=benign_globalization | T_max=50.0
+  参数: {'regime': 'M', 'scenario': 'benign_globalization', 'profile': 'post_soviet'}
+[INFO ] 开始模拟...
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   模拟结果诊断报告
+[INFO ] ────────────────────────────────────────────────────────────
+[INFO ]
+  [生存状态]  [FAIL] collapsed [social_collapse]
+[INFO ] [存活年数] 38.2100 年
+[INFO ] [期末GDP] 3179.2712
+[INFO ] [期末技术差距] 9.8479
+[INFO ] [峰值失业率] 0.0033
+[INFO ] [代价集中度(基尼)] 0.5043
+[INFO ]
+  [断裂诊断]  共触发 2 种断裂
+[INFO ]     [!] jump_induced_deindustrialization
+[INFO ]     [!] social_collapse
+[INFO ]
+  [五维评价 v3.5]
+[INFO ] [CDI 综合发展指数] 0.5387
+[INFO ] [  经济活力] 0.4716
+[INFO ] [  民生福祉] 0.5681
+[INFO ] [  发展韧性] 0.6815
+[INFO ] [  结构健康] 0.4607
+[INFO ] [  主权自主] 0.4905
+[INFO ] [红线等级] PASS
+[INFO ] [可接受] True
+[INFO ]
+  [v3.5 六部门指标]
+[INFO ]   所有部门: b, i, d_infra, d_app, s_high, s_low
+[INFO ]   数字部门 (infra+app): d_infra, d_app
+[INFO ]   服务部门 (high+low): s_high, s_low
+[INFO ]   六维数字依附:
+[INFO ] [  基础设施综合依附] 0.4470
+[INFO ] [  芯片依附] 0.3600
+[INFO ] [  云服务依附] 0.6000
+[INFO ] [  操作系统依附] 0.4200
+[INFO ] [  数据依附] 0.2259
+[INFO ] [  标准自主权] 0.4061
+[INFO ] [  资本依附] 1.0000
+[INFO ] [  人才依附] 0.3328
+[INFO ] [  生态依附] 0.4018
+[INFO ] [  综合依附指数] 0.5195
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   生成图表...
+  Figure saved: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141114\single_M_post_soviet_benign_globalization.png
+[INFO ]   ✓ 时间序列图: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141114\single_M_post_soviet_benign_globalization.png
+[INFO ] 实验结束: ✓ 成功 | 总耗时: 4秒
+  摘要: [FAIL] collapsed [social_collapse] | CDI=0.539 | 断裂=2
+
+✓ 详细报告已保存至: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\results\01_single_detailed_run_20260726_141114
+  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141114.log
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/01_single_detailed_run.py --regime M --profile manufacturing_giant --mixture B_dominant_A --scenario benign_globalization --T-max 50
+[INFO ]
+╔══════════════════════════════════════════════════════════════════════╗
+║  实验: 01_single_detailed_run                                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  开始时间: 2026-07-26 14:11:41                                 ║
+║  系统: Windows 11 | CPU: 16核                                        ║
+║  Python: 3.13.11                                            ║
+║  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141141.log║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[INFO ] 实验开始: 国情=manufacturing_giant | 策略=M | 场景=benign_globalization | T_max=50.0
+  参数: {'regime': 'M', 'scenario': 'benign_globalization', 'profile': 'manufacturing_giant'}
+[INFO ] 开始模拟...
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   模拟结果诊断报告
+[INFO ] ────────────────────────────────────────────────────────────
+[INFO ]
+  [生存状态]  [FAIL] collapsed [social_collapse]
+[INFO ] [存活年数] 30.0000 年
+[INFO ] [期末GDP] 2897.8549
+[INFO ] [期末技术差距] 6.7405
+[INFO ] [峰值失业率] 0.0064
+[INFO ] [代价集中度(基尼)] 0.3885
+[INFO ]
+  [断裂诊断]  共触发 1 种断裂
+[INFO ]     [!] social_collapse
+[INFO ]
+  [五维评价 v3.5]
+[INFO ] [CDI 综合发展指数] 0.5395
+[INFO ] [  经济活力] 0.4758
+[INFO ] [  民生福祉] 0.5928
+[INFO ] [  发展韧性] 0.6679
+[INFO ] [  结构健康] 0.4394
+[INFO ] [  主权自主] 0.4833
+[INFO ] [红线等级] PASS
+[INFO ] [可接受] True
+[INFO ]
+  [v3.5 六部门指标]
+[INFO ]   所有部门: b, i, d_infra, d_app, s_high, s_low
+[INFO ]   数字部门 (infra+app): d_infra, d_app
+[INFO ]   服务部门 (high+low): s_high, s_low
+[INFO ]   六维数字依附:
+[INFO ] [  基础设施综合依附] 0.4470
+[INFO ] [  芯片依附] 0.3600
+[INFO ] [  云服务依附] 0.6000
+[INFO ] [  操作系统依附] 0.4200
+[INFO ] [  数据依附] 0.2319
+[INFO ] [  标准自主权] 0.4195
+[INFO ] [  资本依附] 1.0000
+[INFO ] [  人才依附] 0.3333
+[INFO ] [  生态依附] 0.4124
+[INFO ] [  综合依附指数] 0.5198
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   生成图表...
+  Figure saved: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141141\single_M_manufacturing_giant_benign_globalization.png
+[INFO ]   ✓ 时间序列图: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141141\single_M_manufacturing_giant_benign_globalization.png
+[INFO ] 实验结束: ✓ 成功 | 总耗时: 5秒
+  摘要: [FAIL] collapsed [social_collapse] | CDI=0.539 | 断裂=1
+
+✓ 详细报告已保存至: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\results\01_single_detailed_run_20260726_141141
+  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141141.log
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/01_single_detailed_run.py --regime M --profile resource_rich --mixture C_dominant_B --scenario benign_globalization --T-max 50
+[INFO ]
+╔══════════════════════════════════════════════════════════════════════╗
+║  实验: 01_single_detailed_run                                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  开始时间: 2026-07-26 14:11:51                                 ║
+║  系统: Windows 11 | CPU: 16核                                        ║
+║  Python: 3.13.11                                            ║
+║  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141151.log║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[INFO ] 实验开始: 国情=resource_rich | 策略=M | 场景=benign_globalization | T_max=50.0
+  参数: {'regime': 'M', 'scenario': 'benign_globalization', 'profile': 'resource_rich'}
+[INFO ] 开始模拟...
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   模拟结果诊断报告
+[INFO ] ────────────────────────────────────────────────────────────
+[INFO ]
+  [生存状态]  [FAIL] collapsed [industrial_withering]
+[INFO ] [存活年数] 24.9800 年
+[INFO ] [期末GDP] 62.7898
+[INFO ] [期末技术差距] 9.7397
+[INFO ] [峰值失业率] 0.0038
+[INFO ] [代价集中度(基尼)] 0.5111
+[INFO ]
+  [断裂诊断]  共触发 2 种断裂
+[INFO ]     [!] jump_induced_deindustrialization
+[INFO ]     [!] industrial_withering
+[INFO ]
+  [五维评价 v3.5]
+[INFO ] [CDI 综合发展指数] 0.5654
+[INFO ] [  经济活力] 0.3691
+[INFO ] [  民生福祉] 0.7602
+[INFO ] [  发展韧性] 0.6053
+[INFO ] [  结构健康] 0.4589
+[INFO ] [  主权自主] 0.4944
+[INFO ] [红线等级] PASS
+[INFO ] [可接受] True
+[INFO ]
+  [v3.5 六部门指标]
+[INFO ]   所有部门: b, i, d_infra, d_app, s_high, s_low
+[INFO ]   数字部门 (infra+app): d_infra, d_app
+[INFO ]   服务部门 (high+low): s_high, s_low
+[INFO ]   六维数字依附:
+[INFO ] [  基础设施综合依附] 0.4470
+[INFO ] [  芯片依附] 0.3600
+[INFO ] [  云服务依附] 0.6000
+[INFO ] [  操作系统依附] 0.4200
+[INFO ] [  数据依附] 0.2531
+[INFO ] [  标准自主权] 0.4191
+[INFO ] [  资本依附] 1.0000
+[INFO ] [  人才依附] 0.3446
+[INFO ] [  生态依附] 0.5528
+[INFO ] [  综合依附指数] 0.5393
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   生成图表...
+  Figure saved: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141151\single_M_resource_rich_benign_globalization.png
+[INFO ]   ✓ 时间序列图: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141151\single_M_resource_rich_benign_globalization.png
+[INFO ] 实验结束: ✓ 成功 | 总耗时: 7秒
+  摘要: [FAIL] collapsed [industrial_withering] | CDI=0.565 | 断裂=2
+
+✓ 详细报告已保存至: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\results\01_single_detailed_run_20260726_141151
+  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141151.log
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/01_single_detailed_run.py --regime M --profile digital_leapfrogger --mixture A_B_balanced --scenario benign_globalization --T-max 50
+[INFO ]
+╔══════════════════════════════════════════════════════════════════════╗
+║  实验: 01_single_detailed_run                                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  开始时间: 2026-07-26 14:12:03                                 ║
+║  系统: Windows 11 | CPU: 16核                                        ║
+║  Python: 3.13.11                                            ║
+║  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141203.log║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[INFO ] 实验开始: 国情=digital_leapfrogger | 策略=M | 场景=benign_globalization | T_max=50.0
+  参数: {'regime': 'M', 'scenario': 'benign_globalization', 'profile': 'digital_leapfrogger'}
+[INFO ] 开始模拟...
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   模拟结果诊断报告
+[INFO ] ────────────────────────────────────────────────────────────
+[INFO ]
+  [生存状态]  [OK] survived
+[INFO ] [存活年数] 49.9700 年
+[INFO ] [期末GDP] 2797.3637
+[INFO ] [期末技术差距] 16.4825
+[INFO ] [峰值失业率] 0.0941
+[INFO ] [代价集中度(基尼)] 0.4580
+[INFO ]
+  [断裂诊断]  共触发 1 种断裂
+[INFO ]     [!] tech_lock_in
+[INFO ]
+  [五维评价 v3.5]
+[INFO ] [CDI 综合发展指数] 0.6598
+[INFO ] [  经济活力] 0.5976
+[INFO ] [  民生福祉] 0.7693
+[INFO ] [  发展韧性] 0.6730
+[INFO ] [  结构健康] 0.6571
+[INFO ] [  主权自主] 0.5239
+[INFO ] [红线等级] PASS
+[INFO ] [可接受] True
+[INFO ]
+  [v3.5 六部门指标]
+[INFO ]   所有部门: b, i, d_infra, d_app, s_high, s_low
+[INFO ]   数字部门 (infra+app): d_infra, d_app
+[INFO ]   服务部门 (high+low): s_high, s_low
+[INFO ]   六维数字依附:
+[INFO ] [  基础设施综合依附] 0.4470
+[INFO ] [  芯片依附] 0.3600
+[INFO ] [  云服务依附] 0.6000
+[INFO ] [  操作系统依附] 0.4200
+[INFO ] [  数据依附] 0.1229
+[INFO ] [  标准自主权] 0.4195
+[INFO ] [  资本依附] 1.0000
+[INFO ] [  人才依附] 0.3357
+[INFO ] [  生态依附] 0.3920
+[INFO ] [  综合依附指数] 0.4962
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   生成图表...
+  Figure saved: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141203\single_M_digital_leapfrogger_benign_globalization.png
+[INFO ]   ✓ 时间序列图: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141203\single_M_digital_leapfrogger_benign_globalization.png
+[INFO ] 实验结束: ✓ 成功 | 总耗时: 11秒
+  摘要: [OK] survived | CDI=0.660 | 断裂=1
+
+✓ 详细报告已保存至: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\results\01_single_detailed_run_20260726_141203
+  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141203.log
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/01_single_detailed_run.py --regime B --profile resource_rich --scenario benign_globalization --T-max 80
+[INFO ]
+╔══════════════════════════════════════════════════════════════════════╗
+║  实验: 01_single_detailed_run                                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  开始时间: 2026-07-26 14:12:20                                 ║
+║  系统: Windows 11 | CPU: 16核                                        ║
+║  Python: 3.13.11                                            ║
+║  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141220.log║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[INFO ] 实验开始: 国情=resource_rich | 策略=B | 场景=benign_globalization | T_max=80.0
+  参数: {'regime': 'B', 'scenario': 'benign_globalization', 'profile': 'resource_rich'}
+[INFO ] 开始模拟...
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   模拟结果诊断报告
+[INFO ] ────────────────────────────────────────────────────────────
+[INFO ]
+  [生存状态]  [FAIL] collapsed [social_collapse]
+[INFO ] [存活年数] 78.7500 年
+[INFO ] [期末GDP] 925.7754
+[INFO ] [期末技术差距] 46.9810
+[INFO ] [峰值失业率] 0.2103
+[INFO ] [代价集中度(基尼)] 0.6423
+[INFO ]
+  [断裂诊断]  共触发 3 种断裂
+[INFO ]     [!] jump_induced_deindustrialization
+[INFO ]     [!] tech_lock_in
+[INFO ]     [!] social_collapse
+[INFO ]
+  [五维评价 v3.5]
+[INFO ] [CDI 综合发展指数] 0.5552
+[INFO ] [  经济活力] 0.5631
+[INFO ] [  民生福祉] 0.4681
+[INFO ] [  发展韧性] 0.6613
+[INFO ] [  结构健康] 0.6587
+[INFO ] [  主权自主] 0.4870
+[INFO ] [红线等级] PASS
+[INFO ] [可接受] True
+[INFO ]
+  [v3.5 六部门指标]
+[INFO ]   所有部门: b, i, d_infra, d_app, s_high, s_low
+[INFO ]   数字部门 (infra+app): d_infra, d_app
+[INFO ]   服务部门 (high+low): s_high, s_low
+[INFO ]   六维数字依附:
+[INFO ] [  基础设施综合依附] 0.4470
+[INFO ] [  芯片依附] 0.3600
+[INFO ] [  云服务依附] 0.6000
+[INFO ] [  操作系统依附] 0.4200
+[INFO ] [  数据依附] 0.1508
+[INFO ] [  标准自主权] 0.4195
+[INFO ] [  资本依附] 1.0000
+[INFO ] [  人才依附] 0.3320
+[INFO ] [  生态依附] 0.3920
+[INFO ] [  综合依附指数] 0.5014
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   生成图表...
+  Figure saved: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141220\single_B_resource_rich_benign_globalization.png
+[INFO ]   ✓ 时间序列图: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141220\single_B_resource_rich_benign_globalization.png
+[INFO ] 实验结束: ✓ 成功 | 总耗时: 24秒
+  摘要: [FAIL] collapsed [social_collapse] | CDI=0.555 | 断裂=3
+
+✓ 详细报告已保存至: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\results\01_single_detailed_run_20260726_141220
+  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141220.log
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/01_single_detailed_run.py --regime B --profile digital_leapfrogger --scenario benign_globalization --T-max 80
+[INFO ]
+╔══════════════════════════════════════════════════════════════════════╗
+║  实验: 01_single_detailed_run                                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  开始时间: 2026-07-26 14:14:59                                 ║
+║  系统: Windows 11 | CPU: 16核                                        ║
+║  Python: 3.13.11                                            ║
+║  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141459.log║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[INFO ] 实验开始: 国情=digital_leapfrogger | 策略=B | 场景=benign_globalization | T_max=80.0
+  参数: {'regime': 'B', 'scenario': 'benign_globalization', 'profile': 'digital_leapfrogger'}
+[INFO ] 开始模拟...
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   模拟结果诊断报告
+[INFO ] ────────────────────────────────────────────────────────────
+[INFO ]
+  [生存状态]  [OK] survived
+[INFO ] [存活年数] 79.9800 年
+[INFO ] [期末GDP] 30118.1703
+[INFO ] [期末技术差距] 42.4331
+[INFO ] [峰值失业率] 0.0835
+[INFO ] [代价集中度(基尼)] 0.5942
+[INFO ]
+  [断裂诊断]  共触发 1 种断裂
+[INFO ]     [!] tech_lock_in
+[INFO ]
+  [五维评价 v3.5]
+[INFO ] [CDI 综合发展指数] 0.7251
+[INFO ] [  经济活力] 0.5561
+[INFO ] [  民生福祉] 1.0000
+[INFO ] [  发展韧性] 0.6776
+[INFO ] [  结构健康] 0.6637
+[INFO ] [  主权自主] 0.5317
+[INFO ] [红线等级] PASS
+[INFO ] [可接受] True
+[INFO ]
+  [v3.5 六部门指标]
+[INFO ]   所有部门: b, i, d_infra, d_app, s_high, s_low
+[INFO ]   数字部门 (infra+app): d_infra, d_app
+[INFO ]   服务部门 (high+low): s_high, s_low
+[INFO ]   六维数字依附:
+[INFO ] [  基础设施综合依附] 0.4470
+[INFO ] [  芯片依附] 0.3600
+[INFO ] [  云服务依附] 0.6000
+[INFO ] [  操作系统依附] 0.4200
+[INFO ] [  数据依附] 0.1297
+[INFO ] [  标准自主权] 0.4195
+[INFO ] [  资本依附] 1.0000
+[INFO ] [  人才依附] 0.2161
+[INFO ] [  生态依附] 0.3920
+[INFO ] [  综合依附指数] 0.4856
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   生成图表...
+  Figure saved: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141459\single_B_digital_leapfrogger_benign_globalization.png
+[INFO ]   ✓ 时间序列图: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141459\single_B_digital_leapfrogger_benign_globalization.png
+[INFO ] 实验结束: ✓ 成功 | 总耗时: 16秒
+  摘要: [OK] survived | CDI=0.725 | 断裂=1
+
+✓ 详细报告已保存至: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\results\01_single_detailed_run_20260726_141459
+  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141459.log
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/01_single_detailed_run.py --regime B --profile manufacturing_giant --scenario tech_cold_war --T-max 50
+[INFO ]
+╔══════════════════════════════════════════════════════════════════════╗
+║  实验: 01_single_detailed_run                                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  开始时间: 2026-07-26 14:16:02                                 ║
+║  系统: Windows 11 | CPU: 16核                                        ║
+║  Python: 3.13.11                                            ║
+║  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141602.log║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[INFO ] 实验开始: 国情=manufacturing_giant | 策略=B | 场景=tech_cold_war | T_max=50.0
+  参数: {'regime': 'B', 'scenario': 'tech_cold_war', 'profile': 'manufacturing_giant'}
+[INFO ] 开始模拟...
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   模拟结果诊断报告
+[INFO ] ────────────────────────────────────────────────────────────
+[INFO ]
+  [生存状态]  [FAIL] collapsed [social_collapse]
+[INFO ] [存活年数] 33.2500 年
+[INFO ] [期末GDP] 1558.0077
+[INFO ] [期末技术差距] 7.3176
+[INFO ] [峰值失业率] 0.1442
+[INFO ] [代价集中度(基尼)] 0.4729
+[INFO ]
+  [断裂诊断]  共触发 1 种断裂
+[INFO ]     [!] social_collapse
+[INFO ]
+  [五维评价 v3.5]
+[INFO ] [CDI 综合发展指数] 0.6014
+[INFO ] [  经济活力] 0.5293
+[INFO ] [  民生福祉] 0.5778
+[INFO ] [  发展韧性] 0.6943
+[INFO ] [  结构健康] 0.5232
+[INFO ] [  主权自主] 0.6994
+[INFO ] [红线等级] PASS
+[INFO ] [可接受] True
+[INFO ]
+  [v3.5 六部门指标]
+[INFO ]   所有部门: b, i, d_infra, d_app, s_high, s_low
+[INFO ]   数字部门 (infra+app): d_infra, d_app
+[INFO ]   服务部门 (high+low): s_high, s_low
+[INFO ]   六维数字依附:
+[INFO ] [  基础设施综合依附] 0.5340
+[INFO ] [  芯片依附] 0.6800
+[INFO ] [  云服务依附] 0.2100
+[INFO ] [  操作系统依附] 0.6600
+[INFO ] [  数据依附] 0.2047
+[INFO ] [  标准自主权] 0.5950
+[INFO ] [  资本依附] 0.1800
+[INFO ] [  人才依附] 0.2912
+[INFO ] [  生态依附] 0.4095
+[INFO ] [  综合依附指数] 0.3413
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   生成图表...
+  Figure saved: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141602\single_B_manufacturing_giant_tech_cold_war.png
+[INFO ]   ✓ 时间序列图: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141602\single_B_manufacturing_giant_tech_cold_war.png
+[INFO ] 实验结束: ✓ 成功 | 总耗时: 3秒
+  摘要: [FAIL] collapsed [social_collapse] | CDI=0.601 | 断裂=1
+
+✓ 详细报告已保存至: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\results\01_single_detailed_run_20260726_141602
+  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141602.log
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/01_single_detailed_run.py --regime B --profile post_soviet --scenario tech_cold_war --T-max 50
+[INFO ]
+╔══════════════════════════════════════════════════════════════════════╗
+║  实验: 01_single_detailed_run                                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  开始时间: 2026-07-26 14:16:20                                 ║
+║  系统: Windows 11 | CPU: 16核                                        ║
+║  Python: 3.13.11                                            ║
+║  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141620.log║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[INFO ] 实验开始: 国情=post_soviet | 策略=B | 场景=tech_cold_war | T_max=50.0
+  参数: {'regime': 'B', 'scenario': 'tech_cold_war', 'profile': 'post_soviet'}
+[INFO ] 开始模拟...
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   模拟结果诊断报告
+[INFO ] ────────────────────────────────────────────────────────────
+[INFO ]
+  [生存状态]  [FAIL] collapsed [social_collapse]
+[INFO ] [存活年数] 36.4600 年
+[INFO ] [期末GDP] 2073.5064
+[INFO ] [期末技术差距] 9.2847
+[INFO ] [峰值失业率] 0.0029
+[INFO ] [代价集中度(基尼)] 0.5172
+[INFO ]
+  [断裂诊断]  共触发 2 种断裂
+[INFO ]     [!] jump_induced_deindustrialization
+[INFO ]     [!] social_collapse
+[INFO ]
+  [五维评价 v3.5]
+[INFO ] [CDI 综合发展指数] 0.5649
+[INFO ] [  经济活力] 0.4696
+[INFO ] [  民生福祉] 0.5690
+[INFO ] [  发展韧性] 0.7059
+[INFO ] [  结构健康] 0.4404
+[INFO ] [  主权自主] 0.6366
+[INFO ] [红线等级] PASS
+[INFO ] [可接受] True
+[INFO ]
+  [v3.5 六部门指标]
+[INFO ]   所有部门: b, i, d_infra, d_app, s_high, s_low
+[INFO ]   数字部门 (infra+app): d_infra, d_app
+[INFO ]   服务部门 (high+low): s_high, s_low
+[INFO ]   六维数字依附:
+[INFO ] [  基础设施综合依附] 0.5340
+[INFO ] [  芯片依附] 0.6800
+[INFO ] [  云服务依附] 0.2100
+[INFO ] [  操作系统依附] 0.6600
+[INFO ] [  数据依附] 0.2062
+[INFO ] [  标准自主权] 0.5950
+[INFO ] [  资本依附] 0.4465
+[INFO ] [  人才依附] 0.3349
+[INFO ] [  生态依附] 0.4066
+[INFO ] [  综合依附指数] 0.3989
+[INFO ]
+────────────────────────────────────────────────────────────
+[INFO ]   生成图表...
+  Figure saved: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141620\single_B_post_soviet_tech_cold_war.png
+[INFO ]   ✓ 时间序列图: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\figures\01_single_detailed_run_20260726_141620\single_B_post_soviet_tech_cold_war.png
+[INFO ] 实验结束: ✓ 成功 | 总耗时: 6秒
+  摘要: [FAIL] collapsed [social_collapse] | CDI=0.565 | 断裂=2
+
+✓ 详细报告已保存至: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\results\01_single_detailed_run_20260726_141620
+  日志文件: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\output\logs\01_single_detailed_run_20260726_141620.log
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python -c "
+>> import json, numpy as np, pickle
+>>
+>> # ===== 图1: A策略相变热力图 =====
+>> with open('research_scripts/experiment_batches/output/results/phase2_20260726_130826_results.json', 'r') as f:
+>>     data = json.load(f)
+>> # 从 results → a_phase_boundary → sweeps 提取 g_world×inst 网格的存活率
+>> # → matplotlib imshow
+>>
+>> # ===== 图2: 三策略CDI五维雷达图 =====
+>> with open('research_scripts/experiment_batches/output/results/phase1_20260726_114855_results.json', 'r') as f:
+>>     data = json.load(f)
+>> # 按策略聚合eval_economy/livelihood/resilience/structure/sovereignty → radar
+>>
+>> # ===== 图3: B策略四国情welfare时间序列对比 =====
+>> dirs = {
+>>     'resource_rich': '01_single_detailed_run_20260726_130707',
+>>     'digital_leapfrogger': '01_single_detailed_run_20260726_130738',
+>>     'manufacturing_giant': '01_single_detailed_run_20260726_130755',
+>>     'post_soviet': '01_single_detailed_run_20260726_130807',
+>> }
+>> for label, d in dirs.items():
+>>     with open(f'research_scripts/output/results/{d}/full_results.pkl', 'rb') as f:
+>>         df = pickle.load(f)['results'][0]['dataframe']
+>>     # 提取 t, welfare(67), unemployment(69), gdp(61), K_i(2) → 4条曲线叠加
+>>
+>> # ===== 图4: 断裂指纹图 (各策略断裂模式柱状图) =====
+>> # 从方向4的脚本输出数据直接绘制
+>>
+>> # ===== 图5: C策略代价分布箱线图 =====
+>> with open('research_scripts/output/results/08_cost_distribution_analysis_20260726_131216/summary.json', 'r') as f:
+>>     cd = json.load(f)
+>> # 按profile分组提取cost_gini/hh_costs → boxplot
+>> print('图表数据已准备就绪')
+>> "
+Traceback (most recent call last):
+  File "<string>", line 6, in <module>
+    data = json.load(f)
+  File "D:\System\Miniconda\Lib\json\__init__.py", line 298, in load
+    return loads(fp.read(),
+                 ~~~~~~~^^
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xa6 in position 307: illegal multibyte sequence
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python -c "
+>> import json, numpy as np, pickle
+>>
+>> # ===== 图1: A策略相变热力图 =====
+>> with open('research_scripts/experiment_batches/output/results/phase2_20260726_130826_results.json', 'r', encoding='utf-8') as f:
+>>     data = json.load(f)
+>> # 从 results → a_phase_boundary → sweeps 提取 g_world×inst 网格的存活率
+>> # → matplotlib imshow
+>>
+>> # ===== 图2: 三策略CDI五维雷达图 =====
+>> with open('research_scripts/experiment_batches/output/results/phase1_20260726_114855_results.json', 'r', encoding='utf-8') as f:
+>>     data = json.load(f)
+>> # 按策略聚合eval_economy/livelihood/resilience/structure/sovereignty → radar
+>>
+>> # ===== 图3: B策略四国情welfare时间序列对比 =====
+>> dirs = {
+>>     'resource_rich': '01_single_detailed_run_20260726_130707',
+>>     'digital_leapfrogger': '01_single_detailed_run_20260726_130738',
+>>     'manufacturing_giant': '01_single_detailed_run_20260726_130755',
+>>     'post_soviet': '01_single_detailed_run_20260726_130807',
+>> }
+>> for label, d in dirs.items():
+>>     with open(f'research_scripts/output/results/{d}/full_results.pkl', 'rb') as f:
+>>         df = pickle.load(f)['results'][0]['dataframe']
+>>     # 提取 t, welfare(67), unemployment(69), gdp(61), K_i(2) → 4条曲线叠加
+>>
+>> # ===== 图4: 断裂指纹图 (各策略断裂模式柱状图) =====
+>> # 从方向4的脚本输出数据直接绘制
+>>
+>> # ===== 图5: C策略代价分布箱线图 =====
+>> with open('research_scripts/output/results/08_cost_distribution_analysis_20260726_131216/summary.json', 'r', encoding='utf-8') as f:
+>>     cd = json.load(f)
+>> # 按profile分组提取cost_gini/hh_costs → boxplot
+>> print('图表数据已准备就绪')
+>> "
+图表数据已准备就绪
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation>

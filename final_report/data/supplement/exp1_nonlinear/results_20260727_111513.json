@@ -1,0 +1,1389 @@
+[
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.01_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.01,
+    "catchup_mode": "linear",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 7920.874035494656,
+    "final_tech_gap": 4.688451060270546,
+    "final_welfare": 1.0,
+    "cdi": 0.7146122168228753,
+    "total_fractures": 0,
+    "fracture_types": [],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.01_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.01,
+    "catchup_mode": "logistic",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 16688.547780237815,
+    "final_tech_gap": 4.995729403736665,
+    "final_welfare": 1.0,
+    "cdi": 0.6966599315761138,
+    "total_fractures": 0,
+    "fracture_types": [],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.01_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.01,
+    "catchup_mode": "piecewise",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 16087.104372179001,
+    "final_tech_gap": 4.9955413047447035,
+    "final_welfare": 1.0,
+    "cdi": 0.6838133711409825,
+    "total_fractures": 1,
+    "fracture_types": [
+      "jump_induced_deindustrialization"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.02_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.02,
+    "catchup_mode": "linear",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 6844.174993985712,
+    "final_tech_gap": 7.540552239816792,
+    "final_welfare": 1.0,
+    "cdi": 0.7145629099199504,
+    "total_fractures": 0,
+    "fracture_types": [],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.02_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.02,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 49.75,
+    "final_gdp": 17189.30945532356,
+    "final_tech_gap": 8.370226397343767,
+    "final_welfare": 1.0,
+    "cdi": 0.6855972619807279,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.02_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.02,
+    "catchup_mode": "piecewise",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 15618.720403747535,
+    "final_tech_gap": 8.209691592903772,
+    "final_welfare": 1.0,
+    "cdi": 0.6828275642670527,
+    "total_fractures": 1,
+    "fracture_types": [
+      "jump_induced_deindustrialization"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.03_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.03,
+    "catchup_mode": "linear",
+    "survived": true,
+    "survival_years": 49.96999999999979,
+    "final_gdp": 6339.602464476042,
+    "final_tech_gap": 12.131533115175147,
+    "final_welfare": 1.0,
+    "cdi": 0.7121939329282218,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.03_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.03,
+    "catchup_mode": "logistic",
+    "survived": true,
+    "survival_years": 49.979999999999755,
+    "final_gdp": 10081.846906098799,
+    "final_tech_gap": 12.828786321663394,
+    "final_welfare": 1.0,
+    "cdi": 0.7008693302157037,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.03_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.03,
+    "catchup_mode": "piecewise",
+    "survived": true,
+    "survival_years": 49.98999999999976,
+    "final_gdp": 9422.437972005757,
+    "final_tech_gap": 12.784439935627704,
+    "final_welfare": 1.0,
+    "cdi": 0.6987768737588693,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.05_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.05,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 45.30999999999954,
+    "final_gdp": 3607.09160576309,
+    "final_tech_gap": 25.9073479720747,
+    "final_welfare": 1.0,
+    "cdi": 0.6750987196410115,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.05_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.05,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 49.35999999999946,
+    "final_gdp": 7039.091184957444,
+    "final_tech_gap": 32.17702151125838,
+    "final_welfare": 1.0,
+    "cdi": 0.6854515667184797,
+    "total_fractures": 4,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.05_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.05,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 48.75999999999947,
+    "final_gdp": 6567.434133087499,
+    "final_tech_gap": 31.13623567139349,
+    "final_welfare": 1.0,
+    "cdi": 0.6829196506802416,
+    "total_fractures": 4,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "premature_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.08_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.08,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 35.82999999999955,
+    "final_gdp": 1236.0007884301483,
+    "final_tech_gap": 48.36159633542502,
+    "final_welfare": 0.9613945711935904,
+    "cdi": 0.6928728461212308,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.08_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.08,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 43.50999999999939,
+    "final_gdp": 4011.475592645781,
+    "final_tech_gap": 87.1330319311317,
+    "final_welfare": 1.0,
+    "cdi": 0.6756857951549062,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.08_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.08,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 42.46999999999941,
+    "final_gdp": 3492.3204855357203,
+    "final_tech_gap": 80.41991980160455,
+    "final_welfare": 1.0,
+    "cdi": 0.674411742693358,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.1_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.1,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 27.069999999999673,
+    "final_gdp": 551.3058357322193,
+    "final_tech_gap": 41.60720230355521,
+    "final_welfare": 0.852824238209282,
+    "cdi": 0.6520726633965888,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.1_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.1,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 40.149999999999395,
+    "final_gdp": 2517.2952256130156,
+    "final_tech_gap": 150.12255371942908,
+    "final_welfare": 1.0,
+    "cdi": 0.7032011742468218,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_benign_globalization_g0.1_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "g_world": 0.1,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 38.62999999999943,
+    "final_gdp": 2070.8697978393407,
+    "final_tech_gap": 129.49444447922377,
+    "final_welfare": 1.0,
+    "cdi": 0.7021409809480237,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.01_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.01,
+    "catchup_mode": "linear",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 3888.9925632005707,
+    "final_tech_gap": 4.380607935721304,
+    "final_welfare": 1.0,
+    "cdi": 0.7532657402280574,
+    "total_fractures": 1,
+    "fracture_types": [
+      "jump_induced_deindustrialization"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.01_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.01,
+    "catchup_mode": "logistic",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 5398.157049577515,
+    "final_tech_gap": 4.341281625555477,
+    "final_welfare": 1.0,
+    "cdi": 0.7509929865253304,
+    "total_fractures": 0,
+    "fracture_types": [],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.01_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.01,
+    "catchup_mode": "piecewise",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 5227.719745853782,
+    "final_tech_gap": 4.335757864666792,
+    "final_welfare": 1.0,
+    "cdi": 0.7513166339215497,
+    "total_fractures": 0,
+    "fracture_types": [],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.02_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.02,
+    "catchup_mode": "linear",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 3432.5996098118385,
+    "final_tech_gap": 7.258429745965518,
+    "final_welfare": 1.0,
+    "cdi": 0.7532620354597657,
+    "total_fractures": 1,
+    "fracture_types": [
+      "jump_induced_deindustrialization"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.02_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.02,
+    "catchup_mode": "logistic",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 5505.419219002295,
+    "final_tech_gap": 7.128092670743423,
+    "final_welfare": 1.0,
+    "cdi": 0.7511580352479253,
+    "total_fractures": 0,
+    "fracture_types": [],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.02_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.02,
+    "catchup_mode": "piecewise",
+    "survived": true,
+    "survival_years": 49.75,
+    "final_gdp": 5274.937843282356,
+    "final_tech_gap": 7.124269205539179,
+    "final_welfare": 1.0,
+    "cdi": 0.7508242294721685,
+    "total_fractures": 0,
+    "fracture_types": [],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.03_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.03,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 49.79999999999979,
+    "final_gdp": 2797.6370896008443,
+    "final_tech_gap": 11.97125991053441,
+    "final_welfare": 1.0,
+    "cdi": 0.7443108638828154,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.03_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.03,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 49.82999999999981,
+    "final_gdp": 4903.750724369717,
+    "final_tech_gap": 11.672864752172629,
+    "final_welfare": 1.0,
+    "cdi": 0.713404526661196,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.03_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.03,
+    "catchup_mode": "piecewise",
+    "survived": true,
+    "survival_years": 49.9799999999998,
+    "final_gdp": 4426.545856762863,
+    "final_tech_gap": 11.773787110294736,
+    "final_welfare": 1.0,
+    "cdi": 0.7131572155906324,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.05_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.05,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 36.69999999999972,
+    "final_gdp": 959.0622546418829,
+    "final_tech_gap": 17.27218113559965,
+    "final_welfare": 0.9282188963542798,
+    "cdi": 0.7174216996860727,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.05_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.05,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 42.8399999999996,
+    "final_gdp": 1936.9384722891907,
+    "final_tech_gap": 22.987206354232605,
+    "final_welfare": 0.9582315485981541,
+    "cdi": 0.7225449865811702,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.05_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.05,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 41.58999999999962,
+    "final_gdp": 1771.5428608607192,
+    "final_tech_gap": 21.64810961581409,
+    "final_welfare": 1.0,
+    "cdi": 0.7356124089718946,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.08_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.08,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 27.069999999999737,
+    "final_gdp": 452.33624502950266,
+    "final_tech_gap": 24.318298989598933,
+    "final_welfare": 0.8311502031607705,
+    "cdi": 0.6656194372020552,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.08_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.08,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 27.90999999999972,
+    "final_gdp": 537.5053744746995,
+    "final_tech_gap": 25.749005682886963,
+    "final_welfare": 0.8503558587976805,
+    "cdi": 0.675019623909301,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.08_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.08,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 27.789999999999722,
+    "final_gdp": 520.0415229781448,
+    "final_tech_gap": 25.526935484545177,
+    "final_welfare": 0.846738729321215,
+    "cdi": 0.6731006128221451,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.1_linear",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.1,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 26.589999999999684,
+    "final_gdp": 416.6677275554015,
+    "final_tech_gap": 39.865791232042156,
+    "final_welfare": 0.8229362565576089,
+    "cdi": 0.6619315746858051,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.1_logistic",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.1,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 26.869999999999678,
+    "final_gdp": 471.35708518301317,
+    "final_tech_gap": 40.67817521314625,
+    "final_welfare": 0.8354361831244345,
+    "cdi": 0.6674737426227165,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "manufacturing_giant_tech_cold_war_g0.1_piecewise",
+    "profile": "manufacturing_giant",
+    "scenario": "tech_cold_war",
+    "g_world": 0.1,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 26.78999999999968,
+    "final_gdp": 469.693214737589,
+    "final_tech_gap": 40.38718831013926,
+    "final_welfare": 0.8342458402903904,
+    "cdi": 0.6668837349412812,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.01_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.01,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 41.949999999999996,
+    "final_gdp": 2471.7583875940472,
+    "final_tech_gap": 5.730364672820924,
+    "final_welfare": 1.0,
+    "cdi": 0.6833267923650207,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.01_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.01,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 40.25,
+    "final_gdp": 4518.081012246095,
+    "final_tech_gap": 6.166135003564698,
+    "final_welfare": 1.0,
+    "cdi": 0.685544280225164,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.01_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.01,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 41.33,
+    "final_gdp": 4347.375666654865,
+    "final_tech_gap": 6.131209610404328,
+    "final_welfare": 1.0,
+    "cdi": 0.68418773188031,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.02_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.02,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 38.489999999999995,
+    "final_gdp": 1883.2517273617457,
+    "final_tech_gap": 7.948875917051894,
+    "final_welfare": 1.0,
+    "cdi": 0.6790007215527578,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.02_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.02,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 39.5,
+    "final_gdp": 3311.9165380830655,
+    "final_tech_gap": 8.604809158746743,
+    "final_welfare": 1.0,
+    "cdi": 0.6829692212660252,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.02_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.02,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 39.75,
+    "final_gdp": 3102.668096445257,
+    "final_tech_gap": 8.601598287149358,
+    "final_welfare": 1.0,
+    "cdi": 0.6827902742502574,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.03_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.03,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 36.57999999999987,
+    "final_gdp": 1601.8491297651005,
+    "final_tech_gap": 10.866840039509206,
+    "final_welfare": 1.0,
+    "cdi": 0.6758897163473776,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.03_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.03,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 39.579999999999785,
+    "final_gdp": 2508.6142017075413,
+    "final_tech_gap": 12.27136270728789,
+    "final_welfare": 1.0,
+    "cdi": 0.6839441492929587,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.03_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.03,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 39.539999999999786,
+    "final_gdp": 2454.966799366434,
+    "final_tech_gap": 12.261043346788526,
+    "final_welfare": 1.0,
+    "cdi": 0.6835621333002107,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.05_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.05,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 35.51999999999963,
+    "final_gdp": 1260.3378478024194,
+    "final_tech_gap": 21.31816116431033,
+    "final_welfare": 1.0,
+    "cdi": 0.6749073184429997,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.05_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.05,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 39.569999999999546,
+    "final_gdp": 2270.258197200751,
+    "final_tech_gap": 26.32195240100044,
+    "final_welfare": 1.0,
+    "cdi": 0.6813667834212931,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.05_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.05,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 38.69999999999957,
+    "final_gdp": 2116.0468105937284,
+    "final_tech_gap": 25.192922051416943,
+    "final_welfare": 1.0,
+    "cdi": 0.6798479243900064,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.08_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.08,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 33.529999999999525,
+    "final_gdp": 880.7090535796282,
+    "final_tech_gap": 53.327415794050076,
+    "final_welfare": 0.9631749863142024,
+    "cdi": 0.6958852196081919,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.08_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.08,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 37.52999999999944,
+    "final_gdp": 1751.1136092847148,
+    "final_tech_gap": 72.1756722293047,
+    "final_welfare": 1.0,
+    "cdi": 0.6767757806653519,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.08_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.08,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 37.48999999999944,
+    "final_gdp": 1723.8154113246203,
+    "final_tech_gap": 71.92966185983272,
+    "final_welfare": 1.0,
+    "cdi": 0.6762765231201214,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.1_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.1,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 32.3199999999995,
+    "final_gdp": 752.9064792061594,
+    "final_tech_gap": 92.65155679999776,
+    "final_welfare": 0.9424787373619266,
+    "cdi": 0.6895486372355464,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.1_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.1,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 37.799999999999386,
+    "final_gdp": 1530.931790710216,
+    "final_tech_gap": 157.24586349409424,
+    "final_welfare": 1.0,
+    "cdi": 0.6765809305761699,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_benign_globalization_g0.1_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "g_world": 0.1,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 36.919999999999405,
+    "final_gdp": 1428.0263057483028,
+    "final_tech_gap": 144.20326752961037,
+    "final_welfare": 1.0,
+    "cdi": 0.6759999863943493,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.01_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.01,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 41.16,
+    "final_gdp": 1601.6841633351642,
+    "final_tech_gap": 5.404689352164568,
+    "final_welfare": 1.0,
+    "cdi": 0.7200827978391467,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.01_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.01,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 41.83,
+    "final_gdp": 2055.3372078243137,
+    "final_tech_gap": 5.4256421714242125,
+    "final_welfare": 1.0,
+    "cdi": 0.7229260612956607,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.01_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.01,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 42.16,
+    "final_gdp": 2128.2591242587323,
+    "final_tech_gap": 5.437829672900481,
+    "final_welfare": 1.0,
+    "cdi": 0.723329976839819,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.02_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.02,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 36.35999999999999,
+    "final_gdp": 1088.3375696705823,
+    "final_tech_gap": 7.490628346491227,
+    "final_welfare": 0.9964165005967245,
+    "cdi": 0.7476521179775723,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.02_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.02,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 37.449999999999996,
+    "final_gdp": 1571.9457314430344,
+    "final_tech_gap": 7.516433152106965,
+    "final_welfare": 1.0,
+    "cdi": 0.7165904077769771,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.02_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.02,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 37.66,
+    "final_gdp": 1578.6852443127648,
+    "final_tech_gap": 7.5463034674845275,
+    "final_welfare": 1.0,
+    "cdi": 0.7166104826908986,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.03_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.03,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 34.08999999999992,
+    "final_gdp": 853.0062292156827,
+    "final_tech_gap": 10.11472288398469,
+    "final_welfare": 0.9626891096569562,
+    "cdi": 0.7284669091256071,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.03_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.03,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 35.7199999999999,
+    "final_gdp": 1357.7133312348053,
+    "final_tech_gap": 10.354768747102897,
+    "final_welfare": 1.0,
+    "cdi": 0.707449911976046,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.03_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.03,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 35.86999999999989,
+    "final_gdp": 1320.9506146880592,
+    "final_tech_gap": 10.440194787930949,
+    "final_welfare": 1.0,
+    "cdi": 0.7399752141021078,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.05_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.05,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 32.279999999999696,
+    "final_gdp": 715.6238904476581,
+    "final_tech_gap": 18.398115748655638,
+    "final_welfare": 0.9365662449624382,
+    "cdi": 0.722927369184447,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.05_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.05,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 35.12999999999964,
+    "final_gdp": 1056.5627042889796,
+    "final_tech_gap": 20.881149137599753,
+    "final_welfare": 0.9890058494516035,
+    "cdi": 0.7077633110850742,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.05_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.05,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 34.87999999999964,
+    "final_gdp": 998.9004083218103,
+    "final_tech_gap": 20.636821137020952,
+    "final_welfare": 0.9808749680726994,
+    "cdi": 0.7337001127791332,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.08_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.08,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 25.159999999999698,
+    "final_gdp": 414.50872515559666,
+    "final_tech_gap": 27.695265187892378,
+    "final_welfare": 0.8796370035866073,
+    "cdi": 0.6564488130242047,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.08_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.08,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 33.64999999999952,
+    "final_gdp": 823.3479234394083,
+    "final_tech_gap": 53.76565295694218,
+    "final_welfare": 0.9547330667424316,
+    "cdi": 0.7276147944697651,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.08_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.08,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 32.84999999999954,
+    "final_gdp": 768.5626262193073,
+    "final_tech_gap": 50.48168841598061,
+    "final_welfare": 0.9452407627285325,
+    "cdi": 0.7247225962233398,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.1_linear",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.1,
+    "catchup_mode": "linear",
+    "survived": false,
+    "survival_years": 25.35999999999965,
+    "final_gdp": 408.33119520409707,
+    "final_tech_gap": 46.744252969722154,
+    "final_welfare": 0.8777333370450816,
+    "cdi": 0.6531420493702478,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.1_logistic",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.1,
+    "catchup_mode": "logistic",
+    "survived": false,
+    "survival_years": 30.55999999999954,
+    "final_gdp": 634.5244698315639,
+    "final_tech_gap": 77.73940023002069,
+    "final_welfare": 0.9204023936142868,
+    "cdi": 0.7160431728010934,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "digital_leapfrogger_tech_cold_war_g0.1_piecewise",
+    "profile": "digital_leapfrogger",
+    "scenario": "tech_cold_war",
+    "g_world": 0.1,
+    "catchup_mode": "piecewise",
+    "survived": false,
+    "survival_years": 32.07999999999951,
+    "final_gdp": 703.3904749543788,
+    "final_tech_gap": 90.37287943518623,
+    "final_welfare": 0.9342119127158471,
+    "cdi": 0.7213251515344369,
+    "total_fractures": 3,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  }
+]

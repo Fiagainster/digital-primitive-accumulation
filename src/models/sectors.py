@@ -96,8 +96,9 @@ class SectorModel:
         s = state.sectors["d_app"]
         p = self.p
 
-        # 有效数据存量
+        # 有效数据存量 (v3.7.3: 加上界防止数值爆炸)
         data_eff = max(state.data_assets.effective_stock, 1.0)
+        data_eff = min(data_eff, 1e4)  # 硬上界: 数据因子最大为 1e4^0.25 = 10.0
         data_factor = (data_eff / 1.0) ** p["delta_d_app_data"]
 
         # 网络效应（应用层显著强于基础设施层）
@@ -175,7 +176,7 @@ class SectorModel:
         sat_start = p.get("s_low_platform_sat_start", 0.8)
         if avg_digital_DL > sat_start:
             sat_decay = p.get("s_low_platform_sat_decay", 0.3)
-            sat_range = p.get("s_low_platform_sat_range", 0.2)
+            sat_range = max(p.get("s_low_platform_sat_range", 0.2), 1e-6)  # v3.7.3: 防除零
             sat_floor = p.get("s_low_platform_sat_floor", 0.5)
             saturation = 1.0 - sat_decay * (avg_digital_DL - sat_start) / sat_range
             platform_boost = 1.0 + p["platform_empowerment"] * sat_start * max(sat_floor, saturation)

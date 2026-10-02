@@ -1,0 +1,20 @@
+{
+  "experiment": "08_cost_distribution_analysis",
+  "run_id": "08_cost_distribution_analysis_20260726_131216",
+  "started_at": "2026-07-26T13:12:16.557221",
+  "parameters": {},
+  "summary": {
+    "total": 450,
+    "survived": 450
+  },
+  "config": {
+    "regimes": "C",
+    "scenarios": "benign_globalization,tech_cold_war,full_containment",
+    "profiles": "manufacturing_giant,resource_rich,digital_leapfrogger",
+    "n_lhs": 50,
+    "T_max": 60.0,
+    "workers": null
+  },
+  "completed_at": "2026-07-26T13:42:45.821258",
+  "total_simulations": 450
+}

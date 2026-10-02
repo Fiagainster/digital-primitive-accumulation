@@ -16,6 +16,8 @@ class TechnologyDynamics:
 
     def __init__(self, params: dict):
         self.p = params
+        # v3.7.3: 记录初始TFP用于前沿约束
+        self._initial_A = {}
 
     def step(self, state: SystemState, dt: float):
         """一个时间步的技术更新 (v3.5: infra/app分层)."""
@@ -53,6 +55,46 @@ class TechnologyDynamics:
         A_world_avg = w_infra * A_world_infra + w_app * A_world_app
         A_d_avg = w_infra * A_d_infra + w_app * A_d_app
         state.tech_gap = A_world_avg / max(A_d_avg, 0.01)
+
+    def _catchup_gap_factor(self, G: float, p: dict) -> float:
+        """根据 catchup_mode 返回非线性追赶差距因子.
+
+        linear (默认): 标准幂律 (1/G)^xi_gap
+        logistic:     S曲线 — 中等差距时加速追赶，接近前沿时减速
+        piecewise:    分段 — 远距离时加速追赶
+
+        Returns:
+            修正后的吸收基础 (替代原 (1/G)^xi_gap 因子)
+        """
+        mode = p.get("catchup_mode", "linear")
+        xi = p["xi_gap"]
+
+        if mode == "linear":
+            # 标准行为：不改动
+            return (1.0 / max(G, 0.1)) ** xi
+
+        elif mode == "logistic":
+            # logistic/S曲线：gap * (1 - gap/max_gap)，然后归一化
+            gap_raw = max(G - 1.0, 0.0)  # G>1 表示落后于前沿
+            max_gap = p.get("catchup_max_gap", 10.0)
+            logistic_factor = gap_raw * (1.0 - gap_raw / max_gap)
+            # 差距为 0（与前沿平齐）或 > max_gap 时吸收接近 0
+            logistic_factor = max(0.01, logistic_factor)
+            # 混合：保留 (1/G)^xi 的惩罚但叠加 logistic 增益
+            base = (1.0 / max(G, 0.1)) ** xi
+            return base * logistic_factor
+
+        elif mode == "piecewise":
+            threshold = p.get("catchup_piecewise_threshold", 3.0)
+            boost = p.get("catchup_piecewise_boost", 2.0)
+            base = (1.0 / max(G, 0.1)) ** xi
+            if G > threshold:
+                # 远距离加速追赶
+                return base * boost
+            else:
+                return base
+        else:
+            return (1.0 / max(G, 0.1)) ** xi
 
     def _regime_multipliers(self, state: SystemState) -> dict:
         """根据策略返回技术追赶的差异化乘数."""
@@ -119,11 +161,13 @@ class TechnologyDynamics:
         )
 
         # 技术吸收（infra的技术吸收受封锁严重限制）
+        # v3.7.4: 支持非线性追赶模式
         block = getattr(state, "effective_block_max", p.get("block_max", 0.5))
         absorption_cap = max(0.05, 1.0 - block * 1.2)  # 封锁对infra的吸收影响更大
+        gap_factor = self._catchup_gap_factor(G, p)
         absorption = (
             p["chi_absorb_tech"] * mult["absorption"] * absorption_cap
-            * (1.0 / max(G, 0.1)) ** p["xi_gap"]
+            * gap_factor
         )
 
         # 追赶陷阱
@@ -143,6 +187,12 @@ class TechnologyDynamics:
         dA = (innovation + absorption) * s.A
         s.A += dA * dt
         s.A = max(0.1, s.A)
+        # v3.7.3: TFP上界 — 国内技术水平不能持续超过世界前沿
+        if "d_infra" not in self._initial_A:
+            self._initial_A["d_infra"] = s.A
+        _frontier = self._initial_A["d_infra"] * (1.0 + p.get("g_world", 0.03)) ** (state.t + dt)
+        _frontier_ceiling = _frontier * p.get("tech_frontier_ceiling_mult", 3.0)
+        s.A = min(s.A, _frontier_ceiling)
 
     def _update_digital_app_tech(self, state: SystemState, dt: float):
         """v3.5: 数字应用层技术进步 — 平台/AI应用.
@@ -164,11 +214,13 @@ class TechnologyDynamics:
         )
 
         # 技术吸收（app更容易吸收外国技术，但受封锁影响）
+        # v3.7.4: 支持非线性追赶模式
         block = getattr(state, "effective_block_max", p.get("block_max", 0.5))
         absorption_cap = max(0.1, 1.0 - block * 0.8)
+        gap_factor = self._catchup_gap_factor(G, p)
         absorption = (
             p["chi_absorb_tech"] * mult["absorption"] * absorption_cap
-            * (1.0 / max(G, 0.1)) ** p["xi_gap"]
+            * gap_factor
         )
 
         # 网络效应加速学习
@@ -194,6 +246,12 @@ class TechnologyDynamics:
         dA = (innovation + absorption) * s.A
         s.A += dA * dt
         s.A = max(0.1, s.A)
+        # v3.7.3: TFP上界 — 国内技术水平不能持续超过世界前沿
+        if "d_app" not in self._initial_A:
+            self._initial_A["d_app"] = s.A
+        _frontier = self._initial_A["d_app"] * (1.0 + p.get("g_world", 0.03)) ** (state.t + dt)
+        _frontier_ceiling = _frontier * p.get("tech_frontier_ceiling_mult", 3.0)
+        s.A = min(s.A, _frontier_ceiling)
 
     def _diffuse_technology(self, state: SystemState, dt: float):
         """技术从数字部门扩散到工业、基础和高技能服务部门 (v3.5)."""

@@ -18,6 +18,8 @@ class FractureMonitor:
     def __init__(self, params: dict):
         self.p = params
         self.mult = params.get("fracture_threshold_mult", 1.0)
+        # v3.7.4: 可配置的福利崩溃阈值（替代硬编码0.30）
+        self.welfare_threshold = params.get("welfare_collapse_threshold", 0.30)
         # 级联强度参数
         self.cascade_strength = params.get("cascade_strength", 0.15)
         # 记录断裂触发时间用于级联计算
@@ -135,7 +137,7 @@ class FractureMonitor:
         if state.unemployment_rate > 0.25 * m * sc_mult and "social_collapse" not in active:
             events.append(self._event("social_collapse", "hard", True))
 
-        if (state.welfare_index < 0.30 * m * sc_mult
+        if (state.welfare_index < self.welfare_threshold * m * sc_mult
                 and state.welfare_index > 0
                 and "social_collapse" not in active):
             events.append(self._event("social_collapse", "hard", True))
@@ -167,7 +169,9 @@ class FractureMonitor:
         # 9. 跳跃诱发去工业化断裂 (v3.2) — 策略B过度提取的典型后果
         # 条件：工业资本萎缩>50% + 数字部门仍在扩张（说明提取仍在继续）
         K_i_ratio_initial = state.sectors["i"].K / max(state.initial_K_i, 1.0)
-        K_d_ratio_initial = (state.sectors["d_infra"].K + state.sectors["d_app"].K) / max(state.initial_K_d, 1.0)
+        # v3.7.3: 使用 v3.5 拆分后的 infra+app 初始资本, 而非 v3.4 遗留的 initial_K_d(=1.0)
+        initial_K_d_total = state.initial_K_d_infra + state.initial_K_d_app
+        K_d_ratio_initial = (state.sectors["d_infra"].K + state.sectors["d_app"].K) / max(initial_K_d_total, 1.0)
         if (K_i_ratio_initial < 0.50
                 and K_d_ratio_initial > 1.20
                 and "jump_induced_deindustrialization" not in active):

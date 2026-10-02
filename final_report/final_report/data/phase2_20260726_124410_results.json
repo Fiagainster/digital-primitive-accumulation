@@ -1,0 +1,387 @@
+{
+  "run_id": "phase2_20260726_124410",
+  "focus": [
+    "post_soviet_puzzle"
+  ],
+  "total_simulations": 72,
+  "elapsed_minutes": 1.9884018421173095,
+  "anomalies_detected": 0,
+  "results": {
+    "post_soviet_puzzle": [
+      {
+        "name": "post_soviet×A: institution_capacity × g_world | post_soviet",
+        "regime": "A",
+        "profile": "post_soviet",
+        "scenario": "benign_globalization",
+        "param1": "institution_capacity",
+        "param2": "g_world",
+        "values1": [
+          0.2,
+          0.35,
+          0.5,
+          0.65,
+          0.8,
+          0.9
+        ],
+        "values2": [
+          0.01,
+          0.02,
+          0.03,
+          0.05,
+          0.07
+        ],
+        "total_sims": 30,
+        "survived_count": 12,
+        "survival_rate": 0.4,
+        "survival_by_value1": [
+          {
+            "value": 0.2,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.35,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.5,
+            "survival_rate": 0.2
+          },
+          {
+            "value": 0.65,
+            "survival_rate": 0.2
+          },
+          {
+            "value": 0.8,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.9,
+            "survival_rate": 1.0
+          }
+        ],
+        "cdi_range": null,
+        "tech_gap_range": [
+          4.871670212701325,
+          102.75109962196132
+        ],
+        "gdp_range": [
+          178.32263922471603,
+          10169.02883989899
+        ],
+        "anomalies": {
+          "gdp_explosions": 0,
+          "extreme_tech_gaps": 0,
+          "nan_results": 0,
+          "details": []
+        }
+      },
+      {
+        "name": "post_soviet×B: institution_capacity × B_g_target | post_soviet",
+        "regime": "B",
+        "profile": "post_soviet",
+        "scenario": "benign_globalization",
+        "param1": "institution_capacity",
+        "param2": "B_g_target",
+        "values1": [
+          0.2,
+          0.35,
+          0.5,
+          0.65,
+          0.8,
+          0.9
+        ],
+        "values2": [
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4
+        ],
+        "total_sims": 42,
+        "survived_count": 2,
+        "survival_rate": 0.047619047619047616,
+        "survival_by_value1": [
+          {
+            "value": 0.2,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.35,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.5,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.65,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.8,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.9,
+            "survival_rate": 0.2857142857142857
+          }
+        ],
+        "cdi_range": null,
+        "tech_gap_range": [
+          6.360146146185409,
+          14.537386341275797
+        ],
+        "gdp_range": [
+          522.5436623535996,
+          22092.142944923144
+        ],
+        "anomalies": {
+          "gdp_explosions": 0,
+          "extreme_tech_gaps": 0,
+          "nan_results": 0,
+          "details": []
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "thresholds_detected": {
+      "post_soviet_puzzle_institution_capacity_post_soviet": {
+        "param": "institution_capacity",
+        "profile": "post_soviet",
+        "jump_magnitude": 0.8,
+        "jump_interval": [
+          0.65,
+          0.8
+        ]
+      }
+    },
+    "key_findings": [
+      "[阈值] institution_capacity@post_soviet: 存活率在 [0.650, 0.800] 跳变 80%",
+      "★ [A可存活!] post_soviet: institution_capacity=0.800 时存活率达 100%"
+    ],
+    "n_thresholds": 1,
+    "anomaly_summary": {}
+  },
+  "phase1_context": {
+    "by_regime": {
+      "A": {
+        "total": 48,
+        "survived": 4,
+        "survival_rate": 0.08333333333333333,
+        "cdi": {},
+        "tech_gap": {
+          "mean": 12.291679694340056,
+          "median": 7.070025967741936,
+          "min": 4.272887673261652,
+          "max": 74.12832408489513
+        },
+        "gdp": {
+          "mean": 885.3333657949448,
+          "median": 108.64944921224424,
+          "min": 21.861232221826487,
+          "max": 6970.918104518277
+        }
+      },
+      "B": {
+        "total": 48,
+        "survived": 17,
+        "survival_rate": 0.3541666666666667,
+        "cdi": {},
+        "tech_gap": {
+          "mean": 122.97059328920766,
+          "median": 8.186270820793082,
+          "min": 4.079819385630475,
+          "max": 1839.26242801531
+        },
+        "gdp": {
+          "mean": 2310.903501183128,
+          "median": 461.25871709388775,
+          "min": 21.824708865390026,
+          "max": 12875.30756896666
+        }
+      },
+      "C": {
+        "total": 48,
+        "survived": 29,
+        "survival_rate": 0.6041666666666666,
+        "cdi": {},
+        "tech_gap": {
+          "mean": 145.30273288182403,
+          "median": 10.858291512505911,
+          "min": 4.272195084384768,
+          "max": 1863.9715985109137
+        },
+        "gdp": {
+          "mean": 680.2185323079835,
+          "median": 183.24132434813635,
+          "min": 21.827426534416894,
+          "max": 3278.2012170931484
+        }
+      }
+    },
+    "by_profile": {
+      "resource_rich": {
+        "total": 24,
+        "survived": 13,
+        "survival_rate": 0.5416666666666666
+      },
+      "populous_weak_industry": {
+        "total": 24,
+        "survived": 0,
+        "survival_rate": 0.0
+      },
+      "manufacturing_giant": {
+        "total": 24,
+        "survived": 13,
+        "survival_rate": 0.5416666666666666
+      },
+      "digital_leapfrogger": {
+        "total": 24,
+        "survived": 16,
+        "survival_rate": 0.6666666666666666
+      },
+      "small_open": {
+        "total": 24,
+        "survived": 0,
+        "survival_rate": 0.0
+      },
+      "post_soviet": {
+        "total": 24,
+        "survived": 8,
+        "survival_rate": 0.3333333333333333
+      }
+    },
+    "by_scenario": {
+      "tech_explosion": {
+        "total": 18,
+        "survived": 7,
+        "survival_rate": 0.3888888888888889
+      },
+      "resource_war": {
+        "total": 18,
+        "survived": 7,
+        "survival_rate": 0.3888888888888889
+      },
+      "tech_boom": {
+        "total": 18,
+        "survived": 6,
+        "survival_rate": 0.3333333333333333
+      },
+      "full_containment": {
+        "total": 18,
+        "survived": 5,
+        "survival_rate": 0.2777777777777778
+      },
+      "global_recession": {
+        "total": 18,
+        "survived": 7,
+        "survival_rate": 0.3888888888888889
+      },
+      "tech_cold_war": {
+        "total": 18,
+        "survived": 5,
+        "survival_rate": 0.2777777777777778
+      },
+      "benign_globalization": {
+        "total": 18,
+        "survived": 7,
+        "survival_rate": 0.3888888888888889
+      },
+      "resource_crash": {
+        "total": 18,
+        "survived": 6,
+        "survival_rate": 0.3333333333333333
+      }
+    },
+    "interaction_profile_regime": {
+      "resource_rich": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 0.625,
+          "avg_cdi": null
+        }
+      },
+      "populous_weak_industry": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        }
+      },
+      "manufacturing_giant": {
+        "A": {
+          "survival_rate": 0.5,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 0.125,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        }
+      },
+      "digital_leapfrogger": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        }
+      },
+      "small_open": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        }
+      },
+      "post_soviet": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        }
+      }
+    },
+    "overall_survival_rate": 0.3472222222222222
+  }
+}

@@ -1,0 +1,1852 @@
+[
+  {
+    "label": "manufacturing_giant×B×w=0.25×ε=1.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.25,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 26.75,
+    "final_gdp": 3666.8732322920996,
+    "final_tech_gap": 6.254632162655856,
+    "final_welfare": 0.27365845915381026,
+    "cdi": 0.5500138313251519,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.005633013916693013
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.25×ε=1.5",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.25,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 28.25,
+    "final_gdp": 4955.172002078103,
+    "final_tech_gap": 6.562538404350939,
+    "final_welfare": 0.23439262423307136,
+    "cdi": 0.5566947094633609,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.005938114583199177
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.25×ε=0.8",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.25,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 30.75,
+    "final_gdp": 4964.630713658177,
+    "final_tech_gap": 7.105551719405632,
+    "final_welfare": 0.21328931419981242,
+    "cdi": 0.5498380709147053,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.007911627792852987
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.3×ε=0.8",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.3,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 31.5,
+    "final_gdp": 5321.686062320641,
+    "final_tech_gap": 7.27609476966356,
+    "final_welfare": 0.20067956843931772,
+    "cdi": 0.5489945951773743,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.008555979161777274
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.3×ε=2.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.3,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 31.25,
+    "final_gdp": 7194.068263912441,
+    "final_tech_gap": 7.218877607541902,
+    "final_welfare": 0.19079321942653707,
+    "cdi": 0.5575032320686795,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.006102352920124888
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.25×ε=1.2",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.25,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 36.5,
+    "final_gdp": 9556.3639801331,
+    "final_tech_gap": 8.510917193342625,
+    "final_welfare": 0.1652712993664213,
+    "cdi": 0.5820004724848189,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.008892166547742289
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.35×ε=1.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.35,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 35.75,
+    "final_gdp": 8333.870614264208,
+    "final_tech_gap": 8.314214276340538,
+    "final_welfare": 0.16633224129526403,
+    "cdi": 0.5485828576964543,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.00949355237427754
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.3×ε=1.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.3,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 38.0,
+    "final_gdp": 9634.060235897587,
+    "final_tech_gap": 8.917080324393671,
+    "final_welfare": 0.16018066776411383,
+    "cdi": 0.578962376373611,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.009701761520292843
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.35×ε=1.5",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.35,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 33.0,
+    "final_gdp": 7860.969908374251,
+    "final_tech_gap": 7.628307226226351,
+    "final_welfare": 0.1766590076454853,
+    "cdi": 0.5545070251905875,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0074557246154423
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.4×ε=1.2",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.4,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 26.75,
+    "final_gdp": 3959.8941291475035,
+    "final_tech_gap": 6.254623469398435,
+    "final_welfare": 0.2660340269842822,
+    "cdi": 0.552731634109877,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.005504844329568541
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.25×ε=2.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.25,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 41.349999999999945,
+    "final_gdp": 15898.849743172364,
+    "final_tech_gap": 9.831863138255462,
+    "final_welfare": 0.17947412176694502,
+    "cdi": 0.5947450194381558,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.006657910822071136
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.35×ε=2.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.35,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 34.75,
+    "final_gdp": 9762.966868049138,
+    "final_tech_gap": 8.05863048736474,
+    "final_welfare": 0.1688209746077362,
+    "cdi": 0.5690619506916682,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0065551027350009596
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.35×ε=0.8",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.35,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 41.22999999999995,
+    "final_gdp": 10137.332440365057,
+    "final_tech_gap": 9.7945807964923,
+    "final_welfare": 0.15053508953222347,
+    "cdi": 0.572743835242808,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.010996710862740306
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.4×ε=1.5",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.4,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 33.25,
+    "final_gdp": 8098.093283227303,
+    "final_tech_gap": 7.6884734503775825,
+    "final_welfare": 0.17634801530212996,
+    "cdi": 0.5549800535594454,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.00734873562641037
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.4×ε=2.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.4,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 35.25,
+    "final_gdp": 10155.037710772891,
+    "final_tech_gap": 8.185581839311084,
+    "final_welfare": 0.16749270509409386,
+    "cdi": 0.568585442633022,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0063102877204511375
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.3×ε=1.2",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.3,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 42.86999999999991,
+    "final_gdp": 14461.086470339578,
+    "final_tech_gap": 10.304413115748188,
+    "final_welfare": 0.16575280638712717,
+    "cdi": 0.5852575956757357,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.008897604002770083
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.45×ε=1.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.45,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 25.5,
+    "final_gdp": 1894.858278252431,
+    "final_tech_gap": 6.007791252268901,
+    "final_welfare": 0.2194929146390692,
+    "cdi": 0.5580620090322356,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.15532284200647806
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.3×ε=1.5",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.3,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 44.30999999999988,
+    "final_gdp": 17286.861899947136,
+    "final_tech_gap": 10.772754856120645,
+    "final_welfare": 0.17971082477373995,
+    "cdi": 0.5918389053201694,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.007565535145316279
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.45×ε=1.2",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.45,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 30.75,
+    "final_gdp": 5949.291971189174,
+    "final_tech_gap": 7.105587211584583,
+    "final_welfare": 0.20341900078816236,
+    "cdi": 0.5553168210371329,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0072047628398668176
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.4×ε=0.8",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.4,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 41.02999999999995,
+    "final_gdp": 10063.389623037136,
+    "final_tech_gap": 9.734131414835856,
+    "final_welfare": 0.15017684381042737,
+    "cdi": 0.5715151022602594,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.01093178071117091
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.4×ε=1.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.4,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 41.14999999999995,
+    "final_gdp": 11671.489048898582,
+    "final_tech_gap": 9.770667423352833,
+    "final_welfare": 0.155548122151208,
+    "cdi": 0.5779079242103762,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.009837504196918537
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.45×ε=0.8",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.45,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 36.75,
+    "final_gdp": 7888.770242545991,
+    "final_tech_gap": 8.577201775004665,
+    "final_welfare": 0.16377317415983872,
+    "cdi": 0.5443652769208845,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.010340028996709784
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.45×ε=2.0",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.45,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 31.75,
+    "final_gdp": 7596.422186902688,
+    "final_tech_gap": 7.3337905757859145,
+    "final_welfare": 0.1867527572441444,
+    "cdi": 0.5574410936071018,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.005955071714081157
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.35×ε=1.2",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.35,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 43.149999999999906,
+    "final_gdp": 14605.746800824962,
+    "final_tech_gap": 10.394010850614924,
+    "final_welfare": 0.1677916619704478,
+    "cdi": 0.5855122305149348,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.008684825341406435
+  },
+  {
+    "label": "manufacturing_giant×B×w=0.45×ε=1.5",
+    "profile": "manufacturing_giant",
+    "w_emp": 0.45,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 41.86999999999993,
+    "final_gdp": 14740.620794067494,
+    "final_tech_gap": 9.991174504158193,
+    "final_welfare": 0.16981445234964157,
+    "cdi": 0.58784414618552,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.007870146047702063
+  },
+  {
+    "label": "resource_rich×B×w=0.25×ε=1.0",
+    "profile": "resource_rich",
+    "w_emp": 0.25,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 286.3332799115598,
+    "final_tech_gap": 19.964363531912053,
+    "final_welfare": 0.9654424716329979,
+    "cdi": 0.6156922341063902,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.01111425524990535
+  },
+  {
+    "label": "resource_rich×B×w=0.25×ε=1.2",
+    "profile": "resource_rich",
+    "w_emp": 0.25,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 301.5977218918337,
+    "final_tech_gap": 19.962071368587296,
+    "final_welfare": 0.9866282193222323,
+    "cdi": 0.6190238025548502,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011488343960571667
+  },
+  {
+    "label": "resource_rich×B×w=0.25×ε=0.8",
+    "profile": "resource_rich",
+    "w_emp": 0.25,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 284.93549227451626,
+    "final_tech_gap": 19.966254822194053,
+    "final_welfare": 0.9614819267996392,
+    "cdi": 0.6107768410524704,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011254880681155838
+  },
+  {
+    "label": "resource_rich×B×w=0.25×ε=1.5",
+    "profile": "resource_rich",
+    "w_emp": 0.25,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 313.1509767808966,
+    "final_tech_gap": 19.96022565114744,
+    "final_welfare": 0.9984218178017729,
+    "cdi": 0.620832802865521,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011662227307905013
+  },
+  {
+    "label": "resource_rich×B×w=0.25×ε=2.0",
+    "profile": "resource_rich",
+    "w_emp": 0.25,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 321.78962527494724,
+    "final_tech_gap": 19.958043781204836,
+    "final_welfare": 1.0108804342417292,
+    "cdi": 0.6227609795879505,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011768681195585391
+  },
+  {
+    "label": "resource_rich×B×w=0.3×ε=1.0",
+    "profile": "resource_rich",
+    "w_emp": 0.3,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 295.18457363824376,
+    "final_tech_gap": 19.963400034074972,
+    "final_welfare": 0.9733901293275171,
+    "cdi": 0.6168409281584089,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011411709539602802
+  },
+  {
+    "label": "resource_rich×B×w=0.3×ε=1.2",
+    "profile": "resource_rich",
+    "w_emp": 0.3,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 295.7238046198287,
+    "final_tech_gap": 19.961944669130997,
+    "final_welfare": 0.9813893708358581,
+    "cdi": 0.6180779154198873,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.01146271768458879
+  },
+  {
+    "label": "resource_rich×B×w=0.3×ε=0.8",
+    "profile": "resource_rich",
+    "w_emp": 0.3,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 279.7151400177829,
+    "final_tech_gap": 19.966970509238312,
+    "final_welfare": 0.9541083084710382,
+    "cdi": 0.6096839595563863,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011057050862136297
+  },
+  {
+    "label": "resource_rich×B×w=0.3×ε=2.0",
+    "profile": "resource_rich",
+    "w_emp": 0.3,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 323.8671926093213,
+    "final_tech_gap": 19.957712770554885,
+    "final_welfare": 1.011775259280355,
+    "cdi": 0.6229227290363724,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011835622903022007
+  },
+  {
+    "label": "resource_rich×B×w=0.35×ε=0.8",
+    "profile": "resource_rich",
+    "w_emp": 0.35,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 284.4815252988451,
+    "final_tech_gap": 19.966141911733125,
+    "final_welfare": 0.961738635485587,
+    "cdi": 0.6107870770321305,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.01119305749658023
+  },
+  {
+    "label": "resource_rich×B×w=0.3×ε=1.5",
+    "profile": "resource_rich",
+    "w_emp": 0.3,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 311.15281761111004,
+    "final_tech_gap": 19.95990774315619,
+    "final_welfare": 0.9966837957316306,
+    "cdi": 0.6205511900309416,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011702725732402277
+  },
+  {
+    "label": "resource_rich×B×w=0.35×ε=1.0",
+    "profile": "resource_rich",
+    "w_emp": 0.35,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 296.67899513489687,
+    "final_tech_gap": 19.963475657737213,
+    "final_welfare": 0.9748310447647854,
+    "cdi": 0.6171040952853983,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011420298252198166
+  },
+  {
+    "label": "resource_rich×B×w=0.35×ε=1.5",
+    "profile": "resource_rich",
+    "w_emp": 0.35,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 305.6531546303706,
+    "final_tech_gap": 19.960647945866615,
+    "final_welfare": 0.988793518169672,
+    "cdi": 0.619389737109888,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011526669694600493
+  },
+  {
+    "label": "resource_rich×B×w=0.35×ε=1.2",
+    "profile": "resource_rich",
+    "w_emp": 0.35,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 301.7147476215957,
+    "final_tech_gap": 19.962104371535244,
+    "final_welfare": 0.9867137871457108,
+    "cdi": 0.6190322848580434,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011441018648897155
+  },
+  {
+    "label": "resource_rich×B×w=0.35×ε=2.0",
+    "profile": "resource_rich",
+    "w_emp": 0.35,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 315.05215282881534,
+    "final_tech_gap": 19.95939136045964,
+    "final_welfare": 1.0036088151630538,
+    "cdi": 0.6217120379637523,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011597625449048755
+  },
+  {
+    "label": "resource_rich×B×w=0.4×ε=0.8",
+    "profile": "resource_rich",
+    "w_emp": 0.4,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 283.34905606696924,
+    "final_tech_gap": 19.96629872215847,
+    "final_welfare": 0.9579459191361384,
+    "cdi": 0.6103007124873888,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011180472154673727
+  },
+  {
+    "label": "resource_rich×B×w=0.4×ε=1.0",
+    "profile": "resource_rich",
+    "w_emp": 0.4,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 288.91901024080386,
+    "final_tech_gap": 19.964827786114114,
+    "final_welfare": 0.97066777309468,
+    "cdi": 0.616526204435667,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011177413836777842
+  },
+  {
+    "label": "resource_rich×B×w=0.4×ε=1.5",
+    "profile": "resource_rich",
+    "w_emp": 0.4,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 304.5039356632434,
+    "final_tech_gap": 19.960239525770522,
+    "final_welfare": 0.9911027991200327,
+    "cdi": 0.6195772197936853,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.01145440355335948
+  },
+  {
+    "label": "resource_rich×B×w=0.4×ε=2.0",
+    "profile": "resource_rich",
+    "w_emp": 0.4,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 319.074346486632,
+    "final_tech_gap": 19.958116631438923,
+    "final_welfare": 1.0068731207217205,
+    "cdi": 0.622166516384299,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.01175694668988966
+  },
+  {
+    "label": "resource_rich×B×w=0.45×ε=1.0",
+    "profile": "resource_rich",
+    "w_emp": 0.45,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 291.4725581815637,
+    "final_tech_gap": 19.964107754563646,
+    "final_welfare": 0.9715963163053165,
+    "cdi": 0.6166006196837769,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011329580275393398
+  },
+  {
+    "label": "resource_rich×B×w=0.4×ε=1.2",
+    "profile": "resource_rich",
+    "w_emp": 0.4,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 302.24554915603363,
+    "final_tech_gap": 19.962129165703093,
+    "final_welfare": 0.9846463345587918,
+    "cdi": 0.6187338593845128,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.01145406226620077
+  },
+  {
+    "label": "resource_rich×B×w=0.45×ε=0.8",
+    "profile": "resource_rich",
+    "w_emp": 0.45,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 284.1288701641466,
+    "final_tech_gap": 19.966205387892263,
+    "final_welfare": 0.9607839523195393,
+    "cdi": 0.6107071400467842,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.01119700713551889
+  },
+  {
+    "label": "resource_rich×B×w=0.45×ε=1.2",
+    "profile": "resource_rich",
+    "w_emp": 0.45,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 301.03157049569216,
+    "final_tech_gap": 19.9624376762779,
+    "final_welfare": 0.9855736511668554,
+    "cdi": 0.6189206238748041,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011534521907504253
+  },
+  {
+    "label": "resource_rich×B×w=0.45×ε=1.5",
+    "profile": "resource_rich",
+    "w_emp": 0.45,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 301.2246948413795,
+    "final_tech_gap": 19.962084737056944,
+    "final_welfare": 0.9841604202989068,
+    "cdi": 0.6186522124500582,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011353065658907117
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.25×ε=0.8",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.25,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 5559.014188778712,
+    "final_tech_gap": 16.99313575840251,
+    "final_welfare": 1.431966344759996,
+    "cdi": 0.6775093114089693,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.055030018151242616
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.25×ε=1.2",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.25,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 8930.030917678096,
+    "final_tech_gap": 16.992717947423106,
+    "final_welfare": 4.824697186299196,
+    "cdi": 0.7292855544899857,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.012691793565253401
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.25×ε=1.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.25,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 5642.447804196714,
+    "final_tech_gap": 16.99271119196621,
+    "final_welfare": 0.9364555605797082,
+    "cdi": 0.6530796374028714,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.07162334164507723
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.25×ε=1.5",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.25,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 6685.805381179091,
+    "final_tech_gap": 16.992473144820366,
+    "final_welfare": 0.5838046316481847,
+    "cdi": 0.6373263057651254,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.10263486659919452
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.25×ε=2.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.25,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 11165.369560706193,
+    "final_tech_gap": 16.992393279433237,
+    "final_welfare": 5.269790802036773,
+    "cdi": 0.7334132926049891,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.012098660012912415
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.3×ε=0.8",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.3,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 4529.022700493556,
+    "final_tech_gap": 16.992861680981356,
+    "final_welfare": 0.5736563837297755,
+    "cdi": 0.6289882082097157,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.09972872992377245
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.3×ε=1.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.3,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 5832.262208414205,
+    "final_tech_gap": 16.992840988240637,
+    "final_welfare": 1.0135943720749916,
+    "cdi": 0.6577515521311758,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.0675326053898451
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.3×ε=1.5",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.3,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 9926.206045243292,
+    "final_tech_gap": 16.992555981838855,
+    "final_welfare": 5.018576864397631,
+    "cdi": 0.7328370544347962,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011285041519083569
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.3×ε=1.2",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.3,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 9019.380327388728,
+    "final_tech_gap": 16.992711664309738,
+    "final_welfare": 4.840468906648863,
+    "cdi": 0.7295578097245093,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.012950197754098563
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.3×ε=2.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.3,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 8023.84476858276,
+    "final_tech_gap": 16.99242125075222,
+    "final_welfare": 1.185265329703604,
+    "cdi": 0.671275903076001,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.06583332606416692
+  },
+  {
+    "label": "resource_rich×B×w=0.45×ε=2.0",
+    "profile": "resource_rich",
+    "w_emp": 0.45,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.98999999999942,
+    "final_gdp": 314.7138907302754,
+    "final_tech_gap": 19.959013329025456,
+    "final_welfare": 1.0034164184242111,
+    "cdi": 0.6216672703170174,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011623026935182114
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.35×ε=0.8",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.35,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 7632.992822731228,
+    "final_tech_gap": 16.99301755647934,
+    "final_welfare": 4.341607305594377,
+    "cdi": 0.7272263653891586,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.017187964098370045
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.35×ε=1.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.35,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 5720.231163629625,
+    "final_tech_gap": 16.992851508004655,
+    "final_welfare": 0.9731019173315276,
+    "cdi": 0.6548882642444113,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.06960403612891387
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.35×ε=2.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.35,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 7986.633648475043,
+    "final_tech_gap": 16.992246762170193,
+    "final_welfare": 0.7869137613950593,
+    "cdi": 0.64823412549271,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.08782932238104804
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.35×ε=1.2",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.35,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 6797.645317723944,
+    "final_tech_gap": 16.992971652890926,
+    "final_welfare": 1.6989292911877332,
+    "cdi": 0.7009976410675309,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.05023358829852226
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.35×ε=1.5",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.35,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 9802.061308489952,
+    "final_tech_gap": 16.992625860878054,
+    "final_welfare": 4.948509680910847,
+    "cdi": 0.7326816349130673,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.011864267786924643
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.4×ε=0.8",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.4,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 7631.04487227489,
+    "final_tech_gap": 16.99296807784879,
+    "final_welfare": 4.3157360074443405,
+    "cdi": 0.7270353881650804,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.017253332952563462
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.4×ε=1.2",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.4,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 6124.057572421222,
+    "final_tech_gap": 16.99249072169675,
+    "final_welfare": 0.7354650820763671,
+    "cdi": 0.6410193361425311,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.08850892528932397
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.4×ε=1.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.4,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 5639.210257604138,
+    "final_tech_gap": 16.99277609909525,
+    "final_welfare": 0.8786354228522749,
+    "cdi": 0.6495578714176936,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.07588948864563538
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.4×ε=1.5",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.4,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 6183.268151546522,
+    "final_tech_gap": 16.992477025352112,
+    "final_welfare": 0.43757606899244417,
+    "cdi": 0.6305804272875716,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.11901520388295027
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.4×ε=2.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.4,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 8432.730043429565,
+    "final_tech_gap": 16.992743020618654,
+    "final_welfare": 2.1157872827433732,
+    "cdi": 0.7267076499932147,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.04597622698082704
+  },
+  {
+    "label": "post_soviet×B×w=0.25×ε=1.2",
+    "profile": "post_soviet",
+    "w_emp": 0.25,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 22.75,
+    "final_gdp": 1428.7215746788238,
+    "final_tech_gap": 6.310258486389988,
+    "final_welfare": 0.2685039831353474,
+    "cdi": 0.536139035585683,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0012699511229957957
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.45×ε=0.8",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.45,
+    "epsilon": 0.8,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 7539.021165256076,
+    "final_tech_gap": 16.99301458042131,
+    "final_welfare": 4.309935164230206,
+    "cdi": 0.7273118616060118,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.01724908050344003
+  },
+  {
+    "label": "post_soviet×B×w=0.25×ε=1.0",
+    "profile": "post_soviet",
+    "w_emp": 0.25,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 27.0,
+    "final_gdp": 1064.7793454591965,
+    "final_tech_gap": 7.206559966751595,
+    "final_welfare": 0.13476386176254307,
+    "cdi": 0.5460280385385917,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.21477640007491788
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.45×ε=1.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.45,
+    "epsilon": 1.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 6600.644288142171,
+    "final_tech_gap": 16.993081273223822,
+    "final_welfare": 2.6183484804958224,
+    "cdi": 0.7244916359888822,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.038995194016227655
+  },
+  {
+    "label": "post_soviet×B×w=0.25×ε=1.5",
+    "profile": "post_soviet",
+    "w_emp": 0.25,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 25.0,
+    "final_gdp": 2073.811019072089,
+    "final_tech_gap": 6.7672818204232374,
+    "final_welfare": 0.2244033044469508,
+    "cdi": 0.5357039427721615,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0016860151698622206
+  },
+  {
+    "label": "post_soviet×B×w=0.3×ε=1.0",
+    "profile": "post_soviet",
+    "w_emp": 0.3,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 25.5,
+    "final_gdp": 884.4788148048132,
+    "final_tech_gap": 6.874793170585045,
+    "final_welfare": 0.14933628193198098,
+    "cdi": 0.5471640816656153,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.1971413348221624
+  },
+  {
+    "label": "post_soviet×B×w=0.3×ε=0.8",
+    "profile": "post_soviet",
+    "w_emp": 0.3,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 28.0,
+    "final_gdp": 1135.488038589142,
+    "final_tech_gap": 7.435806259895032,
+    "final_welfare": 0.13129376256561717,
+    "cdi": 0.5461856730445634,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.21988910666792474
+  },
+  {
+    "label": "post_soviet×B×w=0.25×ε=2.0",
+    "profile": "post_soviet",
+    "w_emp": 0.25,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 28.25,
+    "final_gdp": 3209.715400527962,
+    "final_tech_gap": 7.494064719398626,
+    "final_welfare": 0.19620509268069194,
+    "cdi": 0.5410550063062602,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0022618771618634166
+  },
+  {
+    "label": "post_soviet×B×w=0.3×ε=1.2",
+    "profile": "post_soviet",
+    "w_emp": 0.3,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 24.0,
+    "final_gdp": 1712.9894515736034,
+    "final_tech_gap": 6.556926542171003,
+    "final_welfare": 0.2381663922646264,
+    "cdi": 0.5344628134469767,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0015131376983018913
+  },
+  {
+    "label": "post_soviet×B×w=0.3×ε=1.5",
+    "profile": "post_soviet",
+    "w_emp": 0.3,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 27.0,
+    "final_gdp": 2644.501320256971,
+    "final_tech_gap": 7.20651979372694,
+    "final_welfare": 0.2082705123104353,
+    "cdi": 0.5377549017822932,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0020743322053026723
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.45×ε=1.2",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.45,
+    "epsilon": 1.2,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 6510.434329238458,
+    "final_tech_gap": 16.992762298471916,
+    "final_welfare": 1.2653007192729768,
+    "cdi": 0.6744048239196072,
+    "total_fractures": 1,
+    "fracture_types": [
+      "tech_lock_in"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.0594527245956264
+  },
+  {
+    "label": "post_soviet×B×w=0.35×ε=1.0",
+    "profile": "post_soviet",
+    "w_emp": 0.35,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 24.5,
+    "final_gdp": 779.8028984968676,
+    "final_tech_gap": 6.661388645743294,
+    "final_welfare": 0.16047511181054455,
+    "cdi": 0.546883214112377,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.18529800058832419
+  },
+  {
+    "label": "post_soviet×B×w=0.3×ε=2.0",
+    "profile": "post_soviet",
+    "w_emp": 0.3,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 32.0,
+    "final_gdp": 4508.550368334522,
+    "final_tech_gap": 8.421480117723561,
+    "final_welfare": 0.17501177254595812,
+    "cdi": 0.5482051165237057,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0027969851606837585
+  },
+  {
+    "label": "post_soviet×B×w=0.35×ε=2.0",
+    "profile": "post_soviet",
+    "w_emp": 0.35,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 25.25,
+    "final_gdp": 2235.468999541376,
+    "final_tech_gap": 6.820795813596126,
+    "final_welfare": 0.21805850116911196,
+    "cdi": 0.5365977873502173,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0016989361459448767
+  },
+  {
+    "label": "post_soviet×B×w=0.25×ε=0.8",
+    "profile": "post_soviet",
+    "w_emp": 0.25,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 38.09999999999992,
+    "final_gdp": 4297.47468029984,
+    "final_tech_gap": 10.1030679066805,
+    "final_welfare": 0.1407216948180941,
+    "cdi": 0.5196846558603863,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.1296839668412475
+  },
+  {
+    "label": "post_soviet×B×w=0.35×ε=1.2",
+    "profile": "post_soviet",
+    "w_emp": 0.35,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 27.25,
+    "final_gdp": 2597.523760357705,
+    "final_tech_gap": 7.263235873335081,
+    "final_welfare": 0.20998173106054158,
+    "cdi": 0.5364914220380198,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.002176271900314403
+  },
+  {
+    "label": "post_soviet×B×w=0.35×ε=1.5",
+    "profile": "post_soviet",
+    "w_emp": 0.35,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 27.25,
+    "final_gdp": 2748.1324867946396,
+    "final_tech_gap": 7.2632130054218,
+    "final_welfare": 0.20671080305832457,
+    "cdi": 0.5384572959222342,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0021360127683383552
+  },
+  {
+    "label": "post_soviet×B×w=0.4×ε=1.0",
+    "profile": "post_soviet",
+    "w_emp": 0.4,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 24.5,
+    "final_gdp": 779.7102547800147,
+    "final_tech_gap": 6.661388321175568,
+    "final_welfare": 0.16013446669672624,
+    "cdi": 0.5468015425558567,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.18530149658188902
+  },
+  {
+    "label": "post_soviet×B×w=0.4×ε=0.8",
+    "profile": "post_soviet",
+    "w_emp": 0.4,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 29.75,
+    "final_gdp": 3121.204224961688,
+    "final_tech_gap": 7.853118495738826,
+    "final_welfare": 0.19859614040549553,
+    "cdi": 0.5359216621637972,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0027523712809549416
+  },
+  {
+    "label": "post_soviet×B×w=0.4×ε=1.5",
+    "profile": "post_soviet",
+    "w_emp": 0.4,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 22.75,
+    "final_gdp": 1507.7889222321603,
+    "final_tech_gap": 6.308408590252263,
+    "final_welfare": 0.2608091535051385,
+    "cdi": 0.5366987186614839,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0012609220928805108
+  },
+  {
+    "label": "post_soviet×B×w=0.4×ε=1.2",
+    "profile": "post_soviet",
+    "w_emp": 0.4,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 24.75,
+    "final_gdp": 1907.5496211820448,
+    "final_tech_gap": 6.714147331529813,
+    "final_welfare": 0.23081144558670574,
+    "cdi": 0.5342611579087798,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0016442506518360512
+  },
+  {
+    "label": "post_soviet×B×w=0.45×ε=0.8",
+    "profile": "post_soviet",
+    "w_emp": 0.45,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 23.0,
+    "final_gdp": 643.3844026215412,
+    "final_tech_gap": 6.35798427104056,
+    "final_welfare": 0.2058417554019499,
+    "cdi": 0.5483750764945774,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.14922742376318882
+  },
+  {
+    "label": "post_soviet×B×w=0.45×ε=1.5",
+    "profile": "post_soviet",
+    "w_emp": 0.45,
+    "epsilon": 1.5,
+    "survived": false,
+    "survival_years": 21.5,
+    "final_gdp": 1216.8785422620185,
+    "final_tech_gap": 6.094280237458148,
+    "final_welfare": 0.2929104782230724,
+    "cdi": 0.5402036393099365,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0010361338855788742
+  },
+  {
+    "label": "post_soviet×B×w=0.4×ε=2.0",
+    "profile": "post_soviet",
+    "w_emp": 0.4,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 31.5,
+    "final_gdp": 4341.828091240392,
+    "final_tech_gap": 8.291947771480347,
+    "final_welfare": 0.17718398370463953,
+    "cdi": 0.5466484631849513,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0028179854626584075
+  },
+  {
+    "label": "post_soviet×B×w=0.45×ε=1.0",
+    "profile": "post_soviet",
+    "w_emp": 0.45,
+    "epsilon": 1.0,
+    "survived": false,
+    "survival_years": 28.25,
+    "final_gdp": 2820.723501007176,
+    "final_tech_gap": 7.494126797241858,
+    "final_welfare": 0.20577850797640115,
+    "cdi": 0.5373230061268575,
+    "total_fractures": 2,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.0023685301768980897
+  },
+  {
+    "label": "post_soviet×B×w=0.45×ε=2.0",
+    "profile": "post_soviet",
+    "w_emp": 0.45,
+    "epsilon": 2.0,
+    "survived": false,
+    "survival_years": 29.25,
+    "final_gdp": 3545.953922704302,
+    "final_tech_gap": 7.731666784434526,
+    "final_welfare": 0.19012190687361818,
+    "cdi": 0.5434554872985885,
+    "total_fractures": 1,
+    "fracture_types": [
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.002452913093614002
+  },
+  {
+    "label": "post_soviet×B×w=0.35×ε=0.8",
+    "profile": "post_soviet",
+    "w_emp": 0.35,
+    "epsilon": 0.8,
+    "survived": false,
+    "survival_years": 38.979999999999905,
+    "final_gdp": 4854.269806834859,
+    "final_tech_gap": 10.380210572958104,
+    "final_welfare": 0.14877018599825126,
+    "cdi": 0.5275010936359246,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.10881483646188353
+  },
+  {
+    "label": "post_soviet×B×w=0.45×ε=1.2",
+    "profile": "post_soviet",
+    "w_emp": 0.45,
+    "epsilon": 1.2,
+    "survived": false,
+    "survival_years": 39.81999999999989,
+    "final_gdp": 5732.778421584486,
+    "final_tech_gap": 10.651610523308685,
+    "final_welfare": 0.15168885010240787,
+    "cdi": 0.5669037830690589,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "social_collapse"
+    ],
+    "terminal_fracture": "social_collapse",
+    "peak_unemployment": 0.09654893077420375
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.45×ε=1.5",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.45,
+    "epsilon": 1.5,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 7083.315285520084,
+    "final_tech_gap": 16.992484944522015,
+    "final_welfare": 0.8204136647294208,
+    "cdi": 0.6478828372196447,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.08421572583225802
+  },
+  {
+    "label": "digital_leapfrogger×B×w=0.45×ε=2.0",
+    "profile": "digital_leapfrogger",
+    "w_emp": 0.45,
+    "epsilon": 2.0,
+    "survived": true,
+    "survival_years": 49.97999999999956,
+    "final_gdp": 7093.012577635009,
+    "final_tech_gap": 16.99235999447421,
+    "final_welfare": 0.41159393278533846,
+    "cdi": 0.6286888404470968,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": "",
+    "peak_unemployment": 0.12446940484905772
+  }
+]

@@ -1,0 +1,117 @@
+{
+  "timestamp": "20260731_121930",
+  "profiles": [
+    "manufacturing_giant",
+    "resource_rich",
+    "digital_leapfrogger",
+    "small_open",
+    "post_soviet",
+    "populous_weak_industry"
+  ],
+  "regimes": [
+    "A",
+    "B",
+    "C"
+  ],
+  "scenario": "benign_globalization",
+  "n_repeats": 5,
+  "T_max_baseline": 50.0,
+  "T_max_extended": 80.0,
+  "seed_base": 42,
+  "total_runs_phase1": 90,
+  "total_runs_phase2": 18,
+  "elapsed_phase1_seconds": 264.190064907074,
+  "elapsed_phase2_seconds": 101.89773845672607,
+  "survival_summary": {
+    "manufacturing_giant_A": {
+      "survived": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "manufacturing_giant_B": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "manufacturing_giant_C": {
+      "survived": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "resource_rich_A": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "resource_rich_B": {
+      "survived": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "resource_rich_C": {
+      "survived": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "digital_leapfrogger_A": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "digital_leapfrogger_B": {
+      "survived": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "digital_leapfrogger_C": {
+      "survived": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "small_open_A": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "small_open_B": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "small_open_C": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "post_soviet_A": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "post_soviet_B": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "post_soviet_C": {
+      "survived": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "populous_weak_industry_A": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "populous_weak_industry_B": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    },
+    "populous_weak_industry_C": {
+      "survived": 0,
+      "total": 5,
+      "rate": 0.0
+    }
+  }
+}

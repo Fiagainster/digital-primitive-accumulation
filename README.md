@@ -2,7 +2,11 @@
 
 **六部门政治经济学模拟实验室 —— 数字时代原始积累的可行路径、多维评价与代价分布**
 
-> **版本**：v3.7.2 (2026-07-12)
+> **版本**：v3.8 (2026-10-02)
+>
+> **v3.8 核心更新**：可复现性修复 + 论文实验统一入口——**(1) 随机性真正接入**：`random_seed` 此前是死字段（`src/` 全树 0 处 `np.random.seed()`，24 处全局 RNG 调用未受控，同配置不同结果）；现于 `SimulationEngine.run()` 入口按 `config.random_seed` 播种，批量运行器用 `SeedSequence` 为每个任务派生子种子。同配置同种子结果逐值一致，异种子给出不同轨迹。**(2) 统一实验驱动**：新增 `research_scripts/run_paper_experiments.py`，支持 `--only/--workers/--skip-existing/--list`，23 个批次可一键复现（论文口径共 5,901 次运行）。**(3) 评价字段导出**：`summary` 新增 `cost_by_group`（五群组累计代价）、`composite_dependency`、`evaluation`（含 `cdi` 与 `five_dimensions`）。**(4) 配套工具链**：`analyze_v38.py`（全表重算 → `tables.json`）、`make_figures_v38.py`（出版级英文图件，PDF+PNG）、`verify_paper_consistency.py`（论文数字 ↔ 实验数据自动比对）。
+>
+> **v3.7.3 核心更新**：数值稳定性修复 + 策略现实主义校准——**(1)** 数据资产公式修正：`effective_stock` 从乘法组合改为加法+对数饱和，消除策略B×digital_leapfrogger的GDP数值爆炸(O(GDP²)→1e97)。**(2)** TFP前沿天花板：国内技术水平新增世界前沿×3倍上限，防止指数增长无限超越。**(3)** 策略A制度依赖机制：保护过剩公式修正(消除t=0惩罚)、新增保护稳定性增益、新增制度驱动的产业政策(inst>0.45)。**(4)** NaN防护体系：冲击计时器独立化(FDI/资源/技术断裂)、除零保护、市场份额NaN检测回退。**(5)** 遗留bug修复：`initial_K_d`从v3.4常数1.0修正为实际的`K_d_infra+K_d_app`、提取安全边际与保护过剩检查语义分离。
 >
 > **v3.7.2 核心更新**：策略机制对称化——**(1)** 策略C新增五种连续内生成本机制（荷兰病支出效应、政策俘获、技术退化、消费主义陷阱、人才外流），实现与策略A/B的机制丰富度对称。**(2)** 策略A内生成本校准优化：中间收入陷阱恢复速度加倍（2.0→4.0/年），新增保护退出机制和既得利益可逆路径。**(3)** infra→app技术约束公式增强：差距放大3倍，约束地板从0.6降至0.5。**(4)** 六维依附数据完整输出：新增`dependency_info`字典到引擎输出，修复@property字段序列化缺失问题。
 >
@@ -275,16 +279,21 @@ v3.5 将原四部门模型扩展为六部门：数字部门拆分为基础设施
 
 **核心逻辑**：保护工业 + 温和提取 + 数字化升级存量资产。先稳住工业基本盘，再用数字技术逐步改造它。
 
-**投资分配 (v3.5六部门版)**：按存量资本比例分配，略偏向数字部门（额外权重约10%）。在六部门框架下，数字投资在d_infra和d_app之间平衡分配；服务业投资偏向s_low（就业优先）。
+**投资分配 (v3.5六部门版)**：按存量资本比例分配，略偏向数字部门（额外权重15%, v3.7.3从10%提升）。在六部门框架下，数字投资在d_infra和d_app之间平衡分配。
 
-**内生成本**：
+**提取率** (v3.7.3更新): τ ∈ [0.08, 0.30]，随工业GDP份额弹性调整。工业资本萎缩至初始70%以下时自动降低提取率以保护存量。
+
+**内生成本 (v3.7.3更新)**：
 
 | 成本 | 机制 | 触发条件 |
 |------|------|---------|
-| 保护僵化 | 保护过剩 -> 落后产能占用资本 -> 效率损失 | safety_margin > 有效资本比 |
-| 渐进时间税 | 走得太慢 -> 世界在正常前进 -> 追赶窗口自然缩小 | g_d < g_world 持续累积 |
-| 既得利益刚性 | 长期保护 -> 利益集团形成 -> 改革阻力 | 保护持续时间 > 15年 |
-| 中间收入陷阱 | 保护有余+升级不足 -> 工业不够先进、数字不够强大 | DD_i<0.3 + G>4 + 持续>10年 |
+| 保护僵化 | 工业资本超初始150% → 落后产能占用资本 → 效率损失(v3.7.3: 公式修正为减法+系数减半) | K_i > 1.5×K_i^initial |
+| 保护稳定性增益 (v3.7.3新增) | 保护阻挡全球冲击传导 → 工业获得稳定性缓冲(最高15%) | 与保护过剩同源 |
+| 渐进时间税 | 走得太慢 → 世界在正常前进 → 追赶窗口自然缩小(v3.7.3: buffer 0.01→0.015) | g_d < g_world 持续累积 |
+| 既得利益刚性 | 长期保护 → 利益集团形成 → 改革阻力(v3.7.3: 触发>20年) | 保护持续时间 > 20年 |
+| 中间收入陷阱 | 保护有余+升级不足 → 工业不够先进、数字不够强大(v3.7.3: DD<0.2) | DD_i<0.2 + G>4 + 持续>10年 |
+
+**v3.7.3新增：制度驱动的产业政策**：当`institution_capacity > 0.45`时，国家可通过引导投资加速工业数字密度增长（东亚发展型国家模型）。manufacturing_giant(inst=0.65)可获得显著制度红利，resource_rich(inst=0.35)则无法受益。
 
 **命门——速度陷阱**：当世界技术前沿增长超过5%/年时，A的线性升级无法匹配指数的前沿增长。技术差距加速扩大，工业因竞争力下降而萎缩。
 
@@ -680,8 +689,24 @@ PYTHONIOENCODING=utf-8 python main.py profiles
 # 研究脚本 — 批量实验
 PYTHONIOENCODING=utf-8 python research_scripts/run_all.py --level medium
 
+# v3.8 论文实验 — 统一驱动（推荐入口）
+PYTHONIOENCODING=utf-8 python research_scripts/run_paper_experiments.py --list
+PYTHONIOENCODING=utf-8 python research_scripts/run_paper_experiments.py            # 全部批次
+PYTHONIOENCODING=utf-8 python research_scripts/run_paper_experiments.py --only census mixture t80
+PYTHONIOENCODING=utf-8 python research_scripts/run_paper_experiments.py --skip-existing --workers 12
+
+# v3.8 后处理 — 重算全表 / 出图 / 一致性自检
+PYTHONIOENCODING=utf-8 python research_scripts/analyze_v38.py        # → experiments_runs/v38/tables.json
+PYTHONIOENCODING=utf-8 python research_scripts/make_figures_v38.py --out <输出目录>
+PYTHONIOENCODING=utf-8 python research_scripts/verify_paper_consistency.py   # 论文数字 ↔ 数据比对
+
 # 研究脚本 — 单个脚本深入探索
 PYTHONIOENCODING=utf-8 python research_scripts/01_single_detailed_run.py --regime B
+
+# 🆕 v3.7.3: 五阶段实验框架 — 论文实验推荐入口
+PYTHONIOENCODING=utf-8 python research_scripts/experiment_batches/run_phase1_survey.py
+PYTHONIOENCODING=utf-8 python research_scripts/experiment_batches/run_phase2_parameters.py --focus b_paradox
+# 详见: research_scripts/experiment_batches/实验推进指南.md
 ```
 
 ### 测试

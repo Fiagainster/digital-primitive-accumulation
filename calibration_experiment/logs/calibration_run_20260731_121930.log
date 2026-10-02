@@ -1,0 +1,332 @@
+[12:19:30] ======================================================================
+[12:19:30] 定性校准实验 — 开始运行
+[12:19:30] ======================================================================
+[12:19:30] 国情: manufacturing_giant, resource_rich, digital_leapfrogger, small_open, post_soviet, populous_weak_industry
+[12:19:30] 策略: A, B, C
+[12:19:30] 场景: benign_globalization
+[12:19:30] 重复次数: 5
+[12:19:30] 基准 T_max: 50.0
+[12:19:30] 时间戳: 20260731_121930
+[12:19:30] 
+[12:19:30] ----------------------------------------------------------------------
+[12:19:30] Phase 1: T=50 基准运行 (6 profiles × 3 regimes × 5 repeats = 90 runs)
+[12:19:30] ----------------------------------------------------------------------
+[12:19:30] 
+>>> manufacturing_giant × 策略A
+[12:19:30]   [1/90] repeat=1/5 seed=874 (elapsed=0s, ETA=0s)
+[12:19:35]     → [OK] | GDP=6342.1 | welfare=3.476 | G=12.13
+[12:19:35]   [2/90] repeat=2/5 seed=974 (elapsed=4s, ETA=400s)
+[12:19:39]     → [OK] | GDP=6313.1 | welfare=3.472 | G=12.13
+[12:19:39]   [3/90] repeat=3/5 seed=1074 (elapsed=9s, ETA=384s)
+[12:19:43]     → [OK] | GDP=6326.8 | welfare=3.471 | G=12.13
+[12:19:43]   [4/90] repeat=4/5 seed=1174 (elapsed=13s, ETA=379s)
+[12:19:47]     → [OK] | GDP=6342.1 | welfare=3.476 | G=12.13
+[12:19:47]   [5/90] repeat=5/5 seed=1274 (elapsed=17s, ETA=373s)
+[12:19:52]     → [OK] | GDP=6282.3 | welfare=3.466 | G=12.13
+[12:19:52]     ★ manufacturing_giant×A: 5/5 存活 (100%)
+[12:19:52] 
+>>> manufacturing_giant × 策略B
+[12:19:52]   [6/90] repeat=1/5 seed=910 (elapsed=22s, ETA=368s)
+[12:19:52]     → [FAIL @25.5y] | GDP=1710.3 | welfare=0.232 | G=6.01
+[12:19:52]   [7/90] repeat=2/5 seed=1010 (elapsed=22s, ETA=314s)
+[12:19:54]     → [FAIL @40.5y] | GDP=9634.4 | welfare=0.151 | G=9.59
+[12:19:54]   [8/90] repeat=3/5 seed=1110 (elapsed=24s, ETA=288s)
+[12:19:59]     → [FAIL @48.7y] | GDP=13752.6 | welfare=0.138 | G=12.32
+[12:19:59]   [9/90] repeat=4/5 seed=1210 (elapsed=29s, ETA=293s)
+[12:20:00]     → [FAIL @36.8y] | GDP=7621.2 | welfare=0.164 | G=8.58
+[12:20:00]   [10/90] repeat=5/5 seed=1310 (elapsed=30s, ETA=269s)
+[12:20:01]     → [FAIL @28.8y] | GDP=4030.6 | welfare=0.244 | G=6.67
+[12:20:01]     ★ manufacturing_giant×B: 0/5 存活 (0%)
+[12:20:01] 
+>>> manufacturing_giant × 策略C
+[12:20:01]   [11/90] repeat=1/5 seed=855 (elapsed=31s, ETA=246s)
+[12:20:05]     → [OK] | GDP=2912.0 | welfare=2.304 | G=12.06
+[12:20:05]   [12/90] repeat=2/5 seed=955 (elapsed=35s, ETA=251s)
+[12:20:09]     → [OK] | GDP=2928.0 | welfare=2.312 | G=12.06
+[12:20:09]   [13/90] repeat=3/5 seed=1055 (elapsed=39s, ETA=256s)
+[12:20:14]     → [OK] | GDP=2862.6 | welfare=2.285 | G=12.06
+[12:20:14]   [14/90] repeat=4/5 seed=1155 (elapsed=44s, ETA=260s)
+[12:20:18]     → [OK] | GDP=2970.8 | welfare=2.328 | G=12.05
+[12:20:18]   [15/90] repeat=5/5 seed=1255 (elapsed=48s, ETA=263s)
+[12:20:23]     → [OK] | GDP=2726.7 | welfare=2.247 | G=12.02
+[12:20:23]     ★ manufacturing_giant×C: 5/5 存活 (100%)
+[12:20:23] 
+>>> resource_rich × 策略A
+[12:20:23]   [16/90] repeat=1/5 seed=663 (elapsed=53s, ETA=264s)
+[12:20:23]     → [FAIL @15.9y] | GDP=51.4 | welfare=0.456 | G=7.56
+[12:20:23]   [17/90] repeat=2/5 seed=763 (elapsed=53s, ETA=246s)
+[12:20:24]     → [FAIL @15.9y] | GDP=51.5 | welfare=0.456 | G=7.56
+[12:20:24]   [18/90] repeat=3/5 seed=863 (elapsed=54s, ETA=231s)
+[12:20:24]     → [FAIL @15.9y] | GDP=51.5 | welfare=0.456 | G=7.56
+[12:20:24]   [19/90] repeat=4/5 seed=963 (elapsed=54s, ETA=217s)
+[12:20:25]     → [FAIL @15.9y] | GDP=51.5 | welfare=0.456 | G=7.56
+[12:20:25]   [20/90] repeat=5/5 seed=1063 (elapsed=55s, ETA=205s)
+[12:20:25]     → [FAIL @15.9y] | GDP=51.5 | welfare=0.456 | G=7.56
+[12:20:25]     ★ resource_rich×A: 0/5 存活 (0%)
+[12:20:25] 
+>>> resource_rich × 策略B
+[12:20:25]   [21/90] repeat=1/5 seed=699 (elapsed=55s, ETA=194s)
+[12:20:34]     → [OK] | GDP=271.2 | welfare=0.944 | G=19.97
+[12:20:34]   [22/90] repeat=2/5 seed=799 (elapsed=64s, ETA=211s)
+[12:20:43]     → [OK] | GDP=275.7 | welfare=0.949 | G=19.97
+[12:20:43]   [23/90] repeat=3/5 seed=899 (elapsed=73s, ETA=224s)
+[12:20:51]     → [OK] | GDP=280.8 | welfare=0.957 | G=19.97
+[12:20:51]   [24/90] repeat=4/5 seed=999 (elapsed=81s, ETA=236s)
+[12:21:00]     → [OK] | GDP=281.6 | welfare=0.957 | G=19.97
+[12:21:00]   [25/90] repeat=5/5 seed=1099 (elapsed=90s, ETA=247s)
+[12:21:08]     → [OK] | GDP=280.9 | welfare=0.956 | G=19.97
+[12:21:08]     ★ resource_rich×B: 5/5 存活 (100%)
+[12:21:08] 
+>>> resource_rich × 策略C
+[12:21:08]   [26/90] repeat=1/5 seed=644 (elapsed=98s, ETA=256s)
+[12:21:17]     → [OK] | GDP=61.0 | welfare=0.505 | G=20.34
+[12:21:17]   [27/90] repeat=2/5 seed=744 (elapsed=107s, ETA=263s)
+[12:21:25]     → [OK] | GDP=61.3 | welfare=0.506 | G=20.34
+[12:21:25]   [28/90] repeat=3/5 seed=844 (elapsed=115s, ETA=269s)
+[12:21:34]     → [OK] | GDP=60.5 | welfare=0.503 | G=20.34
+[12:21:34]   [29/90] repeat=4/5 seed=944 (elapsed=124s, ETA=274s)
+[12:21:42]     → [OK] | GDP=61.5 | welfare=0.506 | G=20.34
+[12:21:42]   [30/90] repeat=5/5 seed=1044 (elapsed=132s, ETA=278s)
+[12:21:51]     → [OK] | GDP=60.6 | welfare=0.504 | G=20.34
+[12:21:51]     ★ resource_rich×C: 5/5 存活 (100%)
+[12:21:51] 
+>>> digital_leapfrogger × 策略A
+[12:21:51]   [31/90] repeat=1/5 seed=1001 (elapsed=141s, ETA=281s)
+[12:21:53]     → [FAIL @36.4y] | GDP=1585.2 | welfare=1.970 | G=10.80
+[12:21:53]   [32/90] repeat=2/5 seed=1101 (elapsed=143s, ETA=273s)
+[12:21:56]     → [FAIL @36.6y] | GDP=1579.2 | welfare=1.975 | G=10.87
+[12:21:56]   [33/90] repeat=3/5 seed=1201 (elapsed=146s, ETA=265s)
+[12:21:59]     → [FAIL @36.7y] | GDP=1592.4 | welfare=1.984 | G=10.89
+[12:21:59]   [34/90] repeat=4/5 seed=1301 (elapsed=149s, ETA=257s)
+[12:22:02]     → [FAIL @36.4y] | GDP=1563.2 | welfare=1.965 | G=10.81
+[12:22:02]   [35/90] repeat=5/5 seed=1401 (elapsed=151s, ETA=249s)
+[12:22:04]     → [FAIL @36.6y] | GDP=1603.2 | welfare=1.985 | G=10.87
+[12:22:04]     ★ digital_leapfrogger×A: 0/5 存活 (0%)
+[12:22:04] 
+>>> digital_leapfrogger × 策略B
+[12:22:04]   [36/90] repeat=1/5 seed=1037 (elapsed=154s, ETA=243s)
+[12:22:12]     → [OK] | GDP=4837.9 | welfare=1.728 | G=16.99
+[12:22:12]   [37/90] repeat=2/5 seed=1137 (elapsed=162s, ETA=243s)
+[12:22:19]     → [OK] | GDP=4160.4 | welfare=0.752 | G=16.99
+[12:22:19]   [38/90] repeat=3/5 seed=1237 (elapsed=169s, ETA=242s)
+[12:22:26]     → [OK] | GDP=3747.3 | welfare=0.443 | G=16.99
+[12:22:26]   [39/90] repeat=4/5 seed=1337 (elapsed=176s, ETA=241s)
+[12:22:33]     → [OK] | GDP=4063.5 | welfare=0.712 | G=16.99
+[12:22:33]   [40/90] repeat=5/5 seed=1437 (elapsed=183s, ETA=239s)
+[12:22:40]     → [OK] | GDP=4159.1 | welfare=0.791 | G=16.99
+[12:22:40]     ★ digital_leapfrogger×B: 5/5 存活 (100%)
+[12:22:40] 
+>>> digital_leapfrogger × 策略C
+[12:22:40]   [41/90] repeat=1/5 seed=982 (elapsed=190s, ETA=237s)
+[12:22:47]     → [OK] | GDP=2341.8 | welfare=2.256 | G=16.10
+[12:22:47]   [42/90] repeat=2/5 seed=1082 (elapsed=196s, ETA=235s)
+[12:22:53]     → [OK] | GDP=2348.1 | welfare=2.260 | G=16.10
+[12:22:53]   [43/90] repeat=3/5 seed=1182 (elapsed=203s, ETA=232s)
+[12:23:00]     → [OK] | GDP=2329.2 | welfare=2.253 | G=16.06
+[12:23:00]   [44/90] repeat=4/5 seed=1282 (elapsed=210s, ETA=229s)
+[12:23:07]     → [OK] | GDP=2347.9 | welfare=2.263 | G=16.10
+[12:23:07]   [45/90] repeat=5/5 seed=1382 (elapsed=217s, ETA=226s)
+[12:23:13]     → [OK] | GDP=2310.1 | welfare=2.242 | G=16.10
+[12:23:13]     ★ digital_leapfrogger×C: 5/5 存活 (100%)
+[12:23:13] 
+>>> small_open × 策略A
+[12:23:13]   [46/90] repeat=1/5 seed=913 (elapsed=223s, ETA=223s)
+[12:23:13]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:13]   [47/90] repeat=2/5 seed=1013 (elapsed=223s, ETA=214s)
+[12:23:13]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:13]   [48/90] repeat=3/5 seed=1113 (elapsed=223s, ETA=204s)
+[12:23:13]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:13]   [49/90] repeat=4/5 seed=1213 (elapsed=223s, ETA=195s)
+[12:23:13]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:13]   [50/90] repeat=5/5 seed=1313 (elapsed=223s, ETA=187s)
+[12:23:13]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:13]     ★ small_open×A: 0/5 存活 (0%)
+[12:23:13] 
+>>> small_open × 策略B
+[12:23:13]   [51/90] repeat=1/5 seed=949 (elapsed=223s, ETA=179s)
+[12:23:13]     → [FAIL @0.5y] | GDP=21.8 | welfare=0.279 | G=4.34
+[12:23:13]   [52/90] repeat=2/5 seed=1049 (elapsed=223s, ETA=171s)
+[12:23:13]     → [FAIL @0.5y] | GDP=21.8 | welfare=0.279 | G=4.34
+[12:23:13]   [53/90] repeat=3/5 seed=1149 (elapsed=223s, ETA=163s)
+[12:23:13]     → [FAIL @0.5y] | GDP=21.8 | welfare=0.279 | G=4.34
+[12:23:13]   [54/90] repeat=4/5 seed=1249 (elapsed=223s, ETA=156s)
+[12:23:13]     → [FAIL @0.5y] | GDP=21.8 | welfare=0.279 | G=4.34
+[12:23:13]   [55/90] repeat=5/5 seed=1349 (elapsed=223s, ETA=149s)
+[12:23:14]     → [FAIL @0.5y] | GDP=21.8 | welfare=0.279 | G=4.34
+[12:23:14]     ★ small_open×B: 0/5 存活 (0%)
+[12:23:14] 
+>>> small_open × 策略C
+[12:23:14]   [56/90] repeat=1/5 seed=894 (elapsed=223s, ETA=142s)
+[12:23:14]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:14]   [57/90] repeat=2/5 seed=994 (elapsed=223s, ETA=136s)
+[12:23:14]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:14]   [58/90] repeat=3/5 seed=1094 (elapsed=223s, ETA=129s)
+[12:23:14]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:14]   [59/90] repeat=4/5 seed=1194 (elapsed=223s, ETA=123s)
+[12:23:14]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:14]   [60/90] repeat=5/5 seed=1294 (elapsed=223s, ETA=117s)
+[12:23:14]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291 | G=4.34
+[12:23:14]     ★ small_open×C: 0/5 存活 (0%)
+[12:23:14] 
+>>> post_soviet × 策略A
+[12:23:14]   [61/90] repeat=1/5 seed=168 (elapsed=223s, ETA=112s)
+[12:23:15]     → [FAIL @24.2y] | GDP=323.8 | welfare=0.955 | G=6.68
+[12:23:15]   [62/90] repeat=2/5 seed=268 (elapsed=225s, ETA=107s)
+[12:23:16]     → [FAIL @24.2y] | GDP=323.8 | welfare=0.955 | G=6.68
+[12:23:16]   [63/90] repeat=3/5 seed=368 (elapsed=226s, ETA=102s)
+[12:23:17]     → [FAIL @24.1y] | GDP=318.9 | welfare=0.949 | G=6.66
+[12:23:17]   [64/90] repeat=4/5 seed=468 (elapsed=227s, ETA=97s)
+[12:23:18]     → [FAIL @24.2y] | GDP=323.8 | welfare=0.955 | G=6.68
+[12:23:18]   [65/90] repeat=5/5 seed=568 (elapsed=228s, ETA=93s)
+[12:23:19]     → [FAIL @24.2y] | GDP=323.8 | welfare=0.955 | G=6.68
+[12:23:19]     ★ post_soviet×A: 0/5 存活 (0%)
+[12:23:19] 
+>>> post_soviet × 策略B
+[12:23:19]   [66/90] repeat=1/5 seed=204 (elapsed=229s, ETA=88s)
+[12:23:21]     → [FAIL @33.5y] | GDP=3439.8 | welfare=0.192 | G=8.82
+[12:23:21]   [67/90] repeat=2/5 seed=304 (elapsed=231s, ETA=84s)
+[12:23:21]     → [FAIL @26.0y] | GDP=878.7 | welfare=0.150 | G=6.98
+[12:23:21]   [68/90] repeat=3/5 seed=404 (elapsed=231s, ETA=79s)
+[12:23:23]     → [FAIL @31.2y] | GDP=2660.1 | welfare=0.195 | G=8.23
+[12:23:23]   [69/90] repeat=4/5 seed=504 (elapsed=233s, ETA=75s)
+[12:23:24]     → [FAIL @32.5y] | GDP=3864.1 | welfare=0.181 | G=8.55
+[12:23:24]   [70/90] repeat=5/5 seed=604 (elapsed=234s, ETA=71s)
+[12:23:25]     → [FAIL @30.2y] | GDP=1187.7 | welfare=0.141 | G=7.98
+[12:23:25]     ★ post_soviet×B: 0/5 存活 (0%)
+[12:23:25] 
+>>> post_soviet × 策略C
+[12:23:25]   [71/90] repeat=1/5 seed=149 (elapsed=235s, ETA=67s)
+[12:23:31]     → [OK] | GDP=1278.9 | welfare=1.757 | G=13.86
+[12:23:31]   [72/90] repeat=2/5 seed=249 (elapsed=241s, ETA=64s)
+[12:23:36]     → [OK] | GDP=1314.5 | welfare=1.774 | G=13.85
+[12:23:36]   [73/90] repeat=3/5 seed=349 (elapsed=246s, ETA=62s)
+[12:23:42]     → [OK] | GDP=1293.1 | welfare=1.760 | G=13.86
+[12:23:42]   [74/90] repeat=4/5 seed=449 (elapsed=252s, ETA=59s)
+[12:23:48]     → [OK] | GDP=1313.0 | welfare=1.773 | G=13.85
+[12:23:48]   [75/90] repeat=5/5 seed=549 (elapsed=258s, ETA=56s)
+[12:23:54]     → [OK] | GDP=1302.7 | welfare=1.765 | G=13.86
+[12:23:54]     ★ post_soviet×C: 5/5 存活 (100%)
+[12:23:54] 
+>>> populous_weak_industry × 策略A
+[12:23:54]   [76/90] repeat=1/5 seed=935 (elapsed=264s, ETA=53s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [77/90] repeat=2/5 seed=1035 (elapsed=264s, ETA=49s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [78/90] repeat=3/5 seed=1135 (elapsed=264s, ETA=45s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [79/90] repeat=4/5 seed=1235 (elapsed=264s, ETA=41s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [80/90] repeat=5/5 seed=1335 (elapsed=264s, ETA=37s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]     ★ populous_weak_industry×A: 0/5 存活 (0%)
+[12:23:54] 
+>>> populous_weak_industry × 策略B
+[12:23:54]   [81/90] repeat=1/5 seed=971 (elapsed=264s, ETA=33s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [82/90] repeat=2/5 seed=1071 (elapsed=264s, ETA=29s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [83/90] repeat=3/5 seed=1171 (elapsed=264s, ETA=26s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [84/90] repeat=4/5 seed=1271 (elapsed=264s, ETA=22s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [85/90] repeat=5/5 seed=1371 (elapsed=264s, ETA=19s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]     ★ populous_weak_industry×B: 0/5 存活 (0%)
+[12:23:54] 
+>>> populous_weak_industry × 策略C
+[12:23:54]   [86/90] repeat=1/5 seed=916 (elapsed=264s, ETA=16s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [87/90] repeat=2/5 seed=1016 (elapsed=264s, ETA=12s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [88/90] repeat=3/5 seed=1116 (elapsed=264s, ETA=9s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [89/90] repeat=4/5 seed=1216 (elapsed=264s, ETA=6s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]   [90/90] repeat=5/5 seed=1316 (elapsed=264s, ETA=3s)
+[12:23:54]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276 | G=6.78
+[12:23:54]     ★ populous_weak_industry×C: 0/5 存活 (0%)
+[12:23:54] 
+Phase 1 完成! 耗时: 264s (4.4min)
+[12:23:54] 
+----------------------------------------------------------------------
+[12:23:54] Phase 2: T=80 延长运行 (6 profiles × 3 regimes = 18 runs, 1 repeat each)
+[12:23:54] ----------------------------------------------------------------------
+[12:23:54]   [1/18] manufacturing_giant × 策略A T=80
+[12:23:59]     → [FAIL @51.8y] | GDP=6633.5 | welfare=3.565
+[12:23:59]   [2/18] manufacturing_giant × 策略B T=80
+[12:24:01]     → [FAIL @36.2y] | GDP=7441.9 | welfare=0.166
+[12:24:01]   [3/18] manufacturing_giant × 策略C T=80
+[12:24:14]     → [OK] | GDP=14501.7 | welfare=4.627
+[12:24:14]   [4/18] resource_rich × 策略A T=80
+[12:24:14]     → [FAIL @15.9y] | GDP=51.4 | welfare=0.456
+[12:24:14]   [5/18] resource_rich × 策略B T=80
+[12:24:32]     → [OK] | GDP=1474.2 | welfare=0.589
+[12:24:32]   [6/18] resource_rich × 策略C T=80
+[12:24:50]     → [OK] | GDP=73.3 | welfare=0.550
+[12:24:50]   [7/18] digital_leapfrogger × 策略A T=80
+[12:24:52]     → [FAIL @36.5y] | GDP=1579.3 | welfare=1.972
+[12:24:52]   [8/18] digital_leapfrogger × 策略B T=80
+[12:25:04]     → [FAIL @69.5y] | GDP=15371.5 | welfare=0.148
+[12:25:04]   [9/18] digital_leapfrogger × 策略C T=80
+[12:25:20]     → [OK] | GDP=8776.0 | welfare=4.208
+[12:25:20]   [10/18] small_open × 策略A T=80
+[12:25:20]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291
+[12:25:20]   [11/18] small_open × 策略B T=80
+[12:25:20]     → [FAIL @0.5y] | GDP=21.8 | welfare=0.279
+[12:25:20]   [12/18] small_open × 策略C T=80
+[12:25:20]     → [FAIL @0.5y] | GDP=21.9 | welfare=0.291
+[12:25:20]   [13/18] post_soviet × 策略A T=80
+[12:25:21]     → [FAIL @24.2y] | GDP=323.8 | welfare=0.955
+[12:25:21]   [14/18] post_soviet × 策略B T=80
+[12:25:22]     → [FAIL @31.0y] | GDP=2166.4 | welfare=0.171
+[12:25:22]   [15/18] post_soviet × 策略C T=80
+[12:25:36]     → [OK] | GDP=3612.9 | welfare=2.781
+[12:25:36]   [16/18] populous_weak_industry × 策略A T=80
+[12:25:36]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276
+[12:25:36]   [17/18] populous_weak_industry × 策略B T=80
+[12:25:36]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276
+[12:25:36]   [18/18] populous_weak_industry × 策略C T=80
+[12:25:36]     → [FAIL @0.0y] | GDP=31.3 | welfare=0.276
+[12:25:36] 
+Phase 2 完成! 耗时: 102s (1.7min)
+[12:25:36] 
+----------------------------------------------------------------------
+[12:25:36] 保存数据...
+[12:25:36] ----------------------------------------------------------------------
+[12:25:36]   ✓ Phase 1 汇总: D:\Project\原始积累模型探索\primitive_accumulation\calibration_experiment\data\phase1_all_summaries_20260731_121930.json
+[12:25:36]   ✓ 时间序列摘要: D:\Project\原始积累模型探索\primitive_accumulation\calibration_experiment\data\timeseries_summaries_20260731_121930.json
+[12:25:36]   ✓ Phase 2 延长: D:\Project\原始积累模型探索\primitive_accumulation\calibration_experiment\data\phase2_extended_20260731_121930.json
+[12:25:38]   ✓ 代表性时间序列: D:\Project\原始积累模型探索\primitive_accumulation\calibration_experiment\data\representative_timeseries_20260731_121930.json
+[12:25:38]   ✓ Phase 1 完整结果 (PKL): D:\Project\原始积累模型探索\primitive_accumulation\calibration_experiment\data\phase1_full_results_20260731_121930.pkl
+[12:25:38]   ✓ 元数据: D:\Project\原始积累模型探索\primitive_accumulation\calibration_experiment\data\metadata_20260731_121930.json
+[12:25:38] 
+======================================================================
+[12:25:38] 快速汇总报告
+[12:25:38] ======================================================================
+[12:25:38] 
+国情                            策略      存活率      GDP终值       福利终值       工业就业峰值
+[12:25:38] ---------------------------------------------------------------------------
+[12:25:38] 制造业大国                          A    100%     6321.3      3.472        0.484
+[12:25:38] 制造业大国                          B      0%     7349.8      0.186        0.484
+[12:25:38] 制造业大国                          C    100%     2880.0      2.295        0.483
+[12:25:38] 资源富国                           A      0%       51.5      0.456        0.293
+[12:25:38] 资源富国                           B    100%      278.0      0.953        0.293
+[12:25:38] 资源富国                           C    100%       61.0      0.505        0.293
+[12:25:38] 数字跳跃者                          A      0%     1584.7      1.976        0.333
+[12:25:38] 数字跳跃者                          B    100%     4193.7      0.886        0.427
+[12:25:38] 数字跳跃者                          C    100%     2335.4      2.255        0.333
+[12:25:38] 小型开放经济体                        A      0%       21.9      0.291        0.433
+[12:25:38] 小型开放经济体                        B      0%       21.8      0.279        0.432
+[12:25:38] 小型开放经济体                        C      0%       21.9      0.291        0.433
+[12:25:38] 后苏联工业国                         A      0%      322.9      0.954        0.454
+[12:25:38] 后苏联工业国                         B      0%     2406.1      0.172        0.454
+[12:25:38] 后苏联工业国                         C    100%     1300.5      1.766        0.454
+[12:25:38] 人口大国弱工业                        A      0%       31.3      0.276        0.158
+[12:25:38] 人口大国弱工业                        B      0%       31.3      0.276        0.158
+[12:25:38] 人口大国弱工业                        C      0%       31.3      0.276        0.158
+[12:25:38] 
+======================================================================
+[12:25:38] 实验完成! 总耗时: 366s (6.1min)
+[12:25:38] 数据已保存至: D:\Project\原始积累模型探索\primitive_accumulation\calibration_experiment\data
+[12:25:38] 日志已保存至: D:\Project\原始积累模型探索\primitive_accumulation\calibration_experiment\logs
+[12:25:38] ======================================================================

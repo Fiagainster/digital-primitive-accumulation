@@ -64,7 +64,7 @@ class InternationalModule:
         if len(self._tech_gap_history) >= 20:
             gap_5yr_ago = np.mean(self._tech_gap_history[-20:-15])
             gap_now = np.mean(self._tech_gap_history[-5:])
-            if gap_5yr_ago > 0:
+            if gap_5yr_ago > 0 and np.isfinite(gap_5yr_ago) and np.isfinite(gap_now):  # v3.7.3: 防NaN
                 gap_reduction = max(0.0, (gap_5yr_ago - gap_now) / gap_5yr_ago)
                 if gap_reduction > 0.15:
                     # 你追得越快→封锁越紧（最多比基础值高50%）

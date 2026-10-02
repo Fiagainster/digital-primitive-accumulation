@@ -12,6 +12,7 @@ import os
 import time
 import traceback
 from concurrent.futures import ProcessPoolExecutor, as_completed
+from dataclasses import replace
 from pathlib import Path
 from typing import Optional, Callable
 import numpy as np
@@ -116,13 +117,19 @@ class BatchRunner:
         if config is None:
             config = SimulationConfig()
 
-        # 构建任务
+        # 构建任务（v3.8: 为每个任务派生互不相同的随机种子）
+        # 说明：SimulationEngine.run() 会在工作进程内执行 np.random.seed(config.random_seed)。
+        # 若整批共用同一个 config，则所有运行会得到完全相同的随机流与结果；
+        # 因此这里用 SeedSequence 从 config.random_seed 派生 n 个独立子种子逐个写入。
+        base_seed = int(config.random_seed)
+        child_seeds = np.random.SeedSequence(base_seed).generate_state(n)
         tasks = []
         for i, params in enumerate(param_sets):
+            cfg_i = replace(config, random_seed=int(child_seeds[i]))
             tasks.append({
                 "params": params,
                 "regime": regime,
-                "config": config,
+                "config": cfg_i,
                 "sim_id": i,
             })
 
@@ -304,6 +311,8 @@ def quick_run(regime: str = "A",
               enable_demography: bool = True,     # v3.6
               enable_spatial: bool = True,        # v3.6
               config_path: str = None,            # v3.7: YAML配置文件路径
+              seed: int = 42,                     # v3.8: 随机种子（此前不可传入）
+              mixed_lambda: tuple = None,         # v3.8: 任意混合配比
               ) -> dict:
     """快速单次模拟 —— 用于调试和单点测试.
 
@@ -329,8 +338,12 @@ def quick_run(regime: str = "A",
         if mixture_name in STANDARD_MIXTURES:
             params["mixed_lambda"] = STANDARD_MIXTURES[mixture_name]
             params["mixed_name"] = mixture_name
+    if mixed_lambda is not None:
+        params["mixed_lambda"] = list(mixed_lambda)
+        params["mixed_name"] = "custom_" + "_".join(f"{x:.3f}" for x in mixed_lambda)
     config = SimulationConfig(
         T_max=T_max, verbose=verbose,
+        random_seed=int(seed),
         platform_enabled=enable_platform,
         demography_enabled=enable_demography,
         spatial_enabled=enable_spatial,

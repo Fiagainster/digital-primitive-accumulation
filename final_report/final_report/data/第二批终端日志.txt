@@ -1,0 +1,264 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+加载个人及系统配置文件用了 3783 毫秒。
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> PYTHONIOENCODING=utf-8 python research_scripts/experiment_batches/run_phase2_parameters.py --focus a_speed_trap
+PYTHONIOENCODING=utf-8 : 无法将“PYTHONIOENCODING=utf-8”项识别为 cmdlet、函数、脚本文件或可运行
+程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:1 字符: 1
++ PYTHONIOENCODING=utf-8 python research_scripts/experiment_batches/run ...
++ ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (PYTHONIOENCODING=utf-8:Stri
+   ng) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/experiment_batches/run_phase2_parameters.py --focus a_speed_trap
+  [Phase 1 回顾]
+    总体存活率: 34.7%
+    策略A: 存活率=8.3%
+    策略B: 存活率=35.4%
+    策略C: 存活率=60.4%
+
+
+======================================================================
+  第二阶段：关键参数窗口扫描 (focus=a_speed_trap)
+======================================================================
+
+  扫描组: ['a_speed_trap']
+  并行worker: 12
+  数值爆炸阈值: GDP > 1e+15
+
+
+============================================================
+  [a_speed_trap] A策略速度陷阱 — g_world阈值与制度调节
+============================================================
+
+  A: g_world × institution_capacity (基准场景) | manufacturing_giant
+    策略=A 场景=benign_globalization
+    2D网格: 8×7 = 56 次模拟
+    ⚠ 检测到 3 次极端技术差距(>200.0)
+    存活率: 30/56 = 53.6%
+    存活率范围: [43% @0.04] → [100% @0.01]
+    ★ 存在存活率>50%的参数区域！
+    技术差距: [4.6, 145.5]
+
+  A: g_world × institution_capacity (tech_cold_war) | manufacturing_giant
+    策略=A 场景=tech_cold_war
+    2D网格: 8×7 = 56 次模拟
+    ⚠ 检测到 3 次极端技术差距(>200.0)
+    存活率: 29/56 = 51.8%
+    存活率范围: [43% @0.04] → [86% @0.01]
+    ★ 存在存活率>50%的参数区域！
+    技术差距: [3.6, 146.9]
+
+  A: g_world × institution_capacity (digital_leapfrogger) | digital_leapfrogger
+    策略=A 场景=benign_globalization
+    2D网格: 5×5 = 25 次模拟
+    存活率: 0/25 = 0.0%
+    技术差距: [5.5, 30.3]
+
+  [a_speed_trap 小结] 总存活率: 59/137 = 43.1%
+  [保存] 结果已保存到: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase2_20260726_121533_results.json
+
+================================================================
+  第二阶段关键发现
+================================================================
+
+  [策略A的生存条件]
+    ★ [A可存活!] manufacturing_giant: g_world=0.010 时存活率达 100%
+    ★ [A可存活!] manufacturing_giant: g_world=0.010 时存活率达 86%
+
+  [参数阈值效应]
+    [阈值] g_world@manufacturing_giant: 存活率在 [0.010, 0.020] 跳变 43%
+
+  总耗时: 2.3 分钟
+  总模拟次数: 137
+  数值异常检测: 0 项
+  结果目录: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase2_20260726_121533
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/experiment_batches/run_phase2_parameters.py --focus b_bifurcation
+  [Phase 1 回顾]
+    总体存活率: 34.7%
+    策略A: 存活率=8.3%
+    策略B: 存活率=35.4%
+    策略C: 存活率=60.4%
+
+
+======================================================================
+  第二阶段：关键参数窗口扫描 (focus=b_bifurcation)
+======================================================================
+
+  扫描组: ['b_bifurcation']
+  并行worker: 12
+  数值爆炸阈值: GDP > 1e+15
+
+
+============================================================
+  [b_bifurcation] B策略国情分叉 — 跨4个可存活国情扫描B核心参数
+============================================================
+
+  B: B_g_target × institution_capacity (跨4国情) | manufacturing_giant
+    策略=B 场景=benign_globalization
+    2D网格: 7×6 = 42 次模拟
+    存活率: 5/42 = 11.9%
+    存活率范围: [0% @0.1] → [33% @0.35]
+    技术差距: [5.6, 12.8]
+
+  B: B_g_target × institution_capacity (跨4国情) | resource_rich
+    策略=B 场景=benign_globalization
+    2D网格: 7×6 = 42 次模拟
+    存活率: 42/42 = 100.0%
+    存活率范围: [100% @0.1] → [100% @0.1]
+    ★ 存在存活率>50%的参数区域！
+    技术差距: [19.9, 20.0]
+
+  B: B_g_target × institution_capacity (跨4国情) | digital_leapfrogger
+    策略=B 场景=benign_globalization
+    2D网格: 7×6 = 42 次模拟
+    存活率: 42/42 = 100.0%
+    存活率范围: [100% @0.1] → [100% @0.1]
+    ★ 存在存活率>50%的参数区域！
+    技术差距: [17.0, 17.0]
+
+  B: B_g_target × institution_capacity (跨4国情) | post_soviet
+    策略=B 场景=benign_globalization
+    2D网格: 7×6 = 42 次模拟
+    存活率: 3/42 = 7.1%
+    存活率范围: [0% @0.15] → [17% @0.1]
+    技术差距: [6.2, 14.5]
+
+  B: feedback_threshold × feedback_ratio (manuf_giant + post_soviet) | manufacturing_giant
+    策略=B 场景=benign_globalization
+    2D网格: 6×6 = 36 次模拟
+    存活率: 0/36 = 0.0%
+    技术差距: [5.7, 12.7]
+
+  B: feedback_threshold × feedback_ratio (manuf_giant + post_soviet) | post_soviet
+    策略=B 场景=benign_globalization
+    2D网格: 6×6 = 36 次模拟
+    存活率: 0/36 = 0.0%
+    技术差距: [6.5, 10.9]
+
+  [b_bifurcation 小结] 总存活率: 92/240 = 38.3%
+  [保存] 结果已保存到: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase2_20260726_121841_results.json
+
+================================================================
+  第二阶段关键发现
+================================================================
+
+  (未检测到显著发现)
+
+  总耗时: 10.8 分钟
+  总模拟次数: 240
+  数值异常检测: 0 项
+  结果目录: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase2_20260726_121841
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/experiment_batches/run_phase2_parameters.py --focus c_fragility
+  [Phase 1 回顾]
+    总体存活率: 34.7%
+    策略A: 存活率=8.3%
+    策略B: 存活率=35.4%
+    策略C: 存活率=60.4%
+
+
+======================================================================
+  第二阶段：关键参数窗口扫描 (focus=c_fragility)
+======================================================================
+
+  扫描组: ['c_fragility']
+  并行worker: 12
+  数值爆炸阈值: GDP > 1e+15
+
+
+============================================================
+  [c_fragility] C策略脆弱性 — resource_rich在封锁/资源崩盘/全封锁下的生存边界
+============================================================
+
+  C: tech_import_preference × institution_capacity (tech_cold_war) | resource_rich
+    策略=C 场景=tech_cold_war
+    2D网格: 9×6 = 54 次模拟
+    存活率: 41/54 = 75.9%
+    存活率范围: [67% @0.6] → [83% @0.1]
+    ★ 存在存活率>50%的参数区域！
+    技术差距: [9.3, 21.4]
+
+  C: resource_intensity × institution_capacity (resource_crash) | resource_rich
+    策略=C 场景=resource_crash
+    2D网格: 8×6 = 48 次模拟
+    存活率: 32/48 = 66.7%
+    存活率范围: [67% @0.2] → [67% @0.2]
+    ★ 存在存活率>50%的参数区域！
+    技术差距: [7.5, 12.2]
+
+  C: block_max × institution_capacity (full_containment) | resource_rich
+    策略=C 场景=full_containment
+    2D网格: 6×6 = 36 次模拟
+    存活率: 29/36 = 80.6%
+    存活率范围: [67% @0.95] → [83% @0.0]
+    ★ 存在存活率>50%的参数区域！
+    技术差距: [27.6, 57.1]
+
+  [c_fragility 小结] 总存活率: 102/138 = 73.9%
+  [保存] 结果已保存到: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase2_20260726_123105_results.json
+
+================================================================
+  第二阶段关键发现
+================================================================
+
+  (未检测到显著发现)
+
+  总耗时: 10.1 分钟
+  总模拟次数: 138
+  数值异常检测: 0 项
+  结果目录: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase2_20260726_123105
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/experiment_batches/run_phase2_parameters.py --focus post_soviet_puzzle
+  [Phase 1 回顾]
+    总体存活率: 34.7%
+    策略A: 存活率=8.3%
+    策略B: 存活率=35.4%
+    策略C: 存活率=60.4%
+
+
+======================================================================
+  第二阶段：关键参数窗口扫描 (focus=post_soviet_puzzle)
+======================================================================
+
+  扫描组: ['post_soviet_puzzle']
+  并行worker: 12
+  数值爆炸阈值: GDP > 1e+15
+
+
+============================================================
+  [post_soviet_puzzle] post_soviet之谜 — A和B在post_soviet是否有存活可能？
+============================================================
+
+  post_soviet×A: institution_capacity × g_world | post_soviet
+    策略=A 场景=benign_globalization
+    2D网格: 6×5 = 30 次模拟
+    存活率: 12/30 = 40.0%
+    存活率范围: [0% @0.2] → [100% @0.8]
+    ★ 存在存活率>50%的参数区域！
+    技术差距: [4.9, 102.8]
+
+  post_soviet×B: institution_capacity × B_g_target | post_soviet
+    策略=B 场景=benign_globalization
+    2D网格: 6×7 = 42 次模拟
+    存活率: 2/42 = 4.8%
+    存活率范围: [0% @0.2] → [29% @0.9]
+    技术差距: [6.4, 14.5]
+
+  [post_soviet_puzzle 小结] 总存活率: 14/72 = 19.4%
+  [保存] 结果已保存到: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase2_20260726_124410_results.json
+
+================================================================
+  第二阶段关键发现
+================================================================
+
+  [策略A的生存条件]
+    ★ [A可存活!] post_soviet: institution_capacity=0.800 时存活率达 100%
+
+  [参数阈值效应]
+    [阈值] institution_capacity@post_soviet: 存活率在 [0.650, 0.800] 跳变 80%
+
+  总耗时: 2.0 分钟
+  总模拟次数: 72
+  数值异常检测: 0 项
+  结果目录: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase2_20260726_124410

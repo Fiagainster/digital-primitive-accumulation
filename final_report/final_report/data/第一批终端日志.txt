@@ -1,0 +1,196 @@
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation> python research_scripts/experiment_batches/run_phase1_survey.py --profiles manufacturing_giant,resource_rich,digital_leapfrogger,small_open,post_soviet,populous_weak_industry --scenarios benign_globalization,tech_cold_war,resource_crash,tech_boom,global_recession,full_containment,tech_explosion,resource_war --regimes A,B,C --T-max 50
+
+======================================================================
+  第一阶段：策略空间普查
+======================================================================
+
+  实验规模: 6国情 × 8场景 × 3策略 = 144 组合
+  模拟年限: T_max = 50.0
+  模式: 标准
+  预计耗时: ~43-115 分钟
+
+[1/144] manufacturing_giant × 策略A × benign_globalization ...  [存活]
+[2/144] manufacturing_giant × 策略B × benign_globalization ...  [断裂@25.5年]
+[3/144] manufacturing_giant × 策略C × benign_globalization ...  [存活]
+[4/144] manufacturing_giant × 策略A × tech_cold_war ...  [断裂@49.8年]
+[5/144] manufacturing_giant × 策略B × tech_cold_war ...  [断裂@45.1年]
+[6/144] manufacturing_giant × 策略C × tech_cold_war ...  [存活]
+[7/144] manufacturing_giant × 策略A × resource_crash ...  [存活]
+[8/144] manufacturing_giant × 策略B × resource_crash ...  [断裂@45.8年]
+[9/144] manufacturing_giant × 策略C × resource_crash ...  [存活]
+[10/144] manufacturing_giant × 策略A × tech_boom ...  [断裂@27.3年]
+[11/144] manufacturing_giant × 策略B × tech_boom ...  [断裂@49.6年]
+[12/144] manufacturing_giant × 策略C × tech_boom ...  [存活]
+[13/144] manufacturing_giant × 策略A × global_recession ...  [存活]
+[14/144] manufacturing_giant × 策略B × global_recession ...  [断裂@36.8年]
+[15/144] manufacturing_giant × 策略C × global_recession ...  [存活]
+[16/144] manufacturing_giant × 策略A × full_containment ...  [断裂@29.5年]
+[17/144] manufacturing_giant × 策略B × full_containment ...  [断裂@47.5年]
+[18/144] manufacturing_giant × 策略C × full_containment ...  [存活]
+[19/144] manufacturing_giant × 策略A × tech_explosion ...  [断裂@25.7年]
+[20/144] manufacturing_giant × 策略B × tech_explosion ...  [存活]
+[21/144] manufacturing_giant × 策略C × tech_explosion ...  [存活]
+[22/144] manufacturing_giant × 策略A × resource_war ...  [存活]
+[23/144] manufacturing_giant × 策略B × resource_war ...  [断裂@40.2年]
+[24/144] manufacturing_giant × 策略C × resource_war ...  [存活]
+  --- 进度: 24/144 | 已用: 2.5分 | 预计剩余: 12.7分 ---
+[25/144] resource_rich × 策略A × benign_globalization ...  [断裂@15.9年]
+[26/144] resource_rich × 策略B × benign_globalization ...  [存活]
+[27/144] resource_rich × 策略C × benign_globalization ...  [存活]
+[28/144] resource_rich × 策略A × tech_cold_war ...  [断裂@16.0年]
+[29/144] resource_rich × 策略B × tech_cold_war ...  [存活]
+[30/144] resource_rich × 策略C × tech_cold_war ...  [断裂@33.1年]
+[31/144] resource_rich × 策略A × resource_crash ...  [断裂@16.0年]
+[32/144] resource_rich × 策略B × resource_crash ...  [存活]
+[33/144] resource_rich × 策略C × resource_crash ...  [断裂@34.6年]
+[34/144] resource_rich × 策略A × tech_boom ...  [断裂@16.6年]
+[35/144] resource_rich × 策略B × tech_boom ...  [存活]
+[36/144] resource_rich × 策略C × tech_boom ...  [存活]
+[37/144] resource_rich × 策略A × global_recession ...  [断裂@16.1年]
+[38/144] resource_rich × 策略B × global_recession ...  [存活]
+[39/144] resource_rich × 策略C × global_recession ...  [存活]
+[40/144] resource_rich × 策略A × full_containment ...  [断裂@16.2年]
+[41/144] resource_rich × 策略B × full_containment ...  [存活]
+[42/144] resource_rich × 策略C × full_containment ...  [断裂@43.5年]
+[43/144] resource_rich × 策略A × tech_explosion ...  [断裂@17.1年]
+[44/144] resource_rich × 策略B × tech_explosion ...  [存活]
+[45/144] resource_rich × 策略C × tech_explosion ...  [存活]
+[46/144] resource_rich × 策略A × resource_war ...  [断裂@16.0年]
+[47/144] resource_rich × 策略B × resource_war ...  [存活]
+[48/144] resource_rich × 策略C × resource_war ...  [存活]
+  --- 进度: 48/144 | 已用: 7.6分 | 预计剩余: 15.2分 ---
+[49/144] digital_leapfrogger × 策略A × benign_globalization ...  [断裂@36.4年]
+[50/144] digital_leapfrogger × 策略B × benign_globalization ...  [存活]
+[51/144] digital_leapfrogger × 策略C × benign_globalization ...  [存活]
+[52/144] digital_leapfrogger × 策略A × tech_cold_war ...  [断裂@33.8年]
+[53/144] digital_leapfrogger × 策略B × tech_cold_war ...  [存活]
+[54/144] digital_leapfrogger × 策略C × tech_cold_war ...  [存活]
+[55/144] digital_leapfrogger × 策略A × resource_crash ...  [断裂@38.2年]
+[56/144] digital_leapfrogger × 策略B × resource_crash ...  [存活]
+[57/144] digital_leapfrogger × 策略C × resource_crash ...  [存活]
+[58/144] digital_leapfrogger × 策略A × tech_boom ...  [断裂@24.9年]
+[59/144] digital_leapfrogger × 策略B × tech_boom ...  [存活]
+[60/144] digital_leapfrogger × 策略C × tech_boom ...  [存活]
+[61/144] digital_leapfrogger × 策略A × global_recession ...  [断裂@41.7年]
+[62/144] digital_leapfrogger × 策略B × global_recession ...  [存活]
+[63/144] digital_leapfrogger × 策略C × global_recession ...  [存活]
+[64/144] digital_leapfrogger × 策略A × full_containment ...  [断裂@31.7年]
+[65/144] digital_leapfrogger × 策略B × full_containment ...  [存活]
+[66/144] digital_leapfrogger × 策略C × full_containment ...  [存活]
+[67/144] digital_leapfrogger × 策略A × tech_explosion ...  [断裂@25.0年]
+[68/144] digital_leapfrogger × 策略B × tech_explosion ...  [存活]
+[69/144] digital_leapfrogger × 策略C × tech_explosion ...  [存活]
+[70/144] digital_leapfrogger × 策略A × resource_war ...  [断裂@35.2年]
+[71/144] digital_leapfrogger × 策略B × resource_war ...  [存活]
+[72/144] digital_leapfrogger × 策略C × resource_war ...  [存活]
+  --- 进度: 72/144 | 已用: 9.7分 | 预计剩余: 9.7分 ---
+[73/144] small_open × 策略A × benign_globalization ...  [断裂@0.5年]
+[74/144] small_open × 策略B × benign_globalization ...  [断裂@0.5年]
+[75/144] small_open × 策略C × benign_globalization ...  [断裂@0.5年]
+[76/144] small_open × 策略A × tech_cold_war ...  [断裂@0.5年]
+[77/144] small_open × 策略B × tech_cold_war ...  [断裂@0.5年]
+[78/144] small_open × 策略C × tech_cold_war ...  [断裂@0.5年]
+[79/144] small_open × 策略A × resource_crash ...  [断裂@0.5年]
+[80/144] small_open × 策略B × resource_crash ...  [断裂@0.5年]
+[81/144] small_open × 策略C × resource_crash ...  [断裂@0.5年]
+[82/144] small_open × 策略A × tech_boom ...  [断裂@0.5年]
+[83/144] small_open × 策略B × tech_boom ...  [断裂@0.5年]
+[84/144] small_open × 策略C × tech_boom ...  [断裂@0.5年]
+[85/144] small_open × 策略A × global_recession ...  [断裂@0.5年]
+[86/144] small_open × 策略B × global_recession ...  [断裂@0.5年]
+[87/144] small_open × 策略C × global_recession ...  [断裂@0.5年]
+[88/144] small_open × 策略A × full_containment ...  [断裂@0.5年]
+[89/144] small_open × 策略B × full_containment ...  [断裂@0.5年]
+[90/144] small_open × 策略C × full_containment ...  [断裂@0.5年]
+[91/144] small_open × 策略A × tech_explosion ...  [断裂@0.5年]
+[92/144] small_open × 策略B × tech_explosion ...  [断裂@0.5年]
+[93/144] small_open × 策略C × tech_explosion ...  [断裂@0.5年]
+[94/144] small_open × 策略A × resource_war ...  [断裂@0.5年]
+[95/144] small_open × 策略B × resource_war ...  [断裂@0.5年]
+[96/144] small_open × 策略C × resource_war ...  [断裂@0.5年]
+  --- 进度: 96/144 | 已用: 9.7分 | 预计剩余: 4.8分 ---
+[97/144] post_soviet × 策略A × benign_globalization ...  [断裂@24.0年]
+[98/144] post_soviet × 策略B × benign_globalization ...  [断裂@27.5年]
+[99/144] post_soviet × 策略C × benign_globalization ...  [存活]
+[100/144] post_soviet × 策略A × tech_cold_war ...  [断裂@22.8年]
+[101/144] post_soviet × 策略B × tech_cold_war ...  [断裂@38.1年]
+[102/144] post_soviet × 策略C × tech_cold_war ...  [存活]
+[103/144] post_soviet × 策略A × resource_crash ...  [断裂@29.1年]
+[104/144] post_soviet × 策略B × resource_crash ...  [断裂@37.2年]
+[105/144] post_soviet × 策略C × resource_crash ...  [存活]
+[106/144] post_soviet × 策略A × tech_boom ...  [断裂@19.8年]
+[107/144] post_soviet × 策略B × tech_boom ...  [断裂@28.8年]
+[108/144] post_soviet × 策略C × tech_boom ...  [存活]
+[109/144] post_soviet × 策略A × global_recession ...  [断裂@43.4年]
+[110/144] post_soviet × 策略B × global_recession ...  [断裂@34.0年]
+[111/144] post_soviet × 策略C × global_recession ...  [存活]
+[112/144] post_soviet × 策略A × full_containment ...  [断裂@20.4年]
+[113/144] post_soviet × 策略B × full_containment ...  [断裂@34.5年]
+[114/144] post_soviet × 策略C × full_containment ...  [存活]
+[115/144] post_soviet × 策略A × tech_explosion ...  [断裂@19.8年]
+[116/144] post_soviet × 策略B × tech_explosion ...  [断裂@42.8年]
+[117/144] post_soviet × 策略C × tech_explosion ...  [存活]
+[118/144] post_soviet × 策略A × resource_war ...  [断裂@23.4年]
+[119/144] post_soviet × 策略B × resource_war ...  [断裂@39.7年]
+[120/144] post_soviet × 策略C × resource_war ...  [存活]
+  --- 进度: 120/144 | 已用: 11.0分 | 预计剩余: 2.2分 ---
+[121/144] populous_weak_industry × 策略A × benign_globalization ...  [断裂@0.0年]
+[122/144] populous_weak_industry × 策略B × benign_globalization ...  [断裂@0.0年]
+[123/144] populous_weak_industry × 策略C × benign_globalization ...  [断裂@0.0年]
+[124/144] populous_weak_industry × 策略A × tech_cold_war ...  [断裂@0.0年]
+[125/144] populous_weak_industry × 策略B × tech_cold_war ...  [断裂@0.0年]
+[126/144] populous_weak_industry × 策略C × tech_cold_war ...  [断裂@0.0年]
+[127/144] populous_weak_industry × 策略A × resource_crash ...  [断裂@0.0年]
+[128/144] populous_weak_industry × 策略B × resource_crash ...  [断裂@0.0年]
+[129/144] populous_weak_industry × 策略C × resource_crash ...  [断裂@0.0年]
+[130/144] populous_weak_industry × 策略A × tech_boom ...  [断裂@0.0年]
+[131/144] populous_weak_industry × 策略B × tech_boom ...  [断裂@0.0年]
+[132/144] populous_weak_industry × 策略C × tech_boom ...  [断裂@0.0年]
+[133/144] populous_weak_industry × 策略A × global_recession ...  [断裂@0.0年]
+[134/144] populous_weak_industry × 策略B × global_recession ...  [断裂@0.0年]
+[135/144] populous_weak_industry × 策略C × global_recession ...  [断裂@0.0年]
+[136/144] populous_weak_industry × 策略A × full_containment ...  [断裂@0.0年]
+[137/144] populous_weak_industry × 策略B × full_containment ...  [断裂@0.0年]
+[138/144] populous_weak_industry × 策略C × full_containment ...  [断裂@0.0年]
+[139/144] populous_weak_industry × 策略A × tech_explosion ...  [断裂@0.0年]
+[140/144] populous_weak_industry × 策略B × tech_explosion ...  [断裂@0.0年]
+[141/144] populous_weak_industry × 策略C × tech_explosion ...  [断裂@0.0年]
+[142/144] populous_weak_industry × 策略A × resource_war ...  [断裂@0.0年]
+[143/144] populous_weak_industry × 策略B × resource_war ...  [断裂@0.0年]
+[144/144] populous_weak_industry × 策略C × resource_war ...  [断裂@0.0年]
+  --- 进度: 144/144 | 已用: 11.0分 | 预计剩余: 0.0分 ---
+  [保存] 结果已保存到: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase1_20260726_114855_results.json
+
+============================================================
+  第一阶段关键发现
+============================================================
+
+  总体存活率: 34.7%
+
+  [策略存活率排名]
+
+
+
+
+  [国情×策略 存活率矩阵]
+                                      A         B         C
+    --------------------------------------------------
+    resource_rich                 0.0%   100.0%    62.5%
+    populous_weak_industry        0.0%     0.0%     0.0%
+    manufacturing_giant          50.0%    12.5%   100.0%
+    digital_leapfrogger           0.0%   100.0%   100.0%
+    small_open                    0.0%     0.0%     0.0%
+    post_soviet                   0.0%     0.0%   100.0%
+
+  [常见断裂类型]
+    jump_induced_deindustrialization: 64次
+    tech_lock_in: 63次
+    social_collapse: 63次
+    industrial_withering: 31次
+    human_capital_erosion: 2次
+
+  [值得关注的发现]
+
+  总耗时: 11.0 分钟
+  结果目录: D:\Project\原始积累模型探索\primitive_accumulation\research_scripts\experiment_batches\output\results\phase1_20260726_114855
+(base) PS D:\Project\原始积累模型探索\primitive_accumulation>

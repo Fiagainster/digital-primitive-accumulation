@@ -43,9 +43,19 @@ class DataAssets:
 
     @property
     def effective_stock(self) -> float:
-        cross = self.producer_data * (1.0 + 0.3 * self.consumer_data)
+        # v3.7.3 修复: 原公式 cross = producer * (1 + 0.3*consumer) 产生 O(GDP²) 反馈,
+        # 在策略B×digital_leapfrogger 下导致 GDP 达到 1e97 的有限时间奇点.
+        # 改用加法组合+对数饱和, 消除二次型正反馈.
+        # 经济含义: 数据价值遵循对数效用 (每多一条数据记录的边际价值递减).
+        cross = self.producer_data + 0.5 * self.consumer_data
         public = self.public_data * 1.5
-        return cross + public
+        raw = cross + public
+        # 对数饱和: 数据资产超过阈值后边际价值递减
+        # ln(1 + x) 在 x 很小时 ≈ x, 在 x 很大时增长极慢
+        sat_threshold = 100.0  # 饱和起点
+        if raw > sat_threshold:
+            raw = sat_threshold + sat_threshold * np.log(1.0 + (raw - sat_threshold) / sat_threshold)
+        return raw
 
 
 @dataclass

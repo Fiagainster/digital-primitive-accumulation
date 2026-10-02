@@ -1,0 +1,85 @@
+[
+  {
+    "label": "A_manufacturing_giant_benign_globalization_T80",
+    "regime": "A",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "T_max": 80,
+    "survived": false,
+    "survival_years": 52.169999999999746,
+    "final_gdp": 6649.177412383534,
+    "final_tech_gap": 12.96694820632591,
+    "final_welfare": 1.0,
+    "cdi": 0.6829897129612995,
+    "peak_unemployment": 0.008748516900580646,
+    "total_fractures": 4,
+    "fracture_types": [
+      "tech_lock_in",
+      "jump_induced_deindustrialization",
+      "premature_deindustrialization",
+      "industrial_withering"
+    ],
+    "terminal_fracture": "industrial_withering"
+  },
+  {
+    "label": "C_manufacturing_giant_benign_globalization_T80",
+    "regime": "C",
+    "profile": "manufacturing_giant",
+    "scenario": "benign_globalization",
+    "T_max": 80,
+    "survived": true,
+    "survival_years": 79.97000000000199,
+    "final_gdp": 15054.634525443777,
+    "final_tech_gap": 29.48223119908091,
+    "final_welfare": 1.0,
+    "cdi": 0.7250486435814105,
+    "peak_unemployment": 0.015943926059923813,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "C_digital_leapfrogger_benign_globalization_T80",
+    "regime": "C",
+    "profile": "digital_leapfrogger",
+    "scenario": "benign_globalization",
+    "T_max": 80,
+    "survived": true,
+    "survival_years": 79.99000000000179,
+    "final_gdp": 8755.58093753673,
+    "final_tech_gap": 39.401152237877476,
+    "final_welfare": 1.0,
+    "cdi": 0.7225665908771041,
+    "peak_unemployment": 0.02653039862250714,
+    "total_fractures": 2,
+    "fracture_types": [
+      "tech_lock_in",
+      "premature_deindustrialization"
+    ],
+    "terminal_fracture": ""
+  },
+  {
+    "label": "C_resource_rich_benign_globalization_T80",
+    "regime": "C",
+    "profile": "resource_rich",
+    "scenario": "benign_globalization",
+    "T_max": 80,
+    "survived": true,
+    "survival_years": 79.98000000000161,
+    "final_gdp": 71.60076381207365,
+    "final_tech_gap": 49.95025633221555,
+    "final_welfare": 0.7168566480145804,
+    "cdi": 0.5639899820631358,
+    "peak_unemployment": 0.005033763525767947,
+    "total_fractures": 3,
+    "fracture_types": [
+      "jump_induced_deindustrialization",
+      "tech_lock_in",
+      "human_capital_erosion"
+    ],
+    "terminal_fracture": ""
+  }
+]

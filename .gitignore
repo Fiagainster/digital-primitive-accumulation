@@ -62,3 +62,19 @@ Thumbs.db
 # ============================================================
 .ipynb_checkpoints/
 *.ipynb
+
+# ============================================================
+# 超过 Gitee 单文件上限（100MB）的大文件
+#    Gitee 对单文件 >100MB 的推送会直接拒绝，故必须排除。
+#    目前只有以下一个：397MB，Dirichlet 成本实验的原始 pickle，
+#    位于 final_report 的嵌套数据目录内。其数值结论均有
+#    JSON/CSV 汇总版随仓库分发，不影响复算。
+#    （论文仓 strategy-space-... 对同一份数据已作相同排除。）
+#    research_scripts/output/ 下的另一份副本，由上文
+#    「运行时输出数据」规则整目录覆盖，不必单列。
+#
+#    日后自查（在本仓库根目录）：
+#      find . -path ./.git -prune -o -type f -size +100M -print
+#    若出现新的大文件，在此追加其仓库相对路径（以 / 开头）。
+# ============================================================
+/final_report/final_report/data/08_cost_distribution_analysis_20260726_131216/full_results.pkl
