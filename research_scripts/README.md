@@ -14,12 +14,16 @@
 | `run_timeseries_batch.py` | 18 组合 × 5 次的校准时间序列 | — |
 | `run_ts_viable.py` | 从普查中挑存活配置重跑，产出代表性存活轨迹 | — |
 | `exp_harness.py` | 补充实验（exp1–exp6）的轻量运行器 | — |
+| `verify_determinism.py` | **确定性验收**：同一种子跑 3 次须逐值一致，异种子须给出不同轨迹 | 无参 |
+| `bench_run.py` | 批量吞吐基准，开跑大批次前估算总时长与并行度 | 位置参数 `T`（默认 50） |
+| `verify_inst_capacity.py` | 核验 `institution_capacity` / `g_world` 的运行时覆盖链路是否通畅 | 无参 |
 
 ### 可复现性约定（v3.8）
 
 1. **种子来源唯一**：`SimulationEngine.run()` 入口执行 `np.random.seed(config.random_seed % 2**32)`；
 2. **每任务独立子种子**：批量运行器用 `SeedSequence(base).generate_state(n)` 派生，避免多进程下种子串扰；
-3. **确定性核对**：`python _verify_seed.py` 应以同种子三次输出完全一致、异种子给出不同轨迹。
+3. **确定性核对**：`python research_scripts/verify_determinism.py` 应以同种子三次输出完全一致、异种子给出不同轨迹；
+4. **一次性编排归档**：v3.8 期间用过、不再重跑的轮询编排（`v38_postprocess.sh`、`v38_extra_batches.sh`）统一收在 `archive/`，日常复现请用 `run_paper_experiments.py`。
 
 ### 批次与规模（v3.8 口径）
 
@@ -320,6 +324,17 @@ research_scripts/
 │   ├── calibration_report.py        #   通用校准报告 + 不确定性传播
 │   └── china_historical_data.csv    #   中国1960-2023历史数据(6变量)
 ├── run_all.py                       # 总调度器
+├── run_paper_experiments.py         # 🆕 v3.8: 论文实验总驱动 (23 批次 / 5,901 次运行)
+├── analyze_v38.py                   # 🆕 v3.8: 全表重算 -> tables.json + analysis_report.md
+├── make_figures_v38.py              # 🆕 v3.8: 出版级图件 (PDF + PNG)
+├── verify_paper_consistency.py      # 🆕 v3.8: 论文数字 <-> 实验数据 逐条断言
+├── verify_determinism.py            # 🆕 v3.8: 确定性验收 (同种子一致 / 异种子不同)
+├── bench_run.py                     # 🆕 v3.8: 批量吞吐基准
+├── verify_inst_capacity.py          # 🆕 v3.8: 参数覆盖链路核验
+├── archive/                         # 🆕 v3.8: 已完成的一次性编排脚本 (仅供追溯)
+│   ├── v38_postprocess.sh           #    主实验 -> 时间序列 -> 重算全表 -> 出图
+│   ├── v38_extra_batches.sh         #    补跑 extraction / gspeed
+│   └── README.md
 └── README.md                        # 本文件
 ```
 

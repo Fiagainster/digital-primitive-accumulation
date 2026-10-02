@@ -1,5 +1,30 @@
-import sys, os, time
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+#!/usr/bin/env python
+"""确定性核验 —— 同种子三次逐值一致，异种子给出不同轨迹。
+
+背景
+----
+v3.8 的可复现性约定要求每次 run 的伪随机流由其配置标识确定性地播种
+（``SimulationEngine.run()`` 入口执行 ``np.random.seed(config.random_seed % 2**32)``，
+批量运行器再用 ``SeedSequence`` 派生每任务子种子）。本脚本是该约定的验收器：
+对同一个配置（manufacturing_giant x B x benign_globalization, T=50）跑三次同种子
+（42）与两次异种子（43/44），核对
+
+* ``SAME`` 三次的 存活/终止年/GDP/福利/CDI/复合依附/分组代价/五维评价 必须逐值相同；
+* ``DIFF`` 两次应与 ``SAME`` 不同。
+
+任一条不满足，说明播种链在某一层断裂（入口未播种、子种子串扰、或迭代顺序不稳定）。
+脚本只读，不写入任何实验产物。
+
+运行方式:
+    python research_scripts/verify_determinism.py
+"""
+
+import sys
+from pathlib import Path
+
+_project_root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_project_root))
+
 from concurrent.futures import ProcessPoolExecutor
 
 

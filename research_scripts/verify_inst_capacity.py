@@ -1,6 +1,23 @@
-"""交叉验证：institution_capacity 覆盖是否真的改变结果。"""
+#!/usr/bin/env python
+"""参数覆盖核验 —— 确认 ``institution_capacity`` 与 ``g_world`` 的运行时覆盖真的生效。
+
+背景
+----
+论文第 5 章的制度容量反事实（inst 0.65 -> 0.80 使 post-Soviet 的 A 策略由 0% 转为
+可存续）依赖 ``build_from_profile(...)`` 之后能覆盖 ``institution_capacity``。
+本脚本打印默认配置里 inst / g_world 相关键，再逐档覆盖并回显，确认键名正确、
+覆盖链路通畅（避免出现"改了参数但模型读的是另一个键"这类静默失效）。
+
+运行方式:
+    python research_scripts/verify_inst_capacity.py
+"""
+
 import sys
-sys.path.insert(0, '.')
+from pathlib import Path
+
+_project_root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_project_root))
+
 from src.params.schema import get_schema
 
 

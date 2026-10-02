@@ -1,5 +1,23 @@
-import sys, time, os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+#!/usr/bin/env python
+"""批量吞吐基准 —— 测 6 国情 x 3 策略在给定 T 下的墙钟时间与单次耗时。
+
+用途
+----
+在开跑大规模批次（census / 参数扫描）之前，用本脚本估算总时长与并行度是否合理；
+也用于换机后回归：同一 T 下单次耗时应保持同量级。
+
+运行方式:
+    python research_scripts/bench_run.py          # 默认 T=50
+    python research_scripts/bench_run.py 80       # 指定 T
+"""
+
+import sys
+import time
+from pathlib import Path
+
+_project_root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_project_root))
+
 from concurrent.futures import ProcessPoolExecutor
 
 

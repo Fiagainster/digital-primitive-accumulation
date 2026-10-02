@@ -266,6 +266,59 @@ def main() -> int:
             cfg.setdefault((x["meta"]["profile"], x["meta"]["regime"]), []).append(x["summary"])
         print(f"        (校准样本 {len(rs)} 条 / {len(cfg)} 组)")
 
+    # ---------------- 11. 主张 × 稳健性总览表 (tab:robustness_summary) ----------------
+    # 论文 §9.2 的 Table 14 逐条主张给出「强度」判定；这里逐条复算其依据，
+    # 避免该表沦为散文式断言。新增/修改该表时同步改这里。
+    tb_path = runs / "tables.json"
+    if tb_path.exists():
+        tb = json.loads(tb_path.read_text(encoding="utf-8"))
+        print("\n--- 11. 主张 × 稳健性总览表 (tab:robustness_summary) ---")
+
+        # (1) 速度陷阱：方向稳、边界条件性 —— σ_b 两极劣化
+        sig = tb.get("sigma", {})
+        for key, want in {"0.3|A": 6.7, "1.5|A": 13.3}.items():
+            s, n = sig[key]
+            check(f"σ_b={key.split('|')[0]} 策略 A 存活率 ≈{want:.1f}%",
+                  pct(s, n), want, tol=0.1)
+
+        # (2) 混合不优于纯：匹配口径基准
+        pm = tb.get("pure_matched")
+        if pm:
+            check("匹配口径纯策略基准 = 55.8% (67/120)", pct(*pm), 55.8, tol=0.06)
+            check("匹配口径纯策略基准 (67, 120)", tuple(pm), (67, 120), tol=0)
+
+        # (3) 制度跳变：post_soviet 在 g≥0.02 处 0%→100%
+        if gs:
+            for g in (0.02, 0.03, 0.05, 0.15):
+                check(f"post_soviet g={g} inst=0.65 → 0%",
+                      cell("post_soviet", g, 0.65), 0.0, tol=0.1)
+                check(f"post_soviet g={g} inst=0.80 → 100%",
+                      cell("post_soviet", g, 0.80), 100.0, tol=0.1)
+
+        # (4) 增长—福利脱钩：manuf_giant×B 在 7 个阈值下全部终止
+        if thr:
+            rs = results(thr)
+            for lvl in ("0.15", "0.2", "0.3", "0.45"):
+                sub = [x for x in rs if str(x["meta"].get("threshold")) == lvl
+                       and x["meta"]["profile"] == "manufacturing_giant"
+                       and x["meta"]["regime"] == "B"]
+                check(f"阈值 {lvl} 下 manuf_giant×B 终止 {len(sub)}/{len(sub)}",
+                      sum(1 for x in sub if not x["summary"]["survived"]), len(sub), tol=0)
+
+        # (5) 零代价：manuf_giant 数字部门 30 次全部严格为 0
+        ct_tbl = tb.get("cost_table", {}).get("manufacturing_giant", {})
+        if ct_tbl:
+            d = ct_tbl["digital_high_skill"]
+            check("manuf_giant 数字部门代价 max = 0（30/30 严格为零）",
+                  d["max"], 0.0, tol=0)
+            check("manuf_giant 数字部门代价 min = 0", d["min"], 0.0, tol=0)
+
+        # (6) 视野不稳：T=80 延迟终止 = 255 - 209 = 46
+        tot = tb.get("t80_total")
+        if tot:
+            check("T=80 延迟终止 = 46/255 (18.0%)", (tot[1] - tot[0], tot[1]), (46, 255), tol=0)
+            check("T=80 策略 C 存活率 = 95.3%", pct(*tb["t80"]["C"]), 95.3, tol=0.06)
+
     # ---------------- 汇总 ----------------
     bad = [lb for ok_, lb in _RESULTS if not ok_]
     print("\n" + "=" * 72)
