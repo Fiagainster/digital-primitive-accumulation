@@ -319,6 +319,34 @@ def main() -> int:
             check("T=80 延迟终止 = 46/255 (18.0%)", (tot[1] - tot[0], tot[1]), (46, 255), tol=0)
             check("T=80 策略 C 存活率 = 95.3%", pct(*tb["t80"]["C"]), 95.3, tol=0.06)
 
+    # ---------------- 11. 十二维参数扫描覆盖 (§9.2 贡献 4) ----------------
+    # 论文 §9.2 逐项列举「twelve parameters and parameter-interaction designs」。
+    # 每一维必须能在 v38 批次产物里找到对应的原始数据支撑，否则该数字不可验证。
+    # 键 = 论文命名的维度；值 = (批次文件, 该批次的运行数)。
+    TWELVE_DIMS = {
+        "1  福利崩溃阈值 (7 levels)":        [("threshold", 630)],
+        "2  σ_b 单轴 + 精细网格 + 交互":      [("sigma", 585), ("eps_fine", 130), ("wemp_eps", 500)],
+        "3  就业质量权重 w_emp (5 levels)":   [("wemp_eps", 500), ("exp6", 30)],
+        "4  福利弹性 ε (5 levels)":           [("exp6", 30)],
+        "5  初始工业资本 K_i":                [("ki", 225)],
+        "6  人力资本 H_i":                    [("ki", 225)],
+        "7  前沿增速 g_world (5 levels + 网格)": [("gworld", 350), ("gspeed", 360)],
+        "8  制度能力 (4 levels + 反事实)":     [("gspeed", 360), ("exp5", 9)],
+        "9  混合策略权重 λ":                  [("mixture", 960)],
+        "10 数字化投资份额 φ":                [("exp2", 24)],
+        "11 数字化增长目标 g_target (7 levels)": [("extraction", 70)],
+        "12 追赶函数形式 (3 modes)":          [("exp1", 216)],
+    }
+    print("\n--- 11. 十二维参数扫描覆盖 ---")
+    check("§9.2 列举的参数维度数 = 12", len(TWELVE_DIMS), 12, tol=0)
+    for dim, sources in TWELVE_DIMS.items():
+        for fname, want_n in sources:
+            doc = load(runs, fname)
+            if doc is None:
+                check(f"维度 {dim} ← {fname}.json 存在", "missing", "present", tol=0)
+                continue
+            check(f"维度 {dim} ← {fname}.json 运行数", doc.get("n_tasks"), want_n, tol=0)
+
     # ---------------- 汇总 ----------------
     bad = [lb for ok_, lb in _RESULTS if not ok_]
     print("\n" + "=" * 72)
