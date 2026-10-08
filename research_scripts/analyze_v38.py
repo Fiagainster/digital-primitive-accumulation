@@ -567,12 +567,21 @@ def do_cost_lhs():
 # --------------------------------------------------------------------------
 
 def _spearman(x, y):
+    """Spearman 秩相关.
+
+    修复（2026-10-08）：旧实现用 `np.argsort(np.argsort(...))` 排名，未处理
+    并列值——相同制度能力的多个国情会被强制排出先后，使相关系数产生偏差
+    （18 组合均值下 ρ(inst,GDP) 由正确的 0.739476 被算成 0.762642）。
+    现改用平均秩（scipy.stats.rankdata 默认 method="average"）。
+    另注意：p 值为渐近 t 近似，n=6 时不可靠，小样本应改用精确置换检验。
+    """
     x = np.asarray(x, float)
     y = np.asarray(y, float)
     if len(x) < 3:
         return None, None
-    rx = np.argsort(np.argsort(x)).astype(float)
-    ry = np.argsort(np.argsort(y)).astype(float)
+    from scipy.stats import rankdata
+    rx = rankdata(x).astype(float)
+    ry = rankdata(y).astype(float)
     r = float(np.corrcoef(rx, ry)[0, 1])
     n = len(x)
     # 近似 t 检验

@@ -582,10 +582,17 @@ class ParameterSchema:
 
     def sample_lhs(self, n: int, param_ids: List[str],
                     rng: np.random.Generator) -> np.ndarray:
-        """拉丁超立方采样."""
+        """拉丁超立方采样.
+
+        修复（2026-10-08）：先前 `qmc.LatinHypercube(d=d)` 未接收 `rng`，
+        导致同一 seed 两次调用得到不同参数矩阵、抽样点无法复现
+        （见《新增代码核对与待确认清单》第一项）。现把 `rng` 传给采样器。
+        注意：v3.8 归档的 cost_lhs 批次是用旧行为生成的，其逐运行参数
+        未落盘，故那 450 条记录无法从种子恢复；此后新批次可复现。
+        """
         from scipy.stats import qmc
         d = len(param_ids)
-        sampler = qmc.LatinHypercube(d=d)
+        sampler = qmc.LatinHypercube(d=d, seed=rng)
         sample = sampler.random(n=n)
 
         for i, pid in enumerate(param_ids):

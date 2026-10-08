@@ -323,7 +323,12 @@ def build_cost_lhs() -> list:
                     regime="C", params=params, T_max=T_DEFAULT,
                     seed=_seed("cost_lhs", key, 0),
                     meta={"batch": "cost_lhs", "profile": profile,
-                          "scenario": scenario, "idx": i, "rep": 0, "key": key},
+                          "scenario": scenario, "idx": i, "rep": 0, "key": key,
+                          # 修复（2026-10-08）：落盘实际抽样参数向量，使 LHS 点
+                          # 即使抽样器行为改变也可回溯（旧批次未保存，无法恢复）。
+                          "lhs_param_ids": list(strategy_ids),
+                          "lhs_params": {pid: float(samples[i, j])
+                                         for j, pid in enumerate(strategy_ids)}},
                 ))
     return tasks
 
@@ -539,10 +544,15 @@ def build_exp6() -> list:
 
 
 def build_t80_from_census() -> list:
-    """T=80 延长：以普查中"多数重复可存续"的配置为样本，每格 5 次。
+    """T=80 重跑：以普查中"多数重复可存续"的配置为样本，每格 5 次。
 
-    定义：某配置在 census 的 5 次重复中存活 ≥3 次，即视为 T=50 可行，
-    再用 T=80 重跑（全新运行，不是从 50 年检查点续跑）。
+    定义：某配置在 census 的 5 次重复中存活 ≥3 次（即存活占比 ≥ 0.5），
+    即视为 T=50 可行，再用 T=80 重跑（全新运行，不是从 50 年检查点续跑）。
+
+    注意（2026-10-08）：本批次的 tag 为 "t80"，与 census 的 tag 不同，
+    因此 derive_seed 给出的种子与普查同配置的种子**完全不同**——
+    两者没有配对关系，不能把 T=80 的结果读作"原普查幸存轨迹的延长"。
+    见《新增代码核对与待确认清单》第二项。
     """
     from research_scripts.exp_harness import load_batch
     data = load_batch("census")
