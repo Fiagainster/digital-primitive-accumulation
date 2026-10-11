@@ -1,0 +1,116 @@
+{
+  "scope": "current-environment seed/trajectory verification; not all-batch replication",
+  "is_original_experiment_environment": false,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "rtol": 1e-12,
+  "atol": 1e-10,
+  "yaml": {
+    "path": "C:\\Users\\胡耀宇\\Documents\\ChatGPT\\SSCI优化翻译\\论文正式修订\\阶段01\\model\\config\\default.yaml",
+    "sha256": "618690a8e9234352efca59c302bd1bd32319bef05e53c862b2dbf2fbb96bed41",
+    "default_parameters_checked": 216,
+    "loaded": true,
+    "registered_schema_parameter_count": 255,
+    "out_of_registered_domain_yaml_values_ignored_by_existing_loader": [
+      {
+        "parameter": "A_safety_margin",
+        "yaml_value": 1.5,
+        "registered_domain": [
+          0.5,
+          0.9
+        ],
+        "effective_schema_default": 0.7
+      }
+    ]
+  },
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scipy": "1.18.1",
+    "PyYAML": "6.0.3"
+  },
+  "runs": [
+    {
+      "seed": 42,
+      "trajectory_rows": 149,
+      "trajectory_columns": 147,
+      "survived": false,
+      "final_gdp": 7808.380257543917,
+      "final_welfare": 0.1624456552978004,
+      "cdi": 0.5426314695253426,
+      "five_dimensions": {
+        "economy": 0.47423330784144224,
+        "livelihood": 0.558284803653709,
+        "resilience": 0.6694322437281846,
+        "structure": 0.47355681804322425,
+        "sovereignty": 0.5264692214113198
+      }
+    },
+    {
+      "seed": 42,
+      "trajectory_rows": 149,
+      "trajectory_columns": 147,
+      "survived": false,
+      "final_gdp": 7808.380257543917,
+      "final_welfare": 0.1624456552978004,
+      "cdi": 0.5426314695253426,
+      "five_dimensions": {
+        "economy": 0.47423330784144224,
+        "livelihood": 0.558284803653709,
+        "resilience": 0.6694322437281846,
+        "structure": 0.47355681804322425,
+        "sovereignty": 0.5264692214113198
+      }
+    },
+    {
+      "seed": 42,
+      "trajectory_rows": 149,
+      "trajectory_columns": 147,
+      "survived": false,
+      "final_gdp": 7808.380257543917,
+      "final_welfare": 0.1624456552978004,
+      "cdi": 0.5426314695253426,
+      "five_dimensions": {
+        "economy": 0.47423330784144224,
+        "livelihood": 0.558284803653709,
+        "resilience": 0.6694322437281846,
+        "structure": 0.47355681804322425,
+        "sovereignty": 0.5264692214113198
+      }
+    },
+    {
+      "seed": 43,
+      "trajectory_rows": 151,
+      "trajectory_columns": 147,
+      "survived": false,
+      "final_gdp": 8086.92916546309,
+      "final_welfare": 0.16046873010166468,
+      "cdi": 0.5423188351467645,
+      "five_dimensions": {
+        "economy": 0.47380615674253906,
+        "livelihood": 0.5557180130503231,
+        "resilience": 0.670775850991811,
+        "structure": 0.4751051336566746,
+        "sovereignty": 0.5266181799327901
+      }
+    },
+    {
+      "seed": 44,
+      "trajectory_rows": 272,
+      "trajectory_columns": 147,
+      "survived": false,
+      "final_gdp": 10861.622799423303,
+      "final_welfare": 0.14433103715838988,
+      "cdi": 0.5685854822755961,
+      "five_dimensions": {
+        "economy": 0.4745923374988745,
+        "livelihood": 0.5293912687315687,
+        "resilience": 0.6741669952176511,
+        "structure": 0.6597563029382328,
+        "sovereignty": 0.5330163738088164
+      }
+    }
+  ],
+  "same_seed_full_summary_and_dataframe_passed": true,
+  "different_seeds_change_trajectories": true,
+  "passed": true
+}

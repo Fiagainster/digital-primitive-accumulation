@@ -1,0 +1,16 @@
+{
+  "purpose": "stage1 verification and figure generation",
+  "original_experiment_environment": false,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Users\\胡耀宇\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scipy": "1.18.1",
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.11.2",
+    "reportlab": "4.4.9",
+    "pypdf": "6.10.0",
+    "Pillow": "12.3.0"
+  }
+}

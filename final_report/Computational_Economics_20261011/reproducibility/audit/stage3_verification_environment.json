@@ -1,0 +1,45 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "verification_environment_not_original_experiment_environment": true,
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scipy": "1.18.1",
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.11.2",
+    "pypdf": "6.10.0",
+    "Pillow": "12.3.0"
+  },
+  "simulation_config": {
+    "T_max": 100.0,
+    "dt_base": 0.25,
+    "dt_min": 0.02,
+    "adaptive_stepping": true,
+    "ews_window_size": 40,
+    "ews_warning_threshold": 0.4,
+    "ews_critical_threshold": 0.7,
+    "ews_resilience_window": 60,
+    "ews_resilience_weight": 0.35,
+    "ews_stress_duration_threshold": 30,
+    "political_feedback_enabled": true,
+    "political_update_interval": 1.0,
+    "sfc_tolerance": 0.0001,
+    "random_seed": 42,
+    "verbose": false,
+    "evaluation_enabled": true,
+    "evaluation_interval": 1.0,
+    "cdi_weight_preset": "default",
+    "red_line_check_enabled": true,
+    "platform_enabled": true,
+    "demography_enabled": true,
+    "demography_update_interval": 1.0,
+    "spatial_enabled": true,
+    "policy_execution_discount_enabled": true
+  },
+  "model_core_sha256": {
+    "model\\src\\core\\config.py": "5e72f052994db78acf398709ccd5818eb25dd43f3ec4e9059cdcef762fd0d3b7",
+    "model\\src\\core\\engine.py": "a748e0715b7ea6c5b2bde2d992358e4c4462c15a076a29157f6ba9bc7a35104c",
+    "model\\src\\core\\state.py": "9ec6d2d2f54dd90e6e7e1905dd875e3ad5add993ea5256fe4aedfd71efa49e60",
+    "model\\src\\core\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

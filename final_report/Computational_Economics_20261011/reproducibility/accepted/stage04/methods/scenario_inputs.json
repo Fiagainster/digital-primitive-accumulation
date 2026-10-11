@@ -1,0 +1,66 @@
+{
+  "benign_globalization": {
+    "g_world": 0.03,
+    "block_max": 0.0,
+    "mu_p_resource": 1.2,
+    "sigma_p": 0.1,
+    "world_digital_demand": 1.5,
+    "fdi_availability": 1.5
+  },
+  "tech_cold_war": {
+    "g_world": 0.03,
+    "block_max": 0.8,
+    "mu_p_resource": 0.8,
+    "sigma_p": 0.2,
+    "world_digital_demand": 0.6,
+    "fdi_availability": 0.2
+  },
+  "resource_crash": {
+    "g_world": 0.02,
+    "block_max": 0.2,
+    "mu_p_resource": 0.3,
+    "sigma_p": 0.4,
+    "world_digital_demand": 0.8,
+    "fdi_availability": 0.5
+  },
+  "tech_boom": {
+    "g_world": 0.08,
+    "block_max": 0.4,
+    "mu_p_resource": 1.0,
+    "sigma_p": 0.15,
+    "world_digital_demand": 2.0,
+    "fdi_availability": 1.5
+  },
+  "global_recession": {
+    "g_world": 0.01,
+    "block_max": 0.3,
+    "mu_p_resource": 0.5,
+    "sigma_p": 0.3,
+    "world_digital_demand": 0.3,
+    "fdi_availability": 0.1
+  },
+  "full_containment": {
+    "g_world": 0.05,
+    "block_max": 0.95,
+    "mu_p_resource": 0.4,
+    "sigma_p": 0.35,
+    "world_digital_demand": 0.1,
+    "fdi_availability": 0.05
+  },
+  "tech_explosion": {
+    "g_world": 0.12,
+    "block_max": 0.7,
+    "mu_p_resource": 1.0,
+    "sigma_p": 0.2,
+    "world_digital_demand": 2.5,
+    "fdi_availability": 1.0
+  },
+  "resource_war": {
+    "g_world": 0.03,
+    "block_max": 0.6,
+    "mu_p_resource": 0.5,
+    "sigma_p": 0.6,
+    "world_digital_demand": 0.5,
+    "fdi_availability": 0.15
+  }
+}

@@ -1,0 +1,7 @@
+# Revision verification environment; not the unrecorded original run environment.
+numpy==2.3.5
+scipy==1.18.1
+matplotlib==3.11.2
+PyYAML==6.0.3
+reportlab==4.4.9
+pypdf==6.10.0

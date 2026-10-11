@@ -1,0 +1,4 @@
+﻿regime,n_runs,viable_at_80,fail_before_50,fail_at_50_to_80
+A,20,0,0,20
+B,85,66,1,18
+C,150,143,7,0

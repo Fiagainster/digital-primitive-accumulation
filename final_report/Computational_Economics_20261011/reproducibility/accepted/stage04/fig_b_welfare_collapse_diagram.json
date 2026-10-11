@@ -1,0 +1,81 @@
+{
+  "title": "Strategy B: specified channels and diagnostic observations",
+  "width": 700,
+  "height": 470,
+  "boxes": [
+    {
+      "id": "rule",
+      "x": 25,
+      "y": 65,
+      "w": 315,
+      "h": 140,
+      "lines": [
+        "Specified accumulation package",
+        "Digital-priority allocation",
+        "Growth target g = 0.25",
+        "Tau affects unemployment and costs",
+        "Feedback eligibility at DL >= 0.50",
+        "Success and execution are separate"
+      ],
+      "fill": "#E9F1F8"
+    },
+    {
+      "id": "welfare",
+      "x": 360,
+      "y": 65,
+      "w": 315,
+      "h": 140,
+      "lines": [
+        "Main welfare calculation",
+        "Consumption per person: power 0.5",
+        "Employment per person: power 0.3",
+        "Skill: power 0.2",
+        "Atkinson inequality aversion = 1.5",
+        "Sector-quality index is separate"
+      ],
+      "fill": "#E9F1F8"
+    },
+    {
+      "id": "path",
+      "x": 25,
+      "y": 245,
+      "w": 315,
+      "h": 140,
+      "lines": [
+        "Five archived B trajectories",
+        "Recorded GDP: 109.7 to 6,821.4",
+        "Welfare: 0.522 to 0.204",
+        "Industrial labor: 44.98 to 23.47",
+        "Endpoint years: 26.5 to 44.4",
+        "0/5 viable; endpoints are not one year"
+      ],
+      "fill": "#F3EFE7"
+    },
+    {
+      "id": "cost",
+      "x": 360,
+      "y": 245,
+      "w": 315,
+      "h": 140,
+      "lines": [
+        "Observed modeled costs",
+        "Manufacturing digital cost = 0",
+        "Industrial wage-gap cost is positive",
+        "Industrial / digital ratio undefined",
+        "No marginal cost-per-growth claim",
+        "Channels are not isolated effects"
+      ],
+      "fill": "#F3E8EC"
+    }
+  ],
+  "edges": [
+    [
+      "rule",
+      "welfare"
+    ]
+  ],
+  "notes": [
+    "Source of observations: ts_calibration.json, manufacturing giant / B / benign, five seeds (records 5-9).",
+    "Top-row link summarizes interacting specified rules. Bottom boxes are observations, not effect estimates."
+  ]
+}

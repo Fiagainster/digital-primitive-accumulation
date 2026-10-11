@@ -1,0 +1,102 @@
+{
+  "title": "States and sequential update in the retained model",
+  "width": 700,
+  "height": 530,
+  "boxes": [
+    {
+      "id": "input",
+      "x": 25,
+      "y": 65,
+      "w": 650,
+      "h": 84,
+      "lines": [
+        "Assigned inputs and external state",
+        "Six ideal profiles; eight scenarios; pure rules or original mixture inputs",
+        "Seeded shocks, foreign equity and external conditions; no fitted countries"
+      ],
+      "fill": "#E9F1F8"
+    },
+    {
+      "id": "prod",
+      "x": 25,
+      "y": 178,
+      "w": 315,
+      "h": 120,
+      "lines": [
+        "Production and labor",
+        "Six sector production functions",
+        "Wage and skill-filtered labor flows",
+        "Shared surplus replaces the fund",
+        "Earlier external addition is overwritten"
+      ],
+      "fill": "#E9F1F8"
+    },
+    {
+      "id": "accum",
+      "x": 360,
+      "y": 178,
+      "w": 315,
+      "h": 120,
+      "lines": [
+        "Accumulation and technology",
+        "Rule-specific allocation and costs",
+        "Absorption, capital and digitalization",
+        "Innovation and two diffusion updates",
+        "Not a simultaneous equilibrium"
+      ],
+      "fill": "#E9F1F8"
+    },
+    {
+      "id": "hh",
+      "x": 25,
+      "y": 328,
+      "w": 315,
+      "h": 120,
+      "lines": [
+        "Households and evaluation",
+        "Five aggregate household groups",
+        "Consumption, employment and skills",
+        "Atkinson welfare; modeled costs",
+        "Enabled political and auxiliary rules"
+      ],
+      "fill": "#F3EFE7"
+    },
+    {
+      "id": "record",
+      "x": 360,
+      "y": 328,
+      "w": 315,
+      "h": 120,
+      "lines": [
+        "Diagnostics and recorded state",
+        "SFC proxy residual; no exact closure",
+        "Nine detectors; three terminal types",
+        "Record after update, before clock step",
+        "t = 0 already includes one update"
+      ],
+      "fill": "#F3EFE7"
+    }
+  ],
+  "edges": [
+    [
+      "input",
+      "prod"
+    ],
+    [
+      "prod",
+      "accum"
+    ],
+    [
+      "accum",
+      "hh"
+    ],
+    [
+      "hh",
+      "record"
+    ]
+  ],
+  "notes": [
+    "Source: core/engine.py and the implemented module rules. Diagram labels summarize order and scope.",
+    "Welfare, costs, detector events and terminal CDI are distinct measures; red lines do not stop the run."
+  ]
+}

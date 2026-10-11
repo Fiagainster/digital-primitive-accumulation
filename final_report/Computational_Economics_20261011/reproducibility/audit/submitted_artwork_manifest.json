@@ -1,0 +1,304 @@
+{
+  "fig_survival_heatmap": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "census_profile_strategy.csv": "c00bebcb4b7e4a754e8a4c650a5cc5be3499504fb1a8c99f1915f05bec781ffc"
+    },
+    "raw_source": "census.json",
+    "unit": "40 executions per profile-strategy cell: 8 scenarios x 5 seeds",
+    "scope": "Assigned scenarios receive equal enumeration weight; not calibrated country failure probabilities.",
+    "width_mm": 119,
+    "height_mm": 92.71,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_survival_heatmap.eps": "c85aabccdd800da620277e431900e4493d1da4817e083e69d2fef13b0cc0affe",
+      "fig_survival_heatmap.pdf": "d5f2387bd04c5e1aac19abc61ac90833219e55b5459179fcc5d104931d03dd98",
+      "fig_survival_heatmap.png": "245632cb6a5fdd78f79d14b0e078a5a400a940eb5e23056ed6de16dc3f09ad43",
+      "fig_survival_heatmap.svg": "3ed713492582b2a4cc2ef6e04f3a6a31c10b3742b5eac9043914461a470dc336"
+    }
+  },
+  "fig_fracture_fingerprint": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "failure_prevalence.csv": "1f070f71205497741e8ef0c8a59178fbcf19b6726c83014e7167a8a22b5e5733"
+    },
+    "raw_source": "census.json",
+    "unit": "240 runs per strategy; a run may record multiple distinct modes",
+    "scope": "Bars use run prevalence. Event composition and all nine monitored modes appear in the supplement.",
+    "width_mm": 119,
+    "height_mm": 82.55,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_fracture_fingerprint.eps": "5a32fdec51acc7945bea23f4720e6cd106acf903231da05931dc6b84e5411040",
+      "fig_fracture_fingerprint.pdf": "b84cbb704f33bd85632ed92545e969115bb069a1760497d62f8febc18e7a96f7",
+      "fig_fracture_fingerprint.png": "02819b737db2ee548369e68b84cc5a4575e9c066968d9e253d05831fbcf78363",
+      "fig_fracture_fingerprint.svg": "078d1afc0bae580782e6aa4f1ba3c77091cb70c4681592e7545f520f0590f816"
+    }
+  },
+  "fig_t80_windows": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "t80_failure_windows.csv": "059a256658d8da090a4ef2520f9a5d3fe2a6ddc19a892296b6cc196ef5f78d95",
+      "t80_run_windows.csv": "80046ff1e0e446e7c91dbb1ff5b599036431cdbd21f9677f34a3d4b55f24676e"
+    },
+    "raw_source": "census.json; t80.json",
+    "unit": "51 configurations selected by >=3/5 census survival, then 5 fresh seeds each",
+    "scope": "No paired continuation. Labels are counts; A has 20 late failures, B 18 late/1 early, C 7 early/0 late.",
+    "width_mm": 119,
+    "height_mm": 77.46999999999998,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_t80_windows.eps": "f08626065accf727c7ee7ed05623ecb1dfe3a1e960278029ccbf38948785bd66",
+      "fig_t80_windows.pdf": "fb577df291d0763cfee60e5aedd19da33a087a66129ce174580d265d018e21d7",
+      "fig_t80_windows.png": "b2b991edfb2e3af6fb9d107c4183b38ed36b01a52d50043b3c64cb697c5dec22",
+      "fig_t80_windows.svg": "7911023a2fcad8d51fc7fee9635f489bb8b88b09df3b577eb018ef5daaca0b0a"
+    }
+  },
+  "fig_A_growth_capacity": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "A_growth_capacity_grid.csv": "888c5ea85fbf20d6351191d3c22e1c1a25aa52cd82ee11615f937f8e41bc8ba2"
+    },
+    "raw_source": "gspeed.json",
+    "unit": "72 settings, 5 seeds each; A, benign globalization; 9 growth values x 4 capacities x 2 profiles",
+    "scope": "All retained grid values displayed. Stronger-capacity settings survive to the upper growth limit; no universal critical growth estimated.",
+    "width_mm": 119,
+    "height_mm": 99.05999999999999,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_A_growth_capacity.eps": "ba5e692791c7a216b16235846c442f3a83d4a70baa10cf21dd8cf356d5b306d1",
+      "fig_A_growth_capacity.pdf": "db0ed0e62f02716abd6ce7e757bf78cbddc9c586f2a244a5494ea2aa9a8e04ff",
+      "fig_A_growth_capacity.png": "09a83cfa8d7caf6cd715ee4fcae487564a1ee104ffcff80e8954b8de71c37b7c",
+      "fig_A_growth_capacity.svg": "7d84b74fd4e75902dd103689f3a7857a040e15fab01a76aab9909b5d5ec4b3ee"
+    }
+  },
+  "fig_B_output_welfare": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "B_diagnostic_timeseries.csv": "03cd34b476e7492f1984a04b603292d9b22c751f15151e3e8802059b22be302e",
+      "B_diagnostic_endpoints.csv": "916a61bc2a9134d3d422d9f6c0b8144f1c22f4c67e7ee836bd9bccc891bb021b"
+    },
+    "raw_source": "ts_calibration.json#/results/5..9",
+    "unit": "5 individual manufacturing-giant B trajectories; benign globalization",
+    "scope": "Actual recorded times, no interpolation or pooled tail mean. t=0 is post-update. Each endpoint is its own termination.",
+    "width_mm": 119,
+    "height_mm": 93.98,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_B_output_welfare.eps": "0702afa7c3b6dc1503c3e9f2d798531269d477e4e2bec0883ced5be92c208b21",
+      "fig_B_output_welfare.pdf": "144a25c1bf8efb2a68c74dff59159d076f3f0c35a5a53c822d2362dae6f16bda",
+      "fig_B_output_welfare.png": "3663706ab280b304a4c12bda3f6243e38b94be38193b91bc91b779ce1b0e77df",
+      "fig_B_output_welfare.svg": "0bb67fbf8d0296e0636a677083abbcfcf2dc78377abe33046bc4971881219149"
+    }
+  },
+  "fig_C_endpoint_profiles": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "C_selected_cases.csv": "ff6d2ec74808b6da3050ebe7f8fac87b8ec2f74d712ff6078b4f68dd20a6a869"
+    },
+    "raw_source": "census.json, 3 declared C settings",
+    "unit": "5 seed repetitions per setting; own endpoints, including failed runs",
+    "scope": "Markers: means; bars: observed min/max, not confidence intervals. Profiles/scenarios change multiple inputs together.",
+    "width_mm": 119,
+    "height_mm": 72.02737499999998,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_C_endpoint_profiles.eps": "e5943175cc70a15210700f04041506a431debc2cbf09dd629a1ad3269d12591b",
+      "fig_C_endpoint_profiles.pdf": "6e9b364a2e6fabdb17bcf08b550b85bc55da1753ce8345bd324b8abd66f4cfe7",
+      "fig_C_endpoint_profiles.png": "e7959ff2f0e5f03fb89cd9444b955308cd720b93e874fb1410711eb2dcf5a54b",
+      "fig_C_endpoint_profiles.svg": "23896cb37185760f8404bdb530fb7d774b435cb5b22a5a83143b8703cea28201"
+    }
+  },
+  "fig_b_cost_distribution": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "B_group_costs.csv": "80ba6a85900a5dfd46d7882d23b3e8d91007aaaba62f4a3657a27a56fb8e08d1"
+    },
+    "raw_source": "cost_table.json",
+    "unit": "30 B seeds per profile, benign globalization; all 120 own endpoints",
+    "scope": "All points shown; boxes summarize distributions. Digital costs are exactly zero only for manufacturing giant here. No marginal growth-cost ratio.",
+    "width_mm": 119,
+    "height_mm": 129.54,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_b_cost_distribution.eps": "b7e3c277f85b3db344289a0cf274c3173e498eaff5d7e3dfa52b48e269737676",
+      "fig_b_cost_distribution.pdf": "f36ddf540bcb691b37935bd712e81f00c48a966cc2b8e9b3d2c6d203de16ded2",
+      "fig_b_cost_distribution.png": "83f6b5fd6e377435825876edc7fe94deb08231862d771bd2dfb0674eab66c855",
+      "fig_b_cost_distribution.svg": "3ed8398a6a267d2c44b505ad485780538637b47217931382a95b15217f6a92b6"
+    }
+  },
+  "fig_mixture_weight_mapping": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "mixture_inputs_and_outcomes.csv": "200c262ff9dfce2a24dd7466cd935c201fcbeb94837e81fb7cc76c94f9382b81"
+    },
+    "raw_source": "mixture.json; stage-3 audited weight mapping",
+    "unit": "320 original inputs; 171 corrected; 292 accumulation vectors at 12 decimal places",
+    "scope": "The engine retains original inputs for other rules. Corrected points are not the complete mechanism state. No uniform effective-simplex ranking.",
+    "width_mm": 119,
+    "height_mm": 92.71,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_mixture_weight_mapping.eps": "afc38a0278bc5c51dc3e3ef36406ddf3e8c3c68606399edd1624be6f28acd67d",
+      "fig_mixture_weight_mapping.pdf": "890edfcff2120a8da18ba3395c02afe0f398d628f42c7c8b0aa6c5aa796c3e95",
+      "fig_mixture_weight_mapping.png": "fd4d0af18cc896381f0c9ebc7a53cedbd7e0b0de353f4b6f494b1ea7c2c3f2b0",
+      "fig_mixture_weight_mapping.svg": "6847101f23e50b5ee398a77e4509b6073ed4b37f10faba561dd1328f5fcadafb"
+    }
+  },
+  "fig_matched_mixture": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "matched_frame_viability.csv": "2c5e1d4d33b016e2f29bb231f34144537751ea2ef4a71363661dd7a565437455"
+    },
+    "raw_source": "census.json matched subset; mixture.json",
+    "unit": "same 4 profiles x 2 scenarios; pure 120 runs vs mixture 960, distinct seeds and mechanisms",
+    "scope": "Equal profile-scenario enumeration; pure strategy mix of A/B/C. Descriptive frame match, no seed-paired treatment effect.",
+    "width_mm": 119,
+    "height_mm": 90.16999999999999,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_matched_mixture.eps": "da39c7c69b097f71e980a7450eb191c23a53decc0aa77a2e2d1ba6dd16d486df",
+      "fig_matched_mixture.pdf": "8824e4f3b6c4c9732a4d6aff0405a13f5d2c108d06ccd0a12fb874d8d7e9e638",
+      "fig_matched_mixture.png": "0d5fcb1a92a390162736883810e0cb54afabf4c1381d960c559e098eec5445bb",
+      "fig_matched_mixture.svg": "c1cb02e29653e415316322651f017ca23c70c66a29dbc17e199f8d4f362a9889"
+    }
+  },
+  "fig_calib_fact1_curves": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "selected_representative_paths.csv": "4b6f26ff2bf3f5e6313a01081fee32d6aed9d84e242d0fc95b5dd4ac20040fd4"
+    },
+    "raw_source": "ts_viable.json; census seed re-executions",
+    "unit": "9 selected single-seed paths, 4 profiles",
+    "scope": "Eight benign paths and one post-Soviet B path under full containment (dashed). Unsmoothed points; circles first post-update state, squares last. Curve direction is temporal; no population-wide inverted-U or empirical fit.",
+    "width_mm": 119,
+    "height_mm": 132.07999999999998,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_calib_fact1_curves.eps": "256316bdc16199073589edfe52d348f9ceb3c7e44071d28e645a6e0e536ee27f",
+      "fig_calib_fact1_curves.pdf": "4db4da482ca53edb2fb1cff0f5bcfaeb9530ef7d330563e3dc25754f6f8898f5",
+      "fig_calib_fact1_curves.png": "f69cb4940e17028c278c7934b7321c67310b119a50ec24d7698e0e6adda9ec1b",
+      "fig_calib_fact1_curves.svg": "f009bc8bd528a0adec29e4811878b95fc1a036610d8da98415f40d87a46d7eac"
+    }
+  },
+  "fig_calib_fact2_inst": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "directional_configuration_means.csv": "8f29ea6c96d4be4064b479ee14f9c56dca52d8db792a37d90c5c5ce042d58e87"
+    },
+    "raw_source": "calibration.json",
+    "unit": "18 configuration means, 5 seed repetitions each",
+    "scope": "Other profile inputs vary with capacity. Descriptive average-rank Spearman, not a ceteris-paribus institutional effect.",
+    "width_mm": 119,
+    "height_mm": 76.19999999999999,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_calib_fact2_inst.eps": "db368b96008b18c27bdf0b714420ecf3771da6234afda5d61a50eb555123ec29",
+      "fig_calib_fact2_inst.pdf": "716080a3a6aa6930ed9b239382da86991302bc9e02dcb7352c49a174840b41ca",
+      "fig_calib_fact2_inst.png": "8222df02ad438e849a2ded8b835fce19dd191ad2856c68b591ca0dbdb360dcaf",
+      "fig_calib_fact2_inst.svg": "3ea25f98083920433f1e18bd3c2a6a2f774983da200c0c9c1e916f36cb236b35"
+    }
+  },
+  "fig_calib_fact3_deind": {
+    "kind": "data_plot",
+    "input_sha256": {
+      "directional_trajectory_metrics.csv": "94595eb633710ddd595279d17bde01ccad10cc4c3390174d1b8783c6c4c47a40"
+    },
+    "raw_source": "ts_calibration.json",
+    "unit": "60 of 90 trajectories have >=5 positive-GDP points and a positive recorded span",
+    "scope": "30 short paths excluded. First-to-last annualized growth, not post-event growth. Expected negative relation not reproduced.",
+    "width_mm": 119,
+    "height_mm": 76.19999999999999,
+    "minimum_label_font_pt": 8.5,
+    "text_extents_within_canvas": true,
+    "new_simulations": false,
+    "outputs": {
+      "fig_calib_fact3_deind.eps": "e6c4eecbcd14232bdec3980da0884c05e60c8a9f364ebedd8c2c1fa235ea0813",
+      "fig_calib_fact3_deind.pdf": "308e373a7378c0425e8434ba3d0949d5175b896d18ad5f454d8e804454bcd6bf",
+      "fig_calib_fact3_deind.png": "d6c481520260dbc1791759ba6a257a6694d920c0a2e1223d85d87e6da3255b73",
+      "fig_calib_fact3_deind.svg": "49fd988a18bf22570f7b5e8cef6debccedcacefccf83b9936287b696aa30beb2"
+    }
+  },
+  "fig_model_structure": {
+    "kind": "implementation_diagram",
+    "frozen_geometry_sha256": "5ffdf8e187c0a4ce1ebc2d869005329a9e23fe2662280471efa7ef1dc49b366b",
+    "all_box_labels_retained": true,
+    "width_mm": 119,
+    "height_mm": 119.2388888888889,
+    "minimum_label_font_pt": 8.5,
+    "font": "embedded DejaVu Sans",
+    "removed_inside_artwork": [
+      "repeated overall title",
+      "source notes already in caption and audit"
+    ],
+    "outputs": {
+      "fig_model_structure.drawio": "b1ec52ce9ab94c99a93fb8f158705b6c89041c1722f551724bdf2e93e06ad885",
+      "fig_model_structure.eps": "654b32080410cb2fe4e1662b4e92d186d1568deefb87ed4e7829af0100860363",
+      "fig_model_structure.pdf": "33d659532a6b895c8c38b5594dbbfeb5a0ed18828248f2b7d7783961ed49fd90",
+      "fig_model_structure.png": "d5f5e82057a41e13979c8919b6a2ae8af351fe785d1d9ed66ce79eda6e7fde2e",
+      "fig_model_structure.svg": "cce8686d41e67c94c30749923293bdced15ab052d1a8c83423ae2763d1bd665a"
+    }
+  },
+  "fig_strategy_framework": {
+    "kind": "implementation_diagram",
+    "frozen_geometry_sha256": "fda2b9502c1800f18ed2679988ca9c349ae536129ffbd478d28a6760f807f697",
+    "all_box_labels_retained": true,
+    "width_mm": 119,
+    "height_mm": 124.17777777777778,
+    "minimum_label_font_pt": 8.5,
+    "font": "embedded DejaVu Sans",
+    "removed_inside_artwork": [
+      "repeated overall title",
+      "source notes already in caption and audit"
+    ],
+    "outputs": {
+      "fig_strategy_framework.drawio": "e6d28c413f3ef1490aeaf6aa62922c21345ebd2f3f629cde5572d94e53bac837",
+      "fig_strategy_framework.eps": "47948869e7c6fdcb9e1c0c0cd8223cf8831b4d4512c56d32c6076acb9f6dc9e6",
+      "fig_strategy_framework.pdf": "5664a1be78b9b3fe6201211014cd46ef24accf0f8ac1d52d1265b263b7b55b66",
+      "fig_strategy_framework.png": "38848cd54d74bf41cdf27b203534beab95ab3f9604ebb961b84d2fd5a45e60b5",
+      "fig_strategy_framework.svg": "f72b3ba53c70d05d1db6bc740adbe6552d9cc139351ba0fb749cda8caac6b5d8"
+    }
+  },
+  "fig_b_welfare_collapse": {
+    "kind": "implementation_diagram",
+    "frozen_geometry_sha256": "4a2549f5af26ec8329ab5caadd196cf0104ffd6bf7e150163cbf621b5aeee143",
+    "all_box_labels_retained": true,
+    "width_mm": 119,
+    "height_mm": 91.01666666666667,
+    "minimum_label_font_pt": 8.5,
+    "font": "embedded DejaVu Sans",
+    "removed_inside_artwork": [
+      "repeated overall title",
+      "source notes already in caption and audit"
+    ],
+    "outputs": {
+      "fig_b_welfare_collapse.drawio": "7ccd04f39aa3a8cd59157987426cb4ab38cf3f73f339753bf96f39728e4f56f5",
+      "fig_b_welfare_collapse.eps": "a1abbdfdd4de844fe5b42fdfb0a216abde7165eee37dee36cb9ffa4df17e9042",
+      "fig_b_welfare_collapse.pdf": "8975d50a83c994e2ff2cd404f7a3829d266ded26710e9698e7ee273ee3f119ca",
+      "fig_b_welfare_collapse.png": "44d469d958e112ec7e8f17ee88c35308214949ba295543bc8cb20de04e178382",
+      "fig_b_welfare_collapse.svg": "9965f45218ce931e16e2cf1ed8af300c5e2606497a35eff071bb07350a3fcada"
+    }
+  }
+}

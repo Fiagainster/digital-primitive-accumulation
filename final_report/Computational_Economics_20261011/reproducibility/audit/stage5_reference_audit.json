@@ -1,0 +1,412 @@
+[
+  {
+    "key": "acemoglu2019automation",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "article",
+    "author": "Acemoglu, Daron and Restrepo, Pascual",
+    "year": "2019",
+    "title": "Automation and new tasks: How technology displaces and reinstates labor",
+    "publication": "Journal of Economic Perspectives",
+    "volume": "33",
+    "issue": "2",
+    "pages": "3--30",
+    "doi": "10.1257/jep.33.2.3",
+    "primary_content_source": "https://www.aeaweb.org/articles?id=10.1257/jep.33.2.3",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1257%2Fjep.33.2.3",
+    "supported_claim": "Automation can displace labor; new tasks can reinstate it.",
+    "interpretation_limit": "Motivates separating productivity and employment; no fitted digitalization effect.",
+    "edition_note": "Metadata and cited claim agree with the primary publication source.",
+    "changes": {}
+  },
+  {
+    "key": "amsden1989asia",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "book",
+    "author": "Alice H. Amsden",
+    "year": "1989",
+    "title": "Asia's Next Giant: {South Korea} and Late Industrialization",
+    "publication": "Oxford University Press",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "",
+    "primary_content_source": "https://books.google.com/books?id=j0E9qKIqD-cC",
+    "additional_sources": [
+      "https://academic.oup.com/book/10201"
+    ],
+    "doi_registration_source": "",
+    "supported_claim": "Late industrialization involves learning from earlier innovators.",
+    "interpretation_limit": "The 1989 edition is retained. A DOI for the 1992 OUP edition is not assigned to it.",
+    "edition_note": "Original 1989 edition retained; 1992 paperback DOI not transferred. OUP 1992 landing page only corroborates the argument.",
+    "changes": {}
+  },
+  {
+    "key": "atkinson1970measurement",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "article",
+    "author": "Atkinson, Anthony B.",
+    "year": "1970",
+    "title": "On the Measurement of Inequality",
+    "publication": "Journal of Economic Theory",
+    "volume": "2",
+    "issue": "3",
+    "pages": "244--263",
+    "doi": "10.1016/0022-0531(70)90039-6",
+    "primary_content_source": "https://faculty.ucr.edu/~jorgea/econ261/atkinson_inequality.pdf",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1016%2F0022-0531%2870%2990039-6",
+    "supported_claim": "Equally distributed equivalent aggregation relates distribution to inequality aversion.",
+    "interpretation_limit": "The model adapts a power mean to group welfare, not observed incomes or estimated individual utility.",
+    "edition_note": "Activate the archived methodological reference for welfare aggregation.",
+    "changes": {}
+  },
+  {
+    "key": "bankes1993exploratory",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "article",
+    "author": "Bankes, Steve",
+    "year": "1993",
+    "title": "Exploratory modeling for policy analysis",
+    "publication": "Operations Research",
+    "volume": "41",
+    "issue": "3",
+    "pages": "435--449",
+    "doi": "10.1287/opre.41.3.435",
+    "primary_content_source": "https://pubsonline.informs.org/doi/10.1287/opre.41.3.435",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1287%2Fopre.41.3.435",
+    "supported_claim": "Computational experiments support reasoning under substantial uncertainty.",
+    "interpretation_limit": "Exploratory use is distinct from fitted prediction.",
+    "edition_note": "Metadata and cited claim agree with the primary publication source.",
+    "changes": {}
+  },
+  {
+    "key": "ciarli2010technical",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "article",
+    "author": "Ciarli, Tommaso and Lorentz, Andr{\\'e} and Savona, Maria and Valente, Marco",
+    "year": "2010",
+    "title": "The effect of consumption and production structure on growth and distribution. {A} micro to macro model",
+    "publication": "Metroeconomica",
+    "volume": "61",
+    "issue": "1",
+    "pages": "180--218",
+    "doi": "10.1111/j.1467-999X.2009.04069.x",
+    "primary_content_source": "https://onlinelibrary.wiley.com/doi/10.1111/j.1467-999X.2009.04069.x",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1111%2Fj.1467-999X.2009.04069.x",
+    "supported_claim": "A micro-to-macro model links consumption, production structure, growth and distribution.",
+    "interpretation_limit": "A precedent for joint outcomes, not validation of our coefficients.",
+    "edition_note": "Use 2010 issue year (61(1), 180–218); early online publication was 2009. Add DOI and correct title punctuation.",
+    "changes": {
+      "author": {
+        "before": "Tommaso Ciarli and Andre Lorentz and Maria Savona and Marco Valente",
+        "after": "Ciarli, Tommaso and Lorentz, Andr{\\'e} and Savona, Maria and Valente, Marco"
+      },
+      "doi": {
+        "before": null,
+        "after": "10.1111/j.1467-999X.2009.04069.x"
+      },
+      "title": {
+        "before": "The Effect of Consumption and Production Structure on Growth and Distribution: A Micro to Macro Model",
+        "after": "The effect of consumption and production structure on growth and distribution. {A} micro to macro model"
+      }
+    }
+  },
+  {
+    "key": "couldry2019costs",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "book",
+    "author": "Couldry, Nick and Mejias, Ulises A.",
+    "year": "2019",
+    "title": "The Costs of Connection: How Data Is Colonizing Human Life and Appropriating It for Capitalism",
+    "publication": "Stanford University Press",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "10.1515/9781503609754",
+    "primary_content_source": "https://law.unimelb.edu.au/__data/assets/pdf_file/0008/3290381/Couldry-and-Mejias-Preface-and-Ch-1.pdf",
+    "additional_sources": [
+      "https://www.sup.org/books/title/?id=28816"
+    ],
+    "doi_registration_source": "https://api.crossref.org/works/10.1515%2F9781503609754",
+    "supported_claim": "Data relations can appropriate human life for capitalist accumulation.",
+    "interpretation_limit": "The original publisher copyright/title pages establish 2019; the DOI platform date 2020 is not substituted.",
+    "edition_note": "Publisher title/copyright pages show 2019; Crossref electronic platform date is 2020. Keep original edition year and valid electronic DOI.",
+    "changes": {
+      "address": {
+        "before": "Stanford, CA",
+        "after": null
+      },
+      "doi": {
+        "before": null,
+        "after": "10.1515/9781503609754"
+      }
+    }
+  },
+  {
+    "key": "dosi2010schumpeter",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "article",
+    "author": "Giovanni Dosi and Giorgio Fagiolo and Andrea Roventini",
+    "year": "2010",
+    "title": "{Schumpeter} meeting {Keynes}: A policy-friendly model of endogenous growth and business cycles",
+    "publication": "Journal of Economic Dynamics and Control",
+    "volume": "34",
+    "issue": "9",
+    "pages": "1748--1767",
+    "doi": "10.1016/j.jedc.2010.06.018",
+    "primary_content_source": "https://www.sciencedirect.com/science/article/pii/S016518891000148X",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1016%2Fj.jedc.2010.06.018",
+    "supported_claim": "An agent-based growth model connects innovation, demand and policy.",
+    "interpretation_limit": "A precedent; the present aggregate model does not duplicate its architecture.",
+    "edition_note": "Add DOI verified against the publisher and Crossref.",
+    "changes": {
+      "doi": {
+        "before": null,
+        "after": "10.1016/j.jedc.2010.06.018"
+      },
+      "title": {
+        "before": "Schumpeter Meeting Keynes: A Policy-Friendly Model of Endogenous Growth and Business Cycles",
+        "after": "{Schumpeter} meeting {Keynes}: A policy-friendly model of endogenous growth and business cycles"
+      }
+    }
+  },
+  {
+    "key": "evans1995embedded",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "book",
+    "author": "Evans, Peter B.",
+    "year": "1995",
+    "title": "Embedded Autonomy: States and Industrial Transformation",
+    "publication": "Princeton University Press",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "10.1515/9781400821723",
+    "primary_content_source": "https://www.jstor.org/stable/j.ctt7t0sr",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1515%2F9781400821723",
+    "supported_claim": "State organization and links with productive actors shape industrial transformation.",
+    "interpretation_limit": "Does not justify a single empirical institutional-capacity coefficient.",
+    "edition_note": "Use Peter B. Evans, confirmed by publisher-deposited Crossref metadata, and add DOI.",
+    "changes": {
+      "address": {
+        "before": "Princeton, NJ",
+        "after": null
+      },
+      "doi": {
+        "before": null,
+        "after": "10.1515/9781400821723"
+      }
+    }
+  },
+  {
+    "key": "godley2007monetary",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "book",
+    "author": "Godley, Wynne and Lavoie, Marc",
+    "year": "2007",
+    "title": "Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth",
+    "publication": "Palgrave Macmillan",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "10.1057/9780230626546",
+    "primary_content_source": "https://link.springer.com/book/10.1057/9780230626546",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1057%2F9780230626546",
+    "supported_claim": "Stocks, flows, balance sheets and transaction matrices are linked in a monetary accounting framework.",
+    "interpretation_limit": "Used to distinguish the current residual diagnostic from complete stock-flow accounts.",
+    "edition_note": "Add this methodological reference to clarify the accounting limitation.",
+    "changes": {
+      "author": {
+        "before": null,
+        "after": "Godley, Wynne and Lavoie, Marc"
+      },
+      "doi": {
+        "before": null,
+        "after": "10.1057/9780230626546"
+      },
+      "publisher": {
+        "before": null,
+        "after": "Palgrave Macmillan"
+      },
+      "title": {
+        "before": null,
+        "after": "Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth"
+      },
+      "year": {
+        "before": null,
+        "after": "2007"
+      }
+    }
+  },
+  {
+    "key": "goldfarb2019digital",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "article",
+    "author": "Goldfarb, Avi and Tucker, Catherine",
+    "year": "2019",
+    "title": "Digital economics",
+    "publication": "Journal of Economic Literature",
+    "volume": "57",
+    "issue": "1",
+    "pages": "3--43",
+    "doi": "10.1257/jel.20171452",
+    "primary_content_source": "https://www.aeaweb.org/articles?id=10.1257/jel.20171452",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1257%2Fjel.20171452",
+    "supported_claim": "Digital technology changes search, replication, transportation, tracking and verification costs.",
+    "interpretation_limit": "Provides motivation, not numerical production coefficients.",
+    "edition_note": "Metadata and cited claim agree with the primary publication source.",
+    "changes": {}
+  },
+  {
+    "key": "harvey2003new",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "book",
+    "author": "David Harvey",
+    "year": "2003",
+    "title": "The New Imperialism",
+    "publication": "Oxford University Press",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "10.1093/oso/9780199264315.001.0001",
+    "primary_content_source": "https://academic.oup.com/book/40584/chapter-abstract/348172808",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1093%2Foso%2F9780199264315.001.0001",
+    "supported_claim": "Accumulation by dispossession concerns appropriation and changing control.",
+    "interpretation_limit": "Chapter 4 is the content source; the book landing-page abstract was inconsistent and was not used.",
+    "edition_note": "Add verified book DOI; conceptual support checked in Chapter 4 rather than erroneous landing-page abstract.",
+    "changes": {
+      "doi": {
+        "before": null,
+        "after": "10.1093/oso/9780199264315.001.0001"
+      }
+    }
+  },
+  {
+    "key": "marx1867capital",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "book",
+    "author": "Marx, Karl",
+    "year": "1867",
+    "title": "{Das Kapital: Kritik der politischen Oekonomie. Erster Band. Buch I: Der Produktionsprocess des Kapitals}",
+    "publication": "Verlag von Otto Meissner",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "",
+    "primary_content_source": "https://www.marxists.org/archive/marx/works/1867-c1/ch26.htm",
+    "additional_sources": [
+      "https://megadigital.bbaw.de/register/werke/detail.xql?id=PT9GISVC",
+      "https://www.deutschestextarchiv.de/book/show/marx_kapital01_1867"
+    ],
+    "doi_registration_source": "",
+    "supported_claim": "Primitive accumulation separates producers from their means of production.",
+    "interpretation_limit": "This author-text edition checks the concept; German 1867 metadata is checked separately, without inventing a DOI.",
+    "edition_note": "Original German title and 1867 Hamburg/Meissner edition retained; no verified original-edition DOI added.",
+    "changes": {
+      "address": {
+        "before": "Hamburg",
+        "after": null
+      },
+      "englishtitle": {
+        "before": null,
+        "after": "Capital: A critique of political economy. {Volume} 1. {Book I}: The production process of capital"
+      },
+      "title": {
+        "before": "Das Kapital: Kritik der politischen Oekonomie. Erster Band. Buch I: Der Produktionsprocess des Kapitals",
+        "after": "{Das Kapital: Kritik der politischen Oekonomie. Erster Band. Buch I: Der Produktionsprocess des Kapitals}"
+      }
+    }
+  },
+  {
+    "key": "rodrik2016premature",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "article",
+    "author": "Rodrik, Dani",
+    "year": "2016",
+    "title": "Premature deindustrialization",
+    "publication": "Journal of Economic Growth",
+    "volume": "21",
+    "issue": "1",
+    "pages": "1--33",
+    "doi": "10.1007/s10887-015-9122-3",
+    "primary_content_source": "https://link.springer.com/article/10.1007/s10887-015-9122-3",
+    "additional_sources": [],
+    "doi_registration_source": "https://api.crossref.org/works/10.1007%2Fs10887-015-9122-3",
+    "supported_claim": "Manufacturing shares peak at lower incomes in later industrializers.",
+    "interpretation_limit": "Supports the structural-change problem, not the specific conjectured negative correlation.",
+    "edition_note": "Use 2016 issue year (21(1), 1–33); first online publication was 2015.",
+    "changes": {}
+  },
+  {
+    "key": "sadowski2019data",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "article",
+    "author": "Sadowski, Jathan",
+    "year": "2019",
+    "title": "When data is capital: Datafication, accumulation, and extraction",
+    "publication": "Big Data \\& Society",
+    "volume": "6",
+    "issue": "1",
+    "pages": "1--12",
+    "doi": "10.1177/2053951718820549",
+    "primary_content_source": "https://journals.sagepub.com/doi/10.1177/2053951718820549",
+    "additional_sources": [
+      "https://journals.sagepub.com/doi/pdf/10.1177/2053951718820549"
+    ],
+    "doi_registration_source": "https://api.crossref.org/works/10.1177%2F2053951718820549",
+    "supported_claim": "Data accumulation and extraction can be examined as political-economic processes.",
+    "interpretation_limit": "Does not make simulated investment reallocation proof of dispossession.",
+    "edition_note": "Publisher PDF first page confirms 1–12 despite an empty Crossref page field. Registered article number: 2053951718820549.",
+    "changes": {}
+  },
+  {
+    "key": "wade1990governing",
+    "status": "verified_for_cited_claim",
+    "date": "2026-10-10",
+    "type": "book",
+    "author": "Robert Wade",
+    "year": "1990",
+    "title": "Governing the Market: Economic Theory and the Role of Government in {East Asian} Industrialization",
+    "publication": "Princeton University Press",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "10.1515/9780691187181",
+    "primary_content_source": "https://assets.press.princeton.edu/chapters/i4724.pdf",
+    "additional_sources": [
+      "https://www.degruyterbrill.com/document/doi/10.1515/9780691187181-fm/pdf"
+    ],
+    "doi_registration_source": "https://api.crossref.org/works/10.1515%2F9780691187181",
+    "supported_claim": "Industrialization involves coordination and policy rather than capital acquisition alone.",
+    "interpretation_limit": "The publisher-hosted new introduction verifies the original 1990 work and its argument.",
+    "edition_note": "Add registered 1990-book DOI; copyright verified by publisher front matter.",
+    "changes": {
+      "doi": {
+        "before": null,
+        "after": "10.1515/9780691187181"
+      }
+    }
+  }
+]

@@ -1,0 +1,85 @@
+{
+  "fig_survival_heatmap": {
+    "source": "census.json",
+    "statistical_unit": "run incidence over eight scenarios, five seeds each",
+    "n_input_rows": 18,
+    "editable_source": "scripts/stage1_figures.py"
+  },
+  "fig_fracture_fingerprint": {
+    "source": "census.json",
+    "statistical_unit": "per-run incidence, including nonterminal events",
+    "n_input_rows": 18,
+    "editable_source": "scripts/stage1_figures.py"
+  },
+  "fig_b_cost_distribution": {
+    "source": "cost_table.json",
+    "statistical_unit": "30 seeded runs per type; each own endpoint",
+    "n_input_rows": 120,
+    "editable_source": "scripts/stage1_figures.py"
+  },
+  "fig_calib_fact1_curves": {
+    "source": "ts_viable.json",
+    "statistical_unit": "nine selected census seed re-executions; unsmoothed recorded points",
+    "n_input_rows": 5359,
+    "editable_source": "scripts/stage1_figures.py"
+  },
+  "fig_calib_fact2_inst": {
+    "source": "calibration.json",
+    "statistical_unit": "18 configuration means, six per strategy",
+    "n_input_rows": 18,
+    "editable_source": "scripts/stage1_figures.py"
+  },
+  "fig_calib_fact3_deind": {
+    "source": "ts_calibration.json",
+    "statistical_unit": "60 repeated trajectories; first-to-last positive-GDP snapshots",
+    "n_input_rows": 60,
+    "editable_source": "scripts/stage1_figures.py"
+  },
+  "fig_b_welfare_collapse": {
+    "editable_source": "fig_b_welfare_collapse.drawio",
+    "labels": [
+      "Investment and extraction rules\nDigital target g = 0.25; allocation parameter = 0.60\nExtraction base: min(g * Kd / max(fund, 1), 0.60)\nPolitical constraints, tolerance and panic modify it",
+      "Reinvestment eligibility\nDigital maturity >= 0.50 permits the rule\nStochastic success and execution still matter\nMaturity alone is not evidence of activation",
+      "Group-welfare channels\nConsumption / population: exponent 0.5\nEmployment / population: exponent 0.3\nSkill: exponent 0.2; Atkinson aversion = 1.5\nSector job quality is a separate recorded index",
+      "Five diagnostic trajectories\nGDP: 109.7 -> 6821.4\nWelfare: 0.522 -> 0.204\nIndustrial workers: 44.98 -> 23.47\nMean endpoint year: 34.59; 0/5 viable",
+      "Termination and interpretation\nWelfare/social collapse has no two-year delay\nNominal welfare floor = 0.30 (absolute index)\nOnly three detector types terminate runs\nEndpoint comparisons do not isolate causal shares",
+      "Modeled cost is a different measure\nRunning wage-gap costs plus unemployment terms\nDigital cost = 0 in these five trajectories\nIndustrial / digital cost ratio: undefined\nNo marginal cost-per-unit-growth interpretation"
+    ],
+    "notes": [
+      "Source: ts_calibration.json, records 5-9 (zero-based); manufacturing giant / B / benign globalization.",
+      "Endpoints average each trajectory at its own termination; first snapshots follow the first update.",
+      "Arrows summarize implemented links; they are not estimates of isolated marginal effects."
+    ],
+    "export": "same labels and geometry; scripts/stage1_figures.py"
+  },
+  "fig_model_structure": {
+    "editable_source": "fig_model_structure.drawio",
+    "labels": [
+      "Initial conditions and assigned design\nSix ideal country profiles; eight scenarios\nA / B / C rule family or weighted mixture\nSeeded shocks and implementation uncertainty\nParameters describe types, not estimated countries",
+      "Six sectors and household groups\nPrimary; industry; digital infrastructure / apps\nHigh-skill services; low-skill services\nFive household groups; separate informal work\nConsumption, employment, wages and skills",
+      "Dynamic channels and accounting\nProduction, technology, labor reallocation\nExtraction and investment allocation\nSectoral SFC closure and residual diagnostics\nReduced-form debt, space and political feedback",
+      "Recorded welfare and modeled costs\nPopulation-weighted Atkinson welfare\nAccumulated wage-gap / unemployment cost\nCost Gini: five current-population-normalized values\nMain welfare is distinct from income Gini and CDI",
+      "Termination monitoring\nNine immediate detector rules\nTerminal: industrial, welfare/social, fiscal collapse\nOther detector events may coexist with viability\nHumanitarian red lines do not terminate the run",
+      "Final evaluation and saved results\nEconomy, livelihood, resilience, structure, autonomy\nTerminal CDI: clipped weighted sum\nDefault: livelihood 0.30; other dimensions 0.175\nCDI is not a strategy-ranking statistic in the paper"
+    ],
+    "notes": [
+      "Source: received v3.8 model; core code and archived executions are unchanged in this revision.",
+      "The simplified specification and accounting closure do not establish empirical fit."
+    ],
+    "export": "same labels and geometry; scripts/stage1_figures.py"
+  },
+  "fig_strategy_framework": {
+    "editable_source": "fig_strategy_framework.drawio",
+    "labels": [
+      "A: gradual accumulation\nIndustry-sensitive extraction\nConfigured bounds: 0.08-0.30\nIndustrial safety adjustment\nProtection-oriented allocation\nLearning and catch-up rules\n\nObserved boundary:\nfrontier growth and capacity\ninteract over the tested grid\n\nNo empirical country assignment",
+      "B: leapfrog accumulation\nDigital investment priority\nGrowth target: g = 0.25\nBase intensity capped at 0.60\nAllocation parameter: 0.60\nEligible at DL >= 0.50\n\nObserved boundary:\nmost manufacturing runs fail\nwith documented survivors\n\nJoint exp2: allocation and g",
+      "C: substitution accumulation\nFDI, technology imports, exports\nModerate extraction rule\nAssigned external scenarios\nAbsorption and shock rules\nDomestic investment continues\n\nObserved boundary:\noutcome quality varies across\nassigned types and scenarios\n\nLHS data remain exploratory",
+      "Comparison frame and statistical units\nCensus: 6 types x 3 rules x 8 scenarios x 5 seeds = 720 runs. Mixtures: 320 compositions x 3 seeds.\nT80: 51 selected configurations, five fresh seeds each; no paired continuation of census trajectories.\nViability, welfare, five dimensions and modeled group costs answer distinct evaluative questions."
+    ],
+    "notes": [
+      "Source: accumulation.py, registered default configuration and identified v38 batches.",
+      "Risk patterns are conditional results, not applicability recommendations for actual countries."
+    ],
+    "export": "same labels and geometry; scripts/stage1_figures.py"
+  }
+}

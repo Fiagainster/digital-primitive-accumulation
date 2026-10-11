@@ -1,0 +1,666 @@
+{
+  "run_id": "phase2_20260726_121841",
+  "focus": [
+    "b_bifurcation"
+  ],
+  "total_simulations": 240,
+  "elapsed_minutes": 10.752820452054342,
+  "anomalies_detected": 0,
+  "results": {
+    "b_bifurcation": [
+      {
+        "name": "B: B_g_target × institution_capacity (跨4国情) | manufacturing_giant",
+        "regime": "B",
+        "profile": "manufacturing_giant",
+        "scenario": "benign_globalization",
+        "param1": "B_g_target",
+        "param2": "institution_capacity",
+        "values1": [
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4
+        ],
+        "values2": [
+          0.2,
+          0.35,
+          0.5,
+          0.65,
+          0.8,
+          0.9
+        ],
+        "total_sims": 42,
+        "survived_count": 5,
+        "survival_rate": 0.11904761904761904,
+        "survival_by_value1": [
+          {
+            "value": 0.1,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.15,
+            "survival_rate": 0.16666666666666666
+          },
+          {
+            "value": 0.2,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.25,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.3,
+            "survival_rate": 0.16666666666666666
+          },
+          {
+            "value": 0.35,
+            "survival_rate": 0.3333333333333333
+          },
+          {
+            "value": 0.4,
+            "survival_rate": 0.16666666666666666
+          }
+        ],
+        "cdi_range": null,
+        "tech_gap_range": [
+          5.630561511905865,
+          12.825840961906618
+        ],
+        "gdp_range": [
+          702.4219849336117,
+          26065.457968473245
+        ],
+        "anomalies": {
+          "gdp_explosions": 0,
+          "extreme_tech_gaps": 0,
+          "nan_results": 0,
+          "details": []
+        }
+      },
+      {
+        "name": "B: B_g_target × institution_capacity (跨4国情) | resource_rich",
+        "regime": "B",
+        "profile": "resource_rich",
+        "scenario": "benign_globalization",
+        "param1": "B_g_target",
+        "param2": "institution_capacity",
+        "values1": [
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4
+        ],
+        "values2": [
+          0.2,
+          0.35,
+          0.5,
+          0.65,
+          0.8,
+          0.9
+        ],
+        "total_sims": 42,
+        "survived_count": 42,
+        "survival_rate": 1.0,
+        "survival_by_value1": [
+          {
+            "value": 0.1,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.15,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.2,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.25,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.3,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.35,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.4,
+            "survival_rate": 1.0
+          }
+        ],
+        "cdi_range": null,
+        "tech_gap_range": [
+          19.909282431742085,
+          19.969281896170042
+        ],
+        "gdp_range": [
+          249.91294513436884,
+          946.1531879015602
+        ],
+        "anomalies": {
+          "gdp_explosions": 0,
+          "extreme_tech_gaps": 0,
+          "nan_results": 0,
+          "details": []
+        }
+      },
+      {
+        "name": "B: B_g_target × institution_capacity (跨4国情) | digital_leapfrogger",
+        "regime": "B",
+        "profile": "digital_leapfrogger",
+        "scenario": "benign_globalization",
+        "param1": "B_g_target",
+        "param2": "institution_capacity",
+        "values1": [
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4
+        ],
+        "values2": [
+          0.2,
+          0.35,
+          0.5,
+          0.65,
+          0.8,
+          0.9
+        ],
+        "total_sims": 42,
+        "survived_count": 42,
+        "survival_rate": 1.0,
+        "survival_by_value1": [
+          {
+            "value": 0.1,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.15,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.2,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.25,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.3,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.35,
+            "survival_rate": 1.0
+          },
+          {
+            "value": 0.4,
+            "survival_rate": 1.0
+          }
+        ],
+        "cdi_range": null,
+        "tech_gap_range": [
+          16.988994484197843,
+          16.995397993829588
+        ],
+        "gdp_range": [
+          1594.52777052525,
+          15301.752531728831
+        ],
+        "anomalies": {
+          "gdp_explosions": 0,
+          "extreme_tech_gaps": 0,
+          "nan_results": 0,
+          "details": []
+        }
+      },
+      {
+        "name": "B: B_g_target × institution_capacity (跨4国情) | post_soviet",
+        "regime": "B",
+        "profile": "post_soviet",
+        "scenario": "benign_globalization",
+        "param1": "B_g_target",
+        "param2": "institution_capacity",
+        "values1": [
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4
+        ],
+        "values2": [
+          0.2,
+          0.35,
+          0.5,
+          0.65,
+          0.8,
+          0.9
+        ],
+        "total_sims": 42,
+        "survived_count": 3,
+        "survival_rate": 0.07142857142857142,
+        "survival_by_value1": [
+          {
+            "value": 0.1,
+            "survival_rate": 0.16666666666666666
+          },
+          {
+            "value": 0.15,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.2,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.25,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.3,
+            "survival_rate": 0.16666666666666666
+          },
+          {
+            "value": 0.35,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.4,
+            "survival_rate": 0.16666666666666666
+          }
+        ],
+        "cdi_range": null,
+        "tech_gap_range": [
+          6.225242024576109,
+          14.537496312020014
+        ],
+        "gdp_range": [
+          510.9698541222117,
+          22394.033932544142
+        ],
+        "anomalies": {
+          "gdp_explosions": 0,
+          "extreme_tech_gaps": 0,
+          "nan_results": 0,
+          "details": []
+        }
+      },
+      {
+        "name": "B: feedback_threshold × feedback_ratio (manuf_giant + post_soviet) | manufacturing_giant",
+        "regime": "B",
+        "profile": "manufacturing_giant",
+        "scenario": "benign_globalization",
+        "param1": "B_feedback_threshold",
+        "param2": "B_feedback_ratio",
+        "values1": [
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7
+        ],
+        "values2": [
+          0.05,
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3
+        ],
+        "total_sims": 36,
+        "survived_count": 0,
+        "survival_rate": 0.0,
+        "survival_by_value1": [
+          {
+            "value": 0.2,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.3,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.4,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.5,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.6,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.7,
+            "survival_rate": 0.0
+          }
+        ],
+        "cdi_range": null,
+        "tech_gap_range": [
+          5.676522615831737,
+          12.729598448943584
+        ],
+        "gdp_range": [
+          1421.3664651778101,
+          14538.057300063321
+        ],
+        "anomalies": {
+          "gdp_explosions": 0,
+          "extreme_tech_gaps": 0,
+          "nan_results": 0,
+          "details": []
+        }
+      },
+      {
+        "name": "B: feedback_threshold × feedback_ratio (manuf_giant + post_soviet) | post_soviet",
+        "regime": "B",
+        "profile": "post_soviet",
+        "scenario": "benign_globalization",
+        "param1": "B_feedback_threshold",
+        "param2": "B_feedback_ratio",
+        "values1": [
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7
+        ],
+        "values2": [
+          0.05,
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3
+        ],
+        "total_sims": 36,
+        "survived_count": 0,
+        "survival_rate": 0.0,
+        "survival_by_value1": [
+          {
+            "value": 0.2,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.3,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.4,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.5,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.6,
+            "survival_rate": 0.0
+          },
+          {
+            "value": 0.7,
+            "survival_rate": 0.0
+          }
+        ],
+        "cdi_range": null,
+        "tech_gap_range": [
+          6.505309147934315,
+          10.88948195340694
+        ],
+        "gdp_range": [
+          685.4428143407694,
+          5349.042434310026
+        ],
+        "anomalies": {
+          "gdp_explosions": 0,
+          "extreme_tech_gaps": 0,
+          "nan_results": 0,
+          "details": []
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "thresholds_detected": {},
+    "key_findings": [],
+    "n_thresholds": 0,
+    "anomaly_summary": {}
+  },
+  "phase1_context": {
+    "by_regime": {
+      "A": {
+        "total": 48,
+        "survived": 4,
+        "survival_rate": 0.08333333333333333,
+        "cdi": {},
+        "tech_gap": {
+          "mean": 12.291679694340056,
+          "median": 7.070025967741936,
+          "min": 4.272887673261652,
+          "max": 74.12832408489513
+        },
+        "gdp": {
+          "mean": 885.3333657949448,
+          "median": 108.64944921224424,
+          "min": 21.861232221826487,
+          "max": 6970.918104518277
+        }
+      },
+      "B": {
+        "total": 48,
+        "survived": 17,
+        "survival_rate": 0.3541666666666667,
+        "cdi": {},
+        "tech_gap": {
+          "mean": 122.97059328920766,
+          "median": 8.186270820793082,
+          "min": 4.079819385630475,
+          "max": 1839.26242801531
+        },
+        "gdp": {
+          "mean": 2310.903501183128,
+          "median": 461.25871709388775,
+          "min": 21.824708865390026,
+          "max": 12875.30756896666
+        }
+      },
+      "C": {
+        "total": 48,
+        "survived": 29,
+        "survival_rate": 0.6041666666666666,
+        "cdi": {},
+        "tech_gap": {
+          "mean": 145.30273288182403,
+          "median": 10.858291512505911,
+          "min": 4.272195084384768,
+          "max": 1863.9715985109137
+        },
+        "gdp": {
+          "mean": 680.2185323079835,
+          "median": 183.24132434813635,
+          "min": 21.827426534416894,
+          "max": 3278.2012170931484
+        }
+      }
+    },
+    "by_profile": {
+      "resource_rich": {
+        "total": 24,
+        "survived": 13,
+        "survival_rate": 0.5416666666666666
+      },
+      "populous_weak_industry": {
+        "total": 24,
+        "survived": 0,
+        "survival_rate": 0.0
+      },
+      "manufacturing_giant": {
+        "total": 24,
+        "survived": 13,
+        "survival_rate": 0.5416666666666666
+      },
+      "digital_leapfrogger": {
+        "total": 24,
+        "survived": 16,
+        "survival_rate": 0.6666666666666666
+      },
+      "small_open": {
+        "total": 24,
+        "survived": 0,
+        "survival_rate": 0.0
+      },
+      "post_soviet": {
+        "total": 24,
+        "survived": 8,
+        "survival_rate": 0.3333333333333333
+      }
+    },
+    "by_scenario": {
+      "tech_explosion": {
+        "total": 18,
+        "survived": 7,
+        "survival_rate": 0.3888888888888889
+      },
+      "resource_war": {
+        "total": 18,
+        "survived": 7,
+        "survival_rate": 0.3888888888888889
+      },
+      "tech_boom": {
+        "total": 18,
+        "survived": 6,
+        "survival_rate": 0.3333333333333333
+      },
+      "full_containment": {
+        "total": 18,
+        "survived": 5,
+        "survival_rate": 0.2777777777777778
+      },
+      "global_recession": {
+        "total": 18,
+        "survived": 7,
+        "survival_rate": 0.3888888888888889
+      },
+      "tech_cold_war": {
+        "total": 18,
+        "survived": 5,
+        "survival_rate": 0.2777777777777778
+      },
+      "benign_globalization": {
+        "total": 18,
+        "survived": 7,
+        "survival_rate": 0.3888888888888889
+      },
+      "resource_crash": {
+        "total": 18,
+        "survived": 6,
+        "survival_rate": 0.3333333333333333
+      }
+    },
+    "interaction_profile_regime": {
+      "resource_rich": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 0.625,
+          "avg_cdi": null
+        }
+      },
+      "populous_weak_industry": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        }
+      },
+      "manufacturing_giant": {
+        "A": {
+          "survival_rate": 0.5,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 0.125,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        }
+      },
+      "digital_leapfrogger": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        }
+      },
+      "small_open": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        }
+      },
+      "post_soviet": {
+        "A": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "B": {
+          "survival_rate": 0.0,
+          "avg_cdi": null
+        },
+        "C": {
+          "survival_rate": 1.0,
+          "avg_cdi": null
+        }
+      }
+    },
+    "overall_survival_rate": 0.3472222222222222
+  }
+}

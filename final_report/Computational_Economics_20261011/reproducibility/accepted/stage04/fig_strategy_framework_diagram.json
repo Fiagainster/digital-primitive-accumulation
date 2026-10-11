@@ -1,0 +1,65 @@
+{
+  "title": "Operative A, B and C accumulation rules",
+  "width": 700,
+  "height": 550,
+  "boxes": [
+    {
+      "id": "a",
+      "x": 25,
+      "y": 65,
+      "w": 650,
+      "h": 100,
+      "lines": [
+        "A: capital base plus a digital premium",
+        "Capital-proportional weights plus the specified digital premium; then normalized",
+        "Industrial-protection and catch-up rules follow investment",
+        "Computed tau does not debit a separately accounted investment budget"
+      ],
+      "fill": "#E9F1F8"
+    },
+    {
+      "id": "b",
+      "x": 25,
+      "y": 185,
+      "w": 650,
+      "h": 100,
+      "lines": [
+        "B: digital priority and rate-dependent adjustment",
+        "Pre-maturity digital allocation = 0.60; component weights total 1.03",
+        "Tau enters additional unemployment and consumption-drag rules",
+        "Digital maturity >= 0.50 permits stochastic feedback; it does not ensure success"
+      ],
+      "fill": "#F3EFE7"
+    },
+    {
+      "id": "c",
+      "x": 25,
+      "y": 305,
+      "w": 650,
+      "h": 100,
+      "lines": [
+        "C: scenario-dependent allocation and absorption",
+        "Allocation responds to FDI availability, import preference and resource exports",
+        "Technology, foreign equity and assigned external shocks affect the state",
+        "Component bounds are applied separately; weights are not globally normalized"
+      ],
+      "fill": "#E5F0EA"
+    },
+    {
+      "id": "shared",
+      "x": 25,
+      "y": 425,
+      "w": 650,
+      "h": 64,
+      "lines": [
+        "Shared qualifications: the fund is recomputed from model surplus",
+        "SFC is a residual diagnostic. M uses corrected accumulation and original engine weights."
+      ],
+      "fill": "#F3E8EC"
+    }
+  ],
+  "edges": [],
+  "notes": [
+    "Source: accumulation.py, mixed_strategy.py, engine.py and sfc/accounting.py."
+  ]
+}

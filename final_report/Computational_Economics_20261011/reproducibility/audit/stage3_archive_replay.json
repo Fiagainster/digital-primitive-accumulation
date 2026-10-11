@@ -1,0 +1,229 @@
+{
+  "scope": "Three selected full-horizon archive replays; not all 5901 executions",
+  "rtol": 1e-08,
+  "atol": 1e-09,
+  "timeseries_serialization": "round(float(value), 6), as in research_scripts/run_timeseries_batch.py:64; all stored columns and rows compared",
+  "all_passed": true,
+  "replays": [
+    {
+      "batch": "ts_calibration",
+      "meta": {
+        "profile": "manufacturing_giant",
+        "regime": "B",
+        "rep": 0
+      },
+      "seed": 141186200,
+      "full_summary_matches": true,
+      "timeseries_columns_compared": 29,
+      "recorded_rows": 298,
+      "seconds": 8.48,
+      "all_passed": true,
+      "differences": [],
+      "timeseries_diagnostics": [
+        {
+          "column": "t",
+          "max_abs_error": 1.2079226507921703e-13,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "gdp",
+          "max_abs_error": 4.96411303174682e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "welfare_index",
+          "max_abs_error": 4.970052751573917e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "gini",
+          "max_abs_error": 4.998948153756011e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "unemployment_rate",
+          "max_abs_error": 4.986933089335191e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "L_i",
+          "max_abs_error": 4.995201550173078e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "L_b",
+          "max_abs_error": 4.973349891912449e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "L_d_infra",
+          "max_abs_error": 4.972550993187497e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "L_d_app",
+          "max_abs_error": 4.988307864550734e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "L_s_high",
+          "max_abs_error": 4.991427946521299e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "L_s_low",
+          "max_abs_error": 4.983208068409795e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "Y_i",
+          "max_abs_error": 4.954558789904695e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "Y_b",
+          "max_abs_error": 4.98436584450701e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "Y_d_infra",
+          "max_abs_error": 4.99994859737285e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "Y_d_app",
+          "max_abs_error": 4.997717724108952e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "Y_s_high",
+          "max_abs_error": 4.998675819933851e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "Y_s_low",
+          "max_abs_error": 4.994225406562691e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "eval_cdi",
+          "max_abs_error": 4.854659403363826e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "eval_livelihood",
+          "max_abs_error": 4.984264159180185e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "eval_economy",
+          "max_abs_error": 4.884984635689094e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "hh_digital_cost",
+          "max_abs_error": 0.0,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "hh_industrial_cost",
+          "max_abs_error": 4.982568384548358e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "hh_base_cost",
+          "max_abs_error": 4.998283706925122e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "hh_service_cost",
+          "max_abs_error": 4.987208512829966e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "hh_unemployed_cost",
+          "max_abs_error": 4.955552981300571e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "active_fractures_count",
+          "max_abs_error": 0.0,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "employment_quality_index",
+          "max_abs_error": 4.978386026754933e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "dep_composite",
+          "max_abs_error": 4.959389929282132e-07,
+          "matches_round_to_6": true
+        },
+        {
+          "column": "tech_gap",
+          "max_abs_error": 4.973668197294501e-07,
+          "matches_round_to_6": true
+        }
+      ],
+      "endpoint_year": 44.42999999999988,
+      "accumulation_lambda": null,
+      "engine_input_lambda": null
+    },
+    {
+      "batch": "census",
+      "meta": {
+        "batch": "census",
+        "profile": "resource_rich",
+        "scenario": "benign_globalization",
+        "regime": "C",
+        "rep": 0,
+        "key": "resource_rich|benign_globalization|C"
+      },
+      "seed": 169294152,
+      "full_summary_matches": true,
+      "timeseries_columns_compared": 0,
+      "recorded_rows": 778,
+      "seconds": 23.73,
+      "all_passed": true,
+      "differences": [],
+      "timeseries_diagnostics": [],
+      "endpoint_year": 49.979999999999414,
+      "accumulation_lambda": null,
+      "engine_input_lambda": null
+    },
+    {
+      "batch": "mixture",
+      "meta": {
+        "batch": "mixture",
+        "profile": "manufacturing_giant",
+        "scenario": "benign_globalization",
+        "idx": 0,
+        "rep": 0,
+        "lambda_A": 0.4741524338758081,
+        "lambda_B": 0.12224109229552076,
+        "lambda_C": 0.40360647382867115,
+        "key": "manufacturing_giant|benign_globalization|0"
+      },
+      "seed": 1258105002,
+      "full_summary_matches": true,
+      "timeseries_columns_compared": 0,
+      "recorded_rows": 405,
+      "seconds": 12.19,
+      "all_passed": true,
+      "differences": [],
+      "timeseries_diagnostics": [],
+      "endpoint_year": 49.96999999999979,
+      "accumulation_lambda": [
+        0.5837675591079464,
+        0.11623244089205359,
+        0.3
+      ],
+      "engine_input_lambda": [
+        0.4741524338758081,
+        0.12224109229552076,
+        0.40360647382867115
+      ]
+    }
+  ]
+}

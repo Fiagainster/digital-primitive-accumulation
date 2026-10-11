@@ -1,0 +1,4 @@
+﻿source,seed,batch,profile,regime,sigma_b,rep,key
+sigma.json#/results/118,3382866244,sigma,manufacturing_giant,B,1.3,3,manufacturing_giant|B|1.3
+eps_fine.json#/results/14,396069880,eps_fine,manufacturing_giant,B,0.8,4,manufacturing_giant|0.8
+eps_fine.json#/results/53,3070315690,eps_fine,manufacturing_giant,B,1.2,3,manufacturing_giant|1.2

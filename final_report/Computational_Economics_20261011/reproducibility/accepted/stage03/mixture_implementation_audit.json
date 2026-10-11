@@ -1,0 +1,13 @@
+{
+  "draws": 320,
+  "changed_draws": 171,
+  "unique_accumulation_vectors_rounded_12dp": 292,
+  "corrected_weight_limits": {
+    "dominant_min": 0.5,
+    "secondary_max": 0.3,
+    "tertiary_max": 0.2
+  },
+  "engine_signature_uses_original_draw": true,
+  "normalization_cancels_common_allocation_penalty": true,
+  "implication": "Archive samples Dirichlet inputs; it does not implement a uniform unrestricted-simplex accumulation experiment. Counts and outcomes are retained; design interpretation is qualified."
+}

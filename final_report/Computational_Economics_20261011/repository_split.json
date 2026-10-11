@@ -1,0 +1,5110 @@
+{
+  "date": "2026-10-11",
+  "archive_root": "Computational_Economics_Stage6",
+  "source_archive": "第六阶段_Computational_Economics投稿包_20261011_作者基金留空版.zip",
+  "source_archive_sha256": "09d72b67ab34030eccd64df227e7d6886cd87445c4454954b3dbe3a634fd2667",
+  "paper_repository": "https://gitee.com/fiagainster/strategy-space-digital-primitive-accumulation",
+  "code_repository": "https://gitee.com/fiagainster/pa-model-lab",
+  "classification_basis": {
+    "paper": [
+      "output",
+      "references",
+      "review",
+      "scripts"
+    ],
+    "code": [
+      "final_report",
+      "research_scripts",
+      "doc"
+    ]
+  },
+  "technical_checks_passed": 895,
+  "technical_checks_total": 895,
+  "visually_reviewed_pdf_pages": 54,
+  "authors_and_funding_left_blank": true,
+  "new_simulations": false,
+  "files": [
+    {
+      "original_path": "AI政策核查与使用说明.md",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/AI政策核查与使用说明.md",
+      "bytes": 2178,
+      "sha256": "bc64968270cf6ee4180a7b5e9522094c58e246d5a77dd573bdd9023c61a5f357",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/README.md",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/README.md",
+      "bytes": 1013,
+      "sha256": "1c95c9698827aa34ad0d617e5a6a238022605d78e04bb7c5448d6c6ce97652ef",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_A_growth_capacity.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_A_growth_capacity.eps",
+      "bytes": 6537398,
+      "sha256": "ba5e692791c7a216b16235846c442f3a83d4a70baa10cf21dd8cf356d5b306d1",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_A_growth_capacity.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_A_growth_capacity.pdf",
+      "bytes": 16263,
+      "sha256": "db0ed0e62f02716abd6ce7e757bf78cbddc9c586f2a244a5494ea2aa9a8e04ff",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_A_growth_capacity.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_A_growth_capacity.png",
+      "bytes": 168839,
+      "sha256": "09a83cfa8d7caf6cd715ee4fcae487564a1ee104ffcff80e8954b8de71c37b7c",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_A_growth_capacity.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_A_growth_capacity.svg",
+      "bytes": 35896,
+      "sha256": "7d84b74fd4e75902dd103689f3a7857a040e15fab01a76aab9909b5d5ec4b3ee",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_B_output_welfare.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_B_output_welfare.eps",
+      "bytes": 85374,
+      "sha256": "0702afa7c3b6dc1503c3e9f2d798531269d477e4e2bec0883ced5be92c208b21",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_B_output_welfare.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_B_output_welfare.pdf",
+      "bytes": 26403,
+      "sha256": "144a25c1bf8efb2a68c74dff59159d076f3f0c35a5a53c822d2362dae6f16bda",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_B_output_welfare.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_B_output_welfare.png",
+      "bytes": 131522,
+      "sha256": "3663706ab280b304a4c12bda3f6243e38b94be38193b91bc91b779ce1b0e77df",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_B_output_welfare.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_B_output_welfare.svg",
+      "bytes": 46743,
+      "sha256": "0bb67fbf8d0296e0636a677083abbcfcf2dc78377abe33046bc4971881219149",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_C_endpoint_profiles.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_C_endpoint_profiles.eps",
+      "bytes": 50623,
+      "sha256": "e5943175cc70a15210700f04041506a431debc2cbf09dd629a1ad3269d12591b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_C_endpoint_profiles.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_C_endpoint_profiles.pdf",
+      "bytes": 14005,
+      "sha256": "6e9b364a2e6fabdb17bcf08b550b85bc55da1753ce8345bd324b8abd66f4cfe7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_C_endpoint_profiles.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_C_endpoint_profiles.png",
+      "bytes": 67412,
+      "sha256": "e7959ff2f0e5f03fb89cd9444b955308cd720b93e874fb1410711eb2dcf5a54b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_C_endpoint_profiles.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_C_endpoint_profiles.svg",
+      "bytes": 21986,
+      "sha256": "23896cb37185760f8404bdb530fb7d774b435cb5b22a5a83143b8703cea28201",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_b_cost_distribution.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_b_cost_distribution.eps",
+      "bytes": 168640,
+      "sha256": "b7e3c277f85b3db344289a0cf274c3173e498eaff5d7e3dfa52b48e269737676",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_b_cost_distribution.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_b_cost_distribution.pdf",
+      "bytes": 41269,
+      "sha256": "f36ddf540bcb691b37935bd712e81f00c48a966cc2b8e9b3d2c6d203de16ded2",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_b_cost_distribution.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_b_cost_distribution.png",
+      "bytes": 251216,
+      "sha256": "83f6b5fd6e377435825876edc7fe94deb08231862d771bd2dfb0674eab66c855",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_b_cost_distribution.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_b_cost_distribution.svg",
+      "bytes": 214883,
+      "sha256": "3ed8398a6a267d2c44b505ad485780538637b47217931382a95b15217f6a92b6",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_b_welfare_collapse.drawio",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_b_welfare_collapse.drawio",
+      "bytes": 2625,
+      "sha256": "7ccd04f39aa3a8cd59157987426cb4ab38cf3f73f339753bf96f39728e4f56f5",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_b_welfare_collapse.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_b_welfare_collapse.eps",
+      "bytes": 103482,
+      "sha256": "a1abbdfdd4de844fe5b42fdfb0a216abde7165eee37dee36cb9ffa4df17e9042",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_b_welfare_collapse.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_b_welfare_collapse.pdf",
+      "bytes": 44441,
+      "sha256": "8975d50a83c994e2ff2cd404f7a3829d266ded26710e9698e7ee273ee3f119ca",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_b_welfare_collapse.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_b_welfare_collapse.png",
+      "bytes": 176137,
+      "sha256": "44d469d958e112ec7e8f17ee88c35308214949ba295543bc8cb20de04e178382",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_b_welfare_collapse.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_b_welfare_collapse.svg",
+      "bytes": 5844,
+      "sha256": "9965f45218ce931e16e2cf1ed8af300c5e2606497a35eff071bb07350a3fcada",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact1_curves.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact1_curves.eps",
+      "bytes": 80482,
+      "sha256": "256316bdc16199073589edfe52d348f9ceb3c7e44071d28e645a6e0e536ee27f",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact1_curves.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact1_curves.pdf",
+      "bytes": 21080,
+      "sha256": "4db4da482ca53edb2fb1cff0f5bcfaeb9530ef7d330563e3dc25754f6f8898f5",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact1_curves.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact1_curves.png",
+      "bytes": 160422,
+      "sha256": "f69cb4940e17028c278c7934b7321c67310b119a50ec24d7698e0e6adda9ec1b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact1_curves.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact1_curves.svg",
+      "bytes": 49944,
+      "sha256": "f009bc8bd528a0adec29e4811878b95fc1a036610d8da98415f40d87a46d7eac",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact2_inst.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact2_inst.eps",
+      "bytes": 55611,
+      "sha256": "db368b96008b18c27bdf0b714420ecf3771da6234afda5d61a50eb555123ec29",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact2_inst.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact2_inst.pdf",
+      "bytes": 14417,
+      "sha256": "716080a3a6aa6930ed9b239382da86991302bc9e02dcb7352c49a174840b41ca",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact2_inst.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact2_inst.png",
+      "bytes": 79275,
+      "sha256": "8222df02ad438e849a2ded8b835fce19dd191ad2856c68b591ca0dbdb360dcaf",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact2_inst.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact2_inst.svg",
+      "bytes": 33761,
+      "sha256": "3ea25f98083920433f1e18bd3c2a6a2f774983da200c0c9c1e916f36cb236b35",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact3_deind.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact3_deind.eps",
+      "bytes": 47349,
+      "sha256": "e6c4eecbcd14232bdec3980da0884c05e60c8a9f364ebedd8c2c1fa235ea0813",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact3_deind.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact3_deind.pdf",
+      "bytes": 16544,
+      "sha256": "308e373a7378c0425e8434ba3d0949d5175b896d18ad5f454d8e804454bcd6bf",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact3_deind.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact3_deind.png",
+      "bytes": 74311,
+      "sha256": "d6c481520260dbc1791759ba6a257a6694d920c0a2e1223d85d87e6da3255b73",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_calib_fact3_deind.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_calib_fact3_deind.svg",
+      "bytes": 25759,
+      "sha256": "49fd988a18bf22570f7b5e8cef6debccedcacefccf83b9936287b696aa30beb2",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_fracture_fingerprint.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_fracture_fingerprint.eps",
+      "bytes": 116086,
+      "sha256": "5a32fdec51acc7945bea23f4720e6cd106acf903231da05931dc6b84e5411040",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_fracture_fingerprint.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_fracture_fingerprint.pdf",
+      "bytes": 27671,
+      "sha256": "b84cbb704f33bd85632ed92545e969115bb069a1760497d62f8febc18e7a96f7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_fracture_fingerprint.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_fracture_fingerprint.png",
+      "bytes": 109777,
+      "sha256": "02819b737db2ee548369e68b84cc5a4575e9c066968d9e253d05831fbcf78363",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_fracture_fingerprint.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_fracture_fingerprint.svg",
+      "bytes": 83813,
+      "sha256": "078d1afc0bae580782e6aa4f1ba3c77091cb70c4681592e7545f520f0590f816",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_matched_mixture.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_matched_mixture.eps",
+      "bytes": 54644,
+      "sha256": "da39c7c69b097f71e980a7450eb191c23a53decc0aa77a2e2d1ba6dd16d486df",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_matched_mixture.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_matched_mixture.pdf",
+      "bytes": 19156,
+      "sha256": "8824e4f3b6c4c9732a4d6aff0405a13f5d2c108d06ccd0a12fb874d8d7e9e638",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_matched_mixture.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_matched_mixture.png",
+      "bytes": 92566,
+      "sha256": "0d5fcb1a92a390162736883810e0cb54afabf4c1381d960c559e098eec5445bb",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_matched_mixture.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_matched_mixture.svg",
+      "bytes": 12638,
+      "sha256": "c1cb02e29653e415316322651f017ca23c70c66a29dbc17e199f8d4f362a9889",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_mixture_weight_mapping.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_mixture_weight_mapping.eps",
+      "bytes": 103059,
+      "sha256": "afc38a0278bc5c51dc3e3ef36406ddf3e8c3c68606399edd1624be6f28acd67d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_mixture_weight_mapping.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_mixture_weight_mapping.pdf",
+      "bytes": 21568,
+      "sha256": "890edfcff2120a8da18ba3395c02afe0f398d628f42c7c8b0aa6c5aa796c3e95",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_mixture_weight_mapping.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_mixture_weight_mapping.png",
+      "bytes": 191149,
+      "sha256": "fd4d0af18cc896381f0c9ebc7a53cedbd7e0b0de353f4b6f494b1ea7c2c3f2b0",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_mixture_weight_mapping.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_mixture_weight_mapping.svg",
+      "bytes": 110977,
+      "sha256": "6847101f23e50b5ee398a77e4509b6073ed4b37f10faba561dd1328f5fcadafb",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_model_structure.drawio",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_model_structure.drawio",
+      "bytes": 3616,
+      "sha256": "b1ec52ce9ab94c99a93fb8f158705b6c89041c1722f551724bdf2e93e06ad885",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_model_structure.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_model_structure.eps",
+      "bytes": 87867,
+      "sha256": "654b32080410cb2fe4e1662b4e92d186d1568deefb87ed4e7829af0100860363",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_model_structure.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_model_structure.pdf",
+      "bytes": 44760,
+      "sha256": "33d659532a6b895c8c38b5594dbbfeb5a0ed18828248f2b7d7783961ed49fd90",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_model_structure.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_model_structure.png",
+      "bytes": 182266,
+      "sha256": "d5f5e82057a41e13979c8919b6a2ae8af351fe785d1d9ed66ce79eda6e7fde2e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_model_structure.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_model_structure.svg",
+      "bytes": 7073,
+      "sha256": "cce8686d41e67c94c30749923293bdced15ab052d1a8c83423ae2763d1bd665a",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_strategy_framework.drawio",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_strategy_framework.drawio",
+      "bytes": 2520,
+      "sha256": "e6d28c413f3ef1490aeaf6aa62922c21345ebd2f3f629cde5572d94e53bac837",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_strategy_framework.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_strategy_framework.eps",
+      "bytes": 101414,
+      "sha256": "47948869e7c6fdcb9e1c0c0cd8223cf8831b4d4512c56d32c6076acb9f6dc9e6",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_strategy_framework.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_strategy_framework.pdf",
+      "bytes": 44374,
+      "sha256": "5664a1be78b9b3fe6201211014cd46ef24accf0f8ac1d52d1265b263b7b55b66",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_strategy_framework.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_strategy_framework.png",
+      "bytes": 166332,
+      "sha256": "38848cd54d74bf41cdf27b203534beab95ab3f9604ebb961b84d2fd5a45e60b5",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_strategy_framework.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_strategy_framework.svg",
+      "bytes": 3903,
+      "sha256": "f72b3ba53c70d05d1db6bc740adbe6552d9cc139351ba0fb749cda8caac6b5d8",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_survival_heatmap.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_survival_heatmap.eps",
+      "bytes": 4936573,
+      "sha256": "c85aabccdd800da620277e431900e4493d1da4817e083e69d2fef13b0cc0affe",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_survival_heatmap.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_survival_heatmap.pdf",
+      "bytes": 20817,
+      "sha256": "d5f2387bd04c5e1aac19abc61ac90833219e55b5459179fcc5d104931d03dd98",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_survival_heatmap.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_survival_heatmap.png",
+      "bytes": 185554,
+      "sha256": "245632cb6a5fdd78f79d14b0e078a5a400a940eb5e23056ed6de16dc3f09ad43",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_survival_heatmap.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_survival_heatmap.svg",
+      "bytes": 23112,
+      "sha256": "3ed713492582b2a4cc2ef6e04f3a6a31c10b3742b5eac9043914461a470dc336",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_t80_windows.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_t80_windows.eps",
+      "bytes": 124329,
+      "sha256": "f08626065accf727c7ee7ed05623ecb1dfe3a1e960278029ccbf38948785bd66",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_t80_windows.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_t80_windows.pdf",
+      "bytes": 32180,
+      "sha256": "fb577df291d0763cfee60e5aedd19da33a087a66129ce174580d265d018e21d7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_t80_windows.png",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_t80_windows.png",
+      "bytes": 77727,
+      "sha256": "b2b991edfb2e3af6fb9d107c4183b38ed36b01a52d50043b3c64cb697c5dec22",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "artwork/fig_t80_windows.svg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/artwork/fig_t80_windows.svg",
+      "bytes": 81679,
+      "sha256": "7911023a2fcad8d51fc7fee9635f489bb8b88b09df3b577eb018ef5daaca0b0a",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "author_information/author_metadata.json",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/author_information/author_metadata.json",
+      "bytes": 731,
+      "sha256": "b99977738c77444e600278f0461f8e767b15874109476b1336c4242c4037bcc7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "author_information/作者信息与投稿确认_集中填写.md",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/author_information/作者信息与投稿确认_集中填写.md",
+      "bytes": 5805,
+      "sha256": "b66f7d78db654dd18cc7689fdd4b4801c9c87c07fe737f63d5d002db84ad7c68",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/appendix_cases.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/appendix_cases.tex",
+      "bytes": 5840,
+      "sha256": "f014a067fa43362c05b8cff594e91043888a036559593218cd79071a759cb8e3",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/appendix_formulas.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/appendix_formulas.tex",
+      "bytes": 31646,
+      "sha256": "c60a108c3bb5c7f054623b5c50589a876116df02d70377c6eb9c7942519d2ebc",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/appendix_robustness.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/appendix_robustness.tex",
+      "bytes": 5681,
+      "sha256": "e145a18dd39f46ece887db1f2490f475266fd3f5fc365070af3da0a35739c681",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/input_manifest.json",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/input_manifest.json",
+      "bytes": 36168,
+      "sha256": "7f3f697b18065fbd8a2d1385e754bb83b1bac71b38c4e7be3e81974701d302f5",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/main.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/main.tex",
+      "bytes": 74380,
+      "sha256": "008abff633578ce864b4869f0b7b99439619856badbdd4dfb41680cc1e01e6e8",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/method_batch_inventory.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/method_batch_inventory.tex",
+      "bytes": 2925,
+      "sha256": "335ad68724029cebd9db142b31cdb6ea4e6ef58afc670a8d2b7a7b1fbc5971dd",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/references.bib",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/references.bib",
+      "bytes": 4411,
+      "sha256": "b89a6d5553cbf9631cd7c912e7ef01b894cdd2d091152564f9d7ccea394d96e7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/sn-apacite.bst",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/sn-apacite.bst",
+      "bytes": 151569,
+      "sha256": "d45c0549c94e58ae25e08abf4d7184e42a1bc955cff7267362663e7146e758d4",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/sn-basic.bst",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/sn-basic.bst",
+      "bytes": 35515,
+      "sha256": "4b368414cc5593169907933b417aacfdb0ce905866a39bdf55d21aad65e9d46c",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/sn-jnl.cls",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/sn-jnl.cls",
+      "bytes": 55857,
+      "sha256": "36d0c3273a59d48dc6a9c7b080dfa1ec50dc10229d8751568d1f2e490ffa5ecc",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_B_endpoint_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_B_endpoint_table.tex",
+      "bytes": 744,
+      "sha256": "5c749245c3ddd83cedcc01cad766286b159b022c3b30b5d259dcc5687028260c",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_C_case_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_C_case_table.tex",
+      "bytes": 754,
+      "sha256": "3a68797d2cc187e3e74f73b256359316aa5128f40bb3dfc73a70547f6730f5b9",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_census_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_census_table.tex",
+      "bytes": 857,
+      "sha256": "ecda40268fc91ebd283ea0c46385d89a0108aeedf41e2f9f0be3d770b9b96175",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_cost_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_cost_table.tex",
+      "bytes": 779,
+      "sha256": "d294a6a798ca040719faeb46d71bf04d6569010b7d1253109b80450795e62877",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_floor_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_floor_table.tex",
+      "bytes": 790,
+      "sha256": "39d88812a1f1f27fe83d246319dc21863e28158f227c336810bc59011cb7c0c8",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_high_capacity_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_high_capacity_table.tex",
+      "bytes": 615,
+      "sha256": "9022df60811b33b1cdc8f5540ee63b22f1e3f5af4c011d8f9b4e5cf9cc88ea2d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_joint_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_joint_table.tex",
+      "bytes": 1024,
+      "sha256": "72e02433b4f76d4609d8e27751997e3a5163f37944b4695d32fbfe6f96ebd47b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_ki_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_ki_table.tex",
+      "bytes": 640,
+      "sha256": "cf395f835d0235df8dd137e622f5a97a5df01cf35e196b630395040a896ada36",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_mixture_cell_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_mixture_cell_table.tex",
+      "bytes": 902,
+      "sha256": "3146c7ff83e4c4d0216b8a77e4ad2c77133dfe4b3a09a82ec2cf6e82a0d04e82",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_modes_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_modes_table.tex",
+      "bytes": 1121,
+      "sha256": "86127fb6c9c85c376839f6f533ddbcda52f404c06cebdcd0a87f7b2a73cb5f1b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_nonlinear_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_nonlinear_table.tex",
+      "bytes": 671,
+      "sha256": "c8727ad346acd0b871f614092b38bbb45ed527a7801aeeac0ff7d0cbc02f606f",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_selected_mixture_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_selected_mixture_table.tex",
+      "bytes": 1223,
+      "sha256": "430e0f2dabf916643e10d0b9596e597b2e1a5de74e3cae5532bd050c02c50214",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_sigma_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_sigma_table.tex",
+      "bytes": 1023,
+      "sha256": "f01a08eeef59e973f8a584cc5f80e23ccf0984f6b3243a259e0b9fe0855b9ee7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_t80_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_t80_table.tex",
+      "bytes": 603,
+      "sha256": "3a12a09f54d196c2aa6f541502e90de7206d2ef06974c79ae2da64ccc6c126bd",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_target_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_target_table.tex",
+      "bytes": 603,
+      "sha256": "2f79ff3986f03d5584734a03efc07e46d20e4e308d20c78d98bfce0544a01313",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "baseline/stage4_weight_table.tex",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/baseline/stage4_weight_table.tex",
+      "bytes": 945,
+      "sha256": "4c4293bdd71213ba5c4059d14c07083352f64ae92a7b5beb8f68c62f5f2cc69e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "delivery_manifest.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/original_delivery/delivery_manifest.json",
+      "bytes": 29244,
+      "sha256": "97d27d2ecee546e6563c2b9fcc9e9e9a6a51b16ea28fa29dacd4b81bfeaf9990",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "files.sha256",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/original_delivery/files.sha256",
+      "bytes": 24590,
+      "sha256": "7330adfa9ffa27327ecf81eeda1cb20d39d7f0bb980c4a4256665fa23950cf7e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/AI_policy_check.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/AI_policy_check.json",
+      "bytes": 1007,
+      "sha256": "c71455bc3b12bfbf8649a61ecd60fd9712e40191f1319b0cc15567683e719e34",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/ESM_1_compile_console.log",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/ESM_1_compile_console.log",
+      "bytes": 31738,
+      "sha256": "91eaeca3a53850e72f1b93a1497385a72c5ab556d5ce0ef317d1d3632c7a9f7b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/ESM_1_extracted_text.txt",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/ESM_1_extracted_text.txt",
+      "bytes": 52837,
+      "sha256": "0d5b7248a67e50b692eb7f13e67647d6bdb8c68a7a5de837faa96c35cd10c5e5",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/artwork_manifest.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/artwork_manifest.json",
+      "bytes": 16224,
+      "sha256": "f44b5c9a6501a14a2886cf251bad617b35c01604587875894d314e4848a3c5fe",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/author_information_status.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/author_information_status.json",
+      "bytes": 674,
+      "sha256": "8c07c1d5c4675b23300e499d00754e0cfb5de8895547a56f4321f0c5b2342b3b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/author_sync_preview.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/author_sync_preview.json",
+      "bytes": 932,
+      "sha256": "ba5f6d7c2e8f6337e70c91d2ce0573e5b92ad41c7a5f70238c3fa89f0a94956f",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/before_text_callouts_20261011/author_metadata.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/before_text_callouts_20261011/author_metadata.json",
+      "bytes": 731,
+      "sha256": "b99977738c77444e600278f0461f8e767b15874109476b1336c4242c4037bcc7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/before_text_callouts_20261011/render_manifest.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/before_text_callouts_20261011/render_manifest.json",
+      "bytes": 13148,
+      "sha256": "4074a1e1e4d58636b64d28d742efdf293817029551a3d433d375f4d1e45ae550",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/before_text_callouts_20261011/visual_review.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/before_text_callouts_20261011/visual_review.json",
+      "bytes": 9990,
+      "sha256": "409785955e6cad9c2b84a9f70c9fa2d9b984f879f0b1546b5437cb7299963dea",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/compile_invocation.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/compile_invocation.json",
+      "bytes": 9942,
+      "sha256": "019a19992b95f5a843b4922b315558c7e58bc4a38ea962112bea1b6a27019657",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/cover_letter_compile_console.log",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/cover_letter_compile_console.log",
+      "bytes": 7352,
+      "sha256": "13e60a84de538cfd71d35f24c9dc63f19015cda82e840fc20b24d54d19b36b9c",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/cover_letter_extracted_text.txt",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/cover_letter_extracted_text.txt",
+      "bytes": 2134,
+      "sha256": "3563983ead378563c59a523e138378844d379c59b3d0c31789f2a17f94051ff7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/cross_document_references.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/cross_document_references.json",
+      "bytes": 2406,
+      "sha256": "f4919aaddc4012873b01b4f5afafbad034ddeea6785361a9eda0efcaaa281e8b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/main_compile_console.log",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/main_compile_console.log",
+      "bytes": 33915,
+      "sha256": "1b386c8afc3a09e4b7f58b0a7ebe5722c2dd6de0f0fed4188a2cfa4d85515186",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/main_extracted_text.txt",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/main_extracted_text.txt",
+      "bytes": 71587,
+      "sha256": "5dc701c964c698ab4f35c9ce3c7cafe4b54312ef3d774b9b1615179ff1ec1eb2",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/pdf_font_inventory.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/pdf_font_inventory.json",
+      "bytes": 10639,
+      "sha256": "74e3f4f7df6aac4ad1e347078b3d0b591cdb75b0aafc950e6df77dafa958f495",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/publisher_template.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/publisher_template.json",
+      "bytes": 925,
+      "sha256": "824d2fd008250fb4ffe0555eb511792f269aabf8b393f1aa8e2a41cb1af0958e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/reference_style_patch.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/reference_style_patch.json",
+      "bytes": 582,
+      "sha256": "a7b7c6b4f6d5820c09ecd17c47caef16e0fe88f4b70312ddb9b6fd06c2a16282",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/render_before_file_guide.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/render_before_file_guide.json",
+      "bytes": 13148,
+      "sha256": "0fe42f256b26357c15a2051d7684c1b4b85f6e0b0c19c9c503e2ac2ce781763f",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/render_manifest.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/render_manifest.json",
+      "bytes": 13148,
+      "sha256": "4c4cf765a3f83a1933d121fba4d4ea1ac248d5b39ed1f35d66003fac7417dd95",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/source_archive_compile.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/source_archive_compile.json",
+      "bytes": 631,
+      "sha256": "8421eecad161355cebbaef594b90d08388e1e8e13e59f1d3ad73f7c5e692831f",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/source_compile_ESM_1.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/source_compile_ESM_1.json",
+      "bytes": 4575,
+      "sha256": "f9d2ab9e4a01c39149403f2afb31cfaf74f9f3261be44ca755b20247874e1d4f",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/source_compile_main.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/source_compile_main.json",
+      "bytes": 3213,
+      "sha256": "becadd2775a05a425a027d43c14823739ae8c226c5aa5d8ce98464d670301a80",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/submission_diff.patch",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/submission_diff.patch",
+      "bytes": 48504,
+      "sha256": "72395e307c5c891b07415396a491f1e5ab9af8e965ba2d6440b433951ba165a6",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/submission_maintenance.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/submission_maintenance.json",
+      "bytes": 344,
+      "sha256": "abc969d29929dd8693fbd102d329681de8218764c6761046a99853982385fc17",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/submission_package_verification.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/submission_package_verification.json",
+      "bytes": 34383,
+      "sha256": "70e312dbd2018cd0571223971d67d99e537eb06d18c2769cbe2d6ae006b7d9a9",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/submission_support.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/submission_support.json",
+      "bytes": 499,
+      "sha256": "aa73837cdf444a9e0bd178c121d1fe36bef62394dfc7e0014a82391d086a93a4",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/tex_package_installation.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/tex_package_installation.json",
+      "bytes": 171,
+      "sha256": "ac0657426d5403d211da93ccbb27d291f60adbabede61db197acd12287f16285",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/text_callout_render_delta.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/text_callout_render_delta.json",
+      "bytes": 1645,
+      "sha256": "0c03655fc14e048941a08a351d069c65e04c0cd7ebd58d927820d24478c0f1ae",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/text_callouts.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/text_callouts.json",
+      "bytes": 3994,
+      "sha256": "265948eed81b6768c24cb48c42209fc876e4e1c26e6e24bf65f796f7e172aab6",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/tinytex_download.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/tinytex_download.json",
+      "bytes": 657,
+      "sha256": "bd08f420d2a74290eafcd88196d65c6e327b9784adfc9a43c009bf2499faefb3",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/tinytex_installation.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/tinytex_installation.json",
+      "bytes": 1484,
+      "sha256": "4adbb01d3a2b5c2b8ef2c0878bfbbbc0d89cbb055e5ec5208b963d426f46054d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/title_page_compile_console.log",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/title_page_compile_console.log",
+      "bytes": 7649,
+      "sha256": "2e86066fecfc6474733ca4a5d8fa501aaf7abfcedadf38ad0380a2669d929164",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/title_page_extracted_text.txt",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/title_page_extracted_text.txt",
+      "bytes": 1810,
+      "sha256": "618914c49f1b5f74e7a970d34c2cd91807cf8e4a1c04526f9a0f047110547d28",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/verification.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/verification.json",
+      "bytes": 120475,
+      "sha256": "75fddbc4b18632575f0668d89f8308636ff74952644f47369a2fd5fd1aa630b8",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/visual_render_delta.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/visual_render_delta.json",
+      "bytes": 1080,
+      "sha256": "c0e3707f18a4060b89e5933c355cd28a353ecf0edba6d2860346cb1d9b38fdff",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reports/visual_review.json",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/reports/visual_review.json",
+      "bytes": 10146,
+      "sha256": "9880f51b272237fab77392c6452752760af7025dfa963693248ce4b5b8d905fc",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reproducibility/README.md",
+      "repository": "code",
+      "repository_path": "final_report/Computational_Economics_20261011/reproducibility/README.md",
+      "bytes": 3899,
+      "sha256": "a6643d96bd09ded15c6f2e888a3ae630173181126e53a0abc1d06072dc45f8a4",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reproducibility/requirements-verification.txt",
+      "repository": "code",
+      "repository_path": "final_report/Computational_Economics_20261011/reproducibility/requirements-verification.txt",
+      "bytes": 180,
+      "sha256": "3aa6d3b68736247dbcb3eaf72891ba4cf1f804891ba24a44819d02c6e2877ac0",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "reproducibility/简明复现说明.md",
+      "repository": "code",
+      "repository_path": "final_report/Computational_Economics_20261011/reproducibility/简明复现说明.md",
+      "bytes": 1460,
+      "sha256": "2db1252452de3050691b5b629834e83d80fb2cc627c1c88c8091dad82f5551be",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "results_index/evidence_summary.json",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/results_index/evidence_summary.json",
+      "bytes": 41159,
+      "sha256": "d9455644c7ca291c180d33fd6e9b8ec6b949080f3569ab232a98ab8028116da2",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "results_index/unified_results.json",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/results_index/unified_results.json",
+      "bytes": 4585032,
+      "sha256": "a8f1c9b1fcfe2e14b70e1923f53605d0f6b2fed91b990010af3e53824f5cec75",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "results_index/统一结果清单.md",
+      "repository": "paper",
+      "repository_path": "references/Computational_Economics_20261011/results_index/统一结果清单.md",
+      "bytes": 6003,
+      "sha256": "85214acd6dd852b8197cfaf7ba499d0da431e1fa499e54d056f526f2ad14f719",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/audit_text_callouts.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/audit_text_callouts.py",
+      "bytes": 2878,
+      "sha256": "5bd247f8dff99b95691890b30df1d33f13b8cdf3d2f322f5c6beef4ebcfd5e85",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/check_source_packages.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/check_source_packages.py",
+      "bytes": 1950,
+      "sha256": "f28308e9d74f2587934357b295fdbf897a0dff693008b03b5952d070e23d714a",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/check_submission_maintenance.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/check_submission_maintenance.py",
+      "bytes": 3123,
+      "sha256": "702204af215a05b4fbb5edad02d2ee1e27dd2cf22491ee59b077e94f8b83e206",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/compile_stage6.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/compile_stage6.py",
+      "bytes": 4999,
+      "sha256": "c6db5ea2b09f5f06f280939e831c9bd4d53b07a7e8b028628fcaf42861b650c1",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/finalize_delivery.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/finalize_delivery.py",
+      "bytes": 10737,
+      "sha256": "514a026e37d8c60aa55f65b79d4d137db151f6af29ccef359b35c5f2c3c0624b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/initialize_stage6.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/initialize_stage6.py",
+      "bytes": 5675,
+      "sha256": "bf45993d69223ea014cf68e0e4f48c4a6c50a4b53f8df0d66ae7f74df4429d37",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/install_tex_packages.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/install_tex_packages.py",
+      "bytes": 2707,
+      "sha256": "e72bbf8e5cf9098191f32e12f1724d096d75255407a584dd6245d821502c287d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/package_submission_files.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/package_submission_files.py",
+      "bytes": 5235,
+      "sha256": "ef4aec28b43dd20eefd66a43fa4d3e29277b2aace0534f7c7e66b3befce91959",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/prepare_artwork.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/prepare_artwork.py",
+      "bytes": 18318,
+      "sha256": "90ff657ef907be1f2d9511f9aef55615c98f50717884879abbb6a358bcd2aeec",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/prepare_reproduction.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/prepare_reproduction.py",
+      "bytes": 10865,
+      "sha256": "67e240cf6e365bf19caa94aaaaa453b8064f35934ef5ff9424a02718cf3d0a23",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/prepare_submission.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/prepare_submission.py",
+      "bytes": 28699,
+      "sha256": "dc7535793e4d32bfeb9082fa26abd4c53b04439f0b2e313c2afdf0c0fc060d2d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/prepare_submission_support.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/prepare_submission_support.py",
+      "bytes": 5630,
+      "sha256": "77e8fc10ac9861a8fc3639b9d929b8dd45b45992378edeea654ab7b35452f4a3",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/record_visual_receipt.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/record_visual_receipt.py",
+      "bytes": 4036,
+      "sha256": "4e0eacce6c3edabac1887f4a2e459401a21d2172c5fa802f2089cef48a31ee50",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/render_stage6.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/render_stage6.py",
+      "bytes": 3003,
+      "sha256": "8d95cfbf04b3525352c71b4f9fcd1c8037a7b9ba755e24f80fddd3df8a732fbd",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/setup_tex.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/setup_tex.py",
+      "bytes": 5331,
+      "sha256": "7d6160b3891bb697bb80259dfc4043b533f7010ebe09263a3e6e5b707b3de442",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/sync_author_information.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/sync_author_information.py",
+      "bytes": 4113,
+      "sha256": "e17180612b573fa209b3157fc89c74572a9929f202abf03a17bdc072f5811ca5",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/verify_delivery.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/verify_delivery.py",
+      "bytes": 2131,
+      "sha256": "8536df89a2e600688e7b6dca005bc88887163802dc272fab04d830c3329aaecc",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "scripts/verify_stage6.py",
+      "repository": "paper",
+      "repository_path": "scripts/Computational_Economics_20261011/stage06_archive/verify_stage6.py",
+      "bytes": 15225,
+      "sha256": "496f1bed63a895f2d54c054e0c96f7b8abe20f7e5f93fb605879116db0e64693",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/ESM_1.aux",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/ESM_1.aux",
+      "bytes": 20233,
+      "sha256": "d226fd53ab98e75ab7ea314868e7dc4c1c9351100324b61f2e6622ee2526695f",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/ESM_1.bbl",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/ESM_1.bbl",
+      "bytes": 2001,
+      "sha256": "e70908c6b1d3be567a085287f13643e4e1e212aee6d953168b555f78845628a7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/ESM_1.blg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/ESM_1.blg",
+      "bytes": 1516,
+      "sha256": "6d9c8c7a3fc41db734ced57f692d416c5db3d95c19a48216fa8052ee19a17227",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/ESM_1.fls",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/ESM_1.fls",
+      "bytes": 17457,
+      "sha256": "9889e6fae4c419d095bf1d4ee5211a95a2ce73145ba7fac841ac3215dc3678d2",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/ESM_1.log",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/ESM_1.log",
+      "bytes": 42307,
+      "sha256": "1e814736d3ba41a5428b45cbb4281739bdfc3013f01e1f2bcfa8f892fed4138e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/ESM_1.out",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/ESM_1.out",
+      "bytes": 6831,
+      "sha256": "609f87e580a7d2b253bb9838047bbf1f53b7e7e6d5e2c2bc2749469c3f668e70",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/ESM_1.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/ESM_1.pdf",
+      "bytes": 747258,
+      "sha256": "2a54ce3bff6881cf6c92c51ab3fd70fc4b4baf356131d002858a8dd5539c437d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/ESM_1.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/ESM_1.tex",
+      "bytes": 7705,
+      "sha256": "b32212dc05c6dff1644dbcf1ce8e009eaa1c64e41780eda843ffa4e0ef32e391",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/ESM_2.zip",
+      "repository": "code",
+      "repository_path": "final_report/Computational_Economics_20261011/ESM_2.zip",
+      "bytes": 14370715,
+      "sha256": "b5ae42eb469f345e164c5ba8b64a8e22e7321e37e1d2348ff65b127d9f08ebcc",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig1.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig1.eps",
+      "bytes": 87867,
+      "sha256": "654b32080410cb2fe4e1662b4e92d186d1568deefb87ed4e7829af0100860363",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig1.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig1.pdf",
+      "bytes": 44760,
+      "sha256": "33d659532a6b895c8c38b5594dbbfeb5a0ed18828248f2b7d7783961ed49fd90",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig2.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig2.eps",
+      "bytes": 101414,
+      "sha256": "47948869e7c6fdcb9e1c0c0cd8223cf8831b4d4512c56d32c6076acb9f6dc9e6",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig2.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig2.pdf",
+      "bytes": 44374,
+      "sha256": "5664a1be78b9b3fe6201211014cd46ef24accf0f8ac1d52d1265b263b7b55b66",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig3.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig3.eps",
+      "bytes": 4936573,
+      "sha256": "c85aabccdd800da620277e431900e4493d1da4817e083e69d2fef13b0cc0affe",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig3.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig3.pdf",
+      "bytes": 20817,
+      "sha256": "d5f2387bd04c5e1aac19abc61ac90833219e55b5459179fcc5d104931d03dd98",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig4.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig4.eps",
+      "bytes": 116086,
+      "sha256": "5a32fdec51acc7945bea23f4720e6cd106acf903231da05931dc6b84e5411040",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig4.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig4.pdf",
+      "bytes": 27671,
+      "sha256": "b84cbb704f33bd85632ed92545e969115bb069a1760497d62f8febc18e7a96f7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig5.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig5.eps",
+      "bytes": 124329,
+      "sha256": "f08626065accf727c7ee7ed05623ecb1dfe3a1e960278029ccbf38948785bd66",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig5.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig5.pdf",
+      "bytes": 32180,
+      "sha256": "fb577df291d0763cfee60e5aedd19da33a087a66129ce174580d265d018e21d7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig6.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig6.eps",
+      "bytes": 6537398,
+      "sha256": "ba5e692791c7a216b16235846c442f3a83d4a70baa10cf21dd8cf356d5b306d1",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig6.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig6.pdf",
+      "bytes": 16263,
+      "sha256": "db0ed0e62f02716abd6ce7e757bf78cbddc9c586f2a244a5494ea2aa9a8e04ff",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig7.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig7.eps",
+      "bytes": 85374,
+      "sha256": "0702afa7c3b6dc1503c3e9f2d798531269d477e4e2bec0883ced5be92c208b21",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig7.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig7.pdf",
+      "bytes": 26403,
+      "sha256": "144a25c1bf8efb2a68c74dff59159d076f3f0c35a5a53c822d2362dae6f16bda",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig8.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig8.eps",
+      "bytes": 50623,
+      "sha256": "e5943175cc70a15210700f04041506a431debc2cbf09dd629a1ad3269d12591b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig8.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig8.pdf",
+      "bytes": 14005,
+      "sha256": "6e9b364a2e6fabdb17bcf08b550b85bc55da1753ce8345bd324b8abd66f4cfe7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig9.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig9.eps",
+      "bytes": 54644,
+      "sha256": "da39c7c69b097f71e980a7450eb191c23a53decc0aa77a2e2d1ba6dd16d486df",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Fig9.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Fig9.pdf",
+      "bytes": 19156,
+      "sha256": "8824e4f3b6c4c9732a4d6aff0405a13f5d2c108d06ccd0a12fb874d8d7e9e638",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS1.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS1.eps",
+      "bytes": 103059,
+      "sha256": "afc38a0278bc5c51dc3e3ef36406ddf3e8c3c68606399edd1624be6f28acd67d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS1.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS1.pdf",
+      "bytes": 21568,
+      "sha256": "890edfcff2120a8da18ba3395c02afe0f398d628f42c7c8b0aa6c5aa796c3e95",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS2.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS2.eps",
+      "bytes": 103482,
+      "sha256": "a1abbdfdd4de844fe5b42fdfb0a216abde7165eee37dee36cb9ffa4df17e9042",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS2.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS2.pdf",
+      "bytes": 44441,
+      "sha256": "8975d50a83c994e2ff2cd404f7a3829d266ded26710e9698e7ee273ee3f119ca",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS3.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS3.eps",
+      "bytes": 168640,
+      "sha256": "b7e3c277f85b3db344289a0cf274c3173e498eaff5d7e3dfa52b48e269737676",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS3.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS3.pdf",
+      "bytes": 41269,
+      "sha256": "f36ddf540bcb691b37935bd712e81f00c48a966cc2b8e9b3d2c6d203de16ded2",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS4.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS4.eps",
+      "bytes": 80482,
+      "sha256": "256316bdc16199073589edfe52d348f9ceb3c7e44071d28e645a6e0e536ee27f",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS4.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS4.pdf",
+      "bytes": 21080,
+      "sha256": "4db4da482ca53edb2fb1cff0f5bcfaeb9530ef7d330563e3dc25754f6f8898f5",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS5.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS5.eps",
+      "bytes": 55611,
+      "sha256": "db368b96008b18c27bdf0b714420ecf3771da6234afda5d61a50eb555123ec29",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS5.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS5.pdf",
+      "bytes": 14417,
+      "sha256": "716080a3a6aa6930ed9b239382da86991302bc9e02dcb7352c49a174840b41ca",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS6.eps",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS6.eps",
+      "bytes": 47349,
+      "sha256": "e6c4eecbcd14232bdec3980da0884c05e60c8a9f364ebedd8c2c1fa235ea0813",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/FigS6.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/FigS6.pdf",
+      "bytes": 16544,
+      "sha256": "308e373a7378c0425e8434ba3d0949d5175b896d18ad5f454d8e804454bcd6bf",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Manuscript_Source.zip",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Manuscript_Source.zip",
+      "bytes": 305531,
+      "sha256": "7e1ff03c756dded78d778960a160669c69728a3f1b9757dd803c757ea77240c4",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/Supplement_Source.zip",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/Supplement_Source.zip",
+      "bytes": 231225,
+      "sha256": "5f8adf08ba9d54f15d99712e4785343816bb64c8f512b5cf2b8d340a335999a1",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/appendix_cases.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/appendix_cases.tex",
+      "bytes": 5909,
+      "sha256": "5146e098b9bef6c8f32f1cd6b7ab2f47ef1814e45b07c6acc166d2d9563f73b8",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/appendix_formulas.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/appendix_formulas.tex",
+      "bytes": 32045,
+      "sha256": "2c3b20742bc3c807c2278058277a365023cfe641bee5be3ceea1fbd5170df8f2",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/appendix_robustness.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/appendix_robustness.tex",
+      "bytes": 6979,
+      "sha256": "7143e917149b41efd971ed93022fdcaeeef32f16425213c23e0fe0e9d737f41e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/author_block.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/author_block.tex",
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/author_metadata.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/author_metadata.tex",
+      "bytes": 2685,
+      "sha256": "8da5e8b03290733d2cb012182dddfa6b77cdcd2ff32da5ebbd8371b61ffe2001",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/author_plain.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/author_plain.tex",
+      "bytes": 64,
+      "sha256": "689c4afe7621b7f4820c7df9b65f0cf564c30eeb85cc4fd58669e253fea921a5",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/cover_letter.aux",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/cover_letter.aux",
+      "bytes": 162,
+      "sha256": "09272726b6bcd93175bf0c45298a936362d70ab34e0bd87798585dcd7b0363fe",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/cover_letter.fls",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/cover_letter.fls",
+      "bytes": 4885,
+      "sha256": "c8be1b278321ac1c1b8992a1f14bdf5c6421539f012e7f7292ceb1faf4b90928",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/cover_letter.log",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/cover_letter.log",
+      "bytes": 10004,
+      "sha256": "0bb6e913703829c5ee2e5e45a25624467db685ef6e4901c91ce29286d5c0f84d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/cover_letter.out",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/cover_letter.out",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/cover_letter.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/cover_letter.pdf",
+      "bytes": 63626,
+      "sha256": "61cbee3552c349931246a0638e532ca7dbfad7a6ca4fae6ce6dc2d8e085d7d26",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/cover_letter.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/cover_letter.tex",
+      "bytes": 2614,
+      "sha256": "65015ecf99feda14980b81d72c67c0ba957af157de09859471f089d8c03f6625",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/main.aux",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/main.aux",
+      "bytes": 20496,
+      "sha256": "144f45d77243ce39c3a2266c97ba7973f2dce26cc98d8123b86459904c8e1d73",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/main.bbl",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/main.bbl",
+      "bytes": 10018,
+      "sha256": "42300c99cfbec5b0d615a31096a3a6830583945d5677886b6dfa987e2ba45204",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/main.blg",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/main.blg",
+      "bytes": 1541,
+      "sha256": "b2b9ae209c137d11a79ad20b5fec2df7bf6727627dcf700dac129765512d76f5",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/main.fls",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/main.fls",
+      "bytes": 16284,
+      "sha256": "4530d41992780d840ab7c0f96eebb5d259b6f062c971138d4ed7ec3767cd6d04",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/main.log",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/main.log",
+      "bytes": 43101,
+      "sha256": "9b187cc73aa39a4af674ba9ba6289f2f555177223d7d3f949a9034b97c53e7b0",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/main.out",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/main.out",
+      "bytes": 8588,
+      "sha256": "027395f1ed4d7ce62714ef01b94c56c83076175c7f8a41f88942cce426c0636d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/main.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/main.pdf",
+      "bytes": 751181,
+      "sha256": "e280353b8517f821ef99f57450bf479cea021ec5be6197791fc760845177b317",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/main.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/main.tex",
+      "bytes": 72129,
+      "sha256": "db8b367f4cd0f25c0e9251f32b308f1d486de1730bab6cbf70c00623dae0a129",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/method_batch_inventory.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/method_batch_inventory.tex",
+      "bytes": 2993,
+      "sha256": "66f422a69c215eeb779bc9138f1022f6457847a439d979d453c6f8f9ab7b674c",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/references.bib",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/references.bib",
+      "bytes": 4411,
+      "sha256": "b89a6d5553cbf9631cd7c912e7ef01b894cdd2d091152564f9d7ccea394d96e7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/sn-apacite-submission.bst",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/sn-apacite-submission.bst",
+      "bytes": 151482,
+      "sha256": "3bedbed43996c25401a7cac9193a9508526935d0ef605de3894ba6ebac9161c9",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/sn-apacite.bst",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/sn-apacite.bst",
+      "bytes": 151345,
+      "sha256": "be9346857b116ec0359319ff26ace70da573475e4c92c6fb9418f841ff7a7c75",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/sn-basic.bst",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/sn-basic.bst",
+      "bytes": 35515,
+      "sha256": "4b368414cc5593169907933b417aacfdb0ce905866a39bdf55d21aad65e9d46c",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/sn-jnl.cls",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/sn-jnl.cls",
+      "bytes": 55857,
+      "sha256": "36d0c3273a59d48dc6a9c7b080dfa1ec50dc10229d8751568d1f2e490ffa5ecc",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_B_endpoint_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_B_endpoint_table.tex",
+      "bytes": 744,
+      "sha256": "5c749245c3ddd83cedcc01cad766286b159b022c3b30b5d259dcc5687028260c",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_C_case_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_C_case_table.tex",
+      "bytes": 754,
+      "sha256": "3a68797d2cc187e3e74f73b256359316aa5128f40bb3dfc73a70547f6730f5b9",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_census_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_census_table.tex",
+      "bytes": 857,
+      "sha256": "ecda40268fc91ebd283ea0c46385d89a0108aeedf41e2f9f0be3d770b9b96175",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_cost_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_cost_table.tex",
+      "bytes": 779,
+      "sha256": "d294a6a798ca040719faeb46d71bf04d6569010b7d1253109b80450795e62877",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_floor_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_floor_table.tex",
+      "bytes": 790,
+      "sha256": "39d88812a1f1f27fe83d246319dc21863e28158f227c336810bc59011cb7c0c8",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_high_capacity_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_high_capacity_table.tex",
+      "bytes": 615,
+      "sha256": "9022df60811b33b1cdc8f5540ee63b22f1e3f5af4c011d8f9b4e5cf9cc88ea2d",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_joint_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_joint_table.tex",
+      "bytes": 1024,
+      "sha256": "72e02433b4f76d4609d8e27751997e3a5163f37944b4695d32fbfe6f96ebd47b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_ki_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_ki_table.tex",
+      "bytes": 640,
+      "sha256": "cf395f835d0235df8dd137e622f5a97a5df01cf35e196b630395040a896ada36",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_mixture_cell_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_mixture_cell_table.tex",
+      "bytes": 902,
+      "sha256": "3146c7ff83e4c4d0216b8a77e4ad2c77133dfe4b3a09a82ec2cf6e82a0d04e82",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_modes_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_modes_table.tex",
+      "bytes": 1121,
+      "sha256": "86127fb6c9c85c376839f6f533ddbcda52f404c06cebdcd0a87f7b2a73cb5f1b",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_nonlinear_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_nonlinear_table.tex",
+      "bytes": 671,
+      "sha256": "c8727ad346acd0b871f614092b38bbb45ed527a7801aeeac0ff7d0cbc02f606f",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_selected_mixture_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_selected_mixture_table.tex",
+      "bytes": 1223,
+      "sha256": "430e0f2dabf916643e10d0b9596e597b2e1a5de74e3cae5532bd050c02c50214",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_sigma_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_sigma_table.tex",
+      "bytes": 1023,
+      "sha256": "f01a08eeef59e973f8a584cc5f80e23ccf0984f6b3243a259e0b9fe0855b9ee7",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_t80_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_t80_table.tex",
+      "bytes": 603,
+      "sha256": "3a12a09f54d196c2aa6f541502e90de7206d2ef06974c79ae2da64ccc6c126bd",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_target_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_target_table.tex",
+      "bytes": 603,
+      "sha256": "2f79ff3986f03d5584734a03efc07e46d20e4e308d20c78d98bfce0544a01313",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/stage4_weight_table.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/stage4_weight_table.tex",
+      "bytes": 945,
+      "sha256": "4c4293bdd71213ba5c4059d14c07083352f64ae92a7b5beb8f68c62f5f2cc69e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/title_page.aux",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/title_page.aux",
+      "bytes": 162,
+      "sha256": "09272726b6bcd93175bf0c45298a936362d70ab34e0bd87798585dcd7b0363fe",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/title_page.fls",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/title_page.fls",
+      "bytes": 5138,
+      "sha256": "d086f272c8186efe5c0cec4a5c71fc103672775ddfc8e3f407c7b314758cb308",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/title_page.log",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/title_page.log",
+      "bytes": 10097,
+      "sha256": "ceac06d432c346a3bc89bb98a50f3d0ceb67e71f0185d835d47cb2166b5b342c",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/title_page.out",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/title_page.out",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/title_page.pdf",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/title_page.pdf",
+      "bytes": 101422,
+      "sha256": "df874fb01ad7b02cbe398216e39f152ce15fe3d8bdf7711ac2c8f56f1d1015bc",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission/title_page.tex",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission/title_page.tex",
+      "bytes": 1089,
+      "sha256": "8d24ebfde426d151df5d31424c0c3029b2949af902c1ce60544ec2231c2b16fb",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission_support/Online_Resource_Captions.txt",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission_support/Online_Resource_Captions.txt",
+      "bytes": 341,
+      "sha256": "605dbfaa56384021e5708c9753f7c801bfa1bfbf9de61e266d7c4b70a03f3a4e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission_support/submission_fields.json",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission_support/submission_fields.json",
+      "bytes": 4660,
+      "sha256": "55380637c3e230834a89cc5a5daee88ea9cf1faffc07dbe654a86d9d8799f9c0",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission_support/其他事项完成与保留清单.md",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission_support/其他事项完成与保留清单.md",
+      "bytes": 1990,
+      "sha256": "e065c45f94cf3f7ad55e7a499a587c80ecb74f73feae42ba6061e2af4b20950e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission_support/审稿问题与证据对应.md",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission_support/审稿问题与证据对应.md",
+      "bytes": 4009,
+      "sha256": "94fb1ddce6a551e1679ae736771dac962d3ac0955d3bf5439b04b87bf9c8e2f3",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "submission_support/投稿系统字段_可复制.md",
+      "repository": "paper",
+      "repository_path": "output/Computational_Economics_20261011/submission_support/投稿系统字段_可复制.md",
+      "bytes": 4992,
+      "sha256": "3df6a8b615a9faebfed10423ca304b60b6fa5fe88eda0af6399632601a83c44e",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "投稿文件对应表.md",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/投稿文件对应表.md",
+      "bytes": 3542,
+      "sha256": "c93043109bc76ff29b998e92a3478d8d440841560d5a580dae9da066ad4cff23",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "最终结果与证据索引.md",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/最终结果与证据索引.md",
+      "bytes": 2342,
+      "sha256": "098e562b1a46442f4a1cdff20407074ce72d7e25bd1cb06879bc3ab923f252f2",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "第六阶段_交付说明.md",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/第六阶段_交付说明.md",
+      "bytes": 5817,
+      "sha256": "7b2aa19fc68aac210047ddfe1ed13798250d4dbd6202fe740f71c8444118d5d3",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    },
+    {
+      "original_path": "第六阶段_修改记录.md",
+      "repository": "paper",
+      "repository_path": "review/Computational_Economics_20261011/第六阶段_修改记录.md",
+      "bytes": 4044,
+      "sha256": "7197b1fdfabc2810db0593e39e2dd146db0272d14f7a59624354003e1bef9c36",
+      "zip_metadata": {
+        "date_time": [
+          2026,
+          10,
+          11,
+          0,
+          0,
+          0
+        ],
+        "compress_type": 8,
+        "create_system": 0,
+        "external_attr": 2175008768
+      }
+    }
+  ],
+  "paper_original_files": 250,
+  "code_original_files": 4
+}

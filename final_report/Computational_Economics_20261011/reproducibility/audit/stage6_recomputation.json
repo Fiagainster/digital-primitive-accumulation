@@ -1,0 +1,132 @@
+{
+  "new_simulations": false,
+  "output_directory": "C:\\Users\\胡耀宇\\Documents\\ChatGPT\\SSCI优化翻译\\论文正式修订\\阶段06\\reproducibility\\output\\recomputed",
+  "checks": [
+    {
+      "file": "stage01/all_execution_records.csv",
+      "passed": true
+    },
+    {
+      "file": "stage01/batch_inventory.csv",
+      "passed": true
+    },
+    {
+      "file": "stage01/calibration_configuration_means.csv",
+      "passed": true
+    },
+    {
+      "file": "stage01/calibration_trajectory_metrics.csv",
+      "passed": true
+    },
+    {
+      "file": "stage01/representative_trajectory_selection.csv",
+      "passed": true
+    },
+    {
+      "file": "stage01/sigma_B_manufacturing_exceptions.csv",
+      "passed": true
+    },
+    {
+      "file": "stage01/t80_failures.csv",
+      "passed": true
+    },
+    {
+      "file": "stage03/batch_inventory.csv",
+      "passed": true
+    },
+    {
+      "file": "stage03/effective_parameter_registry.csv",
+      "passed": true
+    },
+    {
+      "file": "stage03/method_source_index.csv",
+      "passed": true
+    },
+    {
+      "file": "stage03/mixture_drawn_and_effective_weights.csv",
+      "passed": true
+    },
+    {
+      "file": "stage03/profile_initial_conditions.csv",
+      "passed": true
+    },
+    {
+      "file": "stage03/scenario_inputs.csv",
+      "passed": true
+    },
+    {
+      "file": "stage03/seed_inventory.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/A_growth_capacity_grid.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/B_diagnostic_endpoints.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/B_diagnostic_timeseries.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/B_group_costs.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/C_selected_cases.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/census_profile_strategy.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/configuration_endpoints.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/directional_configuration_means.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/directional_trajectory_metrics.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/failure_prevalence.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/matched_frame_viability.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/mixture_inputs_and_outcomes.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/run_inventory.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/selected_representative_paths.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/t80_failure_windows.csv",
+      "passed": true
+    },
+    {
+      "file": "stage04/t80_run_windows.csv",
+      "passed": true
+    },
+    {
+      "file": "stage01/exact_permutation_tests.json",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "check_count": 31
+}

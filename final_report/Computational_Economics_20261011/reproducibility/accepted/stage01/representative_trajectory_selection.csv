@@ -1,0 +1,10 @@
+﻿source,profile,regime,scenario,rep,seed,duplicate_census_execution,initial_recorded_share,peak_share,terminal_share,deindustrialization_extent_pct,monotone_nondecreasing_violations,peak_time
+ts_viable.json#/results/0,digital_leapfrogger,B,benign_globalization,0,1306348330,census.json#/results/245,0.33321512193012304,0.409939376445965,0.3815244243386025,6.931501031618498,226,35.42
+ts_viable.json#/results/1,digital_leapfrogger,C,benign_globalization,0,3715113586,census.json#/results/250,0.332915194404003,0.332915194404003,0.23109268831685245,30.585118312018455,202,0.0
+ts_viable.json#/results/2,manufacturing_giant,A,benign_globalization,0,3176142460,census.json#/results/0,0.48353472840286765,0.48353472840286765,0.10821801560281051,77.61939127717704,0,0.0
+ts_viable.json#/results/3,manufacturing_giant,B,benign_globalization,0,434349813,census.json#/results/5,0.48353472840286765,0.48353472840286765,0.12422909340554023,74.30813422318737,59,0.0
+ts_viable.json#/results/4,manufacturing_giant,C,benign_globalization,0,2557613112,census.json#/results/10,0.48312127458488796,0.48312127458488796,0.28160488196154787,41.711347279518776,165,0.0
+ts_viable.json#/results/5,post_soviet,B,full_containment,4,1464088122,census.json#/results/564,0.45427516599713125,0.45427516599713125,0.17271419691756043,61.980268822652064,1,0.0
+ts_viable.json#/results/6,post_soviet,C,benign_globalization,0,2403912983,census.json#/results/490,0.45388274415263397,0.45388274415263397,0.28111245691567455,38.06496049095433,104,0.0
+ts_viable.json#/results/7,resource_rich,B,benign_globalization,0,593232193,census.json#/results/125,0.292843177906094,0.292843177906094,0.22099881694091203,24.53339069698946,0,0.0
+ts_viable.json#/results/8,resource_rich,C,benign_globalization,0,169294152,census.json#/results/130,0.2925760267025588,0.2925760267025588,0.22834900123443289,21.952251588070453,0,0.0
