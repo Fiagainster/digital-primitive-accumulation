@@ -1,0 +1,1305 @@
+# ============================================================================
+# 原始积累模型 (Primitive Accumulation Model) v3.7
+# 默认参数配置文件
+# ============================================================================
+# 用途: 统一管理模型所有参数、权重和初始条件。
+# 加载方式:
+#   python main.py demo --config config/default.yaml
+#   python main.py demo --config config/custom.yaml --profile digital_leapfrogger
+#
+# 优先级 (从低到高):
+#   本文件默认值 → 国情预设 → 国际场景 → 命令行/用户覆盖
+# ============================================================================
+
+model:
+  version: "3.7"
+  description: "六部门政治经济学模拟实验室 —— 数字时代原始积累的可行路径、多维评价与代价分布"
+
+# ============================================================================
+# L1: 结构参数 (Structural Parameters)
+# ============================================================================
+structural:
+
+  # --- 生产函数: 基础部门 (b) ---
+  production_base:
+    sigma_b: 0.8              # σ_b: 替代弹性 [0.3, 1.5]
+    theta_b: 0.35             # θ_b: 资本份额 [0.2, 0.5]
+    alpha_b_dig: 0.3          # α_b^dig: 数字化最大增益 [0.1, 0.6]
+    beta_b_dig: 0.5           # β_b^dig: 数字化弹性 [0.3, 0.8]
+    lambda_b: 0.8             # λ_b: 资源约束弹性 [0.3, 1.5]
+
+  # --- 生产函数: 工业部门 (i) ---
+  production_industry:
+    alpha_i: 0.45             # α_i: 资本产出弹性 [0.3, 0.6]
+    alpha_i_dig: 0.8          # α_i^dig: 数字化最大增益 [0.3, 1.5]
+    beta_i_dig: 0.5           # β_i^dig: 数字化弹性 [0.3, 0.8]
+    gamma_i: 0.15             # γ_i: 数字服务对工业产出弹性 [0.05, 0.35]
+    mu_i: 0.7                 # μ_i: 原材料约束弹性 [0.3, 1.0]
+
+  # --- 生产函数: 数字基础设施层 (d_infra) ---
+  production_d_infra:
+    alpha_d_infra: 0.55       # α_di: 资本产出弹性 [0.35, 0.65]
+    delta_d_infra_hw: 0.20    # δ_di^hw: 硬件对infra产出弹性 [0.05, 0.30]
+
+  # --- 生产函数: 数字应用层 (d_app) ---
+  production_d_app:
+    alpha_d_app: 0.30         # α_da: 资本产出弹性 [0.15, 0.40]
+    delta_d_app_data: 0.25    # δ_da^data: 数据对app产出弹性 [0.10, 0.40]
+    eta_network_app: 0.35     # η_net^app: 应用层网络效应强度 [0.1, 0.6]
+    xi_infra_to_app: 0.30     # ξ_infra→app: infra→app技术约束弹性 [0.1, 0.5]
+
+  # --- 生产函数: 高技能服务业 (s_high) ---
+  production_s_high:
+    alpha_s_high: 0.35        # α_sh: 资本产出弹性 [0.20, 0.45]
+    xi_s_digital_link: 0.30   # ξ_s^link: 数字-高技能服务关联弹性 [0.1, 0.5]
+
+  # --- 生产函数: 低端服务业 (s_low) ---
+  production_s_low:
+    alpha_s_low: 0.15         # α_sl: 资本产出弹性 [0.05, 0.25]
+    platform_empowerment: 0.40 # φ_plat: 数字平台赋能强度 [0.1, 0.7]
+
+  # --- 数字化增益 (跨部门共用) ---
+  digitalization_common:
+    alpha_s_dig: 0.5          # α_s^dig: 服务业数字化最大增益 [0.2, 0.8]
+    beta_s_dig: 0.5           # β_s^dig: 服务业数字化弹性 [0.3, 0.8]
+    eta_network: 0.2          # η_net: 网络效应强度(低端服务) [0.0, 0.5]
+
+  # --- 兼容旧参数 (与上述新参数共存) ---
+  legacy_compat:
+    alpha_b: 0.35             # 已在production_base中定义
+    alpha_d: 0.25             # 数字部门资本产出弹性(兼容旧参数)
+    delta_d_hw: 0.15          # 硬件对数字部门产出弹性(兼容)
+    epsilon_d: 0.15           # 数据存量弹性(兼容)
+    alpha_s: 0.25             # 服务业资本产出弹性(兼容)
+    delta_s: 0.05             # 服务业折旧率(兼容)
+    nu_d: 0.25                # 数字部门投资吸收率(兼容)
+    nu_s: 0.35                # 服务业投资吸收率(兼容)
+
+  # --- 折旧率 ---
+  depreciation:
+    delta_b: 0.05             # 基础部门: 农业设备/土地
+    delta_i: 0.08             # 工业部门: 制造业设备
+    delta_d: 0.20             # 旧数字部门(兼容)
+    delta_d_infra: 0.05       # 数字infra: 芯片/数据中心(长寿命硬件)
+    delta_d_app: 0.20         # 数字app: 软件快速迭代
+    delta_s_high: 0.05        # 高技能服务: 办公楼/设备
+    delta_s_low: 0.08         # 低端服务: 零售设备
+
+  # --- 投资吸收能力 ---
+  absorption:
+    nu_b: 0.3                 # 基础部门投资吸收率 [0.1, 0.5]
+    nu_i: 0.4                 # 工业部门投资吸收率 [0.2, 0.6]
+    nu_d_infra: 0.20          # 数字infra投资吸收率 [0.08, 0.35]
+    nu_d_app: 0.30            # 数字app投资吸收率 [0.15, 0.45]
+    nu_s_high: 0.40           # 高技能服务投资吸收率 [0.15, 0.55]
+    nu_s_low: 0.30            # 低端服务投资吸收率 [0.1, 0.45]
+    chi_absorb: 0.8           # 人力资本对吸收能力弹性 [0.3, 1.5]
+    psi_obsolescence: 0.1     # 技术淘汰系数 [0.0, 0.3]
+
+  # --- v3.7: 生产系数 (跨部门原材料/硬件/网络效应等) ---
+  production_coefficients:
+    # 工业原材料约束
+    M_needed_ratio: 0.1           # 每单位工业资本所需原材料 [0.05, 0.20]
+    M_avail_ratio: 0.3            # 基础部门产出中可用的原材料比例 [0.1, 0.5]
+    # 数字infra硬件约束
+    HW_needed_ratio: 0.08         # 每单位infra资本所需硬件 [0.03, 0.15]
+    HW_avail_ratio_i: 0.2         # 工业产出中可用的硬件供给比例 [0.1, 0.4]
+    HW_avail_floor: 0.1           # 硬件供给最低保障 [0.05, 0.20]
+    # 进口依赖
+    import_penalty_factor: 0.4    # 进口依赖对infra产出的惩罚乘数 [0.2, 0.6]
+    # d_app网络效应
+    d_app_users_per_L: 15         # 每单位劳动力对应app用户数 [5, 30]
+    d_app_users_min: 50.0         # 网络效应最低用户门槛 [10.0, 200.0]
+    d_app_net_effect_cap: 2.5     # 网络效应最大乘数 [1.0, 5.0]
+    d_app_min_A_effective: 0.6    # infra约束下app最低有效技术水平 [0.3, 0.8]
+    # s_low平台赋能
+    s_low_users_per_L: 10         # 每单位劳动力对应平台用户数 [3, 20]
+    s_low_users_min: 30.0         # 平台网络效应最低用户门槛 [10.0, 100.0]
+    s_low_net_effect_cap: 1.0     # s_low网络效应最大乘数 [0.5, 2.0]
+    s_low_net_effect_weight: 0.3  # 网络效应在s_low产出中的权重 [0.1, 0.5]
+    # s_high数字密度增益
+    s_high_density_gain_factor: 0.40  # 数字密度对s_high产出增益因子 [0.1, 0.6]
+    # s_low平台饱和
+    s_low_platform_saturation_start: 0.8      # 平台赋能饱和起始DL阈值 [0.6, 0.9]
+    s_low_platform_saturation_decay: 0.3      # 饱和衰减率 [0.1, 0.5]
+    s_low_platform_saturation_range: 0.2      # 饱和过渡区间宽度 [0.1, 0.3]
+    s_low_platform_saturation_floor: 0.5      # 饱和后最低赋能乘数 [0.3, 0.7]
+
+  # --- v3.7: 积累系数 (投资/信贷/吸收等) ---
+  accumulation_coefficients:
+    gov_consumption_share: 0.1        # 政府消费占GDP比例 [0.05, 0.20]
+    accumulation_fund_share: 0.8      # 积累基金占总剩余比例 [0.5, 0.95]
+    credit_ext_dep_factor: 0.4        # 外部依赖对信贷可得性惩罚因子 [0.2, 0.6]
+    credit_availability_min: 0.25     # 信贷可得性下限 [0.1, 0.5]
+    credit_availability_max: 1.0      # 信贷可得性上限 [0.8, 1.2]
+    # 吸收能力
+    absorb_DL_bonus_factor: 0.5       # 数字化水平对吸收能力加成 [0.2, 0.8]
+    absorb_H_reference: 0.5           # 人力资本参考水平(H归一化基准) [0.3, 0.8]
+    # 数字投资份额
+    digital_share_i: 0.3              # 工业部门投资中数字技术占比 [0.1, 0.5]
+    digital_share_b: 0.15             # 基础部门投资中数字技术占比 [0.05, 0.3]
+    digital_share_other: 0.5          # 其他部门投资中数字技术占比 [0.2, 0.7]
+    # 淘汰与下限
+    obsolescence_delta_threshold: 0.05  # 折旧率低于此值触发技术淘汰 [0.02, 0.10]
+    K_floor: 0.01                     # 资本存量最低值(防零除) [0.001, 0.05]
+
+  # --- 劳动力市场 ---
+  labor_market:
+    lambda_flow: 0.05         # 基础流动概率 [0.01, 0.15]
+    sigma_skill: 0.25         # 技能匹配敏感度 [0.1, 0.5]
+    lambda_cost: 1.0          # 转移成本敏感度 [0.5, 3.0]
+    bp_base: 0.5              # 基础谈判力(base bargaining power) [0.3, 0.8]
+    # 失业者再就业 (Pissarides匹配函数, v3.7)
+    job_finding_base_rate: 0.15  # 基础求职成功率
+
+    # --- v3.7: 劳动力市场扩展参数 ---
+    wage_tightness_floor: 0.3         # 工资谈判力紧度最低值 [0.1, 0.5]
+    labor_flow_dt_scale: 0.5          # 劳动力流动H变化阻尼系数 [0.1, 1.0]
+    labor_flow_L_floor: 0.5           # 部门最低劳动力(防零除) [0.1, 1.0]
+    h_min: 0.2                        # 人力资本下限 [0.1, 0.5]
+    h_max: 3.0                        # 人力资本上限 [2.0, 5.0]
+    unemployment_cost_rate: 3.0       # 每失业者基础成本(×工资平均) [1.0, 5.0]
+
+    # 非正式就业
+    informal_wage_ratio: 0.6                    # 非正式工资/基础工资比 [0.3, 0.8]
+    informal_ratio_saturation: 0.25             # 非正式就业饱和阈值 [0.15, 0.40]
+    saturated_back_to_base_ratio: 0.4           # 饱和时回流基础部门比例 [0.2, 0.6]
+    saturated_labor_surplus_max: 0.2            # 劳动力过剩对工资最大惩罚 [0.1, 0.3]
+    saturated_labor_surplus_coefficient: 0.15   # 劳动力过剩惩罚系数 [0.05, 0.25]
+
+    # 非正式→正式回流
+    informal_reflow_unsaturated: 0.05      # 未饱和时年回流率 [0.02, 0.10]
+    informal_reflow_near_saturated: 0.03   # 接近饱和时年回流率 [0.01, 0.06]
+    informal_reflow_saturated: 0.015       # 已饱和时年回流率 [0.005, 0.03]
+    informal_reflow_formal_success: 0.3    # 回流正式就业成功率 [0.1, 0.5]
+
+    # 技能折旧
+    digital_skill_obsolescence_rate: 0.06      # 数字技能年折旧率 [0.02, 0.12]
+    industrial_skill_erosion_rate: 0.025       # 工业技能年侵蚀率 [0.01, 0.05]
+    industrial_skill_erosion_max: 0.30         # 工业技能最大侵蚀比例 [0.1, 0.5]
+
+    # 技能选择效应
+    skill_selection_base: 0.3              # 技能选择基础强度 [0.1, 0.5]
+    skill_selection_match_factor: 0.7      # 技能匹配因子 [0.3, 0.9]
+
+  # --- 技术追赶 ---
+  technology:
+    zeta_d: 0.03              # 自主创新系数 [0.01, 0.10]
+    phi_rd: 0.5               # 研发投入弹性 [0.3, 0.8]
+    chi_absorb_tech: 0.08     # 技术吸收系数 [0.02, 0.20]
+    xi_gap: 0.8               # 技术差距弹性 [0.3, 1.5]
+    G_critical: 8.0           # 追赶陷阱临界差距 [3.0, 20.0]
+    lambda_trap: 0.3          # 陷阱衰减速度 [0.1, 1.0]
+    phi_trap: 0.2             # 依赖陷阱强度 [0.0, 0.5]
+    lambda_dep: 0.5           # 依附对自主创新抑制强度 [0.0, 1.0]
+
+    # --- v3.7: 技术追赶扩展参数 ---
+    world_frontier_infra_weight: 0.4   # 世界前沿infra技术权重 [0.2, 0.6]
+    world_frontier_app_weight: 0.6     # 世界前沿app技术权重 [0.4, 0.8]
+
+    # --- v3.7.4: 非线性追赶模式（稳健性检验） ---
+    catchup_mode: linear                # 追赶模式: linear(默认), logistic, piecewise
+    catchup_max_gap: 10.0              # logistic模式: S曲线饱和差距 [5.0, 20.0]
+    catchup_piecewise_threshold: 3.0   # piecewise模式: 分段阈值 [2.0, 8.0]
+    catchup_piecewise_boost: 2.0       # piecewise模式: 远距离加速倍数 [1.5, 4.0]
+
+  # --- 知识扩散 ---
+  diffusion:
+    chi_spont: 0.04           # 自发扩散系数 [0.01, 0.10]
+    eta_diff: 1.5             # 人力资本对扩散敏感度 [0.5, 3.0]
+
+  # --- 国际 ---
+  international:
+    theta_p: 0.3              # 资源价格均值回复速度 [0.1, 0.5]
+    sigma_p: 0.15             # 资源价格波动率 [0.05, 0.40]
+    block_max: 0.5            # 最大技术封锁溢价 [0.0, 0.9]
+    fdi_sensitivity: 1.5      # 外资对回报率敏感度 [0.5, 3.0]
+
+    # --- v3.7: 国际参数扩展 ---
+    rer_resource_share_coefficient: 0.8    # 资源占比对汇率影响系数 [0.3, 1.5]
+    rer_min: 0.5                           # 汇率下限 [0.3, 0.8]
+    rer_max: 3.0                           # 汇率上限 [2.0, 5.0]
+    export_resource_price_factor: 0.5      # 资源出口价格因子 [0.3, 0.8]
+    digital_export_share: 0.2              # 数字出口占数字产出比 [0.1, 0.4]
+    fdi_inflow_gdp_share: 0.05             # FDI流入占GDP基准比 [0.01, 0.10]
+    fdi_outflow_rate: 0.08                 # FDI利润汇出率 [0.03, 0.15]
+    tech_import_gdp_share: 0.1             # 技术进口占GDP基准比 [0.05, 0.20]
+    blockade_sigmoid_steep: 5.0            # 封锁sigmoid函数陡度 [2.0, 10.0]
+    blockade_sigmoid_mid: 3.0              # 封锁sigmoid中点(G值) [1.0, 6.0]
+
+  # --- 福利 ---
+  welfare:
+    epsilon_welfare: 1.5      # 福利分量替代弹性(Atkinson不平等厌恶) [0.5, 2.5]
+                              # v3.7: 从3.0降至1.5, 避免数学不稳定
+    data_depreciation: 0.15   # 数据折旧率 [0.05, 0.30]
+
+    # --- v3.7: 福利参数扩展 ---
+    welfare_consumption_exponent: 0.5    # 福利中消费指数权重 [0.3, 0.7]
+    welfare_employment_exponent: 0.3     # 福利中就业指数权重 [0.1, 0.5]
+    welfare_skill_exponent: 0.2          # 福利中技能指数权重 [0.1, 0.4]
+    welfare_survival_floor: 0.01         # Sen能力底线(最低福利基准) [0.001, 0.05]
+    consumption_propensity: 0.85         # 居民消费倾向 [0.7, 0.95]
+
+  # --- 异质性数据 ---
+  data_assets:
+    phi_prod_data: 0.04       # 生产者数据生成率 [0.01, 0.10]
+    phi_cons_data: 0.06       # 消费者数据生成率 [0.02, 0.15]
+    gamma_cross_data: 0.2     # 消费者→生产者交叉弹性 [0.0, 0.5]
+
+  # --- v3.5: 金融维度 ---
+  financial:
+    capital_flight_sensitivity: 0.15   # 资本外逃敏感度 [0.0, 0.5]
+    asset_price_volatility: 0.25       # 数字资产价格波动率 [0.05, 0.50]
+    credit_bias_digital: 1.3           # 信贷数字部门偏好乘数 [0.8, 1.8]
+    credit_bias_industry: 0.8          # 信贷工业部门偏好乘数 [0.5, 1.2]
+    housing_wealth_share: 0.45         # 房产在家庭财富中的基准占比 [0.2, 0.7]
+
+  # --- v3.6: 内生人口 ---
+  demography:
+    IC_fertility_rate: 2.5       # 初始总和生育率 [1.1, 6.0]
+    IC_life_expectancy: 65.0     # 初始预期寿命(年) [40.0, 85.0]
+    IC_urbanization_rate: 0.35   # 初始城镇化率 [0.10, 0.90]
+    IC_total_population: 7000.0  # 初始总人口(万人) [100.0, 150000.0]
+    migration_cost_index: 0.30   # 劳动力空间流动摩擦成本 [0.0, 0.8]
+
+  # --- v3.6: 双区域空间 ---
+  spatial:
+    coastal_productivity_premium: 0.20    # 沿海/城市生产率溢价 [0.05, 0.50]
+    agglomeration_strength: 0.15          # 集聚经济强度 [0.0, 0.30]
+    congestion_threshold: 0.60            # 拥挤成本触发阈值(沿海人口占比) [0.5, 0.8]
+    IC_coastal_industry_share: 0.60       # 初始沿海工业份额 [0.3, 0.9]
+    IC_coastal_digital_infra_share: 0.75  # 初始沿海数字infra份额 [0.4, 1.0]
+    IC_coastal_digital_app_share: 0.80    # 初始沿海数字app份额 [0.4, 1.0]
+    IC_coastal_population_share: 0.45     # 初始沿海人口份额 [0.15, 0.80]
+    IC_urban_rural_productivity_ratio: 2.5 # 初始城乡生产率比 [1.2, 6.0]
+
+  # --- v3.6: 政策执行折扣 ---
+  policy_execution:
+    bureaucracy_complexity_penalty: 0.15  # 官僚协调复杂度惩罚 [0.0, 0.3]
+    policy_execution_base_efficiency: 0.75 # 政策执行基础效率 [0.5, 1.0]
+
+  # --- v3.6: 通用初始条件 ---
+  initial_conditions:
+    IC_K_i: 300.0              # 初始工业资本存量 [50.0, 800.0]
+    IC_tech_gap_initial: 3.0   # 初始技术差距 [1.5, 10.0]
+    IC_gini_initial: 0.35      # 初始基尼系数 [0.15, 0.55]
+
+
+# ============================================================================
+# L2: 策略参数 (Strategy Parameters)
+# ============================================================================
+strategy:
+
+  # --- 跨策略通用参数 ---
+  common:
+    tau_w: 0.15               # τ_w: 再分配力度(税率) [0.0, 0.5]
+    kappa: 0.3                # κ: 规划强度(数字服务分配) [0.0, 1.0]
+    pub_infra_invest: 0.1     # 公共数字基础设施投资占比 [0.0, 0.3]
+    social_coverage: 0.5      # 社会保障覆盖率 [0.0, 1.0]
+    training_invest: 0.01     # 培训投入占GDP比 [0.0, 0.05]
+    diff_policy_intensity: 0.05 # ★ 知识扩散政策强度（权威参数）[0.0, 0.15]
+    kappa_diff: 0.03          # ⚠ 旧参数名，已废弃。仅作回退安全网。修改扩散强度请改 diff_policy_intensity
+
+  # --- 策略A: 渐进积累 ---
+  A:
+    A_tau_min: 0.08           # τ_min: 最低提取率 [0.05, 0.15] (v3.7.3: 0.05→0.08)
+    A_tau_max: 0.30           # τ_max: 最高提取率 [0.15, 0.40] (v3.7.3: 0.20→0.30)
+    A_theta_elasticity: 0.5   # θ_elas: 提取弹性 [0.1, 1.0]
+    A_safety_margin: 1.5      # safety: 工业资本安全边际(乘数) [1.2, 2.5] (v3.7.3: 从分数0.7修正为乘法语义)
+    A_phi_d_premium: 0.15     # φ_d_prem: 数字投资额外权重 [0.05, 0.25] (v3.7.3: 0.10→0.15)
+
+    # --- 内生成本参数 ---
+    protection_excess_coefficient: 0.04       # 保护过剩效率损失系数 [0.02, 0.10] (v3.7.3: 0.08→0.04)
+    protection_excess_floor: 0.90             # 保护过剩时工业产出最低系数 [0.80, 0.95] (v3.7.3: 0.85→0.90)
+    time_tax_accumulation_threshold: 0.1      # 时间税累积滞后触发阈值 [0.05, 0.20]
+    time_tax_penalty_rate: 0.03               # 累积滞后惩罚率 [0.01, 0.06]
+    time_tax_natural_buffer: 0.015            # 自然追赶缓冲(dt扣除, 防零滞后) [0.005, 0.03] (v3.7.3: 0.01→0.015)
+    vested_interest_duration: 20.0            # 既得利益触发年限(保护持续时间) [10.0, 30.0] (v3.7.3: 15→20)
+    vested_interest_coefficient: 0.01         # 既得利益强度系数 [0.005, 0.03]
+    vested_interest_max_intensity: 0.5        # 既得利益最大强度(改革阻力上限) [0.2, 0.7]
+    vested_interest_invest_floor: 0.5         # 既得利益下数字投资最低系数 [0.3, 0.7]
+    middle_income_DD_threshold: 0.2           # 中间收入陷阱数字密度阈值 [0.1, 0.4] (v3.7.3: 0.3→0.2, 降低A的跨越门槛)
+    middle_income_G_threshold: 4.0            # 中间收入陷阱技术差距阈值 [2.0, 8.0]
+    middle_income_duration: 10.0              # 中间收入陷阱持续年限 [5.0, 20.0]
+    middle_income_trap_penalty_rate: 0.01     # 中间收入陷阱年惩罚率 [0.005, 0.03]
+    middle_income_K_floor: 0.90               # 中间收入陷阱下工业资本最低系数 [0.8, 0.95]
+    middle_income_recovery_rate: 2.0          # 中间收入陷阱恢复速率(dt乘数) [1.0, 4.0]
+    g_i_max: 0.5                              # 工业GDP占比最大阈值(提取率饱和点) [0.3, 0.7]
+    A_extraction_floor_ratio: 0.3             # K_ratio低于安全边际时提取率最低乘数 [0.1, 0.5]
+
+  # --- 策略B: 跳跃积累 ---
+  B:
+    B_g_target: 0.25          # g_target: 数字部门目标增长率 [0.10, 0.40]
+    B_tau_ceiling: 0.40       # τ_ceil: 名义提取上限 [0.20, 0.60]
+    B_tau_actual_max: 0.60    # τ_act_max: 实际可能提取上限 [0.30, 0.80]
+    B_industry_tolerance: 0.5 # ind_tol: 工业萎缩容忍度 [0.3, 0.7]
+    B_feedback_trigger: 0.5   # fb_trig: 反哺触发阈值(DL_d) [0.3, 0.7]
+    B_feedback_ratio: 0.15    # fb_ratio: 反哺比例 [0.05, 0.30]
+    B_phi_d_jump: 0.6         # φ_d_jump: 跳跃期数字投资份额 [0.4, 0.8]
+
+    # --- 内生成本参数 ---
+    B_infra_share_of_digital: 0.35          # 数字投资中infra占比 [0.2, 0.5]
+    B_tau_baseline: 0.30                    # 就业破坏触发阈值(超额提取阈值) [0.15, 0.40]
+    B_unemployment_coefficient: 0.05        # 超额提取→失业转化率 [0.02, 0.10]
+    B_disposable_income_base: 0.70          # 基准可支配收入占比 [0.5, 0.85]
+    B_disposable_income_tau_sens: 0.5       # 可支配收入对提取率敏感度 [0.2, 0.8]
+    B_consumption_drag_coefficient: 0.15    # 消费萎缩→产出拖累系数 [0.05, 0.25]
+    B_consumption_output_floor: 0.85        # 消费萎缩下工业产出最低系数 [0.7, 0.95]
+    B_bubble_trigger_r: 0.25               # 泡沫触发利润率阈值 [0.15, 0.40]
+    B_bubble_pressure_sensitivity: 0.3      # 利润率→泡沫压力敏感度 [0.1, 0.5]
+    B_bubble_burst_base_prob: 0.003         # 泡沫破裂基础概率(每dt) [0.001, 0.01]
+    B_bubble_decay_rate: 0.01               # 泡沫压力自然衰减率(r_d下降时) [0.005, 0.03]
+
+    # --- 反哺机制参数 ---
+    B_feedback_base_success: 0.85           # 反哺基础成功概率 [0.6, 0.95]
+    B_feedback_profit_penalty_high: 0.20    # 高利润率惩罚(r>0.30) [0.10, 0.40]
+    B_feedback_profit_penalty_mid: 0.10     # 中等利润率惩罚(r>0.20) [0.05, 0.20]
+    B_feedback_min_success_prob: 0.15       # 反哺最低成功概率 [0.05, 0.30]
+    B_feedback_max_success_prob: 0.95       # 反哺最高成功概率 [0.80, 0.99]
+    B_feedback_execution_floor: 0.3         # 反哺最低执行率 [0.1, 0.5]
+    B_feedback_resistance_coefficient: 0.15 # 反哺抵抗衰减系数 [0.05, 0.30]
+
+    # --- 恐慌性提取参数 ---
+    B_panic_extraction_G_threshold: 8.0     # 恐慌提取技术差距阈值 [5.0, 15.0]
+    B_panic_extraction_K_ratio: 0.6         # 恐慌提取工业资本比阈值 [0.4, 0.8]
+    B_panic_extraction_max_bonus: 0.15      # 恐慌提取最大加成(均匀分布上限) [0.05, 0.25]
+
+    # --- 工业与软着陆 ---
+    B_industry_tau_floor: 0.3               # 工业容忍度约束下提取率最低乘数 [0.1, 0.5]
+    B_soft_landing_inst_cap: 0.7            # 软着陆制度能力阈值 [0.5, 0.9]
+    B_soft_landing_bp_threshold: 3.0        # 软着陆泡沫压力阈值 [2.0, 5.0]
+    B_soft_landing_bp_decay: 0.02           # 软着陆泡沫压力衰减率 [0.01, 0.04]
+
+    # --- 泡沫破裂冲击尺度 ---
+    B_d_infra_severity_scale: 0.6           # 泡沫破裂infra资本冲击尺度 [0.3, 0.8]
+    B_d_app_severity_scale: 1.2             # 泡沫破裂app资本冲击尺度 [0.8, 1.5]
+
+  # --- 策略C: 替代积累 ---
+  C:
+    C_resource_export_intensity: 0.6  # 资源出口强度 [0.3, 0.9]
+    C_fdi_openness: 0.4               # 外资开放度 [0.1, 0.8]
+    C_tech_import_preference: 0.6      # 技术进口偏好 [0.3, 0.9]
+    C_indigenous_rd_ratio: 0.03        # 自主创新投入 [0.01, 0.10]
+    C_profit_repat_limit: 0.3          # 利润汇出限制 [0.1, 0.7]
+    C_foreign_debt_ceiling: 0.5        # 外债上限(占GDP) [0.2, 1.0]
+
+    # --- 内生成本参数 ---
+    C_base_extraction_rate: 0.25       # 基础提取率 [0.10, 0.40]
+    C_digital_share_base: 0.25         # 数字投资基础份额 [0.10, 0.40]
+    C_digital_share_fdi_factor: 0.15   # FDI对数字投资贡献因子 [0.05, 0.25]
+    C_digital_share_tech_factor: 0.10  # 技术进口对数字投资贡献因子 [0.05, 0.20]
+    C_infra_share_of_digital: 0.25     # 数字投资中infra占比 [0.15, 0.40]
+    C_industry_base_share: 0.30        # 工业基础投资份额 [0.15, 0.45]
+    C_dutch_disease_rer_coefficient: 0.5   # 荷兰病汇率→竞争力系数 [0.3, 0.7]
+    C_policy_capture_threshold: 0.75       # 政策俘获触发阈值(外部依赖) [0.5, 0.9]
+    C_tech_atrophy_threshold_tech: 0.6     # 技术退化: 技术进口阈值 [0.4, 0.8]
+    C_tech_atrophy_threshold_dep: 0.6      # 技术退化: 外部依赖阈值 [0.4, 0.8]
+    C_fdi_consumer_threshold: 0.5          # 消费主义陷阱FDI消费比阈值 [0.3, 0.7]
+
+    # --- v3.7: 外部冲击与约束参数 ---
+    C_resource_shock_tau_mult: 0.6         # 资源冲击时提取率乘数 [0.3, 0.8]
+    C_resource_shock_phi_mult: 0.7         # 资源冲击时数字投资乘数 [0.4, 0.9]
+    C_fdi_shock_effective_mult: 0.3        # FDI冲击时有效FDI乘数 [0.1, 0.5]
+    C_d_app_max_share: 0.55                # d_app投资最大份额 [0.3, 0.7]
+    C_phi_b_floor: 0.03                    # 基础部门投资最低份额 [0.01, 0.08]
+    C_perfect_storm_inst_cap_mult: 1.5     # 完美风暴制度能力额外乘数 [1.0, 2.0]
+
+  # --- v3.6: 平台垄断/反垄断 ---
+  platform:
+    anti_monopoly_policy: 0.2       # 反垄断执法力度 [0.0, 1.0]
+    data_portability_mandate: 0.1   # 数据可携带权强度 [0.0, 1.0]
+    platform_interoperability: 0.1  # 平台互操作性要求 [0.0, 1.0]
+
+
+# ============================================================================
+# L3: 场景参数 (Scenario Parameters) - 默认值
+# ============================================================================
+scenario_defaults:
+  g_world: 0.03              # 国际技术前沿增长率 [0.01, 0.12]
+  tech_frontier_ceiling_mult: 3.0  # v3.7.3: 国内TFP上限 = 前沿×此倍数 [1.5, 5.0]
+  mu_p_resource: 1.0         # 长期资源均价水平 [0.3, 1.5]
+  world_digital_demand: 1.0  # 国际数字需求水平 [0.3, 2.0]
+  fdi_availability: 1.0      # 外资可得性 [0.1, 2.0]
+  R_initial_ratio: 0.8       # 初始资源存量比 [0.2, 1.0]
+  institution_capacity: 0.6  # 制度执行能力 [0.3, 1.0]
+
+# ============================================================================
+# 8种国际场景预设
+# ============================================================================
+scenarios:
+  benign_globalization:
+    description: "良性全球化：自由贸易、技术可得"
+    g_world: 0.03
+    block_max: 0.0
+    mu_p_resource: 1.2
+    sigma_p: 0.10
+    world_digital_demand: 1.5
+    fdi_availability: 1.5
+
+  tech_cold_war:
+    description: "技术冷战：高封锁、低FDI"
+    g_world: 0.03
+    block_max: 0.8
+    mu_p_resource: 0.8
+    sigma_p: 0.20
+    world_digital_demand: 0.6
+    fdi_availability: 0.2
+
+  resource_crash:
+    description: "资源价格崩溃"
+    g_world: 0.02
+    block_max: 0.2
+    mu_p_resource: 0.3
+    sigma_p: 0.40
+    world_digital_demand: 0.8
+    fdi_availability: 0.5
+
+  tech_boom:
+    description: "技术爆发：前沿快速前进"
+    g_world: 0.08
+    block_max: 0.4
+    mu_p_resource: 1.0
+    sigma_p: 0.15
+    world_digital_demand: 2.0
+    fdi_availability: 1.5
+
+  global_recession:
+    description: "全球衰退：需求萎缩"
+    g_world: 0.01
+    block_max: 0.3
+    mu_p_resource: 0.5
+    sigma_p: 0.30
+    world_digital_demand: 0.3
+    fdi_availability: 0.1
+
+  full_containment:
+    description: "全方位封锁：技术+资本+市场全面封锁"
+    g_world: 0.05
+    block_max: 0.95
+    mu_p_resource: 0.4
+    sigma_p: 0.35
+    world_digital_demand: 0.1
+    fdi_availability: 0.05
+
+  tech_explosion:
+    description: "技术爆发(AI奇点)：前沿指数跃升"
+    g_world: 0.12
+    block_max: 0.7
+    mu_p_resource: 1.0
+    sigma_p: 0.20
+    world_digital_demand: 2.5
+    fdi_availability: 1.0
+
+  resource_war:
+    description: "资源战争：价格剧烈波动+出口通道中断"
+    g_world: 0.03
+    block_max: 0.6
+    mu_p_resource: 0.5
+    sigma_p: 0.60
+    world_digital_demand: 0.5
+    fdi_availability: 0.15
+
+
+# ============================================================================
+# L4: 元参数 (Meta Parameters)
+# ============================================================================
+meta:
+  # 断裂检测
+  fracture:
+    fracture_threshold_mult: 1.0    # 断裂阈值全局乘数 [0.7, 1.3]
+    cascade_strength: 0.15          # 断裂级联强度 [0.05, 0.30]
+    welfare_collapse_threshold: 0.30  # v3.7.4: 福利崩溃阈值 [0.10, 0.50]
+
+  # v3.5: 混合策略互斥矩阵
+  # 三维度: resource(资源逻辑冲突), institution(制度逻辑冲突), external(外部逻辑冲突)
+  # total = (resource + institution + external) / 3
+  incompatibility:
+    AB:
+      resource: 0.35       # M_AB_res: A↔B资源争夺互斥强度 [0.0, 0.6]
+      institution: 0.25    # M_AB_inst: A↔B制度冲突互斥强度 [0.0, 0.5]
+      external: 0.10       # M_AB_ext: A↔B外部矛盾互斥强度 [0.0, 0.4]
+    BC:
+      resource: 0.10       # M_BC_res: B↔C资源争夺互斥强度 [0.0, 0.3]
+      institution: 0.30    # M_BC_inst: B↔C制度冲突互斥强度 [0.0, 0.5]
+      external: 0.35       # M_BC_ext: B↔C外部矛盾互斥强度 [0.0, 0.6]
+    AC:
+      resource: 0.15       # M_AC_res: A↔C资源争夺互斥强度 [0.0, 0.4]
+      institution: 0.20    # M_AC_inst: A↔C制度冲突互斥强度 [0.0, 0.4]
+      external: 0.15       # M_AC_ext: A↔C外部矛盾互斥强度 [0.0, 0.4]
+
+    # 调节变量
+    moderation_inst: 0.30       # 制度能力对互斥的缓和系数 [0.0, 0.5]
+    amplify_pressure: 0.20      # 外部压力对互斥的放大系数 [0.0, 0.4]
+    # 混合互斥惩罚强度
+    extraction_penalty: 0.3     # 提取率受互斥惩罚的比例
+    investment_waste: 0.4       # 投资受互斥惩罚的浪费比例
+
+
+# ============================================================================
+# CDI权重方案 (五维评价综合发展指数)
+# ============================================================================
+cdi_weights:
+  # 默认(民生优先): 论文默认定位
+  default:
+    economy: 0.175
+    livelihood: 0.30
+    resilience: 0.175
+    structure: 0.175
+    sovereignty: 0.175
+
+  # 增长优先: 传统发展经济学视角
+  growth_first:
+    economy: 0.35
+    livelihood: 0.20
+    resilience: 0.15
+    structure: 0.15
+    sovereignty: 0.15
+
+  # 民生极致: 最强调分配正义
+  livelihood_first:
+    economy: 0.10
+    livelihood: 0.45
+    resilience: 0.15
+    structure: 0.15
+    sovereignty: 0.15
+
+  # 安全优先: 地缘政治紧张期视角
+  security_first:
+    economy: 0.10
+    livelihood: 0.20
+    resilience: 0.25
+    structure: 0.15
+    sovereignty: 0.30
+
+  # 均衡发展: 无偏好的中性基准
+  balanced:
+    economy: 0.20
+    livelihood: 0.20
+    resilience: 0.20
+    structure: 0.20
+    sovereignty: 0.20
+
+  # CDI时序参数
+  temporal:
+    discount_rate: 0.02       # 时序贴现率δ(年化)
+    volatility_sigma_threshold: 0.05  # 波动惩罚触发阈值
+    volatility_penalty_scale: 0.5     # 波动惩罚缩放因子
+
+
+# ============================================================================
+# 模拟运行配置 (SimulationConfig)
+# ============================================================================
+simulation:
+  T_max: 100.0                  # 模拟总年数
+  dt_base: 0.25                 # 基础步长(年)
+  dt_min: 0.02                  # 最细步长(约1周)
+  adaptive_stepping: true       # 是否使用自适应步长
+  random_seed: 42               # 随机种子
+  verbose: false                # 是否打印详细信息
+
+  # EWS早期预警系统
+  ews:
+    window_size: 40               # 滑动窗口步数
+    warning_threshold: 0.4        # 预警阈值
+    critical_threshold: 0.7       # 临界阈值
+    resilience_window: 60         # 韧性评估窗口
+    resilience_weight: 0.35       # 韧性指数在综合EWS评分中的权重
+    stress_duration_threshold: 30 # 连续高压步数阈值
+
+  # 政治经济学反馈
+  political_feedback:
+    enabled: true
+    update_interval: 1.0          # 政治支持度更新间隔(年)
+
+  # SFC核算
+  sfc:
+    tolerance: 0.0001             # 会计闭合容差
+
+  # 五维评价
+  evaluation:
+    enabled: true                 # 是否启用五维评价
+    interval: 1.0                 # 评价更新间隔(年)
+    cdi_weight_preset: "default"  # CDI权重预设方案
+    red_line_check_enabled: true  # 是否启用人道主义红线检测
+
+  # v3.6: 新模块开关
+  modules:
+    platform_enabled: true              # 平台垄断模块
+    demography_enabled: true            # 内生人口动态
+    demography_update_interval: 1.0     # 人口更新间隔(年)
+    spatial_enabled: true               # 双区域空间模块
+    policy_execution_discount_enabled: true  # 政策执行折扣
+
+
+# ============================================================================
+# 六种国情预设 (Country Profiles)
+# ============================================================================
+country_profiles:
+
+  # --- 制造业大国 ---
+  manufacturing_giant:
+    label: "制造业大国"
+    description: "工业资本雄厚，劳动力充足，数字部门刚起步，人力资本中等，制度能力中等偏高"
+    typical_references: "中国c.2000, 韩国c.1980"
+    natural_strategy: "A"
+    strategy_risks: "B需克服工业惯性；C浪费自身积累能力且外资可能控制关键产业"
+    # 部门初始资本存量
+    K_b: 200.0
+    K_i: 400.0
+    K_d: 15.0
+    K_d_infra: 5.0
+    K_d_app: 10.0
+    K_s_high: 40.0
+    K_s_low: 30.0
+    # 部门初始劳动力
+    L_b: 25.0
+    L_i: 45.0
+    L_d: 3.0
+    L_d_infra: 1.0
+    L_d_app: 2.0
+    L_s_high: 10.0
+    L_s_low: 10.0
+    # 部门初始人力资本
+    H_b: 0.7
+    H_i: 1.0
+    H_d: 1.2
+    H_d_infra: 1.3
+    H_d_app: 1.1
+    H_s_high: 1.0
+    H_s_low: 0.6
+    # 部门初始数字化水平
+    DL_b: 0.03
+    DL_i: 0.08
+    DL_d: 0.10
+    DL_d_infra: 0.05
+    DL_d_app: 0.12
+    DL_s_high: 0.08
+    DL_s_low: 0.05
+    # 部门初始技术水平
+    A_b: 1.0
+    A_i: 1.3
+    A_d: 1.5
+    A_d_infra: 1.1
+    A_d_app: 1.6
+    A_s_high: 1.1
+    A_s_low: 0.8
+    # 部门初始工资
+    W_b: 2.0
+    W_i: 3.5
+    W_d: 6.0
+    W_d_infra: 5.5
+    W_d_app: 6.5
+    W_s_high: 4.0
+    W_s_low: 1.8
+    # 数字密度
+    DD_b: 0.01
+    DD_i: 0.03
+    DD_d: 0.05
+    DD_d_infra: 0.02
+    DD_d_app: 0.06
+    DD_s_high: 0.04
+    DD_s_low: 0.01
+    # 进口依赖度
+    import_dep_d_infra: 0.75
+    import_dep_d_app: 0.25
+    # 资源/制度/不平等
+    R_initial: 0.60
+    institution_capacity: 0.65
+    gini_initial: 0.38
+    tech_gap_initial: 3.0
+    # 数据资产
+    data_producer_initial: 1.0
+    data_consumer_initial: 0.5
+    data_public_initial: 0.3
+
+  # --- 资源富国 ---
+  resource_rich:
+    label: "资源富国"
+    description: "资源充足但工业薄弱，数字基础差，人力资本偏低，制度能力弱，不平等高"
+    typical_references: "沙特, 尼日利亚, 委内瑞拉"
+    natural_strategy: "C"
+    strategy_risks: "C的荷兰病+政策俘获是该国情的最大陷阱；A需从无到有建设工业(非常困难)；B缺乏数字人才基础"
+    K_b: 150.0
+    K_i: 100.0
+    K_d: 5.0
+    K_d_infra: 1.8
+    K_d_app: 3.2
+    K_s_high: 18.0
+    K_s_low: 12.0
+    L_b: 20.0
+    L_i: 15.0
+    L_d: 1.0
+    L_d_infra: 0.3
+    L_d_app: 0.7
+    L_s_high: 8.0
+    L_s_low: 7.0
+    H_b: 0.5
+    H_i: 0.7
+    H_d: 1.0
+    H_d_infra: 1.1
+    H_d_app: 0.9
+    H_s_high: 0.9
+    H_s_low: 0.4
+    DL_b: 0.01
+    DL_i: 0.03
+    DL_d: 0.05
+    DL_d_infra: 0.03
+    DL_d_app: 0.07
+    DL_s_high: 0.08
+    DL_s_low: 0.03
+    A_b: 1.2
+    A_i: 0.8
+    A_d: 1.0
+    A_d_infra: 0.8
+    A_d_app: 1.2
+    A_s_high: 1.0
+    A_s_low: 0.6
+    W_b: 1.5
+    W_i: 2.5
+    W_d: 4.0
+    W_d_infra: 3.5
+    W_d_app: 4.5
+    W_s_high: 3.0
+    W_s_low: 1.0
+    DD_b: 0.00
+    DD_i: 0.01
+    DD_d: 0.02
+    DD_d_infra: 0.01
+    DD_d_app: 0.02
+    DD_s_high: 0.04
+    DD_s_low: 0.01
+    import_dep_d_infra: 0.80
+    import_dep_d_app: 0.40
+    R_initial: 0.95
+    institution_capacity: 0.35
+    gini_initial: 0.50
+    tech_gap_initial: 5.0
+    data_producer_initial: 0.3
+    data_consumer_initial: 0.2
+    data_public_initial: 0.1
+
+  # --- 数字跳跃者 ---
+  digital_leapfrogger:
+    label: "数字跳跃者"
+    description: "工业中等偏弱但数字部门活跃(IT外包/金融科技)，人力资本两极分化，制度能力中等"
+    typical_references: "印度c.2015, 肯尼亚(M-Pesa), 爱沙尼亚"
+    natural_strategy: "B"
+    strategy_risks: "B的撕裂陷阱(数字精英vs工业劳动者)是该国情的最大风险；A可补齐工业短板但浪费数字人才优势"
+    K_b: 120.0
+    K_i: 150.0
+    K_d: 30.0
+    K_d_infra: 10.0
+    K_d_app: 20.0
+    K_s_high: 30.0
+    K_s_low: 20.0
+    L_b: 30.0
+    L_i: 25.0
+    L_d: 8.0
+    L_d_infra: 2.4
+    L_d_app: 5.6
+    L_s_high: 6.5
+    L_s_low: 5.5
+    H_b: 0.6
+    H_i: 0.8
+    H_d: 1.6
+    H_d_infra: 1.7
+    H_d_app: 1.5
+    H_s_high: 1.0
+    H_s_low: 0.4
+    DL_b: 0.05
+    DL_i: 0.20
+    DL_d: 0.30
+    DL_d_infra: 0.18
+    DL_d_app: 0.40
+    DL_s_high: 0.15
+    DL_s_low: 0.06
+    A_b: 0.9
+    A_i: 1.0
+    A_d: 1.8
+    A_d_infra: 1.4
+    A_d_app: 2.2
+    A_s_high: 1.1
+    A_s_low: 0.7
+    W_b: 1.5
+    W_i: 3.0
+    W_d: 8.0
+    W_d_infra: 7.0
+    W_d_app: 9.0
+    W_s_high: 4.0
+    W_s_low: 1.4
+    DD_b: 0.02
+    DD_i: 0.08
+    DD_d: 0.12
+    DD_d_infra: 0.07
+    DD_d_app: 0.14
+    DD_s_high: 0.06
+    DD_s_low: 0.02
+    import_dep_d_infra: 0.70
+    import_dep_d_app: 0.35
+    R_initial: 0.40
+    institution_capacity: 0.55
+    gini_initial: 0.42
+    tech_gap_initial: 4.0
+    data_producer_initial: 2.0
+    data_consumer_initial: 1.0
+    data_public_initial: 0.4
+
+  # --- 小型开放经济体 ---
+  small_open:
+    label: "小型开放经济体"
+    description: "人口适中偏小，工业靠FDI驱动(低端制造)，数字极弱，人力资本低，制度能力中等偏低"
+    typical_references: "越南c.2010, 孟加拉, 柬埔寨"
+    natural_strategy: "A+C混合"
+    strategy_risks: "纯A缺乏国内市场规模；纯C的FDI依赖可能被外资控制；纯B缺乏数字人才和资本基础"
+    K_b: 100.0
+    K_i: 120.0
+    K_d: 3.0
+    K_d_infra: 1.0
+    K_d_app: 2.0
+    K_s_high: 15.0
+    K_s_low: 10.0
+    L_b: 15.0
+    L_i: 20.0
+    L_d: 1.0
+    L_d_infra: 0.3
+    L_d_app: 0.7
+    L_s_high: 5.5
+    L_s_low: 4.5
+    H_b: 0.4
+    H_i: 0.6
+    H_d: 0.8
+    H_d_infra: 0.9
+    H_d_app: 0.7
+    H_s_high: 0.8
+    H_s_low: 0.3
+    DL_b: 0.02
+    DL_i: 0.05
+    DL_d: 0.03
+    DL_d_infra: 0.02
+    DL_d_app: 0.04
+    DL_s_high: 0.05
+    DL_s_low: 0.02
+    A_b: 0.8
+    A_i: 1.0
+    A_d: 0.8
+    A_d_infra: 0.6
+    A_d_app: 1.0
+    A_s_high: 0.8
+    A_s_low: 0.6
+    W_b: 1.0
+    W_i: 2.0
+    W_d: 3.0
+    W_d_infra: 2.5
+    W_d_app: 3.5
+    W_s_high: 2.0
+    W_s_low: 0.7
+    DD_b: 0.00
+    DD_i: 0.01
+    DD_d: 0.01
+    DD_d_infra: 0.01
+    DD_d_app: 0.01
+    DD_s_high: 0.02
+    DD_s_low: 0.01
+    import_dep_d_infra: 0.85
+    import_dep_d_app: 0.50
+    R_initial: 0.30
+    institution_capacity: 0.40
+    gini_initial: 0.35
+    tech_gap_initial: 4.5
+    data_producer_initial: 0.2
+    data_consumer_initial: 0.1
+    data_public_initial: 0.1
+
+  # --- 后苏联工业国 ---
+  post_soviet:
+    label: "后苏联工业国"
+    description: "继承了苏联重工业遗产(资本陈旧)+高人力资本+制度转型不彻底+资源丰富+不平等极高"
+    typical_references: "俄罗斯, 乌克兰, 白俄罗斯"
+    natural_strategy: "A"
+    strategy_risks: "A的挑战在于旧资本的数字密度极低(DD_i=0.02)——升级而非新建；B可能引发严重社会撕裂(基尼已0.55)；C的资源依赖是诱惑也是陷阱"
+    K_b: 180.0
+    K_i: 350.0
+    K_d: 10.0
+    K_d_infra: 3.5
+    K_d_app: 6.5
+    K_s_high: 21.0
+    K_s_low: 14.0
+    L_b: 20.0
+    L_i: 35.0
+    L_d: 4.0
+    L_d_infra: 1.2
+    L_d_app: 2.8
+    L_s_high: 10.0
+    L_s_low: 8.0
+    H_b: 0.8
+    H_i: 1.2
+    H_d: 1.4
+    H_d_infra: 1.5
+    H_d_app: 1.3
+    H_s_high: 1.2
+    H_s_low: 0.5
+    DL_b: 0.03
+    DL_i: 0.05
+    DL_d: 0.08
+    DL_d_infra: 0.05
+    DL_d_app: 0.10
+    DL_s_high: 0.08
+    DL_s_low: 0.03
+    A_b: 1.0
+    A_i: 1.1
+    A_d: 1.3
+    A_d_infra: 1.0
+    A_d_app: 1.6
+    A_s_high: 1.1
+    A_s_low: 0.7
+    W_b: 2.0
+    W_i: 3.0
+    W_d: 5.0
+    W_d_infra: 4.5
+    W_d_app: 5.5
+    W_s_high: 4.0
+    W_s_low: 1.4
+    DD_b: 0.01
+    DD_i: 0.02
+    DD_d: 0.04
+    DD_d_infra: 0.02
+    DD_d_app: 0.05
+    DD_s_high: 0.04
+    DD_s_low: 0.01
+    import_dep_d_infra: 0.80
+    import_dep_d_app: 0.40
+    R_initial: 0.85
+    institution_capacity: 0.40
+    gini_initial: 0.55
+    tech_gap_initial: 3.5
+    data_producer_initial: 0.8
+    data_consumer_initial: 0.3
+    data_public_initial: 0.3
+
+  # --- 人口大国弱工业 ---
+  populous_weak_industry:
+    label: "人口大国弱工业"
+    description: "人口极多但工业极弱，农业为主，数字几乎为零，人力资本很低，制度能力弱"
+    typical_references: "印度c.1990, 巴基斯坦, 埃塞俄比亚"
+    natural_strategy: "A"
+    strategy_risks: "无论选什么策略都极其艰难——A的'保护'可能变成'保护落后'；B完全缺乏数字基础；C缺乏有吸引力的资源和制度环境吸引FDI"
+    K_b: 100.0
+    K_i: 80.0
+    K_d: 2.0
+    K_d_infra: 0.7
+    K_d_app: 1.3
+    K_s_high: 12.0
+    K_s_low: 8.0
+    L_b: 55.0
+    L_i: 12.0
+    L_d: 0.5
+    L_d_infra: 0.15
+    L_d_app: 0.35
+    L_s_high: 4.5
+    L_s_low: 3.5
+    H_b: 0.4
+    H_i: 0.5
+    H_d: 0.7
+    H_d_infra: 0.8
+    H_d_app: 0.6
+    H_s_high: 0.6
+    H_s_low: 0.2
+    DL_b: 0.01
+    DL_i: 0.01
+    DL_d: 0.01
+    DL_d_infra: 0.01
+    DL_d_app: 0.01
+    DL_s_high: 0.03
+    DL_s_low: 0.01
+    A_b: 0.7
+    A_i: 0.8
+    A_d: 0.6
+    A_d_infra: 0.5
+    A_d_app: 0.7
+    A_s_high: 0.7
+    A_s_low: 0.5
+    W_b: 0.8
+    W_i: 1.5
+    W_d: 3.0
+    W_d_infra: 2.5
+    W_d_app: 3.5
+    W_s_high: 1.6
+    W_s_low: 0.6
+    DD_b: 0.00
+    DD_i: 0.00
+    DD_d: 0.00
+    DD_d_infra: 0.00
+    DD_d_app: 0.00
+    DD_s_high: 0.00
+    DD_s_low: 0.00
+    import_dep_d_infra: 0.90
+    import_dep_d_app: 0.50
+    R_initial: 0.35
+    institution_capacity: 0.30
+    gini_initial: 0.45
+    tech_gap_initial: 7.0
+    data_producer_initial: 0.1
+    data_consumer_initial: 0.1
+    data_public_initial: 0.1
+
+
+# ============================================================================
+# 混合策略标准配比
+# ============================================================================
+mixed_strategies:
+  pure_A:    [1.0, 0.0, 0.0]
+  pure_B:    [0.0, 1.0, 0.0]
+  pure_C:    [0.0, 0.0, 1.0]
+  A_dominant_B: [0.7, 0.2, 0.1]
+  A_dominant_C: [0.7, 0.1, 0.2]
+  B_dominant_A: [0.2, 0.7, 0.1]
+  B_dominant_C: [0.1, 0.7, 0.2]
+  C_dominant_A: [0.2, 0.1, 0.7]
+  C_dominant_B: [0.1, 0.2, 0.7]
+  A_B_balanced: [0.70, 0.30, 0.0]
+  A_C_balanced: [0.70, 0.0, 0.30]
+  B_C_balanced: [0.0, 0.70, 0.30]
+  uniform:      [0.50, 0.30, 0.20]
+
+  # 混合策略约束规则
+  constraints:
+    min_dominant: 0.50    # 主导策略最低权重
+    max_secondary: 0.30   # 次要策略最高权重
+    max_tertiary: 0.20    # 第三策略最高权重
+    enforce: true         # 是否强制执行约束
+
+
+# ============================================================================
+# 参数定义域参考 (机器可读)
+# ============================================================================
+# 用途: 供自动化采样脚本（Sobol/LHS/贝叶斯优化）直接读取，无需从schema.py导入。
+# 所有参数名与上方配置节中的键名完全一致。
+# 注意: schema.py中的ParamDef.domain是数据的权威来源，此处为便捷副本。
+# ============================================================================
+param_domains:
+  # ── 生产函数 ──
+  sigma_b:              {min: 0.3,  max: 1.5}
+  theta_b:              {min: 0.2,  max: 0.5}
+  lambda_b:             {min: 0.3,  max: 1.5}
+  alpha_i:              {min: 0.3,  max: 0.6}
+  gamma_i:              {min: 0.05, max: 0.35}
+  mu_i:                 {min: 0.3,  max: 1.0}
+  alpha_d_infra:        {min: 0.35, max: 0.65}
+  alpha_d_app:          {min: 0.15, max: 0.40}
+  alpha_s_high:         {min: 0.20, max: 0.45}
+  alpha_s_low:          {min: 0.05, max: 0.25}
+  xi_infra_to_app:      {min: 0.1,  max: 0.5}
+  eta_network_app:      {min: 0.1,  max: 0.6}
+  platform_empowerment: {min: 0.1,  max: 0.7}
+
+  # ── 数字化增益 ──
+  alpha_b_dig:  {min: 0.1, max: 0.6}
+  alpha_i_dig:  {min: 0.3, max: 1.5}
+  beta_b_dig:   {min: 0.3, max: 0.8}
+  beta_i_dig:   {min: 0.3, max: 0.8}
+  alpha_s_dig:  {min: 0.2, max: 0.8}
+  beta_s_dig:   {min: 0.3, max: 0.8}
+  eta_network:  {min: 0.0, max: 0.5}
+
+  # ── 折旧率 ──
+  delta_b:       {min: 0.03, max: 0.10}
+  delta_i:       {min: 0.05, max: 0.15}
+  delta_d_infra: {min: 0.03, max: 0.10}
+  delta_d_app:   {min: 0.10, max: 0.30}
+  delta_s_high:  {min: 0.03, max: 0.08}
+  delta_s_low:   {min: 0.05, max: 0.12}
+
+  # ── 投资吸收 ──
+  nu_b:       {min: 0.1,  max: 0.5}
+  nu_i:       {min: 0.2,  max: 0.6}
+  nu_d_infra: {min: 0.08, max: 0.35}
+  nu_d_app:   {min: 0.15, max: 0.45}
+  nu_s_high:  {min: 0.15, max: 0.55}
+  nu_s_low:   {min: 0.1,  max: 0.45}
+  chi_absorb: {min: 0.3,  max: 1.5}
+
+  # ── 劳动力 ──
+  lambda_flow: {min: 0.01, max: 0.15}
+  sigma_skill: {min: 0.1,  max: 0.5}
+  bp_base:     {min: 0.3,  max: 0.8}
+
+  # ── 技术追赶 ──
+  zeta_d:           {min: 0.01, max: 0.10}
+  phi_rd:           {min: 0.3,  max: 0.8}
+  chi_absorb_tech:  {min: 0.02, max: 0.20}
+  xi_gap:           {min: 0.3,  max: 1.5}
+  G_critical:       {min: 3.0,  max: 20.0}
+  lambda_trap:      {min: 0.1,  max: 1.0}
+  lambda_dep:       {min: 0.0,  max: 1.0}
+  chi_spont:        {min: 0.01, max: 0.10}
+  eta_diff:         {min: 0.5,  max: 3.0}
+  diff_policy_intensity: {min: 0.0, max: 0.15}
+
+  # ── 国际 ──
+  theta_p:         {min: 0.1,  max: 0.5}
+  sigma_p:         {min: 0.05, max: 0.40}
+  block_max:       {min: 0.0,  max: 0.9}
+  fdi_sensitivity: {min: 0.5,  max: 3.0}
+
+  # ── 福利 ──
+  epsilon_welfare: {min: 0.5, max: 2.5}
+
+  # ── 金融 ──
+  capital_flight_sensitivity: {min: 0.0, max: 0.5}
+  asset_price_volatility:     {min: 0.05, max: 0.50}
+  credit_bias_digital:        {min: 0.8, max: 1.8}
+  credit_bias_industry:       {min: 0.5, max: 1.2}
+
+  # ── 策略 A ──
+  A_tau_min:            {min: 0.02, max: 0.10}
+  A_tau_max:            {min: 0.10, max: 0.30}
+  A_theta_elasticity:   {min: 0.1,  max: 1.0}
+  A_safety_margin:      {min: 1.2,  max: 2.5}  # v3.7.3: 从分数改为乘法语义
+  A_phi_d_premium:      {min: 0.0,  max: 0.2}
+
+  # ── 策略 B ──
+  B_g_target:          {min: 0.10, max: 0.40}
+  B_tau_actual_max:    {min: 0.30, max: 0.80}
+  B_industry_tolerance: {min: 0.3,  max: 0.7}
+  B_feedback_trigger:  {min: 0.3,  max: 0.7}
+  B_feedback_ratio:    {min: 0.05, max: 0.30}
+  B_phi_d_jump:        {min: 0.4,  max: 0.8}
+
+  # ── 策略 C ──
+  C_resource_export_intensity: {min: 0.3, max: 0.9}
+  C_fdi_openness:              {min: 0.1, max: 0.8}
+  C_tech_import_preference:    {min: 0.3, max: 0.9}
+  C_indigenous_rd_ratio:       {min: 0.01, max: 0.10}
+
+  # ── 场景 ──
+  g_world:              {min: 0.01, max: 0.12}
+  institution_capacity: {min: 0.3,  max: 1.0}
+  fdi_availability:     {min: 0.1,  max: 2.0}
+
+  # ── 元参数 ──
+  fracture_threshold_mult: {min: 0.7, max: 1.3}
+  cascade_strength:        {min: 0.05, max: 0.30}
+
+  # ── 平台垄断 ──
+  anti_monopoly_policy:      {min: 0.0, max: 1.0}
+  data_portability_mandate:  {min: 0.0, max: 1.0}
+  platform_interoperability: {min: 0.0, max: 1.0}
+
+
+# ============================================================================
+# 理论来源对照表
+# ============================================================================
+# 用途: 回应"参数从哪来"的学术审阅。标注每个参数的经济学文献依据。
+# 格式: 参数名: [来源类型] 简短引用
+# ============================================================================
+parameter_sources:
+  # ── 生产函数 ──
+  sigma_b:              "[经验估计] Fuglie (2018) 农业CES替代弹性"
+  theta_b:              "[经验估计] 发展中国家农业资本份额 (World Bank WDI)"
+  alpha_i:              "[经验估计] 制造业资本份额 0.3-0.6 (Gollin 2002)"
+  alpha_d_infra:        "[经验估计] 芯片/数据中心资本密集 (SEMI industry data)"
+  alpha_d_app:          "[经验估计] 软件/平台劳动密集 (Autor et al. 2020)"
+  alpha_s_high:         "[经验估计] 金融/研发行业资本份额 (BEA)"
+  alpha_s_low:          "[经验估计] 零售/餐饮低资本密集 (BEA)"
+  xi_infra_to_app:      "[模型假设] infra→app技术约束弹性"
+  eta_network_app:      "[理论依据] 网络效应经济学 (Katz & Shapiro 1985)"
+
+  # ── 数字化 ──
+  alpha_i_dig:          "[理论依据] 工业4.0数字化增益 (Brynjolfsson & Hitt 2003)"
+  beta_i_dig:           "[理论依据] IT投资回报递减 (Solow paradox修正)"
+
+  # ── 折旧率 ──
+  delta_i:              "[统计数据] 制造业设备折旧 (BEA Fixed Assets, 8%/年)"
+  delta_d_app:          "[统计数据] 软件折旧 (BEA, 软件3-5年寿命→20%/年)"
+  delta_d_infra:        "[统计数据] 硬件设施 (BEA, 数据中心20年寿命→5%/年)"
+
+  # ── 劳动力 ──
+  lambda_flow:          "[理论依据] 部门间劳动力流动 (Lucas & Prescott 1974)"
+  sigma_skill:          "[理论依据] 技能匹配摩擦 (Jovanovic 1979)"
+  bp_base:              "[理论依据] 工资谈判力 (Blanchard & Gali 2010)"
+
+  # ── 技术追赶 ──
+  zeta_d:               "[经验估计] 发展中国家TFP增速1-4%/年 (Griliches 1998)"
+  G_critical:           "[经验估计] 中等收入陷阱临界 (Eichengreen et al. 2013)"
+  lambda_trap:          "[理论依据] 追赶陷阱衰减 (Acemoglu et al. 2006)"
+  lambda_dep:           "[理论依据] 依附→自主创新压制 (Lall 2000)"
+  chi_spont:            "[理论依据] 技术扩散S曲线 (Geroski 2000)"
+  eta_diff:             "[理论依据] 吸收能力的人力资本约束 (Nelson & Phelps 1966)"
+
+  # ── 国际 ──
+  sigma_p:              "[经验估计] 大宗商品价格波动 (IMF WEO)"
+  block_max:            "[模型假设] 技术封锁强度参数化"
+  fdi_sensitivity:      "[理论依据] FDI对利差弹性 (Feldstein & Horioka 1980)"
+
+  # ── 福利 ──
+  epsilon_welfare:      "[理论依据] Atkinson (1970) 不平等厌恶参数 [0.5, 2.0]"
+  consumption_propensity: "[经验估计] 发展中国家消费倾向 0.80-0.90 (WDI)"
+
+  # ── 策略B ──
+  B_tau_baseline:       "[经验估计] Okun定律 (Okun 1962) → 1%超额提取≈0.05%就业流失"
+  B_disposable_income_base: "[经验估计] 发展中国家劳动收入份额0.65-0.80 (Gollin 2002)"
+
+  # ── 平台垄断 ──
+  anti_monopoly_policy: "[理论依据] Philippon (2019) 市场竞争度下降 + 反垄断政策"
+
+  # ── 人口 ──
+  IC_fertility_rate:    "[统计数据] UN Population Division 发展中国家TFR 2.5"
+  IC_life_expectancy:   "[统计数据] UN Population Division 发展中国家LE 65岁"
+
+  # ── 空间 ──
+  agglomeration_strength: "[理论依据] Krugman (1991) 新经济地理学集聚效应"
+  migration_cost_index:   "[理论依据] Harris & Todaro (1970) 城乡迁移摩擦"
+
+  # ── 政治经济学 ──
+  support_smoothing_factor: "[理论依据] Acemoglu & Robinson (2006) 政治经济学框架"
+
+  # ── 碳排放 ──
+  # 碳强度0.5: "[经验估计] 工业碳排放系数 (IPCC AR6)"
+
+
+# ============================================================================
+# 国情预设 —— 推荐策略/策略约束 (机器可读)
+# ============================================================================
+# 每个国情预设的 recommended_regime 供脚本自动选取默认策略:
+#   - "A": 该国情最匹配渐进积累
+#   - "B": 该国情最匹配跳跃积累
+#   - "C": 该国情最匹配替代积累
+#   - "A+C": 适合混合（渐进为主，辅以替代）
+# strategy_contraindications: 该国情下应避免的策略组合
+# ============================================================================
+profile_strategy_guide:
+  manufacturing_giant:
+    recommended_regime: "A"
+    viable_regimes: ["A", "M_A_dominant_B", "M_A_dominant_C"]
+    contraindicated: ["C"]
+    note: "工业资本雄厚(A天然匹配)，选C会浪费自身积累能力"
+
+  resource_rich:
+    recommended_regime: "C"
+    viable_regimes: ["C", "M_C_dominant_A"]
+    contraindicated: ["B"]
+    note: "资源丰富但工业薄弱(C天然匹配)，B缺乏数字人才基础"
+
+  digital_leapfrogger:
+    recommended_regime: "B"
+    viable_regimes: ["B", "M_B_dominant_A", "A"]
+    contraindicated: ["C"]
+    note: "数字部门活跃(B天然匹配)，B的风险是撕裂陷阱"
+
+  small_open:
+    recommended_regime: "M_A_dominant_C"
+    viable_regimes: ["A", "C", "M_A_dominant_C", "M_C_dominant_A"]
+    contraindicated: ["B"]
+    note: "工业靠FDI驱动，纯A缺市场规模，纯C依赖风险高"
+
+  post_soviet:
+    recommended_regime: "A"
+    viable_regimes: ["A", "M_A_dominant_B"]
+    contraindicated: ["C"]
+    note: "重工业遗产+高人力资本(A天然匹配)，C资源依赖是陷阱"
+
+  populous_weak_industry:
+    recommended_regime: "A"
+    viable_regimes: ["A", "M_A_dominant_C"]
+    contraindicated: ["B", "C"]
+    note: "无论选什么策略都极其艰难，A是最低风险选项"
